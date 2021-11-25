@@ -2,4 +2,4 @@
 
 ## Install dependencies package
 
-### `npm install` to
+### `npm install`
