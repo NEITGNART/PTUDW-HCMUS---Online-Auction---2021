@@ -3,9 +3,9 @@
   "name": "ptudw---online-auction---2021",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -26,8 +26,15 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-handlebars": "^6.0.2",
+    "express-handlebars-sections": "^1.0.1",
     "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.14",
+    "morgan": "^1.10.0",
+    "numeral": "^2.0.6",
     "passport": "^0.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

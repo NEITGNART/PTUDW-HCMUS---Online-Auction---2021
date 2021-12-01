@@ -3,3 +3,11 @@
 ## Install dependencies package
 
 ### `npm install`
+
+## Run dev
+
+### `npm run dev`
+
+## Run
+
+### `node server.js`
