@@ -19,18 +19,30 @@ active_local_middleware(app);
 active_view_middleware(app);
 active_route_middleware(app);
 
-mongoose.connect(config.DB, {
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}, err => {
+mongoose.connect(config.URI, {}, err => {
     if (err) {
-        // throw err;
-        console.log('----------------------- Can\'t connect to MongoDB');
+        throw err;
     }
     console.log('Connected to MongoDB')
 })
+
+import cat from './models/category.model.js';
+
+// // test database and model
+// try {
+//     var cate = new cat({
+//         name: "Điện tử",
+//         amount: 5,
+//         subCat: ["Máy tính", "Di động"],
+//         amountSubCat: [2, 3]
+//     })
+
+//     await cate.save();
+
+// } catch (error) {
+//     throw error;
+// }
+
 
 app.listen(config.PORT, () => {
     console.log(`Example app listening at http://localhost:${config.PORT}`)
