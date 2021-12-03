@@ -4,16 +4,23 @@ import config from './config/config.js';
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import passport from 'passport';
 
 import active_local_middleware from './middleware/locals.mdw.js';
 import active_view_middleware from './middleware/view.mdw.js';
 import active_route_middleware from './middleware/routes.mdw.js';
 
 const app = express()
+app.use(express.static('public'));
+
 app.use(morgan('dev'))
 app.use(express.urlencoded({
     extended: true
 }));
+
+
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 active_local_middleware(app);
 active_view_middleware(app);
