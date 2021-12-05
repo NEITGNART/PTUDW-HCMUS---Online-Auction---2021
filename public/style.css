@@ -226,3 +226,115 @@ h1, h2, h3, h4, h5, h6 {
     width: 140px;
     margin-top: 32px;
 }
+
+.auction-item{
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 20px;
+}
+
+.auction-item-thumb {
+    position: relative;
+    text-align: right;
+    padding: 10px;
+}
+
+.thumb-icon {
+    position:absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    z-index: 1;
+}
+
+.star-icon {
+    right:5%;
+    top: 5%;
+}
+
+.gavel-icon {
+    right: 5%;
+    top: 80%;
+}
+
+.auction-item-content {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+/* .bid-area {
+
+} */
+
+.bid-amount{
+    border-bottom: 2px dotted #deddf5;
+    border-top: 2px dotted #deddf5;
+    align-items: center; 
+    width:  50%;
+    justify-content: center;
+    position: relative;
+    padding: 10px 5px;
+
+}
+
+.bid-area .bid-amount:first-child::before {
+    position: absolute;
+    content: '';
+    width: 1px;
+    right: 0;
+    bottom: 15px;
+    top: 15px;
+    background: #bfbee8;
+}
+
+.bid-amount .icon {
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #52606d;
+    line-height: 26px;
+    overflow-x: hidden;
+    font-family: "Open Sans", sans-serif;
+    background: #ffffff;
+    padding: 0px 10px;
+}
+
+.current-price .current,.current-price .icon {
+    color: #43b055;
+}
+
+.buy-price .buy, .buy-price .icon {
+    color: #ee4730;
+}
+
+.countdown-area {
+    font-size: 18px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.countdown {
+    margin-top: 5px;
+    text-shadow: 0px 5px 3px rgb(245 49 127 / 20%);
+    background: -webkit-linear-gradient(#ff7c6e, #f5317f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.total-bids {
+    margin-top: 5px;
+    color: #43b055;
+    padding-left: 15px;
+    text-shadow: 0px 6px 7px rgb(0 0 0 / 19%);
+    border-left: 1px solid #d0cff0;
+    line-height: 20px;
+}
+
+.bid-now {
+    border-radius: 20%;
+}

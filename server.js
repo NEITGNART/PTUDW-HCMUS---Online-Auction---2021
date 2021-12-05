@@ -33,7 +33,6 @@ mongoose.connect(config.URI, {}, err => {
     console.log('Connected to MongoDB')
 })
 
-import cat from './models/category.model.js';
 
 // // test database and model
 // try {
