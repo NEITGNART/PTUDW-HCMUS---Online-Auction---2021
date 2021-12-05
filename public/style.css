@@ -1,0 +1,228 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    line-height: 23px;
+    font-weight: 400;
+    background: #ffffff;
+    color: #1e1e27;
+}
+
+div{
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+}
+
+ul{
+    list-style: none;
+    margin-bottom: 0px;
+}
+
+p{
+    font-family: 'Poppins',sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    font-weight: 500;
+    color: #989898;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+}
+
+p a {
+    display: inline;
+    position: relative;
+    color: inherit;
+    border-bottom: solid 2px #fde0db;
+    transition: all 200ms ease;
+}
+a, a:hover, a:active, a:link{
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+}
+p a:active{
+    position: relative;
+    color: #ff6347;
+}
+p a:hover{
+    color: #ff6347;
+    background: #fde0db;
+}
+p a:hover::after{
+    opacity: 0.2;
+}
+::selection{
+    color: #ff6347;
+    background: #fde0db;
+}
+p::selection{
+    background: #fde0db;
+}
+
+h1{font-size: 72px;}
+h2{font-size: 40px;}
+h3{font-size: 28px;}
+h4{font-size: 24px;}
+h5{font-size: 16px;}
+h6{font-size: 14px;}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #282828;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+}
+
+.trans300{
+    transition: all 300ms ease;
+}
+
+::input-placeholder{
+    font-size: 16px !important;
+    font-weight: 500;
+    color: #777777;
+}
+
+.super_container{
+    width: 100%;
+    overflow: hidden;
+}
+
+.fill_hight{
+    top: 200px;
+    height: 100%;
+}
+
+/* home */
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    z-index: 10;
+}
+
+.main_nav_container{
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.015);
+}
+.navbar{
+    width: auto;
+    height: 100px;
+    float: right;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.navbar_menu li{
+    display: inline-block;
+}
+.navbar_menu li a{
+    display: block;
+    color: #1e1e27;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 20px;
+    transition: color 0.3s ease;
+}
+.navbar_menu li a:hover{
+    color: #b5aec4;
+}
+.navbar_user{
+    margin-left: 40px;
+}
+.navbar_user li{
+    display: inline-block;
+    text-align: center;
+}
+.navbar_user li a{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    color: #1e1e27;
+    transition: color 0.3s ease;
+}
+.navbar_user li a:hover{
+    color: #b5aec4;
+}
+
+/* logo */
+.logo_container{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 15px;
+}
+
+.logo_container a{
+    font-size: 20px;
+    color: #1e1e27;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.logo_container a span{
+    color: #fe4c50;
+}
+
+.main_slider{
+    width: 100%;
+    height: 700px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    margin-top: 100px;
+}
+
+.main_slider_container{
+    width: 60%;
+}
+
+.main_nav_container h1{
+    font-weight: 400;
+    line-height: 1;
+}
+.red_button{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 40px;
+    background: #fe4c50;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.red_button a{
+    display: block;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 40px;
+    width: 100%;
+}
+
+.red_button:hover{
+    background:#fe7c7f;
+}
+.shop_now_button{
+    width: 140px;
+    margin-top: 32px;
+}
