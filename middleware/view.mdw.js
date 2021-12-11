@@ -8,8 +8,7 @@ import numeral from 'numeral';
 export default (app) => {
     app.engine('hbs', engine({
         extname: '.hbs',
-        defaultLayout: './layouts/layout.hbs',
-        layoutsDir: './partials/',
+        defaultLayout: 'layout.hbs',
         helpers: {
             format_number(val) {
                 return numeral(val).format('0.0');
