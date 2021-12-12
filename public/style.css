@@ -437,6 +437,214 @@ h6 {
 /* ======================== Product card ==========================*/
 
 
+/* =================================== DASHBOARD =================================== */
+
+.sticky-menu {
+    position: sticky;
+    top: 120px;
+}
+
+.dashboard-widget {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 6px 18px 0px rgb(16 5 54 / 17%);
+    margin-bottom: 30px;
+}
+
+.dashboard-widget .title {
+    color: #37406f;
+}
+
+.dashboard-widget .dashboard-user {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.dashboard-widget .dashboard-user .thumb-area {
+    width: 100px;
+    margin: 0 auto 30px;
+    position: relative;
+}
+
+.dashboard-widget .dashboard-user .thumb-area .thumb {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.dashboard-widget .dashboard-user .thumb-area .thumb img {
+    width: 100%;
+}
+
+.dashboard-widget .dashboard-user .thumb-area .profile-pic-edit {
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    font-size: 16px;
+    color: #ffffff;
+    background: -moz-linear-gradient(135deg, #8739e6 0%, #5496ff 100%);
+    background: -webkit-linear-gradient(135deg, #8739e6 0%, #5496ff 100%);
+    background: -ms-linear-gradient(135deg, #8739e6 0%, #5496ff 100%);
+    box-shadow: 0px 19px 56px 0px rgb(0 0 0 / 20%);
+    margin: 0;
+}
+
+.dashboard-widget .dashboard-user .content .title {
+    margin-bottom: 0px;
+}
+
+.dashboard-menu {
+    list-style-type: disc;
+}
+
+.dashboard-menu li {
+    padding: 0;
+    margin-bottom: 1px;
+    list-style: none;
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.dashboard-menu li a {
+    text-decoration: none;
+    padding: 10px 25px;
+    color: #37406f;
+    text-transform: capitalize;
+    font-weight: 400;
+    line-height: 30px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    display: block;
+    transition: all ease 0.3s;
+}
+
+.dashboard-menu li a:hover,
+.dashboard-menu li a:active {
+    background: #f7f6fc;
+    text-decoration: none;
+}
+
+.dashboard-menu li a i {
+    /* font-weight: 400;*/
+    margin-right: 10%;
+    color: #ee4730;
+}
+
+.dashboard-widget .dashboard-title {
+    border-bottom: 1px solid #d5d7f3;
+    margin-bottom: 30px;
+}
+
+.dashboard-widget .dashboard-title h5 {
+    padding-bottom: 20px;
+}
+
+.dashboard-item {
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 2.487px 1.678px 27px 0px rgb(16 5 54 / 13%);
+    margin-bottom: 30px;
+    padding: 40px 15px 30px;
+    text-align: center;
+}
+
+.dashboard-item .thumb {
+    height: 80px;
+    margin-bottom: 16px;
+}
+
+.dash-pro-item .profile-header {
+    justify-content: space-between;
+    margin-bottom: 30px;
+    display: flex;
+}
+
+.dash-pro-item .profile-header .title {
+    margin: 0px;
+    width: calc(100% - 80px);
+}
+
+.dash-pro-item .profile-header .edit {
+    text-align: right;
+    width: 80px;
+    cursor: pointer;
+}
+
+.dash-pro-item .dash-pro-body li {
+    list-style: none;
+    display: flex;
+}
+
+.dash-pro-item .dash-pro-body .info-name {
+    width: 25%;
+    position: relative;
+    padding-right: 5%;
+}
+
+.dash-pro-item .dash-pro-body .info-name::after {
+    content: ":";
+    position: absolute;
+    right: 0;
+}
+
+.dash-pro-item .dash-pro-body .info-value {
+    width: 75%;
+    padding-left: 5%;
+}
+
+.dash-pro-item .button-area {
+    display: flex;
+    border: none;
+}
+
+.dash-pro-item .button-area .product-search {
+    margin: 10px;
+    position: relative;
+}
+
+.dash-pro-item .button-area .product-search input {
+    background: transparent;
+    height: 38px;
+    -webkit-border-radius: 19px;
+    -moz-border-radius: 19px;
+    border-radius: 19px;
+    border: 1px solid rgba(13, 21, 75, 0.15);
+    font-size: 14px;
+    padding-right: 30px;
+    padding-left: 20px;
+}
+
+.dash-pro-item .button-area .product-search button {
+    background-color: #ffffff;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 18px;
+    position: absolute;
+    border: none;
+    right: 2px;
+    top: 4px;
+}
+
+.sort-product-dashboard {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+
+/* =================================== DASHBOARD =================================== */
+
+
 /* ========================  Foooter ==========================*/
 
 #myFooter {
@@ -474,7 +682,8 @@ h6 {
     text-decoration: none;
 }
 
-#myFooter a:hover, #myFooter a:focus {
+#myFooter a:hover,
+#myFooter a:focus {
     text-decoration: none;
     color: white;
 }
@@ -519,4 +728,3 @@ h6 {
         text-align: center;
     }
 }
-
