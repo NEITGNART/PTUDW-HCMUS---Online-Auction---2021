@@ -2,9 +2,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap');
 
-* {
+*,
+::after,
+::before {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+label {
+    cursor: pointer;
 }
 
 html {
@@ -135,143 +142,6 @@ h6 {
 .fill_hight {
     top: 200px;
     height: 100%;
-}
-
-/* home */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #ffffff;
-    z-index: 10;
-}
-
-.main_nav_container {
-    width: 100%;
-    background: #ffffff;
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.015);
-}
-
-.navbar-custom {
-    width: auto;
-    height: 100px;
-    float: right;
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.navbar_menu li {
-    display: inline-block;
-}
-
-.navbar_menu li a {
-    display: block;
-    color: #1e1e27;
-    font-size: 13px;
-    font-weight: 500;
-    text-transform: uppercase;
-    padding: 20px;
-    transition: color 0.3s ease;
-}
-
-.navbar_menu li a:hover {
-    color: #b5aec4;
-}
-
-.navbar_user {
-    margin-left: 40px;
-}
-
-.navbar_user li {
-    display: inline-block;
-    text-align: center;
-}
-
-.navbar_user li a {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 40px;
-    height: 40px;
-    color: #1e1e27;
-    transition: color 0.3s ease;
-}
-
-.navbar_user li a:hover {
-    color: #b5aec4;
-}
-
-/* logo */
-.logo_container {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 15px;
-}
-
-.logo_container a {
-    font-size: 20px;
-    color: #1e1e27;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.logo_container a span {
-    color: #fe4c50;
-}
-
-
-.main_slider {
-    width: 100%;
-    height: 700px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    margin-top: 100px;
-}
-
-.main_slider_container {
-    width: 60%;
-}
-
-.main_nav_container h1 {
-    font-weight: 400;
-    line-height: 1;
-}
-
-.red_button {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 40px;
-    background: #fe4c50;
-    border-radius: 3px;
-    transition: all 0.3s ease;
-}
-
-.red_button a {
-    display: block;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-    line-height: 40px;
-    width: 100%;
-}
-
-.red_button:hover {
-    background: #fe7c7f;
-}
-
-.shop_now_button {
-    width: 140px;
-    margin-top: 32px;
 }
 
 /* ======================== Product card ==========================*/
