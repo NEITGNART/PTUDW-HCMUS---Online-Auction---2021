@@ -26,12 +26,12 @@ active_local_middleware(app);
 active_view_middleware(app);
 active_route_middleware(app);
 
-mongoose.connect(config.URI, {}, err => {
-    if (err) {
-        throw err;
-    }
-    console.log('Connected to MongoDB')
-})
+// mongoose.connect(config.URI, {}, err => {
+//     if (err) {
+//         throw err;
+//     }
+//     console.log('Connected to MongoDB')
+// })
 
 
 // // test database and model
