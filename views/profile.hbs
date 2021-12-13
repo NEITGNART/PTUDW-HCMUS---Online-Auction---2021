@@ -1,3 +1,29 @@
+{{#section 'js'}}
+ <script>
+        function editFocus() {
+            var par = $(event.target).parent().parent();
+            var childs = par.find('.info-value');
+            var btn = par.find('button');
+            btn.css('visibility', 'visible');
+
+            childs.each(function (index) {
+                var i = $(this).find('input');
+                var attr = i.attr('readonly');
+
+                if (typeof attr !== 'undefined' && attr !== false) {
+                    i.prop('readonly', false);
+                    i.focus();
+                } else {
+                    i.prop('readonly', true);
+                    i.blur();
+                }
+            })
+        };
+        $('.edit').click(editFocus);
+    </script>
+    {{/section}}
+
+
 <div class="container mb-250">
         <div class="row justify-content-center">
             <div class="col d-flex m-3" style="height: 100px;">
@@ -5,6 +31,7 @@
             </div>
         </div>
     </div>
+
 
 <section>
         <div class="container">
@@ -196,25 +223,3 @@
             </div>
         </div>
 </section>
- <script>
-        function editFocus() {
-            var par = $(event.target).parent().parent();
-            var childs = par.find('.info-value');
-            var btn = par.find('button');
-            btn.css('visibility', 'visible');
-
-            childs.each(function (index) {
-                var i = $(this).find('input');
-                var attr = i.attr('readonly');
-
-                if (typeof attr !== 'undefined' && attr !== false) {
-                    i.prop('readonly', false);
-                    i.focus();
-                } else {
-                    i.prop('readonly', true);
-                    i.blur();
-                }
-            })
-        };
-        $('.edit').click(editFocus);
-    </script>
