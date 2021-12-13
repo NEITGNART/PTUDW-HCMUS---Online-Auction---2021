@@ -309,7 +309,7 @@ h6 {
 
 /* ======================== Start: Login ==========================*/
 
-.padding-bottom{
+.padding-bottom {
     padding-bottom: 120px;
 }
 
@@ -329,7 +329,7 @@ h6 {
     margin-top: -440px;
 }
 
-.account-wrapper .left-side{
+.account-wrapper .left-side {
     padding: 60px 30px 60px 60px;
     width: calc(100% - 350px);
 }
@@ -357,12 +357,12 @@ h2 {
     flex-wrap: wrap;
 }
 
-.login-with li{
+.login-with li {
     flex-grow: 1;
-    padding:15px;
+    padding: 15px;
 }
 
-.login-with li a{
+.login-with li a {
     align-items: center;
     padding: 12px 15px;
     border: 1px solid rgba(97, 90, 191, 0.2);
@@ -419,7 +419,7 @@ h2 {
     z-index: 1;
 }
 
-form{
+form {
     display: block;
     margin-top: 0em;
 }
@@ -480,13 +480,12 @@ form{
     font-size: 18px;
     background: -moz-linear-gradient(90deg, #3da9f5 0%, #683df5 100%);
     background: -ms-linear-gradient(90deg, #3da9f5 0%, #683df5 100%);
-    background: -webkit-linear-gradient(
-90deg, #3da9f5 0%, #683df5 100%);
+    background: -webkit-linear-gradient(90deg, #3da9f5 0%, #683df5 100%);
     box-shadow: -1.04px 4.891px 20px 0px rgb(69 49 183 / 50%);
     font-family: "Roboto", sans-serif;
 }
 
-button.custom-button{
+button.custom-button {
     padding: 0 40px;
     font-size: 20px;
     outline: none;
@@ -500,8 +499,7 @@ button.custom-button{
 
 .account-wrapper .right-side {
     background: -moz-linear-gradient(90deg, #5140fe 0%, #7757f7 56%, #9d6ef0 100%);
-    background: -webkit-linear-gradient(
-90deg, #5140fe 0%, #7757f7 56%, #9d6ef0 100%);
+    background: -webkit-linear-gradient(90deg, #5140fe 0%, #7757f7 56%, #9d6ef0 100%);
     background: -ms-linear-gradient(90deg, #5140fe 0%, #7757f7 56%, #9d6ef0 100%);
     justify-content: center;
     align-items: center;
@@ -510,12 +508,13 @@ button.custom-button{
     -webkit-border-radius: 0 10px 10px 0;
     -moz-border-radius: 0 10px 10px 0;
     border-radius: 0 10px 10px 0;
-    
+
     display: flex;
     flex-wrap: wrap;
 }
 
-.cl-white, .cl-white *{
+.cl-white,
+.cl-white * {
     color: #ffffff;
 }
 
@@ -570,7 +569,7 @@ button.custom-button{
     position: relative;
 }
 
-.padding-top{
+.padding-top {
     padding-top: 120px;
 }
 
@@ -596,7 +595,7 @@ button.custom-button{
 }
 
 .d-block {
-    display: block!important;
+    display: block !important;
 }
 
 .about-content .item-area {
@@ -639,12 +638,13 @@ button.custom-button{
     width: unset !important;
     height: 100%;
 }
+
 /* ======================== Start: Counter-section ==========================*/
-.mt--10{
+.mt--10 {
     margin-top: -10px;
 }
 
-.mb-30-none{
+.mb-30-none {
     margin-bottom: -30px !important;
 }
 
@@ -668,11 +668,12 @@ button.custom-button{
 p:last-child {
     margin-bottom: -7px !important;
 }
+
 /* ======================== End: Counter-section ==========================*/
 
 /* ======================== Start: Overview-section ==========================*/
 .p-lg-0 {
-    padding: 0!important;
+    padding: 0 !important;
 }
 
 .mw-lg-100 {
@@ -721,6 +722,7 @@ p:last-child {
     background-position: center center;
     background-repeat: no-repeat;
 }
+
 /* ======================== End: Overview-section ==========================*/
 
 /* ======================== Start: Call-section ==========================*/
@@ -827,7 +829,8 @@ p:last-child {
     margin: -15px;
 }
 
-.no-js .owl-carousel, .owl-carousel.owl-loaded {
+.no-js .owl-carousel,
+.owl-carousel.owl-loaded {
     display: block;
 }
 
@@ -837,7 +840,8 @@ p:last-child {
     z-index: 1;
 }
 
-.owl-carousel, .owl-carousel .owl-item {
+.owl-carousel,
+.owl-carousel .owl-item {
     -webkit-tap-highlight-color: transparent;
     position: relative;
 }
@@ -845,7 +849,7 @@ p:last-child {
 .owl-carousel .owl-stage-outer {
     position: relative;
     overflow: hidden;
-    -webkit-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .owl-height {
@@ -864,6 +868,7 @@ p:last-child {
 /* ======================== End: About ==========================*/
 
 /* =================================== DASHBOARD =================================== */
+
 
 .sticky-menu {
     position: sticky;
@@ -987,18 +992,18 @@ p:last-child {
     margin-bottom: 16px;
 }
 
-.dash-pro-item .profile-header {
+.dash-pro-item .header {
     justify-content: space-between;
     margin-bottom: 30px;
     display: flex;
 }
 
-.dash-pro-item .profile-header .title {
+.dash-pro-item .header .title {
     margin: 0px;
     width: calc(100% - 80px);
 }
 
-.dash-pro-item .profile-header .edit {
+.dash-pro-item .header .edit {
     text-align: right;
     width: 80px;
     cursor: pointer;
@@ -1007,11 +1012,13 @@ p:last-child {
 .dash-pro-item .dash-pro-body li {
     list-style: none;
     display: flex;
+    margin-top: 10px;
 }
 
 .dash-pro-item .dash-pro-body .info-name {
     width: 25%;
     position: relative;
+    padding-top: 1%;
     padding-right: 5%;
 }
 
@@ -1024,6 +1031,16 @@ p:last-child {
 .dash-pro-item .dash-pro-body .info-value {
     width: 75%;
     padding-left: 5%;
+}
+
+.dash-pro-item .dash-pro-body .info-value input {
+    background: transparent;
+    height: 35px;
+    border-radius: 19px;
+    border: 1px solid rgba(13, 21, 75, 0.15);
+    font-size: 14px;
+    padding-right: 30px;
+    padding-left: 20px;
 }
 
 .dash-pro-item .button-area {
@@ -1066,6 +1083,7 @@ p:last-child {
     justify-content: center;
     padding: 10px;
 }
+
 
 
 /* =================================== DASHBOARD =================================== */
