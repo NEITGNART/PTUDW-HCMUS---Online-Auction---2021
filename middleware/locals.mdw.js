@@ -23,6 +23,15 @@ export default (app) => {
         res.render('profile');
     });
 
+    app.get('/register', (req, res) => {
+        res.render('register');
+    });
+
+    app.get('/user/product', (req, res) => {
+        res.render('product');
+    });
+
+
     app.get('/user/wishlist', (req, res) => {
         res.render('wishlist');
     });

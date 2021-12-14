@@ -4,7 +4,7 @@ import config from './config/config.js';
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
-import passport from 'passport';
+// import passport from 'passport';
 
 import active_local_middleware from './middleware/locals.mdw.js';
 import active_view_middleware from './middleware/view.mdw.js';
@@ -26,15 +26,16 @@ active_local_middleware(app);
 active_view_middleware(app);
 active_route_middleware(app);
 
-// mongoose.connect(config.URI, {}, err => {
-//     if (err) {
-//         throw err;
-//     }
-//     console.log('Connected to MongoDB')
-// })
+
+mongoose.connect(config.URI, {}, err => {
+    if (err) {
+        throw err;
+    }
+    console.log('Connected to MongoDB')
+})
 
 
-// // test database and model
+// test database and model
 // try {
 //     var cate = new cat({
 //         name: "Điện tử",
