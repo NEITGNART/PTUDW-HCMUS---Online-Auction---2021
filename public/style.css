@@ -14,16 +14,12 @@ label {
     cursor: pointer;
 }
 
-html {
-    font-size: 62.5%;
-}
-
 
 body {
     font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    /* font-size: 14px;
     line-height: 23px;
-    font-weight: 400;
+    font-weight: 400; */
     background: #ffffff;
     color: #1e1e27;
 }
@@ -39,22 +35,8 @@ ul {
     margin-bottom: 0px;
 }
 
-p {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    line-height: 1.7;
-    font-weight: 500;
-    color: #989898;
-    -webkit-font-smoothing: antialiased;
-    text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
-}
-
-p a {
-    display: inline;
-    position: relative;
-    color: inherit;
-    border-bottom: solid 2px #fde0db;
-    transition: all 200ms ease;
+li {
+    list-style: none;
 }
 
 a,
@@ -64,84 +46,6 @@ a:link {
     text-decoration: none;
     -webkit-font-smoothing: antialiased;
     text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
-}
-
-p a:active {
-    position: relative;
-    color: #ff6347;
-}
-
-p a:hover {
-    color: #ff6347;
-    background: #fde0db;
-}
-
-p a:hover::after {
-    opacity: 0.2;
-}
-
-::selection {
-    color: #ff6347;
-    background: #fde0db;
-}
-
-p::selection {
-    background: #fde0db;
-}
-
-h1 {
-    font-size: 72px;
-}
-
-h2 {
-    font-size: 40px;
-}
-
-h3 {
-    font-size: 28px;
-}
-
-h4 {
-    font-size: 24px;
-}
-
-h5 {
-    font-size: 16px;
-}
-
-h6 {
-    font-size: 14px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #282828;
-    -webkit-font-smoothing: antialiased;
-    text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
-}
-
-.trans300 {
-    transition: all 300ms ease;
-}
-
-::input-placeholder {
-    font-size: 16px !important;
-    font-weight: 500;
-    color: #777777;
-}
-
-.super_container {
-    width: 100%;
-    overflow: hidden;
-}
-
-.fill_hight {
-    top: 200px;
-    height: 100%;
 }
 
 /* ======================== Product card ==========================*/
@@ -1046,6 +950,7 @@ p:last-child {
 .dash-pro-item .button-area {
     display: flex;
     border: none;
+    flex-wrap: wrap;
 }
 
 .dash-pro-item .button-area .product-search {

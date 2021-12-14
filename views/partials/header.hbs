@@ -1,40 +1,95 @@
-<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" href="#">Navbar</a>
+<nav
+  class="navbar navbar-expand-lg navbar-dark sticky-top p-2"
+  style="font-size: 20px;font-weight: 200; background-color: #373a48;"
+>
+  <a class="navbar-brand ml-5" href="#">
+    Auction
+    <span style="color: violet;">
+      Online
+    </span>
+  </a>
   <button
-    class="navbar-toggler d-lg-none"
+    class="navbar-toggler"
     type="button"
     data-toggle="collapse"
-    data-target="#collapsibleNavId"
-    aria-controls="collapsibleNavId"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
     aria-expanded="false"
     aria-label="Toggle navigation"
-  ></button>
-  <div class="collapse navbar-collapse" id="collapsibleNavId">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse mx-2" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active mx-2">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+      <li class="nav-item mx-2">
+        <a class="nav-link" href="#">Auction</a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown mx-2">
         <a
           class="nav-link dropdown-toggle"
           href="#"
-          id="dropdownId"
+          id="navbarDropdown"
+          role="button"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
-        >Dropdown</a>
-        <div class="dropdown-menu" aria-labelledby="dropdownId">
-          <a class="dropdown-item" href="#">Action 1</a>
-          <a class="dropdown-item" href="#">Action 2</a>
+        >
+          Category
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
+      <li class="nav-item mx-2">
+        <a class="nav-link" href="#">About</a>
+      </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <form class="row form-inline my-2 my-lg-0 pl-3">
+      <input
+        class="col-7 form-control mr-sm-2"
+        type="search"
+        placeholder="Search"
+        style="border-radius: 25px;"
+      />
+      <button
+        class="col-2 btn my-2 my-sm-0"
+        type="submit"
+        style="margin-left: -40px; background-color: #fff; border-radius: 50px;"
+      >
+        <i class="fas fa-search"></i>
+      </button>
+
+      <div class="col-2 dropdown">
+        <a
+          class="btn dropdown"
+          href="#"
+          role="button"
+          id="dropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          style="background-color: #fff; color: black;;  border-radius: 50%;font-size: 15px;"
+        >
+          <i class="fas fa-user"></i>
+        </a>
+
+        <div
+          class="dropdown-menu"
+          style="left: -50px;top: 50px;font-size: 12px;"
+          aria-labelledby="dropdownMenuLink"
+        >
+          <a class="dropdown-item" href="#">Dashboard</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Log out</a>
+        </div>
+      </div>
     </form>
   </div>
 </nav>
