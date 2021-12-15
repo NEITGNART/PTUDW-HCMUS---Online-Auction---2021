@@ -11,13 +11,12 @@ import active_view_middleware from './middleware/view.mdw.js';
 import active_route_middleware from './middleware/routes.mdw.js';
 
 const app = express()
-app.use('/public', express.static('public'));
 
 app.use(morgan('dev'))
 app.use(express.urlencoded({
     extended: true
 }));
-
+app.use(express.static('public'));
 
 // app.use(passport.initialize());
 // app.use(passport.session());
