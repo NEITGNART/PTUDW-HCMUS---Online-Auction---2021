@@ -3,7 +3,7 @@ import {
 } from 'express-handlebars';
 import hbs_section from 'express-handlebars-sections';
 import numeral from 'numeral';
-
+import moment from 'moment'
 
 export default (app) => {
     app.engine('hbs', engine({
@@ -13,7 +13,10 @@ export default (app) => {
             format_number(val) {
                 return numeral(val).format('0.0');
             },
-            section: hbs_section()
+            section: hbs_section(),
+            format_date(text) {
+                return moment(text).format("HH:mm:ss')");
+            }
         }
 
     }));

@@ -27,9 +27,12 @@ export default (app) => {
         res.render('register');
     });
 
-    app.get('/user/product', (req, res) => {
+
+
+    app.get('/product', (req, res) => {
         res.render('product');
     });
+
 
 
     app.get('/user/wishlist', (req, res) => {

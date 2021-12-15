@@ -45,7 +45,7 @@ const ProductSchema = new mongoose.Schema({
 
     historyBidId:{
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Historybid'
+        ref: 'history'
     },
 
     block:{

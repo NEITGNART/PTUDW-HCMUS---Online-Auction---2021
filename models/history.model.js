@@ -10,5 +10,5 @@ const  historyBidSchema = new mongoose.Schema({
     }
 });
 
-const historyBidModel = mongoose.model('Historybid', historyBidSchema, 'historybid');
+const historyBidModel = mongoose.model('history', historyBidSchema, 'histories');
 export default historyBidModel;
