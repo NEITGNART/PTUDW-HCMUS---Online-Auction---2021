@@ -230,8 +230,6 @@ start-time {
   justify-content: center;
   align-items: center;
   margin: 48px 0;
-  /* height: 100vh;
-  margin: 20px 0 30px; */
 }
 
 .section-account h1{
@@ -291,6 +289,25 @@ start-time {
   margin: 0 5px;
   height: 40px;
   width: 40px;
+}
+
+
+.social-container a i[class*="facebook"] {
+  color: #3b5998;
+}
+.social-container a i[class*="google"] {
+  color: #dd4b39;
+}
+.social-container a i[class*="twitter"] {
+  color: #00aced;
+}
+
+.social-container a:hover{
+  background: #5140fe;
+}
+
+.social-container a:hover i {
+  color: #fff;
 }
 
 .form-container input{
@@ -366,6 +383,10 @@ start-time {
 
  @media (max-width: 576px) {
 
+  .section-account{
+    margin: 24px 6px;
+  }
+
   .section-account h1{
     font-weight: bold;
     margin: 0;
@@ -378,28 +399,26 @@ start-time {
   }
 
   .section-account span{
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .section-account button{
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 8px;
     padding: 8px 30px;
   }
 
   .form-container input{
     padding: 8px 10px;
-    margin: 8px 0;
+    margin: 4px 0;
   }
 
   .section-account .container{
     display: block;
     position: relative;
-    
   }
 
   .form-container{
-    display: block;
     width: 100%;
     top:0;
     left: 0;
@@ -408,12 +427,10 @@ start-time {
   }
 
   .overlay-container{
-    display: block;
     width: 100%;
     left:0;
     top: 70%;
     height: 30%;
-
   } 
 }
 /* ======================== End: Login ==========================*/
@@ -424,20 +441,7 @@ start-time {
 /* ======================== End: Signup ==========================*/
 
 /* ======================== Start: About ==========================*/
-.about-wrapper {
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-bottom: 50px;
-  border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 0 0 15px rgb(44 46 69 / 15%);
-  position: relative;
-}
-
-.padding-top {
-  padding-top: 120px;
-}
-
+/*About Section Starts Here*/
 .about-content {
   position: relative;
   z-index: 1;
@@ -459,22 +463,25 @@ start-time {
   margin-bottom: 10px;
 }
 
-.d-block {
-  display: block !important;
+.about-content p {
+  color: #171d1c;
 }
 
 .about-content .item-area {
   margin: 0 -15px -20px;
   max-width: 440px;
-
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .about-content .item-area .item {
   flex-grow: 1;
   padding: 0 15px 20px;
   text-align: center;
+}
+
+@media (min-width: 576px) {
+  .about-content .item-area .item {
+      max-width: 250px;
+  }
 }
 
 .about-content .item-area .item .thumb {
@@ -490,6 +497,29 @@ start-time {
   color: #171d1c;
 }
 
+.about-wrapper {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 50px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 15px rgba(44, 46, 69, 0.15);
+  position: relative;
+}
+
+@media (max-width: 575px) {
+  .about-wrapper {
+      padding-left: 15px;
+      padding-right: 15px;
+  }
+}
+
+@media (max-width: 991px) {
+  .about-wrapper {
+      padding-top: 50px;
+  }
+}
+
 .about-thumb {
   position: absolute;
   right: 0;
@@ -499,20 +529,35 @@ start-time {
   right: 30px;
 }
 
+@media (max-width: 991px) {
+  .about-thumb {
+      display: none;
+  }
+}
+
 .about-thumb img {
   width: unset !important;
   height: 100%;
 }
 
+.mt--100 {
+  margin-top: -100px;
+}
+
+.mt--240 {
+  margin-top: -240px;
+}
+
+@media (min-width: 992px) {
+  .mt-lg--440 {
+      margin-top: -440px;
+  }
+}
+
+
 /* ======================== Start: Counter-section ==========================*/
-.mt--10 {
-  margin-top: -10px;
-}
 
-.mb-30-none {
-  margin-bottom: -30px !important;
-}
-
+/*Counter Section Starts Here*/
 .counter-item {
   text-align: center;
   padding: 28px 30px 30px;
@@ -529,199 +574,22 @@ start-time {
 .counter-item .counter-header .title {
   margin-bottom: 20px;
 }
-
-p:last-child {
-  margin-bottom: -7px !important;
-}
-
 /* ======================== End: Counter-section ==========================*/
 
 /* ======================== Start: Overview-section ==========================*/
-.p-lg-0 {
-  padding: 0 !important;
-}
-
-.mw-lg-100 {
-  min-width: 100%;
-}
-
-.overview-content {
-  max-width: 585px;
-  margin-left: auto;
-  padding-left: 30px;
-}
-
-.mb--50 {
-  margin-bottom: -50px;
-}
-
-.expert-item {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.expert-item .thumb {
-  height: 47px;
-  margin: 0 0 38px;
-}
-
-.expert-item .thumb img {
-  max-height: 66px;
-}
-
-.expert-item .content .title {
-  font-size: 18px;
-  text-transform: capitalize;
-}
-
-.pl-30 {
-  padding-left: 30px;
-}
-
-.bg_img {
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
 
 /* ======================== End: Overview-section ==========================*/
 
 /* ======================== Start: Call-section ==========================*/
-.call-wrapper {
-  padding: 80px 80px 50px;
-  border-radius: 20px;
-  justify-content: space-between;
-  align-items: center;
-
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.call-wrapper .section-header {
-  max-width: 420px;
-  text-align: left;
-  margin-left: 0;
-  margin-bottom: 30px;
-}
-
-.custom-button.white {
-  background: #ffffff;
-  color: #3f22b3;
-  margin-bottom: 30px;
-}
 
 /* ======================== End: Call-section ==========================*/
 
 /* ======================== Start: Team-section ==========================*/
-.team-item {
-  max-width: 220px;
-  margin: 0 auto 30px;
-  padding: 0 15px;
-}
-
-.team-item .team-inner::before {
-  top: 60px;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  border-radius: 10px;
-  background: gray;
-  box-shadow: 1.753px 3.595px 10px 0px rgb(44 46 69 / 9%);
-}
-
-.team-item .team-inner {
-  position: relative;
-  padding: 0 10px;
-}
-
-.team-item .team-inner .team-thumb {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.team-item .team-inner * {
-  position: relative;
-  z-index: 1;
-}
-
-.team-item .team-inner .team-thumb a {
-  display: block;
-}
-
-.team-item .team-inner .team-thumb img {
-  width: 100%;
-}
-
-.team-item .team-inner .team-content {
-  padding: 15px 10px 5px;
-  text-align: center;
-}
-
-.team-item .team-inner .team-content .social {
-  justify-content: center;
-
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.team-item .team-inner .team-content .social li {
-  padding: 2px;
-}
-
-.team-item .team-inner .team-content .social li a {
-  color: #52606d;
-  padding: 5px;
-  font-size: 16px;
-  line-height: 1;
-}
-
-.team-item .team-inner .team-content .social li:nth-child(even) a {
-  color: #ee4730;
-}
 
 /* ======================== End: Team-section ==========================*/
 
 /* ======================== Start: Client-section ==========================*/
 
-.m--15 {
-  margin: -15px;
-}
-
-.no-js .owl-carousel,
-.owl-carousel.owl-loaded {
-  display: block;
-}
-
-.owl-carousel {
-  display: none;
-  width: 100%;
-  z-index: 1;
-}
-
-.owl-carousel,
-.owl-carousel .owl-item {
-  -webkit-tap-highlight-color: transparent;
-  position: relative;
-}
-
-.owl-carousel .owl-stage-outer {
-  position: relative;
-  overflow: hidden;
-  -webkit-transform: translate3d(0, 0, 0);
-}
-
-.owl-height {
-  transition: height 0.5s ease-in-out;
-}
-
-.owl-carousel .owl-stage {
-  position: relative;
-  -ms-touch-action: pan-Y;
-  touch-action: manipulation;
-  -moz-backface-visibility: hidden;
-}
 
 /* ======================== End: Client-section ==========================*/
 
