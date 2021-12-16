@@ -1,17 +1,36 @@
+import passport from 'passport';
+
 export default (app) => {
     app.get('/', (req, res) => {
-        res.render('home');
-    }),
+        res.render('home'
+            // , {
+            //     local: {
+            //         user: {
+            //             name: 'e'
+            //         }
+            //     }
+            // }
+        );
+    });
 
-    app.get('/login', (req,res)=>{
-        res.render('login');
-    }),
 
-    app.get('/signup', (req,res)=>{
+    app.route('/login')
+        .get((req, res) => {
+            res.render('login');
+        })
+        .post(passport.authenticate('login', {
+            successRedirect: '/',
+            failureRedirect: '/login',
+            failureFlash: true
+        }));
+
+
+
+    app.get('/signup', (req, res) => {
         res.render('signup');
-    }),
+    });
 
-    app.get('/about', (req,res)=>{
+    app.get('/about', (req, res) => {
         res.render('about');
     });
 
@@ -27,16 +46,11 @@ export default (app) => {
         res.render('register');
     });
 
-
-
     app.get('/product', (req, res) => {
         res.render('product');
     });
-
-
 
     app.get('/user/wishlist', (req, res) => {
         res.render('wishlist');
     });
 }
-
