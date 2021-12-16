@@ -223,262 +223,203 @@ start-time {
 /* ======================== Product card ==========================*/
 
 /* ======================== Start: Login ==========================*/
-
-.padding-bottom {
-  padding-bottom: 120px;
-}
-
-.padding-bottom .account-wrapper {
-  position: relative;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 0 0 15px rgb(44 46 69 / 11%);
-
+.section-account{
+  background: none;
   display: flex;
-  flex-wrap: wrap;
-}
-
-.mt-lg--440 {
-  margin-top: -440px;
-}
-
-.account-wrapper .left-side {
-  padding: 60px 30px 60px 60px;
-  width: calc(100% - 350px);
-}
-
-.section-header {
-  margin: 0 auto 35px;
-  text-align: center;
-}
-
-.section-header .title {
-  margin-bottom: 20px;
-  text-transform: capitalize;
-}
-
-h2 {
-  font-size: 42px;
-  line-height: 50px;
-  margin-top: -10px;
-}
-
-.login-with {
-  margin: -15px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.login-with li {
-  flex-grow: 1;
-  padding: 15px;
-}
-
-.login-with li a {
-  align-items: center;
-  padding: 12px 15px;
-  border: 1px solid rgba(97, 90, 191, 0.2);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  flex-direction: column;
   justify-content: center;
-  color: #171d1c;
+  align-items: center;
+  margin: 48px 0;
+  /* height: 100vh;
+  margin: 20px 0 30px; */
+}
 
-  transition: all ease 0.3s;
+.section-account h1{
+  font-weight: bold;
+  margin: 0;
+}
 
+.section-account p{
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 1.2;
+}
+
+.section-account span{
+  font-size: 12px;
+}
+
+.section-account a{
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+.section-account .container{
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+}
+
+.form-container form{
+  background: #fff;
   display: flex;
-  flex-wrap: wrap;
-}
-
-.login-with li a:hover {
-  background: #ee4730;
-  color: #ffffff;
-}
-
-.login-with li a i[class*="facebook"] {
-  color: #3b5998;
-}
-
-.login-with li a:hover i[class*="facebook"] {
-  color: #ffffff;
-}
-
-.login-with li a i {
-  margin-right: 7px;
-}
-
-.login-with li a i[class*="google"] {
-  color: #dd4b39;
-}
-
-.login-with li a:hover i[class*="google"] {
-  color: #ffffff;
-}
-
-.or {
-  position: relative;
-  margin-bottom: 20px;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-.or span {
-  display: inline-block;
-  padding: 0 25px;
-  background: #ffffff;
-  position: relative;
-  color: #171d1c;
-  z-index: 1;
+.social-container{
+  margin: 15px 0;
 }
 
-form {
-  display: block;
-  margin-top: 0em;
+.social-container a {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  height: 40px;
+  width: 40px;
 }
 
-.login-form .form-group {
-  position: relative;
-  font-size: 16px;
-  text-align: center;
-}
-
-.login-form .form-group label {
-  position: absolute;
-  left: 30px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  color: #52606d;
-}
-
-.login-form .form-group input {
-  height: 50px;
-  border: 1px solid rgba(97, 90, 191, 0.2);
-  background: #ffffff;
-  padding: 0 75px;
+.form-container input{
+  background: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
   width: 100%;
-  border-radius: 5px;
-  color: #52606d;
-  outline: none;
 }
 
-.login-form .form-group .pass-type {
-  right: 30px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  position: absolute;
+.section-account button{
+  border-radius: 20px;
+  border: 1px solid #5140fe;
+  background: #5140fe;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
-.login-form .form-group a {
-  color: #52606d;
+.section-account button:active{
+  transform: scale(0.95);
 }
 
-.custom-button {
-  font-size: 16px;
-  height: 50px;
-  padding: 0 50px;
-
-  color: #ffffff;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  border-radius: 30px;
-  font-weight: 500;
-  text-transform: uppercase;
-  padding: 12px 30px 10px;
-  font-size: 18px;
-  background: -moz-linear-gradient(90deg, #3da9f5 0%, #683df5 100%);
-  background: -ms-linear-gradient(90deg, #3da9f5 0%, #683df5 100%);
-  background: -webkit-linear-gradient(90deg, #3da9f5 0%, #683df5 100%);
-  box-shadow: -1.04px 4.891px 20px 0px rgb(69 49 183 / 50%);
-  font-family: "Roboto", sans-serif;
-}
-
-button.custom-button {
-  padding: 0 40px;
-  font-size: 20px;
+.section-account button:focus{
   outline: none;
-  border: none;
-  height: 60px;
-  width: auto;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  border-radius: 30px;
 }
 
-.account-wrapper .right-side {
-  background: -moz-linear-gradient(
-    90deg,
-    #5140fe 0%,
-    #7757f7 56%,
-    #9d6ef0 100%
-  );
-  background: -webkit-linear-gradient(
-    90deg,
-    #5140fe 0%,
-    #7757f7 56%,
-    #9d6ef0 100%
-  );
-  background: -ms-linear-gradient(90deg, #5140fe 0%, #7757f7 56%, #9d6ef0 100%);
+.section-account button.ghost{
+  background: transparent;
+  border-color: #fff;
+}
+
+.form-container{
+  position: absolute;
+  top:0;
+  height: 100%;
+}
+
+.account-container{
+  left: 0;
+  width: 50%;
+}
+
+.overlay-container{
+  position: absolute;
+  top:0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.overlay{
+  background: linear-gradient(to right, #7757f7,#9d6ef0) no-repeat 0 0/ cover;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 350px;
-  padding: 60px 30px;
-  -webkit-border-radius: 0 10px 10px 0;
-  -moz-border-radius: 0 10px 10px 0;
-  border-radius: 0 10px 10px 0;
+  text-align: center;
+  height: 100%;
+  width: 100%;
 
-  display: flex;
-  flex-wrap: wrap;
 }
 
-.cl-white,
-.cl-white * {
-  color: #ffffff;
-}
+ @media (max-width: 576px) {
 
-.cl-white p {
-  color: rgba(255, 255, 255, 0.9);
-  margin-top: -10px;
-}
+  .section-account h1{
+    font-weight: bold;
+    margin: 0;
+    font-size: 1.5rem;
+  }
 
-.account-wrapper .right-side .custom-button {
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  font-weight: 400;
-}
+  .section-account p{
+    font-size: 10px;
+    line-height: 1;
+  }
 
+  .section-account span{
+    font-size: 8px;
+  }
+
+  .section-account button{
+    border-radius: 12px;
+    font-size: 8px;
+    padding: 8px 30px;
+  }
+
+  .form-container input{
+    padding: 8px 10px;
+    margin: 8px 0;
+  }
+
+  .section-account .container{
+    display: block;
+    position: relative;
+    
+  }
+
+  .form-container{
+    display: block;
+    width: 100%;
+    top:0;
+    left: 0;
+    height: 70%;
+    width: 100%;
+  }
+
+  .overlay-container{
+    display: block;
+    width: 100%;
+    left:0;
+    top: 70%;
+    height: 30%;
+
+  } 
+}
 /* ======================== End: Login ==========================*/
 
 /* ======================== Start: Signup ==========================*/
-.login-form .form-group.checkgroup {
-  align-items: center;
-  text-align: left;
-  display: flex;
-  flex-wrap: wrap;
-}
 
-.login-form .form-group.checkgroup input {
-  width: 14px;
-  height: 14px;
-}
-
-.login-form .form-group.checkgroup label {
-  font-size: 14px;
-  margin: 0;
-  margin-top: 2px;
-  line-height: 1.3;
-  color: #171d1c;
-  width: calc(100% - 14px);
-}
-
-.transparent {
-  background: transparent !important;
-}
 
 /* ======================== End: Signup ==========================*/
 
@@ -608,10 +549,6 @@ p:last-child {
   max-width: 585px;
   margin-left: auto;
   padding-left: 30px;
-}
-
-.section-header {
-  margin-bottom: 55px;
 }
 
 .mb--50 {
