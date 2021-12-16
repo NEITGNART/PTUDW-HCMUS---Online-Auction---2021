@@ -44,7 +44,7 @@ const UserSchema = new mongoose.Schema({
             type: String,
             trim: true
         },
-        phoneNumber:  {
+        phoneNumber: {
             String
         }
     },
@@ -62,20 +62,19 @@ const UserSchema = new mongoose.Schema({
         default: 100
     },
     reviews: {
-        author : {
+        author: {
             String
         },
-        date : {
+        date: {
             Date
         },
-        message : {
+        message: {
             String
         },
-        point : {
+        point: {
             Number
         }
     }
 })
 
-const userModel = mongoose.model('user', UserSchema, 'users');
-export default userModel;
+export default mongoose.model('user', UserSchema, 'users');

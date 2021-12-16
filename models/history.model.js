@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const  historyBidSchema = new mongoose.Schema({
+const historyBidSchema = new mongoose.Schema({
     turn: {
         type: [{
             bidDate: String,
@@ -10,5 +10,4 @@ const  historyBidSchema = new mongoose.Schema({
     }
 });
 
-const historyBidModel = mongoose.model('history', historyBidSchema, 'histories');
-export default historyBidModel;
+export default mongoose.model('history', historyBidSchema, 'histories');

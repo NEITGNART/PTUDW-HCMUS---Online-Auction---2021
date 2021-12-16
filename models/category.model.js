@@ -18,5 +18,9 @@ const CategorySchema = new mongoose.Schema({
     }
 })
 
-const categoryModel = mongoose.model('category', CategorySchema, 'categories');
-export default categoryModel;
+CategorySchema.index({
+    name: 'text',
+    subCat: 'text'
+});
+
+export default mongoose.model('category', CategorySchema, 'categories');

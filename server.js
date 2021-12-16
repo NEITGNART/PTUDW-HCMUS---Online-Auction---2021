@@ -26,6 +26,7 @@ active_view_middleware(app);
 active_route_middleware(app);
 
 
+
 mongoose.connect(config.URI, {}, err => {
     if (err) {
         throw err;
@@ -48,6 +49,31 @@ mongoose.connect(config.URI, {}, err => {
 // } catch (error) {
 //     throw error;
 // }
+
+import category from './models/category.model.js';
+
+// try {
+//     var cate = new category({
+//         name: "Điện tử 3",
+//         amount: 5,
+//         subCat: ["Máy tính 1", "Di động"],
+//         amountSubCat: [2, 3, 5],
+
+//     });
+//     await cate.save();
+// } catch (error) {
+//     throw error;
+// }
+
+(async function a() {
+    const a = await category.find({
+        $text: {
+            $search: 'Điện'
+        }
+    });
+    console.log(a);
+})();
+
 
 
 app.listen(config.PORT, () => {

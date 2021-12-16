@@ -13,7 +13,7 @@ const ProductSchema = new mongoose.Schema({
     sellDate: {
         type: Date
     },
-    expDate:{
+    expDate: {
         type: Date
     },
     images: {
@@ -34,7 +34,7 @@ const ProductSchema = new mongoose.Schema({
         type: Number
     },
 
-    topBidder:{
+    topBidder: {
         type: String
     },
 
@@ -43,18 +43,20 @@ const ProductSchema = new mongoose.Schema({
         default: 'bidding'
     },
 
-    historyBidId:{
+    historyBidId: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'history'
     },
 
-    block:{
+    block: {
         type: [String],
         default: []
     }
 })
 
+ProductSchema.index({
+    name: 'text',
+    description: 'text'
+});
 
-const productModel = mongoose.model('product', ProductSchema, 'products');
-export default productModel;
-
+export default mongoose.model('product', ProductSchema, 'products');
