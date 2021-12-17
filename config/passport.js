@@ -34,6 +34,8 @@ export default (passport) => {
                 }
                 const matched = await bcrypt.compare(password, user.secret);
                 if (matched) {
+                    req.session.user = user;
+                    req.session.auth = true;
                     done(null, user);
                 } else {
                     done(null, false, {

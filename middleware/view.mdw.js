@@ -20,7 +20,6 @@ export default (app) => {
         }
 
     }));
-
     app.set('view engine', 'hbs');
     app.set('views', './views');
 }

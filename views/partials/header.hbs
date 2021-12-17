@@ -45,7 +45,7 @@
       </button>
 
       <div class="col-2 dropdown">
-        {{#if local.user}}
+        {{#if auth}}
         <a class="btn dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false" style="background-color: #fff; border-radius: 50%;padding: 0px; overflow: hidden;">
           <img src="https://picsum.photos/200" style="width: 30px;" alt="avatar" />
@@ -54,7 +54,7 @@
         <div class="dropdown-menu" style="left: -50px;top: 50px;font-size: 12px;" aria-labelledby="dropdownMenuLink">
           <a class="dropdown-item" href="#">Dashboard</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Log out</a>
+          <a class="dropdown-item" href="/logout">Log out</a>
         </div>
         {{else}}
         <a class="btn" href="/login" role="button" aria-haspopup="true" aria-expanded="false"
