@@ -19,7 +19,7 @@ export default (app) => {
 
     app.use(async (req, res, next) => {
 
-        const products = await ProductModel.find({ status: "bidding" });
+        const products = await ProductModel.find({ status: "bidding" }).lean();
         // update product
 
         products.forEach(async (product) => {
@@ -43,7 +43,7 @@ export default (app) => {
             }
         })
 
-        const cats = await CategoryModel.find();
+        const cats = await CategoryModel.find().lean();
         res.locals.cats = cats;
         res.locals.products = products;
         next();
