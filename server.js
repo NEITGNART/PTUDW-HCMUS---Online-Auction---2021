@@ -1,56 +1,50 @@
-// use .env
 import 'dotenv/config';
 import config from './config/config.js';
+
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
-import session from 'express-session';
-import flash from 'connect-flash';
 import passport from 'passport';
-import passportConfig from './config/passport.js';
 
+
+import passportConfig from './config/passport.js';
 import active_local_middleware from './middleware/locals.mdw.js';
 import active_view_middleware from './middleware/view.mdw.js';
 import active_route_middleware from './middleware/routes.mdw.js';
+import active_session_middleware from './middleware/session.mdw.js';
 
 const app = express()
 
-app.use(flash())
-app.use(morgan('dev'))
-app.use(express.urlencoded({
-    extended: true
-}));
 app.use(express.static('public'));
 
 
-app.use(session({
-    secret: config.SECRET,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        maxAge: 1000 * 3600 * 24
-    }
-}))
+app.use(morgan('dev'))
 
 
+app.use(express.urlencoded({
+    extended: true
+}));
+app.use(express.json());
+
+//////////
+//
+//  active sesion trước khi passport config
+//
+///////////
+active_session_middleware(app);
 passportConfig(passport);
 app.use(passport.initialize());
 app.use(passport.session());
+// đừng đảo thứ tự cụm trên
+////////////////////////////
+
+
 
 active_local_middleware(app);
 active_view_middleware(app);
 active_route_middleware(app);
 
-app.route('/login')
-    .get((req, res) => {
-        res.render('login');
-    })
-    .post(passport.authenticate('login', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    }));
+
 
 mongoose.connect(config.URI, {}, err => {
     if (err) {
@@ -98,7 +92,6 @@ mongoose.connect(config.URI, {}, err => {
 //     });
 //     console.log(a);
 // })();
-
 
 
 app.listen(config.PORT, () => {
