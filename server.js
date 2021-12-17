@@ -26,6 +26,7 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
+
 //////////
 //
 //  active sesion trước khi passport config
@@ -97,3 +98,4 @@ mongoose.connect(config.URI, {}, err => {
 app.listen(config.PORT, () => {
     console.log(`Example app listening at http://localhost:${config.PORT}`)
 })
+// //
