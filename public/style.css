@@ -63,7 +63,6 @@ a:link {
 .auction-item-thumb {
   position: relative;
   text-align: right;
-  padding: 10px;
 }
 
 .auction-item-thumb .thumb-img img {
