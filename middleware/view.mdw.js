@@ -36,7 +36,7 @@ export default (app) => {
                             </li>`
                     else {
                         res += `<li>
-                          <a href="1" class=""><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                          <a href="?page=1" class=""><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                             </li>`
                     }
 
@@ -46,14 +46,14 @@ export default (app) => {
                         if (i === +currentPage) {
                             res += `
                                  <li>
-                                    <a href="${i}" class="active"> ${i} </i></a>
+                                    <a href="?page=${i}" class="active"> ${i} </i></a>
                                 </li>
                             `
                         }
                         else {
                             res += `
                             <li>
-                             <a href="${i}">${i}</i></a>
+                             <a href="?page=${i}">${i}</i></a>
                             <li>`
                         }
                     }
@@ -70,23 +70,23 @@ export default (app) => {
                     return `
                     
                         <li>
-                        <a href="{1}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                        <a href="?page={1}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                         </li>
                         <li>
 
                         <li>
-                         <a href="${currentPage - 1}">${currentPage - 1}</i></a>
+                         <a href="?page=${currentPage - 1}">${currentPage - 1}</i></a>
                          </li>
                         <li>
 
                         <li>
-                         <a href="${currentPage - 2}">${currentPage - 2}</i></a>
+                         <a href="?page=${currentPage - 2}">${currentPage - 2}</i></a>
                          </li>
                         <li>
 
 
                         <li>
-                         <a href="${currentPage - 1}">${currentPage - 1}</i></a>
+                         <a href="?page=?page=${currentPage - 1}">${currentPage - 1}</i></a>
                          </li>
                         <li>
 
@@ -98,16 +98,16 @@ export default (app) => {
 
 
                        <li>
-                        <a href="${currentPage + 1}" class="active">${currentPage + 1}</i></a>
+                        <a href="?page=${currentPage + 1}" class="active">${currentPage + 1}</i></a>
                         </li>
                        <li>
                         
                        <li>
-                        <a href="${currentPage + 2}" class="active">${currentPage + 2}</i></a>
+                        <a href="?page=${currentPage + 2}" class="active">${currentPage + 2}</i></a>
                         </li>
                        <li>
                          <li>
-                         <a href="${currentPage + 1}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                         <a href="?page=${currentPage + 1}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                         </li>`
                 } else {
 

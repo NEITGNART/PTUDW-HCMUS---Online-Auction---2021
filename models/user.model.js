@@ -46,6 +46,9 @@ const UserSchema = new mongoose.Schema({
         },
         phoneNumber: {
             String
+        },
+        avatar: {
+            type: String,
         }
     },
 
