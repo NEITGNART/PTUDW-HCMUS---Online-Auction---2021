@@ -18,10 +18,35 @@ router.route('/login')
         failureFlash: true
     }));
 
+router.route('/login/facebook')
+    .get(passport.authenticate('login-facebook', {
+        scope: 'email',
+        successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true
+    }));
+
+router.route('/login/google')
+    .get(passport.authenticate('login-google', {
+        scope: [
+            'profile'
+        ],
+        successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true
+    }))
+
+router.route('/login/github')
+    .get(passport.authenticate('login-github', {
+        successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true
+    }))
+
 
 router.route('/logout')
     .get((req, res) => {
-        req.session.auth = false;
+        req.logOut();
         req.session.user = null;
         res.redirect('/login');
     });

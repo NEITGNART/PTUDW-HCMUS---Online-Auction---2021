@@ -3,7 +3,7 @@ import controller from '../controllers/product.controller.js';
 
 const router = express.Router();
 
-router.route('/:id')
+router.route('/')
     .get(controller.listProduct);
 
 export default router;

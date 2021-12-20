@@ -15,23 +15,22 @@ import active_session_middleware from './middleware/session.mdw.js';
 
 const app = express()
 
+
 app.use(express.static('public'));
 
 
 app.use(morgan('dev'))
-
-
 app.use(express.urlencoded({
     extended: true
 }));
 app.use(express.json());
 
 
-//////////
+//////////////////////////////////
 //
 //  active sesion trước khi passport config
 //
-///////////
+/////////////////////////////////
 active_session_middleware(app);
 passportConfig(passport);
 app.use(passport.initialize());
@@ -54,48 +53,6 @@ mongoose.connect(config.URI, {}, err => {
     console.log('Connected to MongoDB')
 })
 
-
-// test database and model
-// try {
-//     var cate = new cat({
-//         name: "Điện tử",
-//         amount: 5,
-//         subCat: ["Máy tính", "Di động"],
-//         amountSubCat: [2, 3]
-//     })
-
-//     await cate.save();
-
-// } catch (error) {
-//     throw error;
-// }
-
-
-// try {
-//     var cate = new category({
-//         name: "Điện tử 3",
-//         amount: 5,
-//         subCat: ["Máy tính 1", "Di động"],
-//         amountSubCat: [2, 3, 5],
-
-//     });
-//     await cate.save();
-// } catch (error) {
-//     throw error;
-// }
-
-// import category from './models/category.model.js';
-// (async function a() {
-//     const a = await category.find({
-//         $text: {
-//             $search: 'Điện'
-//         }
-//     });
-//     console.log(a);
-// })();
-
-
 app.listen(config.PORT, () => {
     console.log(`Example app listening at http://localhost:${config.PORT}`)
 })
-// //
