@@ -45,10 +45,17 @@ const UserSchema = new mongoose.Schema({
             trim: true
         },
         phoneNumber: {
+<<<<<<< HEAD
             type: String
         },
         avatar: {
             type: String
+=======
+            String
+        },
+        avatar: {
+            type: String,
+>>>>>>> 5020314953dce06001558f7b1c2a3bab3fcc4fd0
         }
     },
 
