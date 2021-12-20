@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
     },
     method: {
         type: String,
-        enum: ['local', 'facebook', 'google'],
+        enum: ['local', 'facebook', 'google', 'github'],
         trim: true,
         lowercase: true,
         default: 'local'
@@ -45,10 +45,10 @@ const UserSchema = new mongoose.Schema({
             trim: true
         },
         phoneNumber: {
-            String
+            type: String
         },
         avatar: {
-            type: String,
+            type: String
         }
     },
 

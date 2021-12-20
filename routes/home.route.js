@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from 'passport';
+import User from '../models/user.model.js';
 
 const router = express.Router();
 
@@ -13,35 +14,46 @@ router.route('/login')
         res.render('login');
     })
     .post(passport.authenticate('login', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    }));
+            failureRedirect: '/login',
+            failureFlash: true
+        }),
+        async (req, res) => {
+            res.locals.user = await User.findById(req.session.passport.user);
+            res.redirect('/');
+        }
+    );
 
 router.route('/login/facebook')
     .get(passport.authenticate('login-facebook', {
         scope: 'email',
-        successRedirect: '/',
         failureRedirect: '/login',
         failureFlash: true
-    }));
+    }), async (req, res) => {
+        res.locals.user = await User.findById(req.session.passport.user);
+        res.redirect('/')
+    });
 
 router.route('/login/google')
     .get(passport.authenticate('login-google', {
         scope: [
-            'profile'
+            'profile', 'email'
         ],
-        successRedirect: '/',
         failureRedirect: '/login',
         failureFlash: true
-    }))
+    }), async (req, res) => {
+        res.locals.user = await User.findById(req.session.passport.user);
+        res.redirect('/')
+    })
 
 router.route('/login/github')
     .get(passport.authenticate('login-github', {
-        successRedirect: '/',
+        scope: ['user:email'],
         failureRedirect: '/login',
         failureFlash: true
-    }))
+    }), async (req, res) => {
+        res.locals.user = await User.findById(req.session.passport.user);
+        res.redirect('/')
+    });
 
 
 router.route('/logout')

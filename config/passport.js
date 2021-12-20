@@ -39,7 +39,6 @@ export default (passport) => {
                 }
                 const matched = await bcrypt.compare(password, user.secret);
                 if (matched) {
-                    req.session.user = user;
                     done(null, user);
                 } else {
                     done(null, false, {
@@ -59,9 +58,26 @@ export default (passport) => {
             callbackURL: config.FB_CALLBACK_URL,
             profileFields: ['email', 'displayName', 'picture.type(large)'],
         },
-        async (req, accessToken, refreshToken, profile, done) => {
+        async (accessToken, refreshToken, profile, done) => {
             try {
-                console.log(profile);
+                const user = await User.findOne({
+                    authId: profile.id,
+                    method: 'facebook'
+                });
+                if (!user) {
+                    const newLogin = new User({
+                        method: 'facebook',
+                        authId: profile.id,
+                        profile: {
+                            name: profile.displayName,
+                            email: profile._json.email,
+                            avatar: profile.photos[0].value,
+                        }
+                    });
+                    await newLogin.save();
+                    return done(null, newLogin);
+                }
+                done(null, user);
             } catch (err) {
                 console.log(err);
             }
@@ -76,7 +92,24 @@ export default (passport) => {
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
-                console.log(profile);
+                const user = await User.findOne({
+                    authId: profile.id,
+                    method: 'google'
+                });
+                if (!user) {
+                    const newLogin = new User({
+                        method: 'google',
+                        authId: profile.id,
+                        profile: {
+                            name: profile._json.name,
+                            email: profile._json.email,
+                            avatar: profile._json.picture,
+                        }
+                    });
+                    await newLogin.save();
+                    return done(null, newLogin);
+                }
+                done(null, user);
             } catch (err) {
                 console.log(err);
             }
@@ -92,6 +125,24 @@ export default (passport) => {
         async (accessToken, refreshToken, profile, done) => {
             try {
                 console.log(profile);
+                const user = await User.findOne({
+                    authId: profile.id,
+                    method: 'github'
+                });
+                if (!user) {
+                    const newLogin = new User({
+                        method: 'github',
+                        authId: profile.id,
+                        profile: {
+                            name: profile.displayName,
+                            email: profile._json.id + '+' + profile._json.login + '@users.noreply.github.com',
+                            avatar: profile._json.avatar_url,
+                        }
+                    });
+                    await newLogin.save();
+                    return done(null, newLogin);
+                }
+                done(null, user);
             } catch (err) {
                 console.log(err);
             }
