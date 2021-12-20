@@ -143,6 +143,42 @@
     <div class="container-fluid col-12 col-sm-12 col-lg-9 col-md-9 ml-lg-0 ml-3 pl-0">
 
 
+        <div class="product-header mb-40">
+            <div class="product-header-item">
+                <div class="item">Sort By : </div>
+                <select name="sort-by" class="select-bar" style="display: none;">
+                    <option value="all">All</option>
+                    <option value="name">Name</option>
+                    <option value="date">Date</option>
+                    <option value="type">Type</option>
+                    <option value="car">Car</option>
+                </select>
+                <div class="nice-select" tabindex="0"><span class="current">Type</span>
+                    <ul class="list">
+                        <li data-value="all" class="option">All</li>
+                        <li data-value="name" class="option">Name</li>
+                        <li data-value="date" class="option">Date</li>
+                        <li data-value="type" class="option selected focus">Type</li>
+                        <li data-value="car" class="option">Car</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="product-header-item">
+                <div class="item">Show : </div>
+                <select name="sort-by" class="select-bar" style="display: none;">
+                    <option value="09">09</option>
+                    <option value="21">21</option>
+                    <option value="30">30</option>
+                    <option value="39">39</option>
+                    <option value="60">60</option>
+                </select><div class="nice-select select-bar" tabindex="0"><span class="current">09</span><ul class="list"><li data-value="09" class="option selected focus">09</li><li data-value="21" class="option">21</li><li data-value="30" class="option">30</li><li data-value="39" class="option">39</li><li data-value="60" class="option">60</li></ul></div>
+            </div>
+            <form class="product-search ml-auto">
+                <input type="text" placeholder="Item Name">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+
         {{!-- Start Row --}}
 
         <div class="row">
