@@ -45,7 +45,10 @@ const UserSchema = new mongoose.Schema({
             trim: true
         },
         phoneNumber: {
-            String
+            type: String
+        },
+        avatar: {
+            type: String
         }
     },
 

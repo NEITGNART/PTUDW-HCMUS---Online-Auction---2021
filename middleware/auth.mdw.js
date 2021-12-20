@@ -1,5 +1,5 @@
 export default function auth(req, res, next) {
-    if (req.session.auth === false) {
+    if (!req.isAuthenticated()) {
         req.session.retUrl = req.originalUrl;
         return res.redirect(`/login?retUrl=${req.originalUrl}`);
     }
