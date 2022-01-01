@@ -5,6 +5,7 @@ import githubStrategy from 'passport-github2';
 import bcrypt from 'bcrypt';
 import User from '../models/user.model.js';
 import config from './config.js';
+import validate from 'express-validator';
 
 export default (passport) => {
     passport.serializeUser((user, done) => {
@@ -150,16 +151,21 @@ export default (passport) => {
     ));
 
     passport.use('signup', new LocalStrategy.Strategy({
-        usernameField: 'name',
+        usernameField: 'username',
         emailField: 'email',
         passwordField: 'password',
+        fullnameField: 'name',
+        addressField: 'address',
         passReqToCallback: true
     }, (req, username, password, done) => {
         console.log(req.body);
-        const {
-            usrname,
-            email,
-            passwd
-        } = req.body;
+
+        const errors = validate.validationResult(req);
+        console.log(errors);
+        if (!errors.isEmpty()) {
+            return done(null, false, {
+                message: errors.array()[0].msg
+            });
+        }
     }))
 }

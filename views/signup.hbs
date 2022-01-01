@@ -2,47 +2,22 @@
 
   <div class="container">
     <div class="form-container account-container">
-      <form action="#">
+      <form action="" method="post">
         <h1>Sign up</h1>
         <div class="social-container">
-          <a href="/login/facebook" class="social"><i
-              class="fa fa-facebook"
-              aria-hidden="true"
-            ></i></a>
-          <a href="/login/google" class="social"><i
-              class="fa fa-google-plus"
-              aria-hidden="true"
-            ></i></a>
+          <a href="/login/facebook" class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          <a href="/login/google" class="social"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
           <a href="/login/github" class="social"><i class="fa fa-github" aria-hidden="true"></i></a>
-        <div class="container">
-                <div class="form-container account-container">
-                        <form action="#">
-                                <h1>Sign up</h1>
-                                <div class="social-container">
-                                        <a href="#" class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#" class="social"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                                        <a href="#" class="social"><i class="fa fa-github" aria-hidden="true"></i></a>
-                                </div>
-                                <span>or use your email for registration</span>
-                                <input type="name" placeholder="Name">
-                                <input type="email" placeholder="Email">
-                                <input type="password" placeholder="Password">
-                                <button>Sign Up</button>
-                        </form>
-                </div>
-                <div class="overlay-container">
-                        <div class="overlay overlay-panel">
-                                <h1>Welcome Back!</h1>
-                                <p>To keep connected with us please login with your personal info</p>
-                                <button class="ghost" id="signIn">Sign In</button>
-                        </div>
-                </div>
         </div>
         <span>or use your email for registration</span>
-        <input type="name" placeholder="Name" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <button>Sign Up</button>
+        <input name="username" type="text" placeholder="Username" />
+        <input name="email" type="email" placeholder="Email" />
+        <input name="password" type="password" placeholder="Password" />
+        <input name="name" type="text" placeholder="Fullname" />
+        <input name="address" type="text" placeholder="Address" />
+        <div class="g-recaptcha" data-sitekey="6LcHauMdAAAAAEed34vF3Ep5JzEMyYJ80noSxMwW"></div>
+        <button type="submit">Sign Up</button>
+
       </form>
     </div>
     <div class="overlay-container">
