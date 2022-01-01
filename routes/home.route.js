@@ -70,12 +70,6 @@ router.route('/signup')
     });
 
 
-router.route('/register')
-    .get((req, res) => {
-        res.render('register');
-    });
-
-
 router.route('/about')
     .get((req, res) => {
         res.render('about');

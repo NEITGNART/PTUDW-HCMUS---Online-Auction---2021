@@ -148,4 +148,18 @@ export default (passport) => {
             }
         }
     ));
+
+    passport.use('signup', new LocalStrategy.Strategy({
+        usernameField: 'name',
+        emailField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    }, (req, username, password, done) => {
+        console.log(req.body);
+        const {
+            usrname,
+            email,
+            passwd
+        } = req.body;
+    }))
 }
