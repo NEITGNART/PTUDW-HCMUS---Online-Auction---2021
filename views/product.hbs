@@ -4,48 +4,48 @@
 <script defer="defer" async="async"
     src="//cdn.tgdd.vn/mwgcart/mwgcore/js/bundle/detailTGDD.min.v202112141140.js"></script> --}}
 {{!-- onclick="goToRSlide(2)" --}}
-<script>
+    <script>
 
-    let days = 1;
-    // Set the date we're counting down to
-    var countDownDate = new Date(Date.now() + days * 24 * 3600 * 1000);
+        let days = 1;
+        // Set the date we're counting down to
+        var countDownDate = new Date(Date.now() + days * 24 * 3600 * 1000);
 
-    // Update the count down every 1 second
-    var x = setInterval(function () {
+        // Update the count down every 1 second
+        var x = setInterval(function () {
 
-        // Get today's date and time
-        var now = new Date().getTime();
+            // Get today's date and time
+            var now = new Date().getTime();
 
-        // Find the distance between now and the count down date
-        var distance = countDownDate - now;
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
 
-        // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Display the result in the element with id="demo"
-
-
-        var product = $(".product-one")
-
-        for (let i = 0; i < product.length; ++i) {
-            product[i].innerHTML = days + "d : " + hours + "h :" + minutes + "m :" + seconds + "s";
-        }
-
-        // If the count down is finished, write some text
-        if (distance < 0) {
-            clearInterval(x);
+            // Display the result in the element with id="demo"
 
 
-            document.getElementByClassName("product-one").innerHTML = "EXPIRED";
+            var product = $(".product-one")
 
-        }
-    }, 1000);
+            for (let i = 0; i < product.length; ++i) {
+                product[i].innerHTML = days + "d : " + hours + "h :" + minutes + "m :" + seconds + "s";
+            }
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
 
 
-</script>
+                document.getElementByClassName("product-one").innerHTML = "EXPIRED";
+
+            }
+        }, 1000);
+
+
+    </script>
 
 
 {{/section}}
@@ -100,8 +100,6 @@
 <div class="container-fluid d-lg-flex">
 
 
-
-
     <div class="row"></div>
     <!-- Sidebar category -->
     <div class="category-sidebar col-lg-3 col-12 col-sm-12 pr-sm-5  col-md-3 ml-3 mt-3 pr-lg-2">
@@ -133,7 +131,6 @@
                 </div>
 
 
-
             </ul>
         </div>
         <!-- End sidebar category-->
@@ -145,39 +142,33 @@
 
         <div class="product-header mb-40">
             <div class="product-header-item">
-                <div class="item">Sort By : </div>
-                <select name="sort-by" class="select-bar" style="display: none;">
-                    <option value="all">All</option>
-                    <option value="name">Name</option>
-                    <option value="date">Date</option>
-                    <option value="type">Type</option>
-                    <option value="car">Car</option>
+                <div class="item">Sort By :</div>
+
+
+                <select class="nice-select browser-default custom-select">
+                    <option selected>Mặc định</option>
+                    <option value="1">thời gian giảm dần</option>
+                    <option value="2">giá tăng dần</option>
                 </select>
-                <div class="nice-select" tabindex="0"><span class="current">Type</span>
-                    <ul class="list">
-                        <li data-value="all" class="option">All</li>
-                        <li data-value="name" class="option">Name</li>
-                        <li data-value="date" class="option">Date</li>
-                        <li data-value="type" class="option selected focus">Type</li>
-                        <li data-value="car" class="option">Car</li>
-                    </ul>
-                </div>
             </div>
             <div class="product-header-item">
-                <div class="item">Show : </div>
-                <select name="sort-by" class="select-bar" style="display: none;">
-                    <option value="09">09</option>
-                    <option value="21">21</option>
-                    <option value="30">30</option>
-                    <option value="39">39</option>
-                    <option value="60">60</option>
-                </select><div class="nice-select select-bar" tabindex="0"><span class="current">09</span><ul class="list"><li data-value="09" class="option selected focus">09</li><li data-value="21" class="option">21</li><li data-value="30" class="option">30</li><li data-value="39" class="option">39</li><li data-value="60" class="option">60</li></ul></div>
+                <div class="item">Show :</div>
+
+                <select class="nice-select browser-default custom-select">
+                    <option selected>Mặc định</option>
+                    <option value="1">6</option>
+                    <option value="2">9</option>
+                    <option value="3">12</option>
+                </select>
             </div>
-            <form class="product-search ml-auto">
-                <input type="text" placeholder="Item Name">
-                <button type="submit"><i class="fas fa-search"></i></button>
+
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+
         </div>
+
 
         {{!-- Start Row --}}
 
@@ -188,72 +179,66 @@
                 {{#each products}}
 
                 {{!-- Start Item --}}
-                <div class="auction-item">
-                    <div class="auction-item-thumb">
-                        <a class="thumb-img" href="#">
-                            <img src={{getThumbnail images}} alt="item">
-                        </a>
-                        <a class="star-icon thumb-icon" href="#">
-                            <button class="btn btn-heart d-inline-block"> <i class="icon-heart far fa-heart"
-                                    aria-hidden="true"></i>
-                            </button>
-                        </a>
-                    </div>
-                    <div class="auction-item-content">
-                        <h6></h6>
-<<<<<<< HEAD
-=======
-                        <span class="text-overflow">{{name}}</span>
->>>>>>> 5020314953dce06001558f7b1c2a3bab3fcc4fd0
-                        <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px">{{name}}</div>
-                        <div class="bid-area d-flex justify-content-center">
-                            <div class="bid-amount current-price d-flex">
-                                <div class="icon">
-                                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                                </div>
-                                <div class="amount-content">
-                                    <div class="current">
-                                        Current Bid
-                                    </div>
-                                    <div class="amount">
-                                        {{currentPrice}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bid-amount buy-price d-flex">
-                                <div class="icon">
-                                    <i class="fas fa-money-bill-wave fa-2x"></i>
-                                </div>
-                                <div class="amount-content">
-                                    <div class="buy">
-                                        Buy Now
-                                    </div>
-                                    <div class="amount">
-                                        {{bestPrice}}
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="auction-item">
+                        <div class="auction-item-thumb">
+                            <a class="thumb-img" href="#">
+                                <img src={{getThumbnail images}} alt="item">
+                            </a>
+                            <a class="star-icon thumb-icon" href="#">
+                                <button class="btn btn-heart d-inline-block"><i class="icon-heart far fa-heart"
+                                                                                aria-hidden="true"></i>
+                                </button>
+                            </a>
                         </div>
-                        <div class="countdown-area d-flex">
-                            <div class="countdown product-one">
+                        <div class="auction-item-content">
+                            <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px">
+                                {{name}}</div>
+                            <div class="bid-area d-flex justify-content-center">
+                                <div class="bid-amount current-price d-flex">
+                                    <div class="icon">
+                                        <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="amount-content">
+                                        <div class="current">
+                                            Current Bid
+                                        </div>
+                                        <div class="amount">
+                                            {{currentPrice}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bid-amount buy-price d-flex">
+                                    <div class="icon">
+                                        <i class="fas fa-money-bill-wave fa-2x"></i>
+                                    </div>
+                                    <div class="amount-content">
+                                        <div class="buy">
+                                            Buy Now
+                                        </div>
+                                        <div class="amount">
+                                            {{bestPrice}}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <span class="total-bids">
+                            <div class="countdown-area d-flex">
+                                <div class="countdown product-one">
+                                </div>
+                                <span class="total-bids">
                                 30 bids
                             </span>
-                        </div>
-                        <div class="bid-now" type="button">
-                            <a href="#">Bid now</a>
+                            </div>
+                            <div class="bid-now" type="button">
+                                <a href="#">Bid now</a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {{!--End Item --}}
 
                 {{/each}}
 
             </div>
             {{!-- End Col --}}
-
-
 
 
         </div>
@@ -263,22 +248,7 @@
 
 
         <ul class="mt-3 pagination align-items-center justify-content-center">
-            {{!-- <li>
-                <a href=""><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-            </li>
-            <li>
-                <a href="" class="active">1</a>
-            </li>
-            <li>
-                <a href="#2">2</a>
-            </li>
-            <li>
-                <a href="#3">3</a>
-            </li>
-            <li>
-                <a href="#4"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-            </li> --}}
-            {{{displayPagination currentPage maxPage}}}
+            {{{displayPagination currentPage stringQuery maxPage}}}
         </ul>
 
 

@@ -1,9 +1,8 @@
-import {
-    engine
-} from 'express-handlebars';
+import {engine} from 'express-handlebars';
 import hbs_section from 'express-handlebars-sections';
 import numeral from 'numeral';
 import moment from 'moment'
+import productController from "../controllers/product.controller.js";
 
 export default (app) => {
     app.engine('hbs', engine({
@@ -20,105 +19,61 @@ export default (app) => {
 
             getThumbnail(list) {
                 return list[0]
-            },
+            }
+            ,
+            displayPagination(currentPage, stringQuery, maxPage) {
 
-            displayPagination(currentPage, maxPage) {
+                const pagination = productController.pagination(currentPage, maxPage);
 
+                let type = Object.keys(stringQuery).map(key => key + '=' + stringQuery[key]).join('&');
+                let query = type.replace(/\s/g, '%20');
 
-                if (currentPage <= 5) {
+                console.log("Query" + type);
 
+                let html = '';
 
-                    let res = "";
+                const hrefStart = `?page=${currentPage - 1}&${query}`;
 
-                    if (currentPage == 1 || currentPage == 0)
-                        res += `<li>
-                          <a class="btn-disable"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-                            </li>`
-                    else {
-                        res += `<li>
-                          <a href="?page=1" class=""><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-                            </li>`
-                    }
-
-                    console.log(currentPage);
-
-                    for (let i = 1; i < 5; ++i) {
-                        if (i === +currentPage) {
-                            res += `
-                                 <li>
-                                    <a href="?page=${i}" class="active"> ${i} </i></a>
-                                </li>
-                            `
-                        }
-                        else {
-                            res += `
-                            <li>
-                             <a href="?page=${i}">${i}</i></a>
-                            <li>`
-                        }
-                    }
-                    res += ` <li>
-                    <a href="${currentPage + 1}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-                   </li>`
-
-                    return res;
-
-                }
-
-                if (currentPage > 5 && currentPage + 5 < maxPage) {
-
-                    return `
-                    
-                        <li>
-                        <a href="?page={1}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-
-                        <li>
-                         <a href="?page=${currentPage - 1}">${currentPage - 1}</i></a>
-                         </li>
-                        <li>
-
-                        <li>
-                         <a href="?page=${currentPage - 2}">${currentPage - 2}</i></a>
-                         </li>
-                        <li>
-
-
-                        <li>
-                         <a href="?page=?page=${currentPage - 1}">${currentPage - 1}</i></a>
-                         </li>
-                        <li>
-
-
-                        <li>
-                        <a href="${currentPage}" class="active">${currentPage}</i></a>
-                        </li>
-                       <li>
-
-
-                       <li>
-                        <a href="?page=${currentPage + 1}" class="active">${currentPage + 1}</i></a>
-                        </li>
-                       <li>
-                        
-                       <li>
-                        <a href="?page=${currentPage + 2}" class="active">${currentPage + 2}</i></a>
-                        </li>
-                       <li>
-                         <li>
-                         <a href="?page=${currentPage + 1}"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-                        </li>`
+                if (currentPage === 1) {
                 } else {
-
+                    html += `<li><a href=${hrefStart}><i class="fa fa-arrow-left" aria-hidden="true"></i></a></li>`;
                 }
 
+                // implement a pagination
+                for (let i = 0; i < pagination.length; i++) {
+                    let href;
+
+                    if (pagination[i] === '...') {
+                        let random = Math.floor(Math.random() * (pagination[i + 1] - pagination[i - 1] + 1)) + pagination[i - 1];
+                        href = `?page=${random}&${query}`;
+                    } else {
+                        href = `?page=${pagination[i]}&${query}`;
+                    }
+
+                    if (pagination[i] === currentPage) {
+                        html += `<li><a href= ${href} class="active">${pagination[i]}</a></li>`;
+                    } else {
+                        html += `<li><a href=${href}>${pagination[i]}</a></li>`;
+                    }
+                }
+                
+                const hrefEnd = `?page=${currentPage + 1}&${query}`;
+
+                if (currentPage === maxPage) {
+                } else {
+                    html += `<li><a href=${hrefEnd}><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>`;
+                }
+
+                return html;
 
             }
+            ,
+
 
         }
 
-    }));
+    }))
+    ;
     app.set('view engine', 'hbs');
     app.set('views', './views');
 }

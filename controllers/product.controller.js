@@ -1,8 +1,6 @@
 import ProductModel from '../models/product.model.js';
 import CategoryModel from '../models/category.model.js';
-
-
-import moment from 'moment'
+import moment from 'moment';
 
 function maskInfo(value) {
     let maskedValue = value;
@@ -24,173 +22,138 @@ function extendExpire(date) {
 };
 
 
-
-
 const productController = {
 
 
+    index: async (req, res) => {
 
-    sortProductByTime: async (req, res) => {
-        const maxItems = 12;
-        const currentPage = req.query.page || 1;
-        let skipItem = (currentPage - 1) * maxItems;
-        const maxPage = (ProductModel.countDocuments() / maxItems) + 1;
+        const sort = req.query.sort;
+        const category = req.query.category || "";
+        let maxItems = +req.query.limit || 12;
+        let currentPage = +req.query.page || 1;
+        let skipItem = (currentPage - 1) * maxItems || 0;
+        skipItem = +skipItem;
+        console.log(skipItem);
+        currentPage = +currentPage;
 
-        const products = await ProductModel.find({
-            status: "bidding"
-        }).skip(skipItem).limit(maxItems).sort({ expDate: -1 }).lean();
+        let stringQuery = req.query;
+        delete stringQuery.page;
 
-        // update product
-        products.forEach(async (product) => {
 
-            var doc = await ProductModel.findOne({
-                _id: product._id
+        var products;
+        var totalItems;
+
+        if (category === "") {
+
+            // random product
+            totalItems = await ProductModel.countDocuments();
+
+            products = await ProductModel.aggregate([
+                {
+                    $sample: {
+                        size: maxItems
+                    }
+                },
+                {
+                    $sort: {
+                        [sort]: 1
+                    }
+                },
+
+                {
+                    $limit: maxItems
+                },
+                {
+                    $match: {
+                        status: "bidding",
+                    }
+                },
+
+            ]);
+        } else {
+            // calculate total items in document
+
+            totalItems = await ProductModel.countDocuments({
+                category: category
             });
 
-            if (doc.extend === 'yes' && isExpired(product.expDate) <= 5 * 60 * 1000) {
-                doc.extend = 'no';
-                doc.expDate = extendExpire(product.expDate);
-            }
-
-
-            if (isExpired(product.expDate) <= 0) {
-                doc.status = 'done';
-                // Update category
-                try {
-                    const cat = await CategoryModel.findOne({
-                        subCate: {
-                            $in: doc.category[0]
-                        }
-                    });
-                    // await cat.save();
-                } catch {
-                    console.log("Error");
+            products = await ProductModel.aggregate([
+                {
+                    $match: {
+                        category: category,
+                        status: "bidding",
+                    }
+                },
+                {
+                    $sample: {
+                        size: maxItems
+                    }
+                },
+                {
+                    $sort: {
+                        [sort]: 1
+                    }
+                },
+                {
+                    $limit: maxItems
                 }
-                // await doc.save();
-            }
-        })
+            ]);
+        }
+
 
         const cats = await CategoryModel.find().lean();
+
+        const maxPage = parseInt(((totalItems) / (maxItems)) + 1);
+        if (currentPage > maxPage) {
+            res.render('404', {
+                layout: false
+            });
+            return;
+        }
+
+        console.log(stringQuery)
 
         res.render('product', {
             products,
             cats,
             currentPage,
+            stringQuery,
             maxPage
         })
 
-
-
-
     },
+    pagination(c, m) {
+        var current = c,
+            last = m,
+            delta = 2,
+            left = current - delta,
+            right = current + delta + 1,
+            range = [],
+            rangeWithDots = [],
+            l;
 
-    sortProductByPrice: async (req, res) => {
-        const maxItems = 12;
-        const currentPage = req.query.page || 1;
-        let skipItem = (currentPage - 1) * maxItems;
-        const maxPage = (ProductModel.countDocuments() / maxItems) + 1;
-
-        const products = await ProductModel.find({
-            status: "bidding"
-        }).skip(skipItem).limit(maxItems).sort({ currentPrice: 1 }).lean();
-
-        // update product
-        products.forEach(async (product) => {
-
-            var doc = await ProductModel.findOne({
-                _id: product._id
-            });
-
-            if (doc.extend === 'yes' && isExpired(product.expDate) <= 5 * 60 * 1000) {
-                doc.extend = 'no';
-                doc.expDate = extendExpire(product.expDate);
+        for (let i = 1; i <= last; i++) {
+            if (i === 1 || i === last || i >= left && i < right) {
+                range.push(i);
             }
+        }
 
-
-            if (isExpired(product.expDate) <= 0) {
-                doc.status = 'done';
-                // Update category
-                try {
-                    const cat = await CategoryModel.findOne({
-                        subCate: {
-                            $in: doc.category[0]
-                        }
-                    });
-                    // await cat.save();
-                } catch {
-                    console.log("Error");
+        for (let i of range) {
+            if (l) {
+                if (i - l === 2) {
+                    rangeWithDots.push(l + 1);
+                } else if (i - l !== 1) {
+                    rangeWithDots.push('...');
                 }
-                // await doc.save();
             }
-        })
+            rangeWithDots.push(i);
+            l = i;
+        }
 
-        const cats = await CategoryModel.find().lean();
-
-        res.render('product', {
-            products,
-            cats,
-            currentPage,
-            maxPage
-        })
+        return rangeWithDots;
+    }
 
 
-
-
-    },
-
-    listProduct: async (req, res) => {
-
-
-        const maxItems = 12;
-        const currentPage = req.query.page || 1;
-        let skipItem = (currentPage - 1) * maxItems;
-        const maxPage = (ProductModel.countDocuments() / maxItems) + 1;
-
-
-        const products = await ProductModel.find({
-            status: "bidding"
-        }).skip(skipItem).limit(maxItems).lean();
-        // update product
-        products.forEach(async (product) => {
-
-            var doc = await ProductModel.findOne({
-                _id: product._id
-            });
-
-            if (doc.extend === 'yes' && isExpired(product.expDate) <= 5 * 60 * 1000) {
-                doc.extend = 'no';
-                doc.expDate = extendExpire(product.expDate);
-            }
-
-
-            if (isExpired(product.expDate) <= 0) {
-                doc.status = 'done';
-                // Update category
-                try {
-                    const cat = await CategoryModel.findOne({
-                        subCate: {
-                            $in: doc.category[0]
-                        }
-                    });
-                    // await cat.save();
-                } catch {
-                    console.log("Error");
-                }
-                // await doc.save();
-            }
-        })
-
-        const cats = await CategoryModel.find().lean();
-
-
-        res.render('product', {
-            products,
-            cats,
-            currentPage,
-            maxPage
-        })
-
-    },
 }
 
 
