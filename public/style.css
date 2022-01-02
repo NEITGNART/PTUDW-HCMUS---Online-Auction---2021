@@ -1323,15 +1323,27 @@ pagination {
 
 
 /*=======================================================auction-item-slider===================================*/
-.top-end-time{
-  margin: 25px 0px;
+
+.product-slider{
+  background-color: rgba(209,209,219,100);
+  padding: 25px 50px;
 }
 
-.top-deal-price{
+.top-five-product{
   margin: 25px 0px;
+  background-color: white;
+  border-radius: 5px;
+  height: 100%;
 }
 
-.top-best-price{
-  margin: 25px 0px;
+.cS-hidden {
+  height: 1px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  overflow: hidden;
+}
+
+.auction-item-slide{
+  margin: 10px 20px;
 }
 /*=======================================================product-header===================================*/

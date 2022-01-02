@@ -9,8 +9,14 @@
 <script>
   $(document).ready(function () {
     $('#end-time').lightSlider({
+      item: 3,
       autoWidth: true,
-      loop: true,
+      loop: false,
+      slideMove:1,
+      slideMargin: 50,
+      easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
+      controls: false,
+      pager: false,
       onSliderLoad: function () {
         $('#end-time').removeClass('cS-hidden');
       }
@@ -21,10 +27,16 @@
 <script>
   $(document).ready(function () {
     $('#deal-price').lightSlider({
+      item: 3,
       autoWidth: true,
-      loop: true,
+      loop: false,
+      slideMove:1,
+      slideMargin: 50,
+      easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
+      controls: false,
+      pager: false,
       onSliderLoad: function () {
-        $('#deal-price').removeClass('cS-hidden');
+        $('#end-time').removeClass('cS-hidden');
       }
     });
   });
@@ -33,10 +45,16 @@
 <script>
   $(document).ready(function () {
     $('#best-price').lightSlider({
+      item: 3,
       autoWidth: true,
-      loop: true,
+      loop: false,
+      slideMove:1,
+      slideMargin: 50,
+      easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
+      controls: false,
+      pager: false,
       onSliderLoad: function () {
-        $('#best-price').removeClass('cS-hidden');
+        $('#end-time').removeClass('cS-hidden');
       }
     });
   });
@@ -50,16 +68,13 @@
 {{/section}}
 
 <section class="product-slider">
-  <div class="top-end-time">
+  <div class="top-five-product">
     <h2 class="header-top-product">
-        Top 5 sản phẩm gần kết thúc
+          Top 5 sản phẩm gần kết thúc
     </h2>
     <ul id="end-time" class="cs-hidden">
       <li class="item-a">
-        <div class="ranking">
-          <h3>TOP 1</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
@@ -117,10 +132,7 @@
         </div>
       </li>
       <li class="item-b">
-        <div class="ranking">
-          <h3>TOP 2</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
@@ -178,10 +190,7 @@
         </div>
       </li>
       <li class="item-c">
-        <div class="ranking">
-          <h3>TOP 3</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
@@ -239,10 +248,7 @@
         </div>
       </li>
       <li class="item-d">
-        <div class="ranking">
-          <h3>TOP 4</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
@@ -300,10 +306,7 @@
         </div>
       </li>
       <li class="item-e">
-        <div class="ranking">
-          <h3>TOP 5</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
@@ -363,16 +366,13 @@
     </ul>
   </div>
 
-  <div class="top-deal-price">
+  <div class="top-five-product">
     <h2 class="header-top-product">
         Top 5 sản phẩm có nhiều lượt ra giá nhất
     </h2>
     <ul id="deal-price" class="cs-hidden">
       <li class="item-a">
-        <div class="ranking">
-          <h3>TOP 1</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
@@ -430,10 +430,7 @@
         </div>
       </li>
       <li class="item-b">
-        <div class="ranking">
-          <h3>TOP 2</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
@@ -491,10 +488,7 @@
         </div>
       </li>
       <li class="item-c">
-        <div class="ranking">
-          <h3>TOP 3</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
@@ -552,10 +546,7 @@
         </div>
       </li>
       <li class="item-d">
-        <div class="ranking">
-          <h3>TOP 4</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
@@ -613,10 +604,7 @@
         </div>
       </li>
       <li class="item-e">
-        <div class="ranking">
-          <h3>TOP 5</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
@@ -676,14 +664,11 @@
     </ul>
   </div>
 
-  <div class="top-best-price">
+  <div class="top-five-product">
     <h2 class="header-top-product">Top 5 sản phẩm có giá cao nhất</h2>
     <ul id="best-price" class="cs-hidden">
       <li class="item-a">
-        <div class="ranking">
-          <h3>TOP 1</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
@@ -741,10 +726,7 @@
         </div>
       </li>
       <li class="item-b">
-        <div class="ranking">
-          <h3>TOP 2</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
@@ -802,10 +784,7 @@
         </div>
       </li>
       <li class="item-c">
-        <div class="ranking">
-          <h3>TOP 3</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
@@ -863,10 +842,7 @@
         </div>
       </li>
       <li class="item-d">
-        <div class="ranking">
-          <h3>TOP 4</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
@@ -924,10 +900,7 @@
         </div>
       </li>
       <li class="item-e">
-        <div class="ranking">
-          <h3>TOP 5</h3>
-        </div>
-        <div class="auction-item">
+        <div class="auction-item auction-item-slide">
           <div class="auction-item-thumb">
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
