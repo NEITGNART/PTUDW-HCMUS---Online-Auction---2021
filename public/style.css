@@ -1209,9 +1209,8 @@ pagination {
 
 /*=======================================================product-header===================================*/
 
-.mb-40{
-  margin-bottom: 40px;
-  margin-top: 40px;
+.m-17{
+  margin-top: 18px;
 }
 
 .product-header {
@@ -1289,3 +1288,15 @@ pagination {
 /*=======================================================product-header===================================*/
 
 
+/*=======================================================auction-item-slider===================================*/
+.top-end-time{
+  margin: 25px 0px;
+}
+
+.top-deal-price{
+  margin: 25px 0px;
+}
+
+.top-best-price{
+  margin: 25px 0px;
+}
