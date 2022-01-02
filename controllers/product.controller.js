@@ -27,13 +27,13 @@ const productController = {
 
     index: async (req, res) => {
 
+        const search = req.query.search || "";
         const sort = req.query.sort;
         const category = req.query.category || "";
         let maxItems = +req.query.limit || 12;
         let currentPage = +req.query.page || 1;
-        let skipItem = (currentPage - 1) * maxItems || 0;
+        let skipItem = (currentPage - 1) * maxItems;
         skipItem = +skipItem;
-        console.log(skipItem);
         currentPage = +currentPage;
 
         let stringQuery = req.query;
@@ -48,26 +48,50 @@ const productController = {
             // random product
             totalItems = await ProductModel.countDocuments();
 
-            products = await ProductModel.aggregate([
+            const sortProduct =
                 {
-                    $sample: {
-                        size: maxItems
-                    }
-                },
-                {
+                    // if sort is sellDate, descending
                     $sort: {
                         [sort]: 1
                     }
-                },
+                }
+            if (sort === "expDate") {
+                sortProduct.$sort[sort] = -1;
+            }
 
-                {
-                    $limit: maxItems
-                },
+
+            let searchQuery;
+
+            if (search !== "") {
+                searchQuery = {
+                    $match: {
+                        $text: {
+                            $search: search
+                        }
+                    }
+                };
+            } else {
+                // not include search
+                searchQuery = {};
+            }
+
+
+            products = await ProductModel.aggregate([
+                // full text search
+                searchQuery,
                 {
                     $match: {
                         status: "bidding",
                     }
                 },
+                sortProduct,
+
+                {
+                    $skip: skipItem
+                },
+                {
+                    $limit: maxItems
+                }
 
             ]);
         } else {
@@ -78,15 +102,11 @@ const productController = {
             });
 
             products = await ProductModel.aggregate([
+                searchQuery,
                 {
                     $match: {
                         category: category,
                         status: "bidding",
-                    }
-                },
-                {
-                    $sample: {
-                        size: maxItems
                     }
                 },
                 {
@@ -95,30 +115,37 @@ const productController = {
                     }
                 },
                 {
+                    $skip: skipItem
+                },
+                {
                     $limit: maxItems
                 }
             ]);
         }
 
+        console.log("Total" + totalItems);
 
         const cats = await CategoryModel.find().lean();
 
-        const maxPage = parseInt(((totalItems) / (maxItems)) + 1);
-        if (currentPage > maxPage) {
-            res.render('404', {
-                layout: false
-            });
-            return;
+        let maxPage = parseInt(((totalItems) / (maxItems)) + 1);
+
+        if (totalItems % maxItems === 0) {
+            maxPage = maxPage - 1;
         }
 
-        console.log(stringQuery)
+        if (currentPage > maxPage) {
+            currentPage = maxPage;
+        }
+
 
         res.render('product', {
             products,
-            cats,
+            category,
             currentPage,
             stringQuery,
-            maxPage
+            maxPage,
+            maxItems,
+            sort
         })
 
     },
