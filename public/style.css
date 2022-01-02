@@ -993,7 +993,6 @@ div[class*="auction"] .custom-button {
 
 .dash-pro-item .header {
   justify-content: space-between;
-  margin-bottom: 30px;
   display: flex;
 }
 
@@ -1011,25 +1010,20 @@ div[class*="auction"] .custom-button {
 .dash-pro-item .dash-pro-body li {
   list-style: none;
   display: flex;
+  flex-direction: column;
   margin-top: 10px;
 }
 
 .dash-pro-item .dash-pro-body .info-name {
-  width: 25%;
+  width: 50%;
   position: relative;
   padding-top: 1%;
   padding-right: 5%;
-}
-
-.dash-pro-item .dash-pro-body .info-name::after {
-  content: ":";
-  position: absolute;
-  right: 0;
+  color: #f36c13;
 }
 
 .dash-pro-item .dash-pro-body .info-value {
   width: 75%;
-  padding-left: 5%;
 }
 
 .dash-pro-item .dash-pro-body .info-value input {
@@ -1082,6 +1076,35 @@ div[class*="auction"] .custom-button {
   display: flex;
   justify-content: center;
   padding: 10px;
+}
+
+@media only screen and (min-width: 540px) {
+  .dash-pro-item .dash-pro-body .info-name {
+    color: #333;
+  }
+
+  .dash-pro-item .dash-pro-body li {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+  }
+
+  .dash-pro-item .dash-pro-body .info-name::after {
+    content: ":";
+    position: absolute;
+    right: 0;
+  }
+
+  .dash-pro-item .dash-pro-body .info-value {
+    padding-left: 5%;
+  }
+
+  .dash-pro-item .header {
+    margin-bottom: 30px;
+  }
+
+
 }
 
 /* =================================== DASHBOARD =================================== */
