@@ -75,7 +75,9 @@ router.route('/signup')
             failureFlash: true
         }),
         async (req, res) => {
-            res.redirect('/login');
+            console.log('aaaaaaaaaaaaaaaaaaaaa');
+            res.locals.user = await User.findById(req.session.passport.user);
+            res.redirect('/');
         });
 
 

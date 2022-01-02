@@ -157,7 +157,7 @@ export default (passport) => {
         fullnameField: 'name',
         addressField: 'address',
         passReqToCallback: true
-    }, (req, username, password, done) => {
+    }, async (req, username, password, done) => {
         console.log(req.body);
 
         const errors = validate.validationResult(req);
@@ -167,5 +167,46 @@ export default (passport) => {
                 message: errors.array()[0].msg
             });
         }
+        const fname = req.body.name;
+        const email = req.body.email;
+        const address = req.body.address;
+        try {
+            const user = await User.findOne({
+                method: 'local',
+                authId: username
+            });
+            if (user) {
+                return done(null, false, {
+                    message: 'Tài khoản đã tồn tại'
+                });
+            }
+            const emailUser = await User.findOne({
+                method: 'local',
+                'profile.email': email
+            });
+            if (emailUser) {
+                return done(null, false, {
+                    message: 'Email đã được sử dụng'
+                });
+            }
+
+            const salt = bcrypt.genSaltSync(10);
+            password = bcrypt.hashSync(password, salt);
+
+            const newUser = new User({
+                authId: username,
+                secret: password,
+                profile: {
+                    name: fname,
+                    email: email,
+                    address: address
+                }
+            });
+            await newUser.save();
+            done(null, newUser);
+        } catch (err) {
+            console.log(err);
+        }
+
     }))
 }
