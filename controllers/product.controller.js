@@ -27,6 +27,7 @@ const productController = {
 
     index: async (req, res) => {
 
+        const search = req.query.search || "";
         const sort = req.query.sort;
         const category = req.query.category || "";
         let maxItems = +req.query.limit || 12;
@@ -58,7 +59,26 @@ const productController = {
                 sortProduct.$sort[sort] = -1;
             }
 
+
+            let searchQuery;
+
+            if (search !== "") {
+                searchQuery = {
+                    $match: {
+                        $text: {
+                            $search: search
+                        }
+                    }
+                };
+            } else {
+                // not include search
+                searchQuery = {};
+            }
+
+
             products = await ProductModel.aggregate([
+                // full text search
+                searchQuery,
                 {
                     $match: {
                         status: "bidding",
@@ -82,6 +102,7 @@ const productController = {
             });
 
             products = await ProductModel.aggregate([
+                searchQuery,
                 {
                     $match: {
                         category: category,
@@ -113,12 +134,8 @@ const productController = {
         }
 
         if (currentPage > maxPage) {
-            res.render('404', {
-                layout: false
-            });
-            return;
+            currentPage = maxPage;
         }
-
 
 
         res.render('product', {

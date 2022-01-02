@@ -147,6 +147,24 @@
         }
 
 
+        // if id search enter key
+        $(document).ready(function () {
+            $("#search").keypress(function (event) {
+                if (event.which === 13) {
+                    event.preventDefault();
+                    var search = $("#search").val();
+                    window.location.href = "?search=" + search;
+                }
+            });
+        });
+
+
+
+        function handleSearch() {
+            let search = $("#search").val();
+            window.location.href = "?search=" + search;
+        }
+
     </script>
 
 
@@ -228,7 +246,7 @@
 
         <div class="product-header m-17">
             <div class="product-header-item">
-                <div class="item">Sort By :</div>
+                <div class="item">Sắp xếp :</div>
 
 
                 <select id="sort" class="nice-select browser-default custom-select">
@@ -236,17 +254,18 @@
                 </select>
             </div>
             <div class="product-header-item">
-                <div class="item">Show :</div>
+                <div class="item">Hiển thị :</div>
 
                 <select id="number-product" class="nice-select browser-default custom-select">
                     {{{checkLimit maxItems}}}
                 </select>
             </div>
 
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="d-flex">
+                <input class="form-control me-2" id="search" placeholder="Tìm kiếm sản phẩm"
+                       aria-label="Search">
+                <button class="btn btn-outline-success" onclick="handleSearch()">Tìm kiếm</button>
+            </div>
 
         </div>
 
