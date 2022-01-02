@@ -185,11 +185,9 @@ start-time {
 }
 
 .bid-now a {
-  background-image: linear-gradient(
-    0deg,
-    rgb(61, 169, 245) 0%,
-    rgb(104, 61, 245) 100%
-  );
+  background-image: linear-gradient(0deg,
+      rgb(61, 169, 245) 0%,
+      rgb(104, 61, 245) 100%);
   border-radius: 30px;
   box-shadow: #aaa2d6 -1.04px 4.891px 20px 0px;
   margin-bottom: 5%;
@@ -206,11 +204,9 @@ start-time {
 
 .bid-now a:hover {
   text-decoration: none;
-  background-image: linear-gradient(
-    0deg,
-    rgb(104, 61, 245) 0%,
-    rgb(61, 169, 245) 100%
-  );
+  background-image: linear-gradient(0deg,
+      rgb(104, 61, 245) 0%,
+      rgb(61, 169, 245) 100%);
   box-shadow: #4c3ab6 -1.04px 4.891px 20px 0px;
 }
 
@@ -222,38 +218,38 @@ start-time {
 /* ======================== Product card ==========================*/
 
 /* ======================== Start: Login ==========================*/
-.section-account{
+.section-account {
   background: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 48px 0;
+  margin: 50px 0;
 }
 
-.section-account h1{
+.section-account h1 {
   font-weight: bold;
   margin: 0;
 }
 
-.section-account p{
+.section-account p {
   font-size: 14px;
   font-weight: 100;
   line-height: 1.2;
 }
 
-.section-account span{
+.section-account span {
   font-size: 12px;
 }
 
-.section-account a{
+.section-account a {
   color: #333;
   font-size: 14px;
   text-decoration: none;
-  margin: 15px 0;
+  margin: 10px 0;
 }
 
-.section-account .container{
+.section-account .container {
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -261,10 +257,10 @@ start-time {
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 480px;
+  min-height: 540px;
 }
 
-.form-container form{
+.form-container form {
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -275,8 +271,8 @@ start-time {
   text-align: center;
 }
 
-.social-container{
-  margin: 15px 0;
+.social-container {
+  margin: 10px 0;
 }
 
 .social-container a {
@@ -293,14 +289,16 @@ start-time {
 .social-container a i[class*="facebook"] {
   color: #3B5998;
 }
+
 .social-container a i[class*="google"] {
   color: #EA4335;
 }
+
 .social-container a i[class*="github"] {
   color: #8A3AB9;
 }
 
-.social-container a:hover{
+.social-container a:hover {
   background: #5140fe;
 }
 
@@ -308,15 +306,15 @@ start-time {
   color: #fff;
 }
 
-.form-container input{
+.form-container input {
   background: #eee;
   border: none;
   padding: 12px 15px;
-  margin: 8px 0;
+  margin: 4px 0;
   width: 100%;
 }
 
-.section-account button{
+.section-account button {
   border-radius: 20px;
   border: 1px solid #5140fe;
   background: #5140fe;
@@ -329,41 +327,41 @@ start-time {
   cursor: pointer;
 }
 
-.section-account button:active{
+.section-account button:active {
   transform: scale(0.95);
 }
 
-.section-account button:focus{
+.section-account button:focus {
   outline: none;
 }
 
-.section-account button.ghost{
+.section-account button.ghost {
   background: transparent;
   border-color: #fff;
 }
 
-.form-container{
+.form-container {
   position: absolute;
-  top:0;
+  top: 0;
   height: 100%;
 }
 
-.account-container{
+.account-container {
   left: 0;
   width: 50%;
 }
 
-.overlay-container{
+.overlay-container {
   position: absolute;
-  top:0;
+  top: 0;
   left: 50%;
   width: 50%;
   height: 100%;
   overflow: hidden;
 }
 
-.overlay{
-  background: linear-gradient(to right, #7757f7,#9d6ef0) no-repeat 0 0/ cover;
+.overlay {
+  background: linear-gradient(to right, #7757f7, #9d6ef0) no-repeat 0 0/ cover;
   color: #fff;
   position: absolute;
   top: 0;
@@ -379,58 +377,59 @@ start-time {
 
 }
 
- @media (max-width: 576px) {
+@media (max-width: 576px) {
 
-  .section-account{
+  .section-account {
     margin: 24px 6px;
   }
 
-  .section-account h1{
+  .section-account h1 {
     font-weight: bold;
     margin: 0;
     font-size: 1.5rem;
   }
 
-  .section-account p{
+  .section-account p {
     font-size: 10px;
     line-height: 1;
   }
 
-  .section-account span{
+  .section-account span {
     font-size: 10px;
   }
 
-  .section-account button{
+  .section-account button {
     border-radius: 10px;
     font-size: 8px;
     padding: 8px 30px;
   }
 
-  .form-container input{
-    padding: 8px 10px;
+  .form-container input {
+    padding: 4px 10px;
     margin: 4px 0;
   }
 
-  .section-account .container{
+  .section-account .container {
     display: block;
     position: relative;
   }
 
-  .form-container{
+  .form-container {
     width: 100%;
-    top:0;
+    top: 0;
     left: 0;
     height: 70%;
     width: 100%;
   }
 
-  .overlay-container{
+  .overlay-container {
     width: 100%;
-    left:0;
+    left: 0;
     top: 70%;
     height: 30%;
-  } 
+  }
 }
+
 /* ======================== End: Login ==========================*/
 
 /* ======================== Start: About ==========================*/
@@ -476,7 +475,7 @@ start-time {
 
 @media (min-width: 576px) {
   .about-content .item-area .item {
-      max-width: 250px;
+    max-width: 250px;
   }
 }
 
@@ -505,14 +504,14 @@ start-time {
 
 @media (max-width: 575px) {
   .about-wrapper {
-      padding-left: 15px;
-      padding-right: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
 @media (max-width: 991px) {
   .about-wrapper {
-      padding-top: 50px;
+    padding-top: 50px;
   }
 }
 
@@ -527,7 +526,7 @@ start-time {
 
 @media (max-width: 991px) {
   .about-thumb {
-      display: none;
+    display: none;
   }
 }
 
@@ -540,7 +539,7 @@ start-time {
   margin-top: 100px;
 }
 
-.padding-top{
+.padding-top {
   padding-top: 80px;
 }
 
@@ -597,12 +596,12 @@ start-time {
   text-transform: capitalize;
 }
 
-@media (min-width: 768px){
-  .padding-top{
+@media (min-width: 768px) {
+  .padding-top {
     padding-top: 100px;
   }
 
-  .padding-bottom{
+  .padding-bottom {
     padding-bottom: 100px;
   }
 
@@ -617,26 +616,26 @@ start-time {
 
 @media (min-width: 992px) {
   .overview-content {
-      max-width: 585px;
-      margin-left: auto;
-      padding-left: 30px;
+    max-width: 585px;
+    margin-left: auto;
+    padding-left: 30px;
   }
 
-  .mw-lg-100{
+  .mw-lg-100 {
     min-width: 100%;
   }
 
-  .padding-top{
+  .padding-top {
     padding-top: 120px;
   }
 
-  .padding-bottom{
+  .padding-bottom {
     padding-bottom: 120px;
   }
 
 }
 
-.mt-10{
+.mt-10 {
   margin-top: 10px;
 }
 
@@ -685,7 +684,8 @@ start-time {
   box-shadow: -1.04px 4.891px 20px 0px rgb(69 49 183 / 50%);
 }
 
-.call-wrapper a, .team-section a {
+.call-wrapper a,
+.team-section a {
   display: inline-block;
   transition: all ease 0.3s;
   text-decoration: none;
@@ -703,19 +703,19 @@ start-time {
 
 @media (max-width: 991px) {
   .call-wrapper {
-      padding: 65px 40px 30px;
+    padding: 65px 40px 30px;
   }
 }
 
 @media (max-width: 575px) {
   .call-wrapper {
-      padding: 65px 30px 30px;
+    padding: 65px 30px 30px;
   }
 }
 
 @media screen and (max-width: 499px) {
   .call-wrapper {
-      padding: 65px 15px 30px;
+    padding: 65px 15px 30px;
   }
 }
 
@@ -745,7 +745,7 @@ start-time {
   box-shadow: 1.753px 3.595px 10px 0px rgba(44, 46, 69, 0.09);
 
   position: absolute;
-    content: '';
+  content: '';
 }
 
 .team-item .team-inner * {
@@ -777,8 +777,8 @@ start-time {
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  padding: 0! important;
-  margin: 0! important;
+  padding: 0 ! important;
+  margin: 0 ! important;
 }
 
 .team-item .team-inner .team-content .social li {
@@ -796,9 +796,11 @@ start-time {
 .team-content .social li a:hover i[class*="facebook"] {
   color: #3B5998;
 }
+
 .team-content .social li a:hover i[class*="google"] {
   color: #EA4335;
 }
+
 .team-content .social li a:hover i[class*="github"] {
   color: #8A3AB9;
 }
@@ -862,6 +864,7 @@ start-time {
 div[class*="auction"] .custom-button {
   text-transform: capitalize;
 }
+
 /* ======================== End: About ==========================*/
 
 /* =================================== DASHBOARD =================================== */
@@ -990,7 +993,6 @@ div[class*="auction"] .custom-button {
 
 .dash-pro-item .header {
   justify-content: space-between;
-  margin-bottom: 30px;
   display: flex;
 }
 
@@ -1008,25 +1010,20 @@ div[class*="auction"] .custom-button {
 .dash-pro-item .dash-pro-body li {
   list-style: none;
   display: flex;
+  flex-direction: column;
   margin-top: 10px;
 }
 
 .dash-pro-item .dash-pro-body .info-name {
-  width: 25%;
+  width: 50%;
   position: relative;
   padding-top: 1%;
   padding-right: 5%;
-}
-
-.dash-pro-item .dash-pro-body .info-name::after {
-  content: ":";
-  position: absolute;
-  right: 0;
+  color: #f36c13;
 }
 
 .dash-pro-item .dash-pro-body .info-value {
   width: 75%;
-  padding-left: 5%;
 }
 
 .dash-pro-item .dash-pro-body .info-value input {
@@ -1081,9 +1078,38 @@ div[class*="auction"] .custom-button {
   padding: 10px;
 }
 
+@media only screen and (min-width: 540px) {
+  .dash-pro-item .dash-pro-body .info-name {
+    color: #333;
+  }
+
+  .dash-pro-item .dash-pro-body li {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+  }
+
+  .dash-pro-item .dash-pro-body .info-name::after {
+    content: ":";
+    position: absolute;
+    right: 0;
+  }
+
+  .dash-pro-item .dash-pro-body .info-value {
+    padding-left: 5%;
+  }
+
+  .dash-pro-item .header {
+    margin-bottom: 30px;
+  }
+
+
+}
+
 /* =================================== DASHBOARD =================================== */
 
-/* ========================  Foooter ==========================*/
+/* ========================  Footer ==========================*/
 
 #myFooter {
   background-color: #373a48;
@@ -1195,6 +1221,7 @@ pagination {
   color: #52606d;
   font-weight: 700;
 }
+
 .pagination li a.active,
 .pagination li a:hover {
   color: #ffffff;
@@ -1209,8 +1236,13 @@ pagination {
 
 /*=======================================================product-header===================================*/
 
+
 .m-17{
   margin-top: 18px;
+}
+.mb-40 {
+  margin-bottom: 40px;
+  margin-top: 40px;
 }
 
 .product-header {
@@ -1222,16 +1254,16 @@ pagination {
   justify-content: space-between;
 
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
-.product-header select{
-    font-family: inherit;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
+.product-header select {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
 
-    word-wrap: normal;
+  word-wrap: normal;
 }
 
 .product-header .product-header-item {
@@ -1251,14 +1283,16 @@ pagination {
 
 
 @media (max-width: 991px) {
-  .product-header > * {
-      flex-grow: 1;
+  .product-header>* {
+    flex-grow: 1;
   }
 }
 
 @media (min-width: 992px) {
-  .product-header.style-2 .product-search, .product-header.style-2 .product-header-item {
-      width: calc((100% - 20px) / 3);
+
+  .product-header.style-2 .product-search,
+  .product-header.style-2 .product-header-item {
+    width: calc((100% - 20px) / 3);
   }
 }
 
@@ -1300,3 +1334,4 @@ pagination {
 .top-best-price{
   margin: 25px 0px;
 }
+/*=======================================================product-header===================================*/

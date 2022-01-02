@@ -1,6 +1,8 @@
 import express from 'express';
 import passport from 'passport';
 import User from '../models/user.model.js';
+import reCaptcha from '../middleware/recaptcha.js';
+import validate from '../middleware/validate.js';
 
 const router = express.Router();
 
@@ -67,13 +69,16 @@ router.route('/logout')
 router.route('/signup')
     .get((req, res) => {
         res.render('signup');
-    });
-
-
-router.route('/register')
-    .get((req, res) => {
-        res.render('register');
-    });
+    })
+    .post(reCaptcha, validate.signUp, passport.authenticate('signup', {
+            failureRedirect: '/signup',
+            failureFlash: true
+        }),
+        async (req, res) => {
+            console.log('aaaaaaaaaaaaaaaaaaaaa');
+            res.locals.user = await User.findById(req.session.passport.user);
+            res.redirect('/');
+        });
 
 
 router.route('/about')
