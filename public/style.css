@@ -942,7 +942,7 @@ div[class*="auction"] .custom-button {
   text-align: -webkit-match-parent;
 }
 
-.dashboard-menu li a {
+.dashboard-menu li a, .dashboard-menu li button{
   text-decoration: none;
   padding: 10px 25px;
   color: #37406f;
@@ -954,15 +954,16 @@ div[class*="auction"] .custom-button {
   border-radius: 25px;
   display: block;
   transition: all ease 0.3s;
+  cursor: pointer;
 }
 
 .dashboard-menu li a:hover,
-.dashboard-menu li a:active {
+.dashboard-menu li a:active, .dashboard-menu li button:active, .dashboard-menu li button:hover {
   background: #f7f6fc;
   text-decoration: none;
 }
 
-.dashboard-menu li a i {
+.dashboard-menu li a i, .dashboard-menu li button i {
   /* font-weight: 400;*/
   margin-right: 10%;
   color: #ee4730;
@@ -971,6 +972,11 @@ div[class*="auction"] .custom-button {
 .dashboard-widget .dashboard-title {
   border-bottom: 1px solid #d5d7f3;
   margin-bottom: 30px;
+}
+
+.mobile-2x {
+  padding-left: 0.2rem;
+  font-size: 1.5em;
 }
 
 .dashboard-widget .dashboard-title h5 {

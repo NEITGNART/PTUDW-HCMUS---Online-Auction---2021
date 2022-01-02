@@ -56,7 +56,7 @@ export default (app) => {
                         html += `<li><a href=${href}>${pagination[i]}</a></li>`;
                     }
                 }
-                
+
                 const hrefEnd = `?page=${currentPage + 1}&${query}`;
 
                 if (currentPage === maxPage) {
@@ -67,7 +67,48 @@ export default (app) => {
                 return html;
 
             }
-            ,
+            , checkLimit(limit) {
+                let html = '';
+                if (limit === 12) {
+                    html += `<option selected value="1">12 sản phẩm</option>`
+                } else {
+                    html += `<option value="1">12 sản phẩm</option>`
+                }
+                if (limit === 9) {
+                    html += `<option selected value="2">9 sản phẩm</option>`
+                } else {
+                    html += `<option value="2">9 sản phẩm</option>`
+                }
+                if (limit === 6) {
+                    html += `<option selected value="3">6 sản phẩm</option>`
+                } else {
+                    html += `<option value="3">6 sản phẩm</option>`
+                }
+                return html;
+            },
+            checkSort(sort) {
+
+                let html = '';
+
+                // if sort is null
+                if (sort === null) {
+                    html += `<option selected value="0">Mặc định</option>`
+                } else {
+                    html += `<option value="0">Mặc định</option>`
+                }
+                if (sort === "currentPrice") {
+                    html += `<option selected value="1">Giá tăng dần</option>`
+                } else {
+                    html += `<option value="1">Giá tăng dần</option>`
+                }
+                if (sort === "expDate") {
+                    html += `<option selected value="2">Thời gian giảm dần</option>`
+                } else {
+                    html += `<option value="2">Thời gian giảm dần</option>`
+                }
+                return html;
+
+            }
 
 
         }

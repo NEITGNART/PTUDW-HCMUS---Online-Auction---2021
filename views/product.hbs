@@ -5,11 +5,9 @@
     src="//cdn.tgdd.vn/mwgcart/mwgcore/js/bundle/detailTGDD.min.v202112141140.js"></script> --}}
 {{!-- onclick="goToRSlide(2)" --}}
     <script>
-
         let days = 1;
         // Set the date we're counting down to
         var countDownDate = new Date(Date.now() + days * 24 * 3600 * 1000);
-
         // Update the count down every 1 second
         var x = setInterval(function () {
 
@@ -27,7 +25,6 @@
 
             // Display the result in the element with id="demo"
 
-
             var product = $(".product-one")
 
             for (let i = 0; i < product.length; ++i) {
@@ -37,15 +34,122 @@
             // If the count down is finished, write some text
             if (distance < 0) {
                 clearInterval(x);
-
-
-                document.getElementByClassName("product-one").innerHTML = "EXPIRED";
+                $(".product-one").innerHTML = "EXPIRED";
 
             }
         }, 1000);
 
+        // using jQuery to query id = sort and get value from select
+
+        let valueSort = "";
+
+        $(document).ready(function () {
+            $("#sort").change(function () {
+                var sort = $("#sort").val();
+                sort = +sort;
+                let url = window.location.href;
+
+                if (sort === 1) {
+                    // check that url has ?
+                    if (url.includes("?")) {
+                        if (url.includes("sort=expDate")) {
+                            url = url.replace("sort=expDate", "sort=currentPrice");
+                        } else {
+                            url = url + "&sort=currentPrice";
+                        }
+                    } else {
+                        url = url + "?sort=currentPrice";
+                    }
+                } else if (sort === 2) {
+                    if (url.includes("?")) {
+                        if (url.includes("sort=currentPrice")) {
+                            url = url.replace("sort=currentPrice", "sort=expDate");
+                        } else {
+                            url = url + "&sort=expDate";
+                        }
+                    } else {
+                        url = url + "?sort=expDate";
+                    }
+                } else {
+                    // if remove sort=expDate or sort=currentPrice
+                    if (url.includes("?")) {
+                        if (url.includes("&sort=expDate")) {
+                            url = url.replace("&sort=expDate", "");
+                        } else if (url.includes("?sort=currentPrice")) {
+                            url = url.replace("?sort=currentPrice", "");
+                        } else if (url.includes("&sort=currentPrice")) {
+                            url = url.replace("&sort=currentPrice", "");
+                        } else {
+                            url = url.replace("?sort=expDate", "");
+                        }
+                    } else {
+                        window.location.href = url;
+                    }
+                }
+                window.location.href = url;
+            });
+        });
+
+        // using jQuery to query id = nuber-prroduct and get value selected from select
+
+        $(document).ready(function () {
+            $("#number-product").change(function () {
+                var number = $("#number-product").val();
+                number = +number;
+
+                let url = window.location.href;
+
+                if (number === 1) {
+                    if (url.includes("?")) {
+                        // check that url has limit= and then replace it with limit=12
+                        if (url.includes("limit=")) {
+                            url = url.replace(/limit=\d+/, "limit=12");
+                        } else {
+                            url = url + "&limit=12";
+                        }
+                    } else {
+                        url = url + "?limit=12";
+                    }
+                } else if (number === 2) {
+
+                    if (url.includes("?")) {
+                        // check that url has limit= and then replace it with limit=12
+                        if (url.includes("limit=")) {
+                            url = url.replace(/limit=\d+/, "limit=9");
+                        } else {
+                            url = url + "&limit=9";
+                        }
+                    } else {
+                        url = url + "?limit=9";
+                    }
+
+
+                } else if (number === 3) {
+                    if (url.includes("?")) {
+                        // check that url has limit= and then replace it with limit=12
+                        if (url.includes("limit=")) {
+                            url = url.replace(/limit=\d+/, "limit=6");
+                        } else {
+                            url = url + "&limit=6";
+                        }
+                    } else {
+                        url = url + "?limit=6";
+                    }
+                }
+                window.location.href = url;
+            });
+
+
+        });
+
+        function handleCategory(category) {
+            window.location.href = "?category=" + category;
+        }
+
 
     </script>
+
+
 
 
 {{/section}}
@@ -64,35 +168,17 @@
         padding: 5px 4px 1px;
     }
 
-    .btn-heart :hover {
-        background-color: pink;
-        border-radius: 50%;
-        border-style: solid;
-        border-width: 1px;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        padding: 5px 4px 1px;
-    }
-
     .icon-heart {
         max-height: 28px;
         display: inline-block;
-    }
-
-    .icon-heart :hover {
-        max-height: 28px;
-        display: inline-block;
-        fill: rgb(251, 246, 244);
-        background-color: pink;
     }
 </style>
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="/category">Category</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Laptop</li>
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="/product">Danh mục</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{category}}</li>
     </ol>
 </nav>
 
@@ -116,15 +202,15 @@
 
                 <div class="card-body">
                     <li>
-                        <a class="card-item" href="#">
-                            <i style="font-size: 30px;" class="fa fa-mobile" aria-hidden="true"></i>
-                            <span class="">Điện thoại Smartphone</span>
+                        <a type="button" class="card-item" onclick="handleCategory(`Điện thoại`)">
+                            <i class="fas fa-mobile-alt fa-2x mobile-2x"></i>
+                            <span class="">Điện thoại di động</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="#">
-                            <i class="fas fa-laptop" aria-hidden=" true"></i>
+                        <a type="button" onclick="handleCategory(`Laptop`)">
+                            <i class="fas fa-laptop"></i>
                             Máy tính xách tay
                         </a>
                     </li>
@@ -145,20 +231,15 @@
                 <div class="item">Sort By :</div>
 
 
-                <select class="nice-select browser-default custom-select">
-                    <option selected>Mặc định</option>
-                    <option value="1">thời gian giảm dần</option>
-                    <option value="2">giá tăng dần</option>
+                <select id="sort" class="nice-select browser-default custom-select">
+                    {{{checkSort sort}}}
                 </select>
             </div>
             <div class="product-header-item">
                 <div class="item">Show :</div>
 
-                <select class="nice-select browser-default custom-select">
-                    <option selected>Mặc định</option>
-                    <option value="1">6</option>
-                    <option value="2">9</option>
-                    <option value="3">12</option>
+                <select id="number-product" class="nice-select browser-default custom-select">
+                    {{{checkLimit maxItems}}}
                 </select>
             </div>
 

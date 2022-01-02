@@ -31,9 +31,8 @@ const productController = {
         const category = req.query.category || "";
         let maxItems = +req.query.limit || 12;
         let currentPage = +req.query.page || 1;
-        let skipItem = (currentPage - 1) * maxItems || 0;
+        let skipItem = (currentPage - 1) * maxItems;
         skipItem = +skipItem;
-        console.log(skipItem);
         currentPage = +currentPage;
 
         let stringQuery = req.query;
@@ -48,26 +47,31 @@ const productController = {
             // random product
             totalItems = await ProductModel.countDocuments();
 
-            products = await ProductModel.aggregate([
+            const sortProduct =
                 {
-                    $sample: {
-                        size: maxItems
-                    }
-                },
-                {
+                    // if sort is sellDate, descending
                     $sort: {
                         [sort]: 1
                     }
-                },
+                }
+            if (sort === "expDate") {
+                sortProduct.$sort[sort] = -1;
+            }
 
-                {
-                    $limit: maxItems
-                },
+            products = await ProductModel.aggregate([
                 {
                     $match: {
                         status: "bidding",
                     }
                 },
+                sortProduct,
+
+                {
+                    $skip: skipItem
+                },
+                {
+                    $limit: maxItems
+                }
 
             ]);
         } else {
@@ -85,14 +89,12 @@ const productController = {
                     }
                 },
                 {
-                    $sample: {
-                        size: maxItems
-                    }
-                },
-                {
                     $sort: {
                         [sort]: 1
                     }
+                },
+                {
+                    $skip: skipItem
                 },
                 {
                     $limit: maxItems
@@ -100,10 +102,16 @@ const productController = {
             ]);
         }
 
+        console.log("Total" + totalItems);
 
         const cats = await CategoryModel.find().lean();
 
-        const maxPage = parseInt(((totalItems) / (maxItems)) + 1);
+        let maxPage = parseInt(((totalItems) / (maxItems)) + 1);
+
+        if (totalItems % maxItems === 0) {
+            maxPage = maxPage - 1;
+        }
+
         if (currentPage > maxPage) {
             res.render('404', {
                 layout: false
@@ -111,14 +119,16 @@ const productController = {
             return;
         }
 
-        console.log(stringQuery)
+
 
         res.render('product', {
             products,
-            cats,
+            category,
             currentPage,
             stringQuery,
-            maxPage
+            maxPage,
+            maxItems,
+            sort
         })
 
     },
