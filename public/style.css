@@ -1352,4 +1352,28 @@ pagination {
 .auction-item-slide{
   margin: 10px 20px;
 }
+
+.lSAction {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  min-width: 100%;
+  z-index: 99;
+}
+
+.lSAction > .lSPrev {
+  background-color: #2cccff;
+  color: white;
+  border: none;
+  left: 0;
+  padding: 10px 10px;
+}
+.lSAction > .lSNext {
+  background-color: #2cccff;
+  color: white;
+  border: none;
+  right: 0;
+  padding: 10px 10px;
+}
 /*=======================================================product-header===================================*/

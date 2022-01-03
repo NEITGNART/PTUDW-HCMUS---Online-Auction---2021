@@ -8,7 +8,7 @@
 
 <script>
   $(document).ready(function () {
-    $('#end-time').lightSlider({
+    var sliderEndTime = $('#end-time').lightSlider({
       item: 3,
       autoWidth: true,
       loop: false,
@@ -21,12 +21,34 @@
         $('#end-time').removeClass('cS-hidden');
       }
     });
-  });
-</script>
+    $('.lSAction > .lSPrevEndTime').click(function () {
+      sliderEndTime.goToPrevSlide();
+    });
+    $('.lSAction > .lSNextEndTime').click(function () {
+      sliderEndTime.goToNextSlide();
+    });
+    
+    var sliderDealPrice = $('#deal-price').lightSlider({
+      item: 3,
+      autoWidth: true,
+      loop: false,
+      slideMove:1,
+      slideMargin: 50,
+      easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
+      controls: false,
+      pager: false,
+      onSliderLoad: function () {
+        $('#end-time').removeClass('cS-hidden');
+      }
+    });
+    $('.lSAction > .lSPrevDealPrice').click(function () {
+      sliderDealPrice.goToPrevSlide();
+    });
+    $('.lSAction > .lSNextDealPrice').click(function () {
+      sliderDealPrice.goToNextSlide();
+    });
 
-<script>
-  $(document).ready(function () {
-    $('#deal-price').lightSlider({
+  var sliderBestPrice = $('#best-price').lightSlider({
       item: 3,
       autoWidth: true,
       loop: false,
@@ -39,39 +61,28 @@
         $('#end-time').removeClass('cS-hidden');
       }
     });
-  });
-</script>
-
-<script>
-  $(document).ready(function () {
-    $('#best-price').lightSlider({
-      item: 3,
-      autoWidth: true,
-      loop: false,
-      slideMove:1,
-      slideMargin: 50,
-      easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
-      controls: false,
-      pager: false,
-      onSliderLoad: function () {
-        $('#end-time').removeClass('cS-hidden');
-      }
+    $('.lSAction > .lSPrevBestPrice').click(function () {
+      sliderBestPrice.goToPrevSlide();
+    });
+    $('.lSAction > .lSNextBestPrice').click(function () {
+      sliderBestPrice.goToNextSlide();
     });
   });
 </script>
-<style>
-  .slick-slide {
-    max-width: 300px;
-  }
-</style>
 
 {{/section}}
 
 <section class="product-slider">
   <div class="top-five-product">
-    <h2 class="header-top-product">
+    <div class="header-top-product">
+        <h2>
           Top 5 sản phẩm gần kết thúc
-    </h2>
+        </h2>
+    </div>
+    <div class="lSAction">
+        <a class="lSPrev lSPrevEndTime"></a>
+        <a class="lSNext lSNextEndTime"></a>
+    </div> 
     <ul id="end-time" class="cs-hidden">
       <li class="item-a">
         <div class="auction-item auction-item-slide">
@@ -367,9 +378,15 @@
   </div>
 
   <div class="top-five-product">
-    <h2 class="header-top-product">
-        Top 5 sản phẩm có nhiều lượt ra giá nhất
-    </h2>
+    <div class="header-top-product">
+      <h2>
+          Top 5 sản phẩm có nhiều lượt ra giá nhất
+      </h2>
+    </div>
+     <div class="lSAction">
+        <a class="lSPrev lSPrevDealPrice"></a>
+        <a class="lSNext lSNextDealPrice"></a>
+    </div> 
     <ul id="deal-price" class="cs-hidden">
       <li class="item-a">
         <div class="auction-item auction-item-slide">
@@ -665,7 +682,13 @@
   </div>
 
   <div class="top-five-product">
-    <h2 class="header-top-product">Top 5 sản phẩm có giá cao nhất</h2>
+    <div class="header-top-product">
+      <h2>Top 5 sản phẩm có giá cao nhất</h2>
+    </div>
+     <div class="lSAction">
+        <a class="lSPrev lSPrevBestPrice"></a>
+        <a class="lSNext lSNextBestPrice"></a>
+    </div> 
     <ul id="best-price" class="cs-hidden">
       <li class="item-a">
         <div class="auction-item auction-item-slide">
