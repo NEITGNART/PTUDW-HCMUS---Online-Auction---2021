@@ -48,25 +48,25 @@
       sliderDealPrice.goToNextSlide();
     });
 
-  var sliderBestPrice = $('#best-price').lightSlider({
-      item: 3,
-      autoWidth: true,
-      loop: false,
-      slideMove:1,
-      slideMargin: 50,
-      easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
-      controls: false,
-      pager: false,
-      onSliderLoad: function () {
-        $('#end-time').removeClass('cS-hidden');
-      }
-    });
-    $('.lSAction > .lSPrevBestPrice').click(function () {
-      sliderBestPrice.goToPrevSlide();
-    });
-    $('.lSAction > .lSNextBestPrice').click(function () {
-      sliderBestPrice.goToNextSlide();
-    });
+    var sliderBestPrice = $('#best-price').lightSlider({
+        item: 3,
+        autoWidth: true,
+        loop: false,
+        slideMove:1,
+        slideMargin: 50,
+        easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
+        controls: false,
+        pager: false,
+        onSliderLoad: function () {
+          $('#end-time').removeClass('cS-hidden');
+        }
+      });
+      $('.lSAction > .lSPrevBestPrice').click(function () {
+        sliderBestPrice.goToPrevSlide();
+      });
+      $('.lSAction > .lSNextBestPrice').click(function () {
+        sliderBestPrice.goToNextSlide();
+      });
   });
 </script>
 
@@ -76,7 +76,7 @@
   <div class="top-five-product">
     <div class="header-top-product">
         <h2>
-          Top 5 sản phẩm gần kết thúc
+          Top sản phẩm gần kết thúc
         </h2>
     </div>
     <div class="lSAction">
@@ -90,6 +90,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 1</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -148,6 +149,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 2</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -206,6 +208,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 3</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -264,6 +267,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 4</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -322,6 +326,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 5</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -380,7 +385,7 @@
   <div class="top-five-product">
     <div class="header-top-product">
       <h2>
-          Top 5 sản phẩm có nhiều lượt ra giá nhất
+          Top sản phẩm có nhiều lượt ra giá nhất
       </h2>
     </div>
      <div class="lSAction">
@@ -394,6 +399,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 1</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -452,6 +458,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 2</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -510,6 +517,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 3</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -568,6 +576,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 4</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -626,6 +635,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 5</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -683,7 +693,7 @@
 
   <div class="top-five-product">
     <div class="header-top-product">
-      <h2>Top 5 sản phẩm có giá cao nhất</h2>
+      <h2>Top sản phẩm có giá cao nhất</h2>
     </div>
      <div class="lSAction">
         <a class="lSPrev lSPrevBestPrice"></a>
@@ -696,6 +706,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 1</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -754,6 +765,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 2</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -812,6 +824,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 3</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -870,6 +883,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-2.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 4</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>
@@ -928,6 +942,7 @@
             <a class="thumb-img" href="#">
               <img src="img/auction-1.jpg" alt="item" />
             </a>
+            <span class="ranking">TOP 5</span>
             <a class="star-icon thumb-icon" href="#">
               <i class="far fa-star" aria-hidden="true"></i>
             </a>

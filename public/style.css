@@ -1331,7 +1331,8 @@ pagination {
 /*=======================================================auction-item-slider===================================*/
 
 .product-slider{
-  background-color: rgba(209,209,219,100);
+  background-image: linear-gradient(
+    0deg, #8e9eab 0%, #eef2f3 100%);
   padding: 25px 50px;
 }
 
@@ -1376,4 +1377,36 @@ pagination {
   right: 0;
   padding: 10px 10px;
 }
+
+.ranking{
+  display: block;
+  position: absolute;
+  top:0px;
+  background-image: linear-gradient(
+    0deg, rgb(61, 169, 245) 0%, rgb(104, 61, 245) 100%);
+  color: white;
+  padding: 10px 10px;
+  border-radius: 5%;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  text-transform: uppercase;
+}
+
+.header-top-product{
+  text-align: center;
+  padding: 10px 0px 10px 0px;
+  text-transform: uppercase;
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-image: linear-gradient(
+    0deg, rgb(61, 169, 245) 0%, rgb(104, 61, 245) 100%);
+}
+
+.header-top-product > h2{
+  margin: 0;
+  padding: 0;
+}
 /*=======================================================product-header===================================*/
+
