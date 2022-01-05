@@ -159,7 +159,6 @@
         });
 
 
-
         function handleSearch() {
             let search = $("#search").val();
             window.location.href = "?search=" + search;
@@ -190,6 +189,27 @@
         max-height: 28px;
         display: inline-block;
     }
+
+    .report_text {
+        font-size: 18px;
+        color: #000;
+        padding: 1rem 1rem;
+    }
+
+    .noresultsuggestion {
+        background: #fff;
+    }
+
+    li .active-category {
+        color: white !important;
+        background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgba(249,22,242,0.5144258386948529) 0%, rgb(219, 45, 244) 0%, rgb(8, 182, 216) 100%);
+    }
+
+    li .active-category:hover {
+        color: black !important;
+    }
+
+
 </style>
 
 <nav aria-label="breadcrumb">
@@ -206,7 +226,7 @@
 
     <div class="row"></div>
     <!-- Sidebar category -->
-    <div class="category-sidebar col-lg-3 col-12 col-sm-12 pr-sm-5  col-md-3 ml-3 mt-3 pr-lg-2">
+    <div class="category-sidebar col-lg-3 col-12 col-sm-12 col-md-12 pr-sm-5  col-md-3 ml-3 mt-3 pr-lg-2">
         <div class="card dashboard-widget sticky-menu pl-sm-0 pl-0">
             <ul class="dashboard-menu">
                 <li>
@@ -219,15 +239,17 @@
                 </li>
 
                 <div class="card-body">
+
                     <li>
-                        <a type="button" class="card-item" onclick="handleCategory(`Điện thoại`)">
+                        <a type="button" class="card-item {{highlightCategory category "Điện thoại"}}" onclick="handleCategory(`Điện thoại`)">
+
                             <i class="fas fa-mobile-alt fa-2x mobile-2x"></i>
                             <span class="">Điện thoại di động</span>
                         </a>
                     </li>
 
                     <li>
-                        <a type="button" onclick="handleCategory(`Laptop`)">
+                        <a class="{{highlightCategory category "Laptop"}}" type="button" onclick="handleCategory(`Laptop`)">
                             <i class="fas fa-laptop"></i>
                             Máy tính xách tay
                         </a>
@@ -281,14 +303,21 @@
                 {{!-- Start Item --}}
                     <div class="auction-item">
                         <div class="auction-item-thumb">
+
+
                             <a class="thumb-img" href="#">
                                 <img src={{getThumbnail images}} alt="item">
                             </a>
+
                             <a class="star-icon thumb-icon" href="#">
-                                <button class="btn btn-heart d-inline-block"><i class="icon-heart far fa-heart"
-                                                                                aria-hidden="true"></i>
+
+                                <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                        class="icon-heart far fa-heart"
+                                        aria-hidden="true" style="position: absolute;left: 6px;top: 6.9px;"></i>
                                 </button>
                             </a>
+
+
                         </div>
                         <div class="auction-item-content">
                             <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px">
@@ -345,19 +374,31 @@
         {{!-- End Row --}}
 
         {{!-- Pagination --}}
+        {{#if error}}
+            <div class="report_text h1">
+                Rất tiếc, Không tìm thấy kết quả nào phù hợp với từ khóa <strong>"{{search}}" </strong>
+            </div>
+            <div class="bg-white noresultsuggestion d-flex flex-column justify-content-center align-items-center mb-4">
+                <h4>Để tìm được kết quả chính xác hơn, bạn vui lòng:</h4>
+                <ul>
+                    <li style="list-style: outside">Kiểm tra lỗi chính tả của từ khóa đã nhập</li>
+                    <li style="list-style: outside">Thử lại bằng từ khóa khác</li>
+                    <li style="list-style: outside">Thử lại bằng những từ khóa tổng quát hơn</li>
+                    <li style="list-style: outside">Thử lại bằng những từ khóa ngắn gọn hơn</li>
+                </ul>
+            </div>
+        {{else}}
+            <ul class="mt-3 pagination align-items-center justify-content-center">
+                {{{displayPagination currentPage stringQuery maxPage totalItems }}}
+            </ul>
+        {{/if}}
+
+        <div>{{!-- End row --}}
+        </div>
+        <!-- end container -->
 
 
-        <ul class="mt-3 pagination align-items-center justify-content-center">
-            {{{displayPagination currentPage stringQuery maxPage}}}
-        </ul>
-
-
-        {{!-- End row --}}
+        {{!-- End product --}}
     </div>
-    <!-- end container -->
-
-
-    {{!-- End product --}}
-</div>
 
 </div>

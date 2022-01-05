@@ -17,11 +17,36 @@ export default (app) => {
                 return moment(text).format("HH:mm:ss')");
             },
 
+            highlightCategory(category, pickedCategory) {
+                if (category === pickedCategory) {
+                    return 'active-category';
+                }
+                return '';
+            },
+
             getThumbnail(list) {
                 return list[0]
             }
             ,
-            displayPagination(currentPage, stringQuery, maxPage) {
+            displayPagination(currentPage, stringQuery, maxPage, totalItems) {
+
+                console.log("Total display: ", totalItems);
+
+                if (totalItems === 0) {
+                    return `
+                        <div>
+                        
+                        <div class="h1 text-sm-center" style="font-size: 1.6rem"> Để tìm được kết quả chính xác hơn, bạn vui lòng:</div>
+                        <ul>
+                        <li style="list-style: outside">Kiểm tra lỗi chính tả của từ khóa đã nhập</li>
+                        <li style="list-style: outside">Thử lại bằng từ khóa khác</li>
+                        <li style="list-style: outside">Thử lại bằng những từ khóa tổng quát hơn</li>
+                        <li style="list-style: outside">Thử lại bằng những từ khóa ngắn gọn hơn</li>
+                        </ul>
+                        </div>
+                        
+                        `
+                }
 
                 const pagination = productController.pagination(currentPage, maxPage);
 
@@ -107,6 +132,7 @@ export default (app) => {
                     html += `<option value="2">Thời gian giảm dần</option>`
                 }
                 return html;
+
 
             }
 

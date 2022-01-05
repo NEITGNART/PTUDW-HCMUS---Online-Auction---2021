@@ -46,86 +46,57 @@ const productController = {
         if (category === "") {
 
             // random product
-            totalItems = await ProductModel.countDocuments();
+            totalItems = await ProductModel.countDocuments({
+                status: "bidding",
+            });
 
-            const sortProduct =
-                {
-                    // if sort is sellDate, descending
-                    $sort: {
-                        [sort]: 1
-                    }
-                }
+            const sortProduct = {
+                // if sort is sellDate, descending
+                $sort: {[sort]: 1}
+            }
             if (sort === "expDate") {
                 sortProduct.$sort[sort] = -1;
             }
 
+            var pipeline = [{$match: {$text: {$search: search}}}, {$match: {status: "bidding",}}, sortProduct, {$skip: skipItem}, {$limit: maxItems}]
 
-            let searchQuery;
-
-            if (search !== "") {
-                searchQuery = {
-                    $match: {
-                        $text: {
-                            $search: search
-                        }
-                    }
-                };
-            } else {
-                // not include search
-                searchQuery = {};
+            if (search === "") {
+                // remove the first element
+                pipeline.shift();
             }
 
-
-            products = await ProductModel.aggregate([
-                // full text search
-                searchQuery,
-                {
-                    $match: {
-                        status: "bidding",
-                    }
-                },
-                sortProduct,
-
-                {
-                    $skip: skipItem
-                },
-                {
-                    $limit: maxItems
-                }
-
-            ]);
+            products = await ProductModel.aggregate(pipeline);
         } else {
+
             // calculate total items in document
 
             totalItems = await ProductModel.countDocuments({
-                category: category
+                category: category,
+                status: "bidding",
             });
 
-            products = await ProductModel.aggregate([
-                searchQuery,
-                {
-                    $match: {
-                        category: category,
-                        status: "bidding",
-                    }
-                },
-                {
-                    $sort: {
-                        [sort]: 1
-                    }
-                },
-                {
-                    $skip: skipItem
-                },
-                {
-                    $limit: maxItems
+            const pipeline = [{$match: {$text: {$search: search}}}, {
+                $match: {
+                    category: category,
+                    status: "bidding",
                 }
-            ]);
+            }, {$sort: {[sort]: 1}}, {$skip: skipItem}, {$limit: maxItems}];
+            if (search === "") {
+                pipeline.shift();
+                // remove last element
+            } else {
+                pipeline.pop();
+            }
+            products = await ProductModel.aggregate(pipeline);
         }
 
         console.log("Total" + totalItems);
 
         const cats = await CategoryModel.find().lean();
+
+        if (search !== "") {
+            totalItems = products.length;
+        }
 
         let maxPage = parseInt(((totalItems) / (maxItems)) + 1);
 
@@ -137,6 +108,7 @@ const productController = {
             currentPage = maxPage;
         }
 
+        const error =  products.length === 0;
 
         res.render('product', {
             products,
@@ -145,7 +117,10 @@ const productController = {
             stringQuery,
             maxPage,
             maxItems,
-            sort
+            sort,
+            totalItems,
+            search,
+            error
         })
 
     },
