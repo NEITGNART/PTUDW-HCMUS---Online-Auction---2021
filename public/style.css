@@ -236,6 +236,7 @@ start-time {
   font-size: 14px;
   font-weight: 100;
   line-height: 1.2;
+  margin: 0;
 }
 
 .section-account span {
@@ -258,6 +259,10 @@ start-time {
   width: 768px;
   max-width: 100%;
   min-height: 540px;
+}
+
+.section-account .signup-container{
+  min-height: 620px;
 }
 
 .form-container form {
@@ -316,6 +321,7 @@ start-time {
 
 .section-account button {
   border-radius: 20px;
+  margin-top: 20px;
   border: 1px solid #5140fe;
   background: #5140fe;
   color: #fff;
@@ -386,12 +392,13 @@ start-time {
   .section-account h1 {
     font-weight: bold;
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .section-account p {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1;
+    margin: 0px;
   }
 
   .section-account span {
@@ -402,6 +409,7 @@ start-time {
     border-radius: 10px;
     font-size: 8px;
     padding: 8px 30px;
+    margin-top: 5px;
   }
 
   .form-container input {
@@ -1410,3 +1418,39 @@ pagination {
 }
 /*=======================================================product-header===================================*/
 
+@media only screen and (max-width : 480px) {
+  #recaptcha_challenge_image{
+  margin: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  }
+  #recaptcha_response_field
+  {
+  margin: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  }
+  .recaptchatable #recaptcha_image {
+  margin: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  }
+  .recaptchatable .recaptcha_r1_c1, 
+  .recaptchatable .recaptcha_r3_c1, 
+  .recaptchatable .recaptcha_r3_c2, 
+  .recaptchatable .recaptcha_r7_c1, 
+  .recaptchatable .recaptcha_r8_c1, 
+  .recaptchatable .recaptcha_r3_c3, 
+  .recaptchatable .recaptcha_r2_c1, 
+  .recaptchatable .recaptcha_r4_c1, 
+  .recaptchatable .recaptcha_r4_c2, 
+  .recaptchatable .recaptcha_r4_c4, 
+  .recaptchatable .recaptcha_image_cell {
+
+  margin: 0 !important;
+  width: 100% !important;
+  background: none !important;
+  height: auto !important;
+  }
+
+}

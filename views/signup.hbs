@@ -1,6 +1,31 @@
+{{#section 'js'}}
+<script>
+  $(function(){
+  function rescaleCaptcha(){
+    var width = $('.g-recaptcha').parent().width();
+    var scale;
+    if (width < 302) {
+      scale = width / 302;
+    } else{
+      scale = 1.0; 
+    }
+
+    $('.g-recaptcha').css('transform', 'scale(' + scale + ')');
+    $('.g-recaptcha').css('-webkit-transform', 'scale(' + scale + ')');
+    $('.g-recaptcha').css('transform-origin', '0 0');
+    $('.g-recaptcha').css('-webkit-transform-origin', '0 0');
+  }
+
+  rescaleCaptcha();
+  $( window ).resize(function() { rescaleCaptcha(); });
+
+});
+</script>
+{{/section}}
+
 <section class="section-account">
 
-  <div class="container">
+  <div class="container signup-container">
     <div class="form-container account-container">
       <form action="" method="post">
         <h1>Sign up</h1>
@@ -15,7 +40,9 @@
         <input name="password" type="password" placeholder="Password" />
         <input name="name" type="text" placeholder="Fullname" />
         <input name="address" type="text" placeholder="Address" />
-        <div class="g-recaptcha" data-sitekey="6LcHauMdAAAAAEed34vF3Ep5JzEMyYJ80noSxMwW"></div>
+        <div class="captcha" style="width: 100%; max-height: 78px;">
+          <div class="g-recaptcha captcha" data-sitekey="6LcHauMdAAAAAEed34vF3Ep5JzEMyYJ80noSxMwW"></div>
+        </div>
         <button type="submit">Sign Up</button>
 
       </form>
