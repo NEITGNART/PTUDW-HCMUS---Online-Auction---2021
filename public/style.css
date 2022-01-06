@@ -1569,6 +1569,8 @@ pagination {
 .product-content form input {
   display: inline-block;
   width: 45%;
+  padding: 0 5px;
+  border-radius: 25px;
 }
 
 .my-custom-scrollbar {
