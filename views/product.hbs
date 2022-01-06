@@ -254,17 +254,17 @@
                             <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; ">
                                 Ngày bán: {{sellDate}}
                             </div>
-
+                            
                             {{#if currentWinner}}
                                 <div>
-                                    Người đang trả giá cao nhất:{{currentWinner}}
+                                    Người đang trả giá cao nhất:<br>{{currentWinner}}
                                 </div>
                             {{else}}
                                 <div>
-                                    Hãy là người đầu tiên trả giá
+                                    Hãy là người đầu tiên trả giá:<br>&nbsp;
                                 </div>
                             {{/if}}
-
+                        
 
                             <div class="bid-area d-flex justify-content-center">
                                 <div class="bid-amount current-price d-flex">
@@ -297,7 +297,7 @@
                                             </div>
                                         {{else}}
                                             <div class="amount">
-                                                Không có
+                                                ---
                                             </div>
                                         {{/if}}
 
