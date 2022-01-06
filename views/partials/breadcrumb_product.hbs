@@ -1,0 +1,14 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+
+        {{#if maincategory}}
+            <li class="breadcrumb-item"><a href="/product">{{maincategory}}</a></li>
+        {{/if}}
+
+        {{#if subcategory}}
+            <li class="breadcrumb-item"><a href="">{{subcategory}}</a></li>
+        {{/if}}
+
+    </ol>
+</nav>

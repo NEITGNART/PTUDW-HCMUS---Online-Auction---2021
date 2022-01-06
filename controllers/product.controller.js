@@ -1,17 +1,19 @@
 import ProductModel from '../models/product.model.js';
 import CategoryModel from '../models/category.model.js';
+import UserModel from '../models/user.model.js';
 import moment from 'moment';
 
 function maskInfo(value) {
-    let maskedValue = value;
-    if (value && value.length > 5) {
-        maskedValue =
-            "***" + maskedValue.substring(value.length - 4, value.length);
+    // mask with middle part with *
+    if (value.length < 4) {
+        // return replace with *
+        return value.replace(/./g, '*');
     } else {
-        maskedValue = "****";
+        // return replace with middle part with *
+        return value.replace(/./g, '*').substring(0, value.length - 4) + value.substring(value.length - 4, value.length);
     }
-    return maskedValue;
 };
+
 
 function isExpired(date) {
     return moment(date).diff(moment());
@@ -24,12 +26,16 @@ function extendExpire(date) {
 
 const productController = {
 
+    detail: (req, res) => {
+        res.render('detailProduct');
+    },
+
 
     index: async (req, res) => {
-
+        const maincategory = req.query.maincategory;
         const search = req.query.search || "";
         const sort = req.query.sort;
-        const category = req.query.category || "";
+        const subcategory = req.query.category || "";
         let maxItems = +req.query.limit || 12;
         let currentPage = +req.query.page || 1;
         let skipItem = (currentPage - 1) * maxItems;
@@ -43,7 +49,18 @@ const productController = {
         var products;
         var totalItems;
 
-        if (category === "") {
+        // find all product and update the expire date
+        await ProductModel.find({}).then(async (data) => {
+            for (let i = 0; i < data.length; i++) {
+                if (isExpired(data[i].expire) < 0) {
+                    data[i].expire = extendExpire(data[i].expire);
+                    await data[i].save();
+                }
+            }
+        });
+
+
+        if (subcategory === "") {
 
             // random product
             totalItems = await ProductModel.countDocuments({
@@ -52,13 +69,29 @@ const productController = {
 
             const sortProduct = {
                 // if sort is sellDate, descending
-                $sort: {[sort]: 1}
+                $sort: {
+                    [sort]: 1
+                }
             }
             if (sort === "expDate") {
                 sortProduct.$sort[sort] = -1;
             }
 
-            var pipeline = [{$match: {$text: {$search: search}}}, {$match: {status: "bidding",}}, sortProduct, {$skip: skipItem}, {$limit: maxItems}]
+            var pipeline = [{
+                $match: {
+                    $text: {
+                        $search: search
+                    }
+                }
+            }, {
+                $match: {
+                    status: "bidding",
+                }
+            }, sortProduct, {
+                $skip: skipItem
+            }, {
+                $limit: maxItems
+            }]
 
             if (search === "") {
                 // remove the first element
@@ -71,16 +104,30 @@ const productController = {
             // calculate total items in document
 
             totalItems = await ProductModel.countDocuments({
-                category: category,
+                category: subcategory,
                 status: "bidding",
             });
 
-            const pipeline = [{$match: {$text: {$search: search}}}, {
+            const pipeline = [{
                 $match: {
-                    category: category,
+                    $text: {
+                        $search: search
+                    }
+                }
+            }, {
+                $match: {
+                    category: subcategory,
                     status: "bidding",
                 }
-            }, {$sort: {[sort]: 1}}, {$skip: skipItem}, {$limit: maxItems}];
+            }, {
+                $sort: {
+                    [sort]: 1
+                }
+            }, {
+                $skip: skipItem
+            }, {
+                $limit: maxItems
+            }];
             if (search === "") {
                 pipeline.shift();
                 // remove last element
@@ -108,20 +155,65 @@ const productController = {
             currentPage = maxPage;
         }
 
-        const error =  products.length === 0;
+        const error = products.length === 0;
 
-        res.render('product', {
-            products,
-            category,
-            currentPage,
-            stringQuery,
-            maxPage,
-            maxItems,
-            sort,
-            totalItems,
-            search,
-            error
-        })
+        let category = [];
+        // get all name of cats model
+        cats.forEach(cat => {
+            category.push(cat.name);
+        });
+
+
+        for (let i = 0; i < products.length; i++) {
+
+            products[i].expDate = moment(products[i].expDate).format("YYYY-MM-DD HH:MM:SS");
+            products[i].expDate = "" + moment(products[i].expDate).valueOf();
+            products[i].sellDate = moment(products[i].sellDate).format("HH:MM-DD/MM/YYYY");
+            products[i].currentWinner = undefined;
+            products[i].numberBidders = products[i].historyBidId.length;
+            if (products[i].historyBidId.length > 0) {
+                const lastBid = products[i].historyBidId[products[i].historyBidId.length - 1];
+                const user = await UserModel.findById(lastBid);
+                if (user) {
+                    products[i].currentWinner = maskInfo(user.profile.name);
+                }
+            }
+        }
+
+        let username = undefined;
+        let id = undefined;
+        if (res.locals.user) {
+            username = res.locals.user.profile.name;
+            id = res.locals.user.id;
+            const myMap = new Map();
+            for (const wish of res.locals.user.wishlist) {
+                myMap.set(wish, wish);
+            }
+            console.log(myMap.get('61bb56c41c0e3be8f8ef1028'));
+            for (let i = 0; i < products.length; i++) {
+                products[i].isWishlist = '' + products[i]._id === '' + myMap.get(products[i]._id + "");
+            }
+        }
+        // wait for all async function to finish
+        await Promise.all(products).then(() => {
+            res.render('product', {
+                products,
+                category,
+                subcategory,
+                currentPage,
+                stringQuery,
+                maxPage,
+                maxItems,
+                sort,
+                totalItems,
+                search,
+                error,
+                maincategory,
+                username,
+                idUser: id,
+            })
+        });
+
 
     },
     pagination(c, m) {

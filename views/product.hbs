@@ -1,169 +1,114 @@
 {{#section 'js'}}
 
-{{!--
-<script defer="defer" async="async"
-    src="//cdn.tgdd.vn/mwgcart/mwgcore/js/bundle/detailTGDD.min.v202112141140.js"></script> --}}
-{{!-- onclick="goToRSlide(2)" --}}
     <script>
-        let days = 1;
-        // Set the date we're counting down to
-        var countDownDate = new Date(Date.now() + days * 24 * 3600 * 1000);
-        // Update the count down every 1 second
-        var x = setInterval(function () {
 
-            // Get today's date and time
-            var now = new Date().getTime();
-
-            // Find the distance between now and the count down date
-            var distance = countDownDate - now;
-
-            // Time calculations for days, hours, minutes and seconds
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Display the result in the element with id="demo"
-
-            var product = $(".product-one")
-
-            for (let i = 0; i < product.length; ++i) {
-                product[i].innerHTML = days + "d : " + hours + "h :" + minutes + "m :" + seconds + "s";
-            }
-
-            // If the count down is finished, write some text
-            if (distance < 0) {
-                clearInterval(x);
-                $(".product-one").innerHTML = "EXPIRED";
-
-            }
-        }, 1000);
-
-        // using jQuery to query id = sort and get value from select
 
         let valueSort = "";
+
 
         $(document).ready(function () {
             $("#sort").change(function () {
                 var sort = $("#sort").val();
                 sort = +sort;
-                let url = window.location.href;
-
+                const urlSearchParams = new URLSearchParams(window.location.search);
+                const params = Object.fromEntries(urlSearchParams.entries());
                 if (sort === 1) {
-                    // check that url has ?
-                    if (url.includes("?")) {
-                        if (url.includes("sort=expDate")) {
-                            url = url.replace("sort=expDate", "sort=currentPrice");
-                        } else {
-                            url = url + "&sort=currentPrice";
-                        }
-                    } else {
-                        url = url + "?sort=currentPrice";
-                    }
+                    params.sort = "currentPrice";
                 } else if (sort === 2) {
-                    if (url.includes("?")) {
-                        if (url.includes("sort=currentPrice")) {
-                            url = url.replace("sort=currentPrice", "sort=expDate");
-                        } else {
-                            url = url + "&sort=expDate";
-                        }
-                    } else {
-                        url = url + "?sort=expDate";
-                    }
-                } else {
-                    // if remove sort=expDate or sort=currentPrice
-                    if (url.includes("?")) {
-                        if (url.includes("&sort=expDate")) {
-                            url = url.replace("&sort=expDate", "");
-                        } else if (url.includes("?sort=currentPrice")) {
-                            url = url.replace("?sort=currentPrice", "");
-                        } else if (url.includes("&sort=currentPrice")) {
-                            url = url.replace("&sort=currentPrice", "");
-                        } else {
-                            url = url.replace("?sort=expDate", "");
-                        }
-                    } else {
-                        window.location.href = url;
-                    }
+                    params.sort = "expDate";
                 }
+                // deparameterize the url
+                url = window.location.pathname + "?" + $.param(params);
                 window.location.href = url;
             });
         });
 
-        // using jQuery to query id = nuber-prroduct and get value selected from select
 
         $(document).ready(function () {
             $("#number-product").change(function () {
                 var number = $("#number-product").val();
                 number = +number;
 
-                let url = window.location.href;
+                const urlSearchParams = new URLSearchParams(window.location.search);
+                const params = Object.fromEntries(urlSearchParams.entries());
 
                 if (number === 1) {
-                    if (url.includes("?")) {
-                        // check that url has limit= and then replace it with limit=12
-                        if (url.includes("limit=")) {
-                            url = url.replace(/limit=\d+/, "limit=12");
-                        } else {
-                            url = url + "&limit=12";
-                        }
-                    } else {
-                        url = url + "?limit=12";
-                    }
+                    params.limit = "12";
                 } else if (number === 2) {
-
-                    if (url.includes("?")) {
-                        // check that url has limit= and then replace it with limit=12
-                        if (url.includes("limit=")) {
-                            url = url.replace(/limit=\d+/, "limit=9");
-                        } else {
-                            url = url + "&limit=9";
-                        }
-                    } else {
-                        url = url + "?limit=9";
-                    }
-
-
+                    params.limit = "9";
                 } else if (number === 3) {
-                    if (url.includes("?")) {
-                        // check that url has limit= and then replace it with limit=12
-                        if (url.includes("limit=")) {
-                            url = url.replace(/limit=\d+/, "limit=6");
-                        } else {
-                            url = url + "&limit=6";
-                        }
-                    } else {
-                        url = url + "?limit=6";
-                    }
+                    params.limit = "6";
                 }
+                // deparameterize the url
+                url = window.location.pathname + "?" + $.param(params);
                 window.location.href = url;
             });
 
-
         });
 
+
         function handleCategory(category) {
-            window.location.href = "?category=" + category;
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+            params.category = category;
+            // deparameterize the url
+            url = window.location.pathname + "?" + $.param(params);
+            window.location.href = url;
         }
 
-
-        // if id search enter key
+        // ENTER KEY PRESSED IN SEAERCH BAR
         $(document).ready(function () {
             $("#search").keypress(function (event) {
                 if (event.which === 13) {
                     event.preventDefault();
                     var search = $("#search").val();
-                    window.location.href = "?search=" + search;
+                    const urlSearchParams = new URLSearchParams(window.location.search);
+                    const params = Object.fromEntries(urlSearchParams.entries());
+                    params.search = search;
+                    url = window.location.pathname + "?" + $.param(params);
+                    window.location.href = url;
                 }
             });
         });
 
-
+        // CLICK BUTTON SEARCH
         function handleSearch() {
             let search = $("#search").val();
-            window.location.href = "?search=" + search;
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+            params.search = search;
+            url = window.location.pathname + "?" + $.param(params);
+            window.location.href = url;
         }
 
+        async function handledWishlist(id) {
+            const data = await axios.post(`user/wishlist?id=${id}`);
+            if (data.data.success === true) {
+                $(`#fa-${id}`).removeClass(`far fa-heart`);
+                $(`#fa-${id}`).addClass("fa fa-heart");
+            } else {
+                $(`#fa-${id}`).removeClass("fa fa-heart");
+                $(`#fa-${id}`).addClass("far fa-heart");
+            }
+        }
+
+        function handleSubmit(id) {
+            // if (user === null) {
+            //     alert("Please login to add to cart");
+            // } else {
+            //     $.ajax({
+            //         url: "/api/cart",
+            //         type: "POST",
+            //         data: {
+            //             // productId: id,
+            //             // _id: user.id
+            //         },
+            //         success: function (data) {
+            //             alert("Add to cart success");
+            //         }
+            //     });
+            // }
+        }
     </script>
 
 
@@ -202,7 +147,7 @@
 
     li .active-category {
         color: white !important;
-        background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgba(249,22,242,0.5144258386948529) 0%, rgb(219, 45, 244) 0%, rgb(8, 182, 216) 100%);
+        background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgba(249, 22, 242, 0.5144258386948529) 0%, rgb(219, 45, 244) 0%, rgb(8, 182, 216) 100%);
     }
 
     li .active-category:hover {
@@ -212,56 +157,16 @@
 
 </style>
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-        <li class="breadcrumb-item"><a href="/product">Danh mục</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{category}}</li>
-    </ol>
-</nav>
-
+{{>breadcrumb_product this}}
+{{breadcrumb_product}}
 
 <div class="container-fluid d-lg-flex">
 
 
-    <div class="row"></div>
-    <!-- Sidebar category -->
-    <div class="category-sidebar col-lg-3 col-12 col-sm-12 col-md-12 pr-sm-5  col-md-3 ml-3 mt-3 pr-lg-2">
-        <div class="card dashboard-widget sticky-menu pl-sm-0 pl-0">
-            <ul class="dashboard-menu">
-                <li>
-
-                    <div class="card-header bg-white mb-2 text-center">
-                        <i class="fas fa-list-alt" aria-hidden="true"></i>
-                        <p class="ml-2 d-inline-block ">Danh Mục Sản Phẩm</p>
-                    </div>
-
-                </li>
-
-                <div class="card-body">
-
-                    <li>
-                        <a type="button" class="card-item {{highlightCategory category "Điện thoại"}}" onclick="handleCategory(`Điện thoại`)">
-
-                            <i class="fas fa-mobile-alt fa-2x mobile-2x"></i>
-                            <span class="">Điện thoại di động</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="{{highlightCategory category "Laptop"}}" type="button" onclick="handleCategory(`Laptop`)">
-                            <i class="fas fa-laptop"></i>
-                            Máy tính xách tay
-                        </a>
-                    </li>
-                </div>
-
-
-            </ul>
-        </div>
-        <!-- End sidebar category-->
+    <div class="row">
     </div>
-
+    {{>sidebar_product this}}
+    {{sidebar_product}}
 
     <div class="container-fluid col-12 col-sm-12 col-lg-9 col-md-9 ml-lg-0 ml-3 pl-0">
 
@@ -269,7 +174,6 @@
         <div class="product-header m-17">
             <div class="product-header-item">
                 <div class="item">Sắp xếp :</div>
-
 
                 <select id="sort" class="nice-select browser-default custom-select">
                     {{{checkSort sort}}}
@@ -301,27 +205,67 @@
                 {{#each products}}
 
                 {{!-- Start Item --}}
+
                     <div class="auction-item">
                         <div class="auction-item-thumb">
-
 
                             <a class="thumb-img" href="#">
                                 <img src={{getThumbnail images}} alt="item">
                             </a>
 
-                            <a class="star-icon thumb-icon" href="#">
+                            {{#if ../username}}
 
-                                <button class="btn btn-heart d-inline-block" style="position: relative;"><i
-                                        class="icon-heart far fa-heart"
-                                        aria-hidden="true" style="position: absolute;left: 6px;top: 6.9px;"></i>
-                                </button>
-                            </a>
+
+                                {{#if isWishlist}}
+                                    <a class="star-icon thumb-icon" style="cursor: pointer"
+                                       onclick="handledWishlist(`{{this._id}}`)">
+                                        <button class="btn btn-heart d-inline-block"
+                                                style="position: relative;"><i
+                                                class="icon-heart fa fa-heart"
+                                                aria-hidden="true"
+                                                style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                                id="fa-{{this._id}}"></i>
+                                        </button>
+                                    </a>
+                                {{else}}
+
+                                    <a class="star-icon thumb-icon" style="cursor: pointer"
+                                       onclick="handledWishlist(`{{this._id}}`)">
+                                        <button class="btn btn-heart d-inline-block"
+                                                style="position: relative;"><i
+                                                class="icon-heart far fa-heart"
+                                                aria-hidden="true"
+                                                style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                                id="fa-{{this._id}}"></i>
+                                        </button>
+                                    </a>
+
+                                {{/if}}
+
+                            {{/if}}
 
 
                         </div>
                         <div class="auction-item-content">
                             <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px">
-                                {{name}}</div>
+                                {{name}}
+                            </div>
+
+                            <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; ">
+                                Ngày bán: {{sellDate}}
+                            </div>
+
+                            {{#if currentWinner}}
+                                <div>
+                                    Người đang trả giá cao nhất:{{currentWinner}}
+                                </div>
+                            {{else}}
+                                <div>
+                                    Hãy là người đầu tiên trả giá
+                                </div>
+                            {{/if}}
+
+
                             <div class="bid-area d-flex justify-content-center">
                                 <div class="bid-amount current-price d-flex">
                                     <div class="icon">
@@ -329,38 +273,83 @@
                                     </div>
                                     <div class="amount-content">
                                         <div class="current">
-                                            Current Bid
+                                            Giá hiện tại
                                         </div>
                                         <div class="amount">
                                             {{currentPrice}}
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <div class="bid-amount buy-price d-flex">
                                     <div class="icon">
                                         <i class="fas fa-money-bill-wave fa-2x"></i>
                                     </div>
+
                                     <div class="amount-content">
                                         <div class="buy">
-                                            Buy Now
+                                            Mua ngay
                                         </div>
-                                        <div class="amount">
-                                            {{bestPrice}}
-                                        </div>
+                                        {{#if bestPrice}}
+                                            <div class="amount">
+                                                {{bestPrice}}
+                                            </div>
+                                        {{else}}
+                                            <div class="amount">
+                                                Không có
+                                            </div>
+                                        {{/if}}
+
                                     </div>
+
                                 </div>
                             </div>
-                            <div class="countdown-area d-flex">
-                                <div class="countdown product-one">
+
+
+                            <div class="countdown-area d-flex ">
+
+                                <div id="{{this._id}}" class="countdown product-one">
                                 </div>
                                 <span class="total-bids">
-                                30 bids
+                                {{numberBidders}} bids
                             </span>
                             </div>
                             <div class="bid-now" type="button">
-                                <a href="#">Bid now</a>
+                                <a style="cursor: pointer" onclick="handleSubmit(`{{this._id}}`)">
+                                    Bid now
+                                </a>
                             </div>
                         </div>
+
+
+                        <script async>
+                            function countDown(dateExp) {
+
+                                var countDownDate = +dateExp;
+                                var distance;
+
+                                // Update the count down every 1 second
+                                var x = setInterval(function () {
+                                    distance = countDownDate - Date.now();
+                                    // Time calculations for days, hours, minutes and seconds
+                                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                    $("#{{this._id}}").html(days + "d : " + hours + "h :" + minutes + "m :" + seconds + "s");
+
+                                    // If the count down is finished, write some text
+                                    if (distance < 0) {
+                                        clearInterval(x);
+                                        $("#{{this._id}}").html("EXPIRED");
+                                    }
+
+                                }, 1000);
+                            }
+
+                            countDown(`{{this.expDate}}`)
+                        </script>
                     </div>
                 {{!--End Item --}}
 
@@ -374,24 +363,8 @@
         {{!-- End Row --}}
 
         {{!-- Pagination --}}
-        {{#if error}}
-            <div class="report_text h1">
-                Rất tiếc, Không tìm thấy kết quả nào phù hợp với từ khóa <strong>"{{search}}" </strong>
-            </div>
-            <div class="bg-white noresultsuggestion d-flex flex-column justify-content-center align-items-center mb-4">
-                <h4>Để tìm được kết quả chính xác hơn, bạn vui lòng:</h4>
-                <ul>
-                    <li style="list-style: outside">Kiểm tra lỗi chính tả của từ khóa đã nhập</li>
-                    <li style="list-style: outside">Thử lại bằng từ khóa khác</li>
-                    <li style="list-style: outside">Thử lại bằng những từ khóa tổng quát hơn</li>
-                    <li style="list-style: outside">Thử lại bằng những từ khóa ngắn gọn hơn</li>
-                </ul>
-            </div>
-        {{else}}
-            <ul class="mt-3 pagination align-items-center justify-content-center">
-                {{{displayPagination currentPage stringQuery maxPage totalItems }}}
-            </ul>
-        {{/if}}
+        {{>pagination_product}}
+        {{pagination_product}}
 
         <div>{{!-- End row --}}
         </div>
