@@ -26,10 +26,61 @@ function extendExpire(date) {
 
 const productController = {
 
-    detail: (req, res) => {
-        res.render('detailProduct');
-    },
+    detail: async (req, res) => {
 
+        const productId = req.query.id;
+        // find product by id
+
+        const product = await ProductModel.findById(productId).lean();
+
+        if (!product) {
+            res.render('404');
+            return;
+        }
+
+        const user = await UserModel.findById(product.seller).lean();
+        product.sellDate = moment(product.sellDate).format('HH:MM DD/MM/YYYY');
+        product.expDate = moment(product.expDate).format("YYYY-MM-DD HH:MM:SS");
+        product.expDate = "" + moment(product.expDate).valueOf();
+
+
+
+
+        let highestBidder = undefined;
+
+        if (product.historyBidId.length > 0) {
+            const lastProduct = product.historyBidId[product.historyBidId.length - 1];
+            highestBidder= await UserModel.findById(lastProduct.username).lean();
+            console.log(highestBidder);
+            product.highestBidder = maskInfo(highestBidder.profile.name);
+            product.highestBidderPoint = lastProduct.point;
+        }
+
+        for (let i = 0; i < product.historyBidId.length; i++) {
+            const bid = product.historyBidId[i];
+            const bidder = await UserModel.findById(bid.username).lean();
+            product.historyBidId[i].username = maskInfo(bidder.profile.name);
+            product.historyBidId[i].bidDate = moment(bid.bidDate).format('HH:MM DD/MM/YYYY');
+        }
+
+        // const obj = {
+        //     // name, id product, and date
+        //     bidDate: Date.now(),
+        //     username: "61c0951bc0a54110f047dc16",
+        //     price: 2000000
+        // }
+        //
+        // product.historyBidId.push(obj);
+        // // save product
+        // await ProductModel.findByIdAndUpdate(productId, product);
+
+
+
+        res.render('detailProduct', {
+            product,
+            user,
+        });
+    },
 
     index: async (req, res) => {
         const maincategory = req.query.maincategory;
@@ -189,7 +240,6 @@ const productController = {
             for (const wish of res.locals.user.wishlist) {
                 myMap.set(wish, wish);
             }
-            console.log(myMap.get('61bb56c41c0e3be8f8ef1028'));
             for (let i = 0; i < products.length; i++) {
                 products[i].isWishlist = '' + products[i]._id === '' + myMap.get(products[i]._id + "");
             }

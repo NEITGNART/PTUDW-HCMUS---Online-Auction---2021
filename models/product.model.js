@@ -45,7 +45,7 @@ const ProductSchema = new mongoose.Schema({
 
     historyBidId: {
         type: [{
-            bidDate: String,
+            bidDate: Date,
             username: String,
             price: Number
         }],
