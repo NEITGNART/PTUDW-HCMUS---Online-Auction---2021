@@ -1338,6 +1338,29 @@ pagination {
 
 /*=======================================================auction-item-slider===================================*/
 
+.img-home{
+  padding-top: 50%;
+  background: url('./img/home-image.jpg') top center / cover no-repeat;
+  position: relative;
+}
+
+.img-home .text-content{
+  position: absolute;
+  top:50%;
+  color: white;
+  width: 100%;
+  text-align: center;
+}
+
+.text-content .text-heading{
+
+}
+
+.text-content .text-description{
+
+}
+
+
 .product-slider{
   background-image: linear-gradient(
     0deg, #8e9eab 0%, #eef2f3 100%);
@@ -1348,7 +1371,9 @@ pagination {
   margin: 25px 0px;
   background-color: white;
   border-radius: 5px;
+  border: 1px solid;
   height: 100%;
+  
 }
 
 .cS-hidden {
@@ -1371,20 +1396,22 @@ pagination {
   z-index: 99;
 }
 
-.lSAction > .lSPrev {
-  background-color: #2cccff;
-  color: white;
+.lSAction > .navPrev{
+  position: absolute;
   border: none;
   left: 0;
-  padding: 10px 10px;
+  padding: 5px 5px;
+  background: none;
 }
-.lSAction > .lSNext {
-  background-color: #2cccff;
-  color: white;
+
+.lSAction > .navNext{
+  position: absolute;
   border: none;
   right: 0;
-  padding: 10px 10px;
+  padding: 5px 5px; 
+  background: none;
 }
+
 
 .ranking{
   display: block;
@@ -1406,8 +1433,8 @@ pagination {
   padding: 10px 0px 10px 0px;
   text-transform: uppercase;
   color: white;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
   background-image: linear-gradient(
     0deg, rgb(61, 169, 245) 0%, rgb(104, 61, 245) 100%);
 }
@@ -1418,6 +1445,8 @@ pagination {
 }
 /*=======================================================product-header===================================*/
 
+
+/*=======================================================re-gcaptcha===================================*/
 @media only screen and (max-width : 480px) {
   #recaptcha_challenge_image{
   margin: 0 !important;
@@ -1453,4 +1482,30 @@ pagination {
   height: auto !important;
   }
 
+}
+
+/*=======================================================admin-page===================================*/
+
+.container-admin{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.navigation{
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background: #003147;
+  transition: 0.5s;
+  overflow: hidden;
+}
+
+.navigation ul li:hover{
+  background: #03a9f4;
+}
+
+.navigation ul li:nth-child(1):hover{
+  background: transparent;
 }

@@ -11,9 +11,11 @@
     var sliderEndTime = $('#end-time').lightSlider({
       item: 3,
       autoWidth: true,
+      auto:true,
+      speed: 1000,
       loop: false,
       slideMove:1,
-      slideMargin: 50,
+      slideMargin: 25,
       easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
       controls: false,
       pager: false,
@@ -21,68 +23,84 @@
         $('#end-time').removeClass('cS-hidden');
       }
     });
-    $('.lSAction > .lSPrevEndTime').click(function () {
+    $('.lSAction > .endtimePrev').click(function () {
       sliderEndTime.goToPrevSlide();
     });
-    $('.lSAction > .lSNextEndTime').click(function () {
+    $('.lSAction > .endtimeNext').click(function () {
       sliderEndTime.goToNextSlide();
     });
     
     var sliderDealPrice = $('#deal-price').lightSlider({
       item: 3,
       autoWidth: true,
+      auto:true,
+      speed: 1000,
       loop: false,
       slideMove:1,
-      slideMargin: 50,
+      slideMargin: 25,
       easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
       controls: false,
       pager: false,
       onSliderLoad: function () {
-        $('#end-time').removeClass('cS-hidden');
+        $('#deal-price').removeClass('cS-hidden');
       }
     });
-    $('.lSAction > .lSPrevDealPrice').click(function () {
+    $('.lSAction > .dealpricePrev').click(function () {
       sliderDealPrice.goToPrevSlide();
     });
-    $('.lSAction > .lSNextDealPrice').click(function () {
+    $('.lSAction > .dealpriceNext').click(function () {
       sliderDealPrice.goToNextSlide();
     });
 
     var sliderBestPrice = $('#best-price').lightSlider({
         item: 3,
-        autoWidth: true,
-        loop: false,
-        slideMove:1,
-        slideMargin: 50,
-        easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
-        controls: false,
-        pager: false,
-        onSliderLoad: function () {
-          $('#end-time').removeClass('cS-hidden');
-        }
-      });
-      $('.lSAction > .lSPrevBestPrice').click(function () {
-        sliderBestPrice.goToPrevSlide();
-      });
-      $('.lSAction > .lSNextBestPrice').click(function () {
-        sliderBestPrice.goToNextSlide();
-      });
+      autoWidth: true,
+      auto:true,
+      speed: 1000,
+      loop: false,
+      slideMove:1,
+      slideMargin: 25,
+      easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
+      controls: false,
+      pager: false,
+      onSliderLoad: function () {
+        $('#best-price').removeClass('cS-hidden');
+      }
+    });
+    $('.lSAction > .bestpricePrev').click(function () {
+      sliderBestPrice.goToPrevSlide();
+    });
+    $('.lSAction > .bestpriceNext').click(function () {
+      sliderBestPrice.goToNextSlide();
+    });
   });
 </script>
 
 {{/section}}
 
+<section>
+  <div class="img-home">
+    <div class="text-content">
+      <h2 class="text-heading">Auction Website</h2>
+      <p class="text-description">Buy everything at the best price</p>
+    </div>
+  </div>
+</section>
+
 <section class="product-slider">
+  
   <div class="top-five-product">
     <div class="header-top-product">
         <h2>
           Top sản phẩm gần kết thúc
         </h2>
     </div>
-    <div class="lSAction">
-        <a class="lSPrev lSPrevEndTime"></a>
-        <a class="lSNext lSNextEndTime"></a>
+
+    <div class="lSAction">  
+        <i class="fas fa-angle-left fa-lg navPrev endtimePrev" aria-hidden="true"></i>
+        <i class="fas fa-angle-right fa-lg navNext endtimeNext" aria-hidden="true"></i>
     </div> 
+    
     <ul id="end-time" class="cs-hidden">
       <li class="item-a">
         <div class="auction-item auction-item-slide">
@@ -388,10 +406,10 @@
           Top sản phẩm có nhiều lượt ra giá nhất
       </h2>
     </div>
-     <div class="lSAction">
-        <a class="lSPrev lSPrevDealPrice"></a>
-        <a class="lSNext lSNextDealPrice"></a>
-    </div> 
+     <div class="lSAction">  
+        <i class="fas fa-angle-left fa-lg navPrev dealpricePrev" aria-hidden="true"></i>
+        <i class="fas fa-angle-right fa-lg navNext dealpriceNext" aria-hidden="true"></i>
+    </div>  
     <ul id="deal-price" class="cs-hidden">
       <li class="item-a">
         <div class="auction-item auction-item-slide">
@@ -695,10 +713,10 @@
     <div class="header-top-product">
       <h2>Top sản phẩm có giá cao nhất</h2>
     </div>
-     <div class="lSAction">
-        <a class="lSPrev lSPrevBestPrice"></a>
-        <a class="lSNext lSNextBestPrice"></a>
-    </div> 
+     <div class="lSAction">  
+        <i class="fas fa-angle-left fa-lg navPrev bestpricePrev" aria-hidden="true"></i>
+        <i class="fas fa-angle-right fa-lg navNext bestpriceNext" aria-hidden="true"></i>
+    </div>  
     <ul id="best-price" class="cs-hidden">
       <li class="item-a">
         <div class="auction-item auction-item-slide">
@@ -998,3 +1016,5 @@
     </ul>
   </div>
 </section>
+
+
