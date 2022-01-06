@@ -27,9 +27,10 @@ const productController = {
 
     index: async (req, res) => {
 
+        const maincategory = req.query.maincategory;
         const search = req.query.search || "";
         const sort = req.query.sort;
-        const category = req.query.category || "";
+        const subcategory = req.query.category || "";
         let maxItems = +req.query.limit || 12;
         let currentPage = +req.query.page || 1;
         let skipItem = (currentPage - 1) * maxItems;
@@ -43,7 +44,20 @@ const productController = {
         var products;
         var totalItems;
 
-        if (category === "") {
+        // find all product and update the expire date
+        await ProductModel.find({
+
+        }).then(async (data) => {
+            for (let i = 0; i < data.length; i++) {
+                if (isExpired(data[i].expire) < 0) {
+                    data[i].expire = extendExpire(data[i].expire);
+                    await data[i].save();
+                }
+            }
+        });
+
+
+        if (subcategory === "") {
 
             // random product
             totalItems = await ProductModel.countDocuments({
@@ -71,13 +85,13 @@ const productController = {
             // calculate total items in document
 
             totalItems = await ProductModel.countDocuments({
-                category: category,
+                category: subcategory,
                 status: "bidding",
             });
 
             const pipeline = [{$match: {$text: {$search: search}}}, {
                 $match: {
-                    category: category,
+                    category: subcategory,
                     status: "bidding",
                 }
             }, {$sort: {[sort]: 1}}, {$skip: skipItem}, {$limit: maxItems}];
@@ -110,9 +124,24 @@ const productController = {
 
         const error =  products.length === 0;
 
+        let category = [];
+        // get all name of cats model
+        cats.forEach(cat => {
+            category.push(cat.name);
+        });
+        // convert date in product using moment with second minute hour day month year
+        products.forEach(product => {
+            product.expDate = moment(product.expDate).format("YYYY-MM-DD HH:MM:SS");
+            product.expDate = ""+moment(product.expDate).valueOf();
+            product.sellDate = moment(product.sellDate).format("YYYY-MM-DD HH:MM:SS");
+            product.sellDate = ""+moment(product.sellDate).valueOf();
+            console.log(product.expDate);
+        });
+
         res.render('product', {
             products,
             category,
+            subcategory,
             currentPage,
             stringQuery,
             maxPage,
@@ -120,7 +149,8 @@ const productController = {
             sort,
             totalItems,
             search,
-            error
+            error,
+            maincategory
         })
 
     },

@@ -1,0 +1,52 @@
+<!-- Sidebar category -->
+<div class="category-sidebar col-lg-3 col-12 col-sm-12 col-md-12 pr-sm-5  col-md-3 ml-3 mt-3 pr-lg-2">
+    <div class="card dashboard-widget sticky-menu pl-sm-0 pl-0">
+        <ul class="dashboard-menu">
+            <li>
+
+                <div class="card-header bg-white mb-2 text-center">
+                    <i class="fas fa-list-alt" aria-hidden="true"></i>
+                    <p class="ml-2 d-inline-block ">Danh Mục Sản Phẩm</p>
+                </div>
+
+            </li>
+
+
+
+            {{#if maincategory}}
+                <div class="card-body">
+                    <li>
+                        <a type="button" class="card-item {{highlightCategory category "Điện thoại"}}"
+                           onclick="handleCategory(`Điện thoại`)">
+
+                            <i class="fas fa-mobile-alt fa-2x mobile-2x"></i>
+                            <span class="">Điện thoại di động</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{highlightCategory category "Laptop"}}" type="button"
+                           onclick="handleCategory(`Laptop`)">
+                            <i class="fas fa-laptop"></i>
+                            Máy tính xách tay
+                        </a>
+                    </li>
+                </div>
+            {{else}}
+
+                <div class="card-body">
+                    <li>
+                        <a type="button" class="card-item {{highlightCategory category "Điện thoại"}}" href="?maincategory=Điện%20Tử">
+                            <i class="fas fa-mobile-alt fa-2x mobile-2x"></i>
+                            <span class="">Đồ Điện tử</span>
+                        </a>
+                    </li>
+                </div>
+
+            {{/if}}
+
+
+
+        </ul>
+    </div>
+    <!-- End sidebar category-->
+</div>
