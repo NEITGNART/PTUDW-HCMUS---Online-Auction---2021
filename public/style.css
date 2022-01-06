@@ -1658,6 +1658,7 @@ pagination {
 
 .slider {
   position: relative;
+  margin-bottom: 3rem;
 }
 
 .left_arrow {

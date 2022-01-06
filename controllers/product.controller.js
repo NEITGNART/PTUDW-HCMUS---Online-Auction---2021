@@ -28,40 +28,40 @@ const productController = {
 
     detail: async (req, res) => {
 
-        const productId = req.query.id;
-        // find product by id
+        // const productId = req.query.id;
+        // // find product by id
 
-        const product = await ProductModel.findById(productId).lean();
+        // const product = await ProductModel.findById(productId).lean();
 
-        if (!product) {
-            res.render('404');
-            return;
-        }
+        // if (!product) {
+        //     res.render('404');
+        //     return;
+        // }
 
-        const user = await UserModel.findById(product.seller).lean();
-        product.sellDate = moment(product.sellDate).format('HH:MM DD/MM/YYYY');
-        product.expDate = moment(product.expDate).format("YYYY-MM-DD HH:MM:SS");
-        product.expDate = "" + moment(product.expDate).valueOf();
-
-
+        // const user = await UserModel.findById(product.seller).lean();
+        // product.sellDate = moment(product.sellDate).format('HH:MM DD/MM/YYYY');
+        // product.expDate = moment(product.expDate).format("YYYY-MM-DD HH:MM:SS");
+        // product.expDate = "" + moment(product.expDate).valueOf();
 
 
-        let highestBidder = undefined;
 
-        if (product.historyBidId.length > 0) {
-            const lastProduct = product.historyBidId[product.historyBidId.length - 1];
-            highestBidder= await UserModel.findById(lastProduct.username).lean();
-            console.log(highestBidder);
-            product.highestBidder = maskInfo(highestBidder.profile.name);
-            product.highestBidderPoint = lastProduct.point;
-        }
 
-        for (let i = 0; i < product.historyBidId.length; i++) {
-            const bid = product.historyBidId[i];
-            const bidder = await UserModel.findById(bid.username).lean();
-            product.historyBidId[i].username = maskInfo(bidder.profile.name);
-            product.historyBidId[i].bidDate = moment(bid.bidDate).format('HH:MM DD/MM/YYYY');
-        }
+        // let highestBidder = undefined;
+
+        // if (product.historyBidId.length > 0) {
+        //     const lastProduct = product.historyBidId[product.historyBidId.length - 1];
+        //     highestBidder= await UserModel.findById(lastProduct.username).lean();
+        //     console.log(highestBidder);
+        //     product.highestBidder = maskInfo(highestBidder.profile.name);
+        //     product.highestBidderPoint = lastProduct.point;
+        // }
+
+        // for (let i = 0; i < product.historyBidId.length; i++) {
+        //     const bid = product.historyBidId[i];
+        //     const bidder = await UserModel.findById(bid.username).lean();
+        //     product.historyBidId[i].username = maskInfo(bidder.profile.name);
+        //     product.historyBidId[i].bidDate = moment(bid.bidDate).format('HH:MM DD/MM/YYYY');
+        // }
 
         // const obj = {
         //     // name, id product, and date
@@ -76,10 +76,12 @@ const productController = {
 
 
 
-        res.render('detailProduct', {
-            product,
-            user,
-        });
+        res.render('detailProduct'
+            // , {
+            //     product,
+            //     user,
+            // }
+        );
     },
 
     index: async (req, res) => {
