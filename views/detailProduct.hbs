@@ -80,7 +80,7 @@
 
       <form action="" class="d-flex justify-content-between">
         <input type="text" name="bid" id="" placeholder="Mức giá tối đa bạn tham gia" />
-        <button class="submit-btn">Submit A Bid</button>
+        <button class="submit-btn">Đấu giá tự động</button>
       </form>
     </div>
     <!-- End right card -->
@@ -175,3 +175,12 @@
   </div>
   <!-- End bottom card -->
 </div>
+
+<script>
+  const imgs = document.querySelectorAll('.img-select a'); const imgBtns = [...imgs]; let imgId = 1;
+  imgBtns.forEach((imgItem) => { imgItem.addEventListener('click', (event) => {
+  event.preventDefault(); imgId = imgItem.dataset.id; slideImage(); }); }); function slideImage() {
+  const displayWidth = document.querySelector('.img-showcase img:first-child').clientWidth;
+  document.querySelector('.img-showcase').style.transform = `translateX(${- (imgId - 1) *
+  displayWidth}px)`; } window.addEventListener('resize', slideImage);
+</script>
