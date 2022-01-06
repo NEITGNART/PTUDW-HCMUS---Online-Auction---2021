@@ -26,7 +26,6 @@ const productController = {
 
 
     index: async (req, res) => {
-
         const maincategory = req.query.maincategory;
         const search = req.query.search || "";
         const sort = req.query.sort;
@@ -66,13 +65,29 @@ const productController = {
 
             const sortProduct = {
                 // if sort is sellDate, descending
-                $sort: {[sort]: 1}
+                $sort: {
+                    [sort]: 1
+                }
             }
             if (sort === "expDate") {
                 sortProduct.$sort[sort] = -1;
             }
 
-            var pipeline = [{$match: {$text: {$search: search}}}, {$match: {status: "bidding",}}, sortProduct, {$skip: skipItem}, {$limit: maxItems}]
+            var pipeline = [{
+                $match: {
+                    $text: {
+                        $search: search
+                    }
+                }
+            }, {
+                $match: {
+                    status: "bidding",
+                }
+            }, sortProduct, {
+                $skip: skipItem
+            }, {
+                $limit: maxItems
+            }]
 
             if (search === "") {
                 // remove the first element
@@ -89,12 +104,26 @@ const productController = {
                 status: "bidding",
             });
 
-            const pipeline = [{$match: {$text: {$search: search}}}, {
+            const pipeline = [{
+                $match: {
+                    $text: {
+                        $search: search
+                    }
+                }
+            }, {
                 $match: {
                     category: subcategory,
                     status: "bidding",
                 }
-            }, {$sort: {[sort]: 1}}, {$skip: skipItem}, {$limit: maxItems}];
+            }, {
+                $sort: {
+                    [sort]: 1
+                }
+            }, {
+                $skip: skipItem
+            }, {
+                $limit: maxItems
+            }];
             if (search === "") {
                 pipeline.shift();
                 // remove last element
@@ -122,7 +151,7 @@ const productController = {
             currentPage = maxPage;
         }
 
-        const error =  products.length === 0;
+        const error = products.length === 0;
 
         let category = [];
         // get all name of cats model
@@ -132,9 +161,9 @@ const productController = {
         // convert date in product using moment with second minute hour day month year
         products.forEach(product => {
             product.expDate = moment(product.expDate).format("YYYY-MM-DD HH:MM:SS");
-            product.expDate = ""+moment(product.expDate).valueOf();
+            product.expDate = "" + moment(product.expDate).valueOf();
             product.sellDate = moment(product.sellDate).format("YYYY-MM-DD HH:MM:SS");
-            product.sellDate = ""+moment(product.sellDate).valueOf();
+            product.sellDate = "" + moment(product.sellDate).valueOf();
             console.log(product.expDate);
         });
 

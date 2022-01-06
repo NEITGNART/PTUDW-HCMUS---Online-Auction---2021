@@ -20,7 +20,6 @@ router.route('/login')
             failureFlash: true
         }),
         async (req, res) => {
-            res.locals.user = await User.findById(req.session.passport.user);
             res.redirect('/');
         }
     );
@@ -31,7 +30,6 @@ router.route('/login/facebook')
         failureRedirect: '/login',
         failureFlash: true
     }), async (req, res) => {
-        res.locals.user = await User.findById(req.session.passport.user);
         res.redirect('/')
     });
 
@@ -43,7 +41,6 @@ router.route('/login/google')
         failureRedirect: '/login',
         failureFlash: true
     }), async (req, res) => {
-        res.locals.user = await User.findById(req.session.passport.user);
         res.redirect('/')
     })
 
@@ -53,7 +50,6 @@ router.route('/login/github')
         failureRedirect: '/login',
         failureFlash: true
     }), async (req, res) => {
-        res.locals.user = await User.findById(req.session.passport.user);
         res.redirect('/')
     });
 
@@ -75,8 +71,6 @@ router.route('/signup')
             failureFlash: true
         }),
         async (req, res) => {
-            console.log('aaaaaaaaaaaaaaaaaaaaa');
-            res.locals.user = await User.findById(req.session.passport.user);
             res.redirect('/');
         });
 
