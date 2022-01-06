@@ -2,6 +2,7 @@
 
     <script>
 
+
         let valueSort = "";
 
 
@@ -80,12 +81,18 @@
             window.location.href = url;
         }
 
-        function handleFavorite(id) {
-            // handle query id = id using jquery
+        async function handledWishlist(id) {
+            const data = await axios.post(`user/wishlist?id=${id}`);
+            if (data.data.success === true) {
+                $(`#fa-${id}`).removeClass(`far fa-heart`);
+                $(`#fa-${id}`).addClass("fa fa-heart");
+            } else {
+                $(`#fa-${id}`).removeClass("fa fa-heart");
+                $(`#fa-${id}`).addClass("far fa-heart");
+            }
         }
 
         function handleSubmit(id) {
-
             // if (user === null) {
             //     alert("Please login to add to cart");
             // } else {
@@ -199,89 +206,105 @@
 
                 {{!-- Start Item --}}
 
-                    <div class="auction-item" style="height: 470px;width: 310px;">
+                    <div class="auction-item">
                         <div class="auction-item-thumb">
 
                             <a class="thumb-img" href="#">
                                 <img src={{getThumbnail images}} alt="item">
                             </a>
 
-                            {{#if login}}
-                                <a class="star-icon thumb-icon" href="#">
+                            {{#if ../username}}
 
-                                    <button id="fa-{{this._id}}" class="btn btn-heart d-inline-block"
-                                            style="position: relative;"><i
-                                            class="icon-heart far fa-heart"
-                                            aria-hidden="true" style="position: absolute;left: 6px;top: 6.9px;"
-                                            onclick="handleFavorite(`fa-{{this._id}}`)"></i>
-                                    </button>
-                                </a>
+
+                                {{#if isWishlist}}
+                                    <a class="star-icon thumb-icon" style="cursor: pointer"
+                                       onclick="handledWishlist(`{{this._id}}`)">
+                                        <button class="btn btn-heart d-inline-block"
+                                                style="position: relative;"><i
+                                                class="icon-heart fa fa-heart"
+                                                aria-hidden="true"
+                                                style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                                id="fa-{{this._id}}"></i>
+                                        </button>
+                                    </a>
+                                {{else}}
+
+                                    <a class="star-icon thumb-icon" style="cursor: pointer"
+                                       onclick="handledWishlist(`{{this._id}}`)">
+                                        <button class="btn btn-heart d-inline-block"
+                                                style="position: relative;"><i
+                                                class="icon-heart far fa-heart"
+                                                aria-hidden="true"
+                                                style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                                id="fa-{{this._id}}"></i>
+                                        </button>
+                                    </a>
+
+                                {{/if}}
+
                             {{/if}}
-
-
 
 
                         </div>
                         <div class="auction-item-content">
                             <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px">
-                                {{name}}</div>
+                                {{name}}
+                            </div>
+
+                            <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; ">
+                                Ngày bán: {{sellDate}}
+                            </div>
+
+                            {{#if currentWinner}}
+                                <div>
+                                    Người đang trả giá cao nhất:{{currentWinner}}
+                                </div>
+                            {{else}}
+                                <div>
+                                    Hãy là người đầu tiên trả giá
+                                </div>
+                            {{/if}}
 
 
-                            {{#if bestPrice}}
-
-                                <div class="bid-area d-flex justify-content-center">
-                                    <div class="bid-amount current-price d-flex">
-                                        <div class="icon">
-                                            <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                            <div class="bid-area d-flex justify-content-center">
+                                <div class="bid-amount current-price d-flex">
+                                    <div class="icon">
+                                        <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="amount-content">
+                                        <div class="current">
+                                            Giá hiện tại
                                         </div>
-                                        <div class="amount-content">
-                                            <div class="current">
-                                                Current Bid
-                                            </div>
-                                            <div class="amount">
-                                                {{currentPrice}}
-                                            </div>
+                                        <div class="amount">
+                                            {{currentPrice}}
                                         </div>
                                     </div>
+                                </div>
 
 
-                                    <div class="bid-amount buy-price d-flex">
-                                        <div class="icon">
-                                            <i class="fas fa-money-bill-wave fa-2x"></i>
+                                <div class="bid-amount buy-price d-flex">
+                                    <div class="icon">
+                                        <i class="fas fa-money-bill-wave fa-2x"></i>
+                                    </div>
+
+                                    <div class="amount-content">
+                                        <div class="buy">
+                                            Mua ngay
                                         </div>
-
-
-                                        <div class="amount-content">
-                                            <div class="buy">
-                                                Buy Now
-                                            </div>
+                                        {{#if bestPrice}}
                                             <div class="amount">
                                                 {{bestPrice}}
                                             </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            {{else}}
-
-                                <div class="bid-area d-flex">
-                                    <div class="bid-amount current-price d-flex">
-                                        <div class="icon">
-                                            <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="amount-content">
-                                            <div class="current">
-                                                Current Bid
-                                            </div>
+                                        {{else}}
                                             <div class="amount">
-                                                {{currentPrice}}
+                                                Không có
                                             </div>
-                                        </div>
+                                        {{/if}}
+
                                     </div>
+
                                 </div>
-
-                            {{/if}}
-
+                            </div>
 
 
                             <div class="countdown-area d-flex ">
@@ -289,7 +312,7 @@
                                 <div id="{{this._id}}" class="countdown product-one">
                                 </div>
                                 <span class="total-bids">
-                                30 bids
+                                {{numberBidders}} bids
                             </span>
                             </div>
                             <div class="bid-now" type="button">
