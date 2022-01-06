@@ -2,8 +2,8 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/css/lightslider.min.css">
 
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js">
+</script>
 </script>
 
 <script>
@@ -11,10 +11,10 @@
     var sliderEndTime = $('#end-time').lightSlider({
       item: 4,
       autoWidth: true,
-      auto:true,
+      auto: true,
       speed: 1000,
       loop: false,
-      slideMove:1,
+      slideMove: 1,
       slideMargin: 25,
       easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
       controls: false,
@@ -29,14 +29,14 @@
     $('.lSAction > .endtimeNext').click(function () {
       sliderEndTime.goToNextSlide();
     });
-    
+
     var sliderDealPrice = $('#deal-price').lightSlider({
       item: 3,
       autoWidth: true,
-      auto:true,
+      auto: true,
       speed: 1000,
       loop: false,
-      slideMove:1,
+      slideMove: 1,
       slideMargin: 25,
       easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
       controls: false,
@@ -53,12 +53,12 @@
     });
 
     var sliderBestPrice = $('#best-price').lightSlider({
-        item: 3,
+      item: 3,
       autoWidth: true,
-      auto:true,
+      auto: true,
       speed: 1000,
       loop: false,
-      slideMove:1,
+      slideMove: 1,
       slideMargin: 25,
       easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
       controls: false,
@@ -88,19 +88,19 @@
 </section>
 
 <section class="product-slider">
-  
+
   <div class="top-five-product">
     <div class="header-top-product">
-        <h2>
-          Top sản phẩm gần kết thúc
-        </h2>
+      <h2>
+        Top sản phẩm gần kết thúc
+      </h2>
     </div>
 
-    <div class="lSAction">  
-        <i class="fas fa-angle-left fa-lg navPrev endtimePrev" aria-hidden="true"></i>
-        <i class="fas fa-angle-right fa-lg navNext endtimeNext" aria-hidden="true"></i>
-    </div> 
-    
+    <div class="lSAction">
+      <i class="fas fa-angle-left fa-lg navPrev endtimePrev" aria-hidden="true"></i>
+      <i class="fas fa-angle-right fa-lg navNext endtimeNext" aria-hidden="true"></i>
+    </div>
+
     <ul id="end-time" class="cs-hidden">
       <li class="item-a">
         <div class="auction-item auction-item-slide">
@@ -403,13 +403,13 @@
   <div class="top-five-product">
     <div class="header-top-product">
       <h2>
-          Top sản phẩm có nhiều lượt ra giá nhất
+        Top sản phẩm có nhiều lượt ra giá nhất
       </h2>
     </div>
-     <div class="lSAction">  
-        <i class="fas fa-angle-left fa-lg navPrev dealpricePrev" aria-hidden="true"></i>
-        <i class="fas fa-angle-right fa-lg navNext dealpriceNext" aria-hidden="true"></i>
-    </div>  
+    <div class="lSAction">
+      <i class="fas fa-angle-left fa-lg navPrev dealpricePrev" aria-hidden="true"></i>
+      <i class="fas fa-angle-right fa-lg navNext dealpriceNext" aria-hidden="true"></i>
+    </div>
     <ul id="deal-price" class="cs-hidden">
       <li class="item-a">
         <div class="auction-item auction-item-slide">
@@ -713,10 +713,10 @@
     <div class="header-top-product">
       <h2>Top sản phẩm có giá cao nhất</h2>
     </div>
-     <div class="lSAction">  
-        <i class="fas fa-angle-left fa-lg navPrev bestpricePrev" aria-hidden="true"></i>
-        <i class="fas fa-angle-right fa-lg navNext bestpriceNext" aria-hidden="true"></i>
-    </div>  
+    <div class="lSAction">
+      <i class="fas fa-angle-left fa-lg navPrev bestpricePrev" aria-hidden="true"></i>
+      <i class="fas fa-angle-right fa-lg navNext bestpriceNext" aria-hidden="true"></i>
+    </div>
     <ul id="best-price" class="cs-hidden">
       <li class="item-a">
         <div class="auction-item auction-item-slide">
@@ -1016,5 +1016,3 @@
     </ul>
   </div>
 </section>
-
-

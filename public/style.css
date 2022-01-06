@@ -1343,32 +1343,27 @@ pagination {
 
 /*=======================================================auction-item-slider===================================*/
 
-.img-home{
+.img-home {
   padding-top: 50%;
   background: url('./img/home-image.jpg') top center / cover no-repeat;
   position: relative;
 }
 
-.img-home .text-content{
+.img-home .text-content {
   position: absolute;
-  top:50%;
+  top: 50%;
   color: white;
   width: 100%;
   text-align: center;
 }
 
-.text-content .text-heading{
+.text-content .text-heading {}
 
-}
-
-.text-content .text-description{
-
-}
+.text-content .text-description {}
 
 
-.product-slider{
-  background-image: linear-gradient(
-    0deg, #8e9eab 0%, #eef2f3 100%);
+.product-slider {
+  background-image: linear-gradient(0deg, #8e9eab 0%, #eef2f3 100%);
   padding: 25px 50px;
 }
 
@@ -1378,7 +1373,7 @@ pagination {
   border-radius: 5px;
   border: 1px solid;
   height: 100%;
-  
+
 }
 
 .cS-hidden {
@@ -1402,7 +1397,7 @@ pagination {
 }
 
 
-.lSAction > .navPrev{
+.lSAction>.navPrev {
   position: absolute;
   border: none;
   left: 0;
@@ -1411,15 +1406,15 @@ pagination {
 }
 
 
-.lSAction > .navNext{
+.lSAction>.navNext {
   position: absolute;
   border: none;
   right: 0;
-  padding: 5px 5px; 
+  padding: 5px 5px;
   background: none;
 }
 
-.ranking{
+.ranking {
   display: block;
   position: absolute;
   top: 0px;
@@ -1440,8 +1435,7 @@ pagination {
   color: white;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
-  background-image: linear-gradient(
-    0deg, rgb(61, 169, 245) 0%, rgb(104, 61, 245) 100%);
+  background-image: linear-gradient(0deg, rgb(61, 169, 245) 0%, rgb(104, 61, 245) 100%);
 }
 
 .header-top-product>h2 {
@@ -1491,16 +1485,17 @@ pagination {
   }
 
 }
+
 /*=======================================================admin-page===================================*/
 
-.container-admin{
+.container-admin {
   width: 100%;
   margin: 0;
   padding: 0;
   position: relative;
 }
 
-.navigation{
+.navigation {
   position: fixed;
   width: 300px;
   height: 100%;
@@ -1509,13 +1504,14 @@ pagination {
   overflow: hidden;
 }
 
-.navigation ul li:hover{
+.navigation ul li:hover {
   background: #03a9f4;
 }
 
-.navigation ul li:nth-child(1):hover{
+.navigation ul li:nth-child(1):hover {
   background: transparent;
 }
+
 /* ========================  Product detail ==========================*/
 
 
@@ -1658,6 +1654,75 @@ pagination {
 
 .submit-btn {
   background: #256eff;
+}
+
+.slider {
+  position: relative;
+}
+
+.left_arrow {
+  position: absolute;
+  top: 35%;
+  left: -10px;
+  font-size: 30px;
+  height: 35px;
+  width: 35px;
+  color: #fff;
+  background-color: #007BB6;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  text-align: center;
+  z-index: 99;
+  line-height: 2rem;
+}
+
+.right_arrow {
+  position: absolute;
+  top: 35%;
+  right: -20px;
+  font-size: 30px;
+  height: 35px;
+  width: 35px;
+  color: #fff;
+  background-color: #007BB6;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  text-align: center;
+  z-index: 99;
+  line-height: 2rem;
+}
+
+.right_arrow:hover,
+.left_arrow:hover {
+  background: #2b83d4;
+  border-color: #282828;
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: -3%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slick-dots li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.slick-dots li button {
+  font-size: 0;
+  height: 10px;
+  width: 10px;
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 50%;
+  border: none;
+}
+
+.slick-dots .slick-active button {
+  background: #00aced;
+  height: 15px;
+  width: 15px;
 }
 
 /* ========================  Product detail ==========================*/
