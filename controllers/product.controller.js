@@ -24,6 +24,10 @@ function extendExpire(date) {
 
 const productController = {
 
+    detail: (req, res) => {
+        res.render('detailProduct');
+    },
+
 
     index: async (req, res) => {
         const maincategory = req.query.maincategory;
