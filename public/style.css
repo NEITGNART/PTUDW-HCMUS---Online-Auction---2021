@@ -1447,6 +1447,7 @@ pagination {
   background: none;
 }
 
+
 .ranking {
   display: block;
   position: absolute;
@@ -1472,9 +1473,17 @@ pagination {
   background-image: linear-gradient(0deg, rgb(61, 169, 245) 0%, rgb(104, 61, 245) 100%);
 }
 
-.header-top-product>h2 {
-  margin: 0;
-  padding: 0;
+.top-product {
+  margin-top: 25px;
+  margin-bottom: 25px;
+
+}
+
+.header-top-product {
+  width: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px;
 }
 
 @media only screen and (max-width : 480px) {
@@ -1482,6 +1491,51 @@ pagination {
     padding: 25px 0px;
   }
 }
+
+
+.header-top-product>h2 {
+  font-weight: 600;
+  font-size: 50px;
+}
+
+.group-carousel-control {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+.btn-carousel {
+  position: absolute;
+  display: inline-block;
+  background-color: white;
+  color: blue;
+  border: none;
+  padding: 2px 2px;
+}
+
+.btn-carousel:hover {
+  background-color: blue;
+  color: white;
+  border-radius: 15%;
+  cursor: pointer;
+}
+
+.btn-carousel:focus {
+  outline: none;
+  border: none;
+}
+
+
+.btn-carousel-prev {
+  left: -20px;
+}
+
+.btn-carousel-next {
+  right: -20px;
+}
+
+
+
 
 /*=======================================================product-header===================================*/
 
@@ -1550,6 +1604,12 @@ pagination {
 
 .navigation ul li:nth-child(1):hover {
   background: transparent;
+}
+
+.navigation ul li a {
+  position: relative;
+  display: block;
+
 }
 
 /* ========================  Product detail ==========================*/
