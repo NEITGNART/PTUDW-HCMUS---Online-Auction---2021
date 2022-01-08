@@ -54,10 +54,10 @@ a:link {
 /* ======================== Product card ==========================*/
 
 .auction-item {
-  /* display: inline-block; */
+  display: inline-block;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 20px;
-  margin: 2% 0%;
+  margin: 3rem 1.5rem;
   background-color: #ffffff;
   width: 300px;
   max-width: 300px;
