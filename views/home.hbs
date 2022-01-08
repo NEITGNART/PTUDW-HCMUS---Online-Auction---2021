@@ -7,8 +7,8 @@
           nav:false,
           autoplay:true,
           dots: false,
-          loop: false,
-          interval:2000,
+          loop: true,
+          autoplayHoverPause: true,
         });
         
         $('.btn-carousel-next').click(function() {
@@ -38,9 +38,12 @@
 
 <div class="container top-product">
   <div class="row">
+    <div class="header-top-product">
+      <h2>top sản phẩm sắp kết thúc</h2>
+    </div>
     <div class="col-lg-12">
-      <div id="end-time-slider" class="owl-carousel tttt">
-          <div class="auction-item">
+      <div id="end-time-slider" class="owl-carousel shadow-sm rounded">
+          <div class="auction-item shadow-sm">
             <div class="auction-item-thumb">
               <a class="thumb-img" href="#">
                 <img src="img/auction-1.jpg" alt="item" />
@@ -97,7 +100,7 @@
               </div>
             </div>
           </div>
-          <div class="auction-item">
+          <div class="auction-item shadow-sm">
             <div class="auction-item-thumb">
               <a class="thumb-img" href="#">
                 <img src="img/auction-1.jpg" alt="item" />
@@ -154,7 +157,7 @@
               </div>
             </div>
           </div>
-          <div class="auction-item">
+          <div class="auction-item shadow-sm">
             <div class="auction-item-thumb">
               <a class="thumb-img" href="#">
                 <img src="img/auction-1.jpg" alt="item" />
@@ -211,7 +214,7 @@
               </div>
             </div>
           </div>
-          <div class="auction-item">
+          <div class="auction-item shadow-sm">
             <div class="auction-item-thumb">
               <a class="thumb-img" href="#">
                 <img src="img/auction-1.jpg" alt="item" />
@@ -268,7 +271,7 @@
               </div>
             </div>
           </div>
-          <div class="auction-item">
+          <div class="auction-item shadow-sm">
             <div class="auction-item-thumb">
               <a class="thumb-img" href="#">
                 <img src="img/auction-1.jpg" alt="item" />
@@ -327,9 +330,9 @@
           </div>
       </div>
     </div>
-      <div class="btn-carousel-control">
-          <span class="btn-carousel-prev"><i class="fas fa-arrow-left fa-lg"></i></span>
-          <span class="btn-carousel-next"><i class="fas fa-arrow-right fa-lg"></i></span>
+      <div class="group-carousel-control">
+          <button class="btn-carousel btn-carousel-prev"><i class="fas fa-arrow-left fa-lg"></i></button>
+          <button class="btn-carousel btn-carousel-next"><i class="fas fa-arrow-right fa-lg"></i></button>
       </div>
   </div>
 </div>

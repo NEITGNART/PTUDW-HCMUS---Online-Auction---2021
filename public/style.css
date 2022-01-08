@@ -1380,26 +1380,52 @@ pagination {
   margin-bottom: 25px;
 }
 
-.tttt{
+.header-top-product{
+  width: 100%;
+  text-transform: uppercase;
+  text-align: center;
   padding: 10px;
 }
 
-.btn-carousel-control{
+.header-top-product>h2{
+  font-weight: 600;
+  font-size: 50px;
+}
+
+.group-carousel-control{
   position: absolute;
   top: 50%;
   width: 100%;
 }
 
-.btn-carousel-prev{
+.btn-carousel{
   position: absolute;
   display: inline-block;
-  left:-10px;
+  background-color: white;
+  color:blue;  
+  border: none;
+  padding: 2px 2px;
+}
+
+.btn-carousel:hover{
+  background-color: blue;
+  color:white;
+  border-radius: 15%;
+  cursor: pointer;
+}
+
+.btn-carousel:focus{
+  outline: none;
+  border: none;
+}
+
+
+.btn-carousel-prev{
+  left:-20px;
 }
 
 .btn-carousel-next{
-  position: absolute;
-  display: inline-block;
-  right:-10px;
+  right:-20px; 
 }
 
 
