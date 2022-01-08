@@ -54,29 +54,33 @@ a:link {
 /* ======================== Product card ==========================*/
 
 .auction-item {
-  display: inline-block;
+  /* display: inline-block; */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 20px;
-  margin: 1% 1%;
+  margin: 2% 0%;
+  background-color: #ffffff;
+  width: 300px;
+  max-width: 300px;
 }
 
 .auction-item-thumb {
   position: relative;
-  text-align: right;
+  border-radius: 10px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .auction-item-thumb .thumb-img img {
-  width: 300px;
-  height: 224px;
+  width: 100%;
   border-radius: 5%;
 }
 
 .thumb-icon {
   position: absolute;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
+  right: 20px;
+  top: 20px;
   z-index: 1;
 }
 
@@ -86,8 +90,9 @@ a:link {
 }
 
 .gavel-icon {
-  left: 83%;
-  top: 76%;
+  position: absolute;
+  top: 70%;
+  right: 10px;
   width: 40px;
   height: 40px;
   color: #ffffff;
@@ -107,6 +112,7 @@ a:link {
   margin-right: 5%;
 }
 
+
 .bid-amount {
   border-bottom: 2px dotted #deddf5;
   border-top: 2px dotted #deddf5;
@@ -117,26 +123,29 @@ a:link {
   padding: 10px 5px;
 }
 
-.bid-area .bid-amount:first-child::before {
+.bid-area .bid-amount:first-child:before {
   position: absolute;
   content: "";
   width: 1px;
-  right: 0;
+  right: 0px;
   bottom: 15px;
   top: 15px;
-  background: #bfbee8;
+  background: #817e7e;
 }
 
 .bid-amount .icon {
-  box-sizing: border-box;
-  font-size: 16px;
-  color: #52606d;
-  line-height: 26px;
-  overflow-x: hidden;
-  font-family: "Open Sans", sans-serif;
-  background: #ffffff;
-  padding: 0px 10px;
+  width: 20px;
+  max-width: 25px;
 }
+
+.amount-content {
+  font-size: 14px;
+  margin: 0 0 5px;
+  text-align: left;
+  padding-left: 15px;
+  max-width: calc(50%-25px);
+}
+
 
 .current-price .current,
 .current-price .icon {
@@ -213,6 +222,25 @@ start-time {
 .bid-now a:active {
   text-decoration: none;
   box-shadow: #ffffff -1.04px 4.891px 20px 0px;
+}
+
+@media (max-width:575) {
+  .auction-item {
+    max-width: 320px;
+  }
+
+  .bid-amount .icon {
+    width: 10px;
+    font-size: 10px;
+  }
+
+  .amount-content {
+    font-size: 14px;
+    margin: 0 0 5px;
+    text-align: left;
+    padding-left: 15px;
+    max-width: calc(50%-10px);
+  }
 }
 
 /* ======================== Product card ==========================*/
@@ -1363,17 +1391,22 @@ pagination {
 
 
 .product-slider {
-  background-image: linear-gradient(0deg, #8e9eab 0%, #eef2f3 100%);
+  background: #005AA7;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFFDE4, #005AA7);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFFDE4, #005AA7);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding: 25px 50px;
 }
 
 .top-five-product {
-  margin: 25px 0px;
-  background-color: white;
-  border-radius: 5px;
-  border: 1px solid;
+  margin: 30px auto;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 25px;
+  border: 0px solid;
   height: 100%;
-
+  /* width: 80%; */
 }
 
 .cS-hidden {
@@ -1429,18 +1462,25 @@ pagination {
 }
 
 .header-top-product {
+  width: 50%;
+  margin: 0 auto;
   text-align: center;
-  padding: 10px 0px 10px 0px;
+  padding: 0.7rem 0rem;
   text-transform: uppercase;
   color: white;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
+  border-radius: 25px;
   background-image: linear-gradient(0deg, rgb(61, 169, 245) 0%, rgb(104, 61, 245) 100%);
 }
 
 .header-top-product>h2 {
   margin: 0;
   padding: 0;
+}
+
+@media only screen and (max-width : 480px) {
+  .product-slider {
+    padding: 25px 0px;
+  }
 }
 
 /*=======================================================product-header===================================*/
@@ -1663,7 +1703,7 @@ pagination {
 
 .left_arrow {
   position: absolute;
-  top: 35%;
+  top: 40%;
   left: -10px;
   font-size: 30px;
   height: 35px;
@@ -1679,7 +1719,7 @@ pagination {
 
 .right_arrow {
   position: absolute;
-  top: 35%;
+  top: 40%;
   right: -20px;
   font-size: 30px;
   height: 35px;
@@ -1701,7 +1741,7 @@ pagination {
 
 .slick-dots {
   position: absolute;
-  bottom: -3%;
+  bottom: 2%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -1717,6 +1757,7 @@ pagination {
   width: 10px;
   background: rgba(0, 0, 0, 0.28);
   border-radius: 50%;
+  cursor: pointer;
   border: none;
 }
 
