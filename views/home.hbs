@@ -1,80 +1,28 @@
 {{#section 'js'}}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/css/lightslider.min.css">
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js">
+<script type="text/javascript">
+    $(document).ready(function(){
+        var endtimeSlider = $("#end-time-slider").owlCarousel({
+          items: 3,
+          nav:false,
+          autoplay:true,
+          dots: false,
+          loop: false,
+          interval:2000,
+        });
+        
+        $('.btn-carousel-next').click(function() {
+            endtimeSlider.trigger('next.owl.carousel');
+        })
+        $('.btn-carousel-prev').click(function() {
+            endtimeSlider.trigger('prev.owl.carousel');
+        })
+    });
+    
 </script>
-</script>
 
-<script>
-  $(document).ready(function () {
-    var sliderEndTime = $('#end-time').lightSlider({
-      item: 4,
-      autoWidth: true,
-      auto: true,
-      speed: 1000,
-      loop: false,
-      slideMove: 1,
-      slideMargin: 25,
-      easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
-      controls: false,
-      pager: false,
-      onSliderLoad: function () {
-        $('#end-time').removeClass('cS-hidden');
-      }
-    });
-    $('.lSAction > .endtimePrev').click(function () {
-      sliderEndTime.goToPrevSlide();
-    });
-    $('.lSAction > .endtimeNext').click(function () {
-      sliderEndTime.goToNextSlide();
-    });
-
-    var sliderDealPrice = $('#deal-price').lightSlider({
-      item: 3,
-      autoWidth: true,
-      auto: true,
-      speed: 1000,
-      loop: false,
-      slideMove: 1,
-      slideMargin: 25,
-      easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
-      controls: false,
-      pager: false,
-      onSliderLoad: function () {
-        $('#deal-price').removeClass('cS-hidden');
-      }
-    });
-    $('.lSAction > .dealpricePrev').click(function () {
-      sliderDealPrice.goToPrevSlide();
-    });
-    $('.lSAction > .dealpriceNext').click(function () {
-      sliderDealPrice.goToNextSlide();
-    });
-
-    var sliderBestPrice = $('#best-price').lightSlider({
-      item: 3,
-      autoWidth: true,
-      auto: true,
-      speed: 1000,
-      loop: false,
-      slideMove: 1,
-      slideMargin: 25,
-      easing: 'cubic-bezier(0.25, 0, 0.25, 2)',
-      controls: false,
-      pager: false,
-      onSliderLoad: function () {
-        $('#best-price').removeClass('cS-hidden');
-      }
-    });
-    $('.lSAction > .bestpricePrev').click(function () {
-      sliderBestPrice.goToPrevSlide();
-    });
-    $('.lSAction > .bestpriceNext').click(function () {
-      sliderBestPrice.goToNextSlide();
-    });
-  });
-</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 {{/section}}
 
@@ -87,932 +35,301 @@
   </div>
 </section>
 
-<section class="product-slider">
 
-  <div class="top-five-product">
-    <div class="header-top-product">
-      <h2>
-        Top sản phẩm gần kết thúc
-      </h2>
+<div class="container top-product">
+  <div class="row">
+    <div class="col-lg-12">
+      <div id="end-time-slider" class="owl-carousel tttt">
+          <div class="auction-item">
+            <div class="auction-item-thumb">
+              <a class="thumb-img" href="#">
+                <img src="img/auction-1.jpg" alt="item" />
+              </a>
+              <span class="ranking">TOP 1</span>
+              <a class="star-icon thumb-icon" href="#">
+                <i class="far fa-star" aria-hidden="true"></i>
+              </a>
+              <a class="gavel-icon thumb-icon" href="#">
+                <i class="fas fa-gavel fa"></i>
+              </a>
+            </div>
+            <div class="auction-item-content">
+              <h6>Golden Ring</h6>
+              <h6>Start: 15:00-05/12/2021</h6>
+              <div class="bid-area d-flex justify-content-center">
+                <div class="bid-amount current-price d-flex">
+                  <div class="icon">
+                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                  </div>
+                  <div class="amount-content">
+                    <div class="current">
+                      Current Bid
+                    </div>
+                    <div class="amount">
+                      $20,000
+                    </div>
+                  </div>
+                </div>
+                <div class="bid-amount buy-price d-flex">
+                  <div class="icon">
+                    <i class="fas fa-money-bill-wave fa-2x"></i>
+                  </div>
+                  <div class="amount-content">
+                    <div class="buy">
+                      Buy Now
+                    </div>
+                    <div class="amount">
+                      $30,000
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="countdown-area d-flex">
+                <div class="countdown">
+                  0d : 3h : 10m : 42s
+                </div>
+                <span class="total-bids">
+                  30 bids
+                </span>
+              </div>
+              <div class="bid-now">
+                <a href="#">Bid now</a>
+              </div>
+            </div>
+          </div>
+          <div class="auction-item">
+            <div class="auction-item-thumb">
+              <a class="thumb-img" href="#">
+                <img src="img/auction-1.jpg" alt="item" />
+              </a>
+              <span class="ranking">TOP 2</span>
+              <a class="star-icon thumb-icon" href="#">
+                <i class="far fa-star" aria-hidden="true"></i>
+              </a>
+              <a class="gavel-icon thumb-icon" href="#">
+                <i class="fas fa-gavel fa"></i>
+              </a>
+            </div>
+            <div class="auction-item-content">
+              <h6>Golden Ring</h6>
+              <h6>Start: 15:00-05/12/2021</h6>
+              <div class="bid-area d-flex justify-content-center">
+                <div class="bid-amount current-price d-flex">
+                  <div class="icon">
+                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                  </div>
+                  <div class="amount-content">
+                    <div class="current">
+                      Current Bid
+                    </div>
+                    <div class="amount">
+                      $20,000
+                    </div>
+                  </div>
+                </div>
+                <div class="bid-amount buy-price d-flex">
+                  <div class="icon">
+                    <i class="fas fa-money-bill-wave fa-2x"></i>
+                  </div>
+                  <div class="amount-content">
+                    <div class="buy">
+                      Buy Now
+                    </div>
+                    <div class="amount">
+                      $30,000
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="countdown-area d-flex">
+                <div class="countdown">
+                  0d : 3h : 10m : 42s
+                </div>
+                <span class="total-bids">
+                  30 bids
+                </span>
+              </div>
+              <div class="bid-now">
+                <a href="#">Bid now</a>
+              </div>
+            </div>
+          </div>
+          <div class="auction-item">
+            <div class="auction-item-thumb">
+              <a class="thumb-img" href="#">
+                <img src="img/auction-1.jpg" alt="item" />
+              </a>
+              <span class="ranking">TOP 3</span>
+              <a class="star-icon thumb-icon" href="#">
+                <i class="far fa-star" aria-hidden="true"></i>
+              </a>
+              <a class="gavel-icon thumb-icon" href="#">
+                <i class="fas fa-gavel fa"></i>
+              </a>
+            </div>
+            <div class="auction-item-content">
+              <h6>Golden Ring</h6>
+              <h6>Start: 15:00-05/12/2021</h6>
+              <div class="bid-area d-flex justify-content-center">
+                <div class="bid-amount current-price d-flex">
+                  <div class="icon">
+                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                  </div>
+                  <div class="amount-content">
+                    <div class="current">
+                      Current Bid
+                    </div>
+                    <div class="amount">
+                      $20,000
+                    </div>
+                  </div>
+                </div>
+                <div class="bid-amount buy-price d-flex">
+                  <div class="icon">
+                    <i class="fas fa-money-bill-wave fa-2x"></i>
+                  </div>
+                  <div class="amount-content">
+                    <div class="buy">
+                      Buy Now
+                    </div>
+                    <div class="amount">
+                      $30,000
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="countdown-area d-flex">
+                <div class="countdown">
+                  0d : 3h : 10m : 42s
+                </div>
+                <span class="total-bids">
+                  30 bids
+                </span>
+              </div>
+              <div class="bid-now">
+                <a href="#">Bid now</a>
+              </div>
+            </div>
+          </div>
+          <div class="auction-item">
+            <div class="auction-item-thumb">
+              <a class="thumb-img" href="#">
+                <img src="img/auction-1.jpg" alt="item" />
+              </a>
+              <span class="ranking">TOP 4</span>
+              <a class="star-icon thumb-icon" href="#">
+                <i class="far fa-star" aria-hidden="true"></i>
+              </a>
+              <a class="gavel-icon thumb-icon" href="#">
+                <i class="fas fa-gavel fa"></i>
+              </a>
+            </div>
+            <div class="auction-item-content">
+              <h6>Golden Ring</h6>
+              <h6>Start: 15:00-05/12/2021</h6>
+              <div class="bid-area d-flex justify-content-center">
+                <div class="bid-amount current-price d-flex">
+                  <div class="icon">
+                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                  </div>
+                  <div class="amount-content">
+                    <div class="current">
+                      Current Bid
+                    </div>
+                    <div class="amount">
+                      $20,000
+                    </div>
+                  </div>
+                </div>
+                <div class="bid-amount buy-price d-flex">
+                  <div class="icon">
+                    <i class="fas fa-money-bill-wave fa-2x"></i>
+                  </div>
+                  <div class="amount-content">
+                    <div class="buy">
+                      Buy Now
+                    </div>
+                    <div class="amount">
+                      $30,000
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="countdown-area d-flex">
+                <div class="countdown">
+                  0d : 3h : 10m : 42s
+                </div>
+                <span class="total-bids">
+                  30 bids
+                </span>
+              </div>
+              <div class="bid-now">
+                <a href="#">Bid now</a>
+              </div>
+            </div>
+          </div>
+          <div class="auction-item">
+            <div class="auction-item-thumb">
+              <a class="thumb-img" href="#">
+                <img src="img/auction-1.jpg" alt="item" />
+              </a>
+              <span class="ranking">TOP 5</span>
+              <a class="star-icon thumb-icon" href="#">
+                <i class="far fa-star" aria-hidden="true"></i>
+              </a>
+              <a class="gavel-icon thumb-icon" href="#">
+                <i class="fas fa-gavel fa"></i>
+              </a>
+            </div>
+            <div class="auction-item-content">
+              <h6>Golden Ring</h6>
+              <h6>Start: 15:00-05/12/2021</h6>
+              <div class="bid-area d-flex justify-content-center">
+                <div class="bid-amount current-price d-flex">
+                  <div class="icon">
+                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                  </div>
+                  <div class="amount-content">
+                    <div class="current">
+                      Current Bid
+                    </div>
+                    <div class="amount">
+                      $20,000
+                    </div>
+                  </div>
+                </div>
+                <div class="bid-amount buy-price d-flex">
+                  <div class="icon">
+                    <i class="fas fa-money-bill-wave fa-2x"></i>
+                  </div>
+                  <div class="amount-content">
+                    <div class="buy">
+                      Buy Now
+                    </div>
+                    <div class="amount">
+                      $30,000
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="countdown-area d-flex">
+                <div class="countdown">
+                  0d : 3h : 10m : 42s
+                </div>
+                <span class="total-bids">
+                  30 bids
+                </span>
+              </div>
+              <div class="bid-now">
+                <a href="#">Bid now</a>
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
-
-    <div class="lSAction">
-      <i class="fas fa-angle-left fa-lg navPrev endtimePrev" aria-hidden="true"></i>
-      <i class="fas fa-angle-right fa-lg navNext endtimeNext" aria-hidden="true"></i>
-    </div>
-
-    <ul id="end-time" class="cs-hidden">
-      <li class="item-a">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-1.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 1</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-b">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-2.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 2</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-c">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-1.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 3</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-d">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-2.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 4</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-e">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-1.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 5</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
+      <div class="btn-carousel-control">
+          <span class="btn-carousel-prev"><i class="fas fa-arrow-left fa-lg"></i></span>
+          <span class="btn-carousel-next"><i class="fas fa-arrow-right fa-lg"></i></span>
+      </div>
   </div>
-
-  <div class="top-five-product">
-    <div class="header-top-product">
-      <h2>
-        Top sản phẩm có nhiều lượt ra giá nhất
-      </h2>
-    </div>
-    <div class="lSAction">
-      <i class="fas fa-angle-left fa-lg navPrev dealpricePrev" aria-hidden="true"></i>
-      <i class="fas fa-angle-right fa-lg navNext dealpriceNext" aria-hidden="true"></i>
-    </div>
-    <ul id="deal-price" class="cs-hidden">
-      <li class="item-a">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-1.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 1</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-b">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-2.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 2</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-c">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-1.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 3</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-d">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-2.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 4</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-e">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-1.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 5</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-
-  <div class="top-five-product">
-    <div class="header-top-product">
-      <h2>Top sản phẩm có giá cao nhất</h2>
-    </div>
-    <div class="lSAction">
-      <i class="fas fa-angle-left fa-lg navPrev bestpricePrev" aria-hidden="true"></i>
-      <i class="fas fa-angle-right fa-lg navNext bestpriceNext" aria-hidden="true"></i>
-    </div>
-    <ul id="best-price" class="cs-hidden">
-      <li class="item-a">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-1.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 1</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-b">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-2.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 2</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-c">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-1.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 3</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-d">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-2.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 4</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="item-e">
-        <div class="auction-item auction-item-slide">
-          <div class="auction-item-thumb">
-            <a class="thumb-img" href="#">
-              <img src="img/auction-1.jpg" alt="item" />
-            </a>
-            <span class="ranking">TOP 5</span>
-            <a class="star-icon thumb-icon" href="#">
-              <i class="far fa-star" aria-hidden="true"></i>
-            </a>
-            <a class="gavel-icon thumb-icon" href="#">
-              <i class="fas fa-gavel fa"></i>
-            </a>
-          </div>
-          <div class="auction-item-content">
-            <h6>Golden Ring</h6>
-            <h6>Start: 15:00-05/12/2021</h6>
-            <div class="bid-area d-flex justify-content-center">
-              <div class="bid-amount current-price d-flex">
-                <div class="icon">
-                  <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="current">
-                    Current Bid
-                  </div>
-                  <div class="amount">
-                    $20,000
-                  </div>
-                </div>
-              </div>
-              <div class="bid-amount buy-price d-flex">
-                <div class="icon">
-                  <i class="fas fa-money-bill-wave fa-2x"></i>
-                </div>
-                <div class="amount-content">
-                  <div class="buy">
-                    Buy Now
-                  </div>
-                  <div class="amount">
-                    $30,000
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="countdown-area d-flex">
-              <div class="countdown">
-                0d : 3h : 10m : 42s
-              </div>
-              <span class="total-bids">
-                30 bids
-              </span>
-            </div>
-            <div class="bid-now">
-              <a href="#">Bid now</a>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-</section>
+</div>

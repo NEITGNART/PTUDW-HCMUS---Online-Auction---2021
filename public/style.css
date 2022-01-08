@@ -1361,59 +1361,6 @@ pagination {
 
 .text-content .text-description {} */
 
-
-.product-slider {
-  background-image: linear-gradient(0deg, #8e9eab 0%, #eef2f3 100%);
-  padding: 25px 50px;
-}
-
-.top-five-product {
-  margin: 25px 0px;
-  background-color: white;
-  border-radius: 5px;
-  border: 1px solid;
-  height: 100%;
-
-}
-
-.cS-hidden {
-  height: 1px;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  overflow: hidden;
-}
-
-.auction-item-slide {
-  margin: 10px 20px;
-}
-
-.lSAction {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  display: block;
-  min-width: 100%;
-  z-index: 99;
-}
-
-
-.lSAction>.navPrev {
-  position: absolute;
-  border: none;
-  left: 0;
-  padding: 5px 5px;
-  background: none;
-}
-
-
-.lSAction>.navNext {
-  position: absolute;
-  border: none;
-  right: 0;
-  padding: 5px 5px;
-  background: none;
-}
-
 .ranking {
   display: block;
   position: absolute;
@@ -1428,20 +1375,34 @@ pagination {
   text-transform: uppercase;
 }
 
-.header-top-product {
-  text-align: center;
-  padding: 10px 0px 10px 0px;
-  text-transform: uppercase;
-  color: white;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  background-image: linear-gradient(0deg, rgb(61, 169, 245) 0%, rgb(104, 61, 245) 100%);
+.top-product{
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
-.header-top-product>h2 {
-  margin: 0;
-  padding: 0;
+.tttt{
+  padding: 10px;
 }
+
+.btn-carousel-control{
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+.btn-carousel-prev{
+  position: absolute;
+  display: inline-block;
+  left:-10px;
+}
+
+.btn-carousel-next{
+  position: absolute;
+  display: inline-block;
+  right:-10px;
+}
+
+
 
 /*=======================================================product-header===================================*/
 
@@ -1512,6 +1473,11 @@ pagination {
   background: transparent;
 }
 
+.navigation ul li a {
+  position: relative;
+  display: block;
+
+}
 /* ========================  Product detail ==========================*/
 
 
