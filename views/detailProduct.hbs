@@ -1,509 +1,438 @@
+{{#section 'js'}}
+
+    <script>
+
+
+        async function handledWishlist(id) {
+            const data = await axios.post(`user/wishlist?id=${id}`);
+            if (data.data.success === true) {
+                $(`#fa-${id}`).removeClass(`far fa-heart`);
+                $(`#fa-${id}`).addClass("fa fa-heart");
+            } else {
+                $(`#fa-${id}`).removeClass("fa fa-heart");
+                $(`#fa-${id}`).addClass("far fa-heart");
+            }
+        }
+
+        function handleSubmit(id) {
+            window.location.href = `/product/detail/?id=${id}`;
+        }
+    </script>
+
+
+
+{{/section}}
+
+
+<style>
+    .btn-heart {
+        background-color: rgb(255, 255, 255);
+        border-color: rgb(101, 101, 101);
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 1px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        padding: 5px 4px 1px;
+    }
+
+    .icon-heart {
+        max-height: 28px;
+        display: inline-block;
+    }
+
+    .report_text {
+        font-size: 18px;
+        color: #000;
+        padding: 1rem 1rem;
+    }
+
+    .noresultsuggestion {
+        background: #fff;
+    }
+
+    li .active-category {
+        color: white !important;
+        background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgba(249, 22, 242, 0.5144258386948529) 0%, rgb(219, 45, 244) 0%, rgb(8, 182, 216) 100%);
+    }
+
+    li .active-category:hover {
+        color: black !important;
+    }
+
+
+</style>
+
 <div class="container product-detail my-5">
-  <!-- Begin top card -->
-  <div class="row mt-5 card-wrapper">
-    <!-- Begin left card -->
-    <div class="card-product col-lg-5 col-md-12 col-12">
-      <div class="product-imgs">
-        <div class="img-display">
-          <div class="img-showcase">
+    <!-- Begin top card -->
+    <div class="row mt-5 card-wrapper">
+        <!-- Begin left card -->
+        <div class="card-product col-lg-5 col-md-12 col-12">
+            <div class="product-imgs">
+                <div class="img-display">
+                    <div class="img-showcase">
 
-            {{#each product.images}}
-            <img src="{{this}}" class="product-img" />
-            {{/each}}
-          </div>
-        </div>
-        <div class="img-select">
+                        {{#each product.images}}
+                            <img src="{{this}}" class="product-img"/>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="img-select">
 
-          {{#each product.images}}
-          <div class="img-item">
-            <a href="#" data-id="{{@index}}">
-              <img src="{{this}}" class="product-img" alt="shoe image" />
-            </a>
-          </div>
-          {{/each}}
+                    {{#each product.images}}
+                        <div class="img-item">
+                            <a href="#" data-id="{{math @index "+" 1}}">
+                                <img src="{{this}}" class="product-img" alt="shoe image"/>
+                            </a>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
         </div>
-      </div>
+        <!-- End left card -->
+
+        <!-- Begin right card -->
+        <div class="col-lg-6 col-md-6 col-12 product-content">
+            <h2 class="product-title">{{product.name}}</h2>
+
+            <div class="seller">
+                <div>Người bán</div>
+                <span class="user-name">{{user.profile.name}} <i class="fa fa-user" aria-hidden="true"></i></span>
+                <span class="user-point">{{user.point}}<i class="fa fa-heart" aria-hidden="true"></i> </span>
+            </div>
+
+            <div class="post-date">
+                <label>Ngày đăng</label>
+                <span>{{product.sellDate}}</span>
+            </div>
+            <div class="time-countdown">
+                <label>Thời gian còn lại</label>
+                <span class="{{product._id}}"> </span>
+
+                <script async>
+                    function countDown(dateExp) {
+
+                        var countDownDate = +dateExp;
+                        var distance;
+
+                        // Update the count down every 1 second
+                        var x = setInterval(function () {
+                            distance = countDownDate - Date.now();
+                            // Time calculations for days, hours, minutes and seconds
+                            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                            $(".{{product._id}}").html(days + "d : " + hours + "h :" + minutes + "m :" + seconds + "s");
+
+                            // If the count down is finished, write some text
+                            if (distance < 0) {
+                                clearInterval(x);
+                                $(".{{product._id}}").html("EXPIRED");
+                            }
+
+                        }, 1000);
+                    }
+
+                    countDown(`{{product.expDate}}`)
+                </script>
+
+
+            </div>
+
+            <div class="product-current-price">
+                <label>Giá hiện tại</label>
+                <span>{{product.currentPrice}} vnđ</span>
+            </div>
+
+            <div class="bidder">
+                <div>Người ra giá cao nhất</div>
+                <span class="user-name">{{product.highestBidder}}<i class="fa fa-user" aria-hidden="true"></i> </span>
+            </div>
+
+            <div class="product-buy-price">
+
+                <div>Giá mua ngay</div>
+                <div class="d-flex justify-content-between">
+                    <span>{{product.bestPrice}} vnđ</span>
+                    <button class="buynow-btn">Mua ngay</button>
+                </div>
+
+            </div>
+
+            <form action="" class="d-flex justify-content-between">
+                <input type="text" name="bid" id="" placeholder="Mức giá tối đa bạn tham gia"/>
+                <button class="submit-btn">Đấu giá tự động</button>
+            </form>
+        </div>
+        <!-- End right card -->
+
     </div>
-    <!-- End left card -->
+    <!-- End top card -->
 
-    <!-- Begin right card -->
-    <div class="col-lg-6 col-md-6 col-12 product-content">
-      <h2 class="product-title">{{product.name}}</h2>
-
-      <div class="seller">
-        <div>Người bán</div>
-        <span class="user-name">{{user.profile.name}} <i class="fa fa-user" aria-hidden="true"></i></span>
-        <span class="user-point">{{user.point}}<i class="fa fa-heart" aria-hidden="true"></i> </span>
-      </div>
-
-      <div class="post-date">
-        <label>Ngày đăng</label>
-        <span>{{product.sellDate}}</span>
-      </div>
-      <div class="time-countdown">
-        <label>Thời gian còn lại</label>
-        <span class="{{product._id}}"> </span>
-
-        <script async>
-          function countDown(dateExp) {
-
-            var countDownDate = +dateExp;
-            var distance;
-
-            // Update the count down every 1 second
-            var x = setInterval(function () {
-              distance = countDownDate - Date.now();
-              // Time calculations for days, hours, minutes and seconds
-              var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-              var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-              $(".{{product._id}}").html(days + "d : " + hours + "h :" + minutes + "m :" + seconds + "s");
-
-              // If the count down is finished, write some text
-              if (distance < 0) {
-                clearInterval(x);
-                $(".{{product._id}}").html("EXPIRED");
-              }
-
-            }, 1000);
-          }
-
-          countDown(`{{product.expDate}}`)
-        </script>
-
-
-      </div>
-
-      <div class="product-current-price">
-        <label>Giá hiện tại</label>
-        <span>{{product.currentPrice}} vnđ</span>
-      </div>
-
-      <div class="bidder">
-        <div>Người ra giá cao nhất</div>
-        <span class="user-name">{{product.highestBidder}}<i class="fa fa-user" aria-hidden="true"></i> </span>
-      </div>
-
-      <div class="product-buy-price">
-
-        <div>Giá mua ngay</div>
-        <div class="d-flex justify-content-between">
-          <span>{{product.bestPrice}} vnđ</span>
-          <button class="buynow-btn">Mua ngay</button>
+    <hr/>
+    <!-- Begin bottom card -->
+    <div class="row mt-5 card-wrapper">
+        <div class="col-8">
+            <h2>Mô tả sản phẩm</h2>
+            <p>
+                {{product.description}}
+            </p>
         </div>
 
-      </div>
+        <div class="col-lg-4 col-md-6 col-12 table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-bordered table-striped mb-0">
+                <thead>
+                <tr>
+                    <th scope="col">Thời điểm</th>
+                    <th scope="col">Người mua</th>
+                    <th scope="col">Giá</th>
+                </tr>
+                </thead>
+                <tbody>
 
-      <form action="" class="d-flex justify-content-between">
-        <input type="text" name="bid" id="" placeholder="Mức giá tối đa bạn tham gia" />
-        <button class="submit-btn">Đấu giá tự động</button>
-      </form>
+
+                {{#each product.historyBidId}}
+                    <tr>
+                        <td>{{bidDate}}</td>
+                        <td>{{username}}</td>
+                        <td>{{price}} vnđ</td>
+                    </tr>
+                {{/each}}
+
+                </tbody>
+            </table>
+        </div>
     </div>
     <!-- End right card -->
 
-  </div>
-  <!-- End top card -->
+    <hr>
 
-  <hr />
-  <!-- Begin bottom card -->
-  <div class="row mt-5 card-wrapper">
-    <div class="col-8">
-      <h2>Mô tả sản phẩm</h2>
-      <p>
-        {{product.description}}
-      </p>
+    <!-- Relate product -->
+    <div class="slider">
+        <div class="container">
+            <h2>Sản phẩm liên quan</h2>
+            <div class="row autoplay">
+
+                {{#each productRelative}}
+                    <div class="col mx-4 my-5">
+                        {{!-- Start Item --}}
+
+                        <div class="auction-item">
+                            <div class="auction-item-thumb">
+
+                                <a class="thumb-img" href="#">
+                                    <img src={{getThumbnail images}} alt="item">
+                                </a>
+
+
+                                {{#if ../username}}
+
+                                    {{#if isWishlist}}
+                                        <a class="star-icon thumb-icon" style="cursor: pointer"
+                                           onclick="handledWishlist(`{{this._id}}`)">
+                                            <button class="btn btn-heart d-inline-block"
+                                                    style="position: relative;"><i
+                                                    class="icon-heart fa fa-heart"
+                                                    aria-hidden="true"
+                                                    style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                                    id="fa-{{this._id}}"></i>
+                                            </button>
+                                        </a>
+                                    {{else}}
+
+                                        <a class="star-icon thumb-icon" style="cursor: pointer"
+                                           onclick="handledWishlist(`{{this._id}}`)">
+                                            <button class="btn btn-heart d-inline-block"
+                                                    style="position: relative;"><i
+                                                    class="icon-heart far fa-heart"
+                                                    aria-hidden="true"
+                                                    style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                                    id="fa-{{this._id}}"></i>
+                                            </button>
+                                        </a>
+
+                                    {{/if}}
+
+                                {{/if}}
+
+
+                            </div>
+                            <div class="auction-item-content">
+                                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px">
+                                    {{name}}
+                                </div>
+
+                                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; ">
+                                    Ngày bán: {{sellDate}}
+                                </div>
+
+                                {{#if currentWinner}}
+                                    <div>
+                                        Người đang trả giá cao nhất:<br>{{currentWinner}}
+                                    </div>
+                                {{else}}
+                                    <div>
+                                        Hãy là người đầu tiên trả giá:<br>&nbsp;
+                                    </div>
+                                {{/if}}
+
+
+                                <div class="bid-area d-flex justify-content-center">
+                                    <div class="bid-amount current-price d-flex">
+                                        <div class="icon">
+                                            <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="amount-content">
+                                            <div class="current">
+                                                Giá hiện tại
+                                            </div>
+                                            <div class="amount">
+                                                {{currentPrice}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="bid-amount buy-price d-flex">
+                                        <div class="icon">
+                                            <i class="fas fa-money-bill-wave fa-2x"></i>
+                                        </div>
+
+                                        <div class="amount-content">
+                                            <div class="buy">
+                                                Mua ngay
+                                            </div>
+                                            {{#if bestPrice}}
+                                                <div class="amount">
+                                                    {{bestPrice}}
+                                                </div>
+                                            {{else}}
+                                                <div class="amount">
+                                                    ---
+                                                </div>
+                                            {{/if}}
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="countdown-area d-flex ">
+
+                                    <div id="{{this._id}}" class="countdown product-one">
+                                    </div>
+                                    <span class="total-bids">
+                                {{numberBidders}} bids
+                            </span>
+                                </div>
+                                <div class="bid-now" type="button">
+                                    <a style="cursor: pointer" onclick="handleSubmit(`{{this._id}}`)">
+                                        Bid now
+                                    </a>
+                                </div>
+                            </div>
+
+
+                            <script async>
+                                function countDown(dateExp) {
+
+                                    var countDownDate = +dateExp;
+                                    var distance;
+
+                                    // Update the count down every 1 second
+                                    var x = setInterval(function () {
+                                        distance = countDownDate - Date.now();
+                                        // Time calculations for days, hours, minutes and seconds
+                                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                        $("#{{this._id}}").html(days + "d : " + hours + "h :" + minutes + "m :" + seconds + "s");
+
+                                        // If the count down is finished, write some text
+                                        if (distance < 0) {
+                                            clearInterval(x);
+                                            $("#{{this._id}}").html("EXPIRED");
+                                        }
+
+                                    }, 1000);
+                                }
+
+                                countDown(`{{this.expDate}}`)
+                            </script>
+                        </div>
+                        {{!--End Item --}}
+                    </div>
+                {{/each}}
+
+
+            </div>
+
+
+        </div>
     </div>
-
-    <div class="col-lg-4 col-md-6 col-12 table-wrapper-scroll-y my-custom-scrollbar">
-      <table class="table table-bordered table-striped mb-0">
-        <thead>
-          <tr>
-            <th scope="col">Thời điểm</th>
-            <th scope="col">Người mua</th>
-            <th scope="col">Giá</th>
-          </tr>
-        </thead>
-        <tbody>
-
-
-          {{#each product.historyBidId}}
-          <tr>
-            <td>{{bidDate}}</td>
-            <td>{{username}}</td>
-            <td>{{price}} vnđ</td>
-          </tr>
-          {{/each}}
-
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <!-- End right card -->
-
-  <hr>
-
-  <!-- Relate product -->
-  <div class="slider">
-    <div class="container">
-      <h2>Sản phẩm liên quan</h2>
-      <div class="row autoplay">
-        <div class="col-3 mx-4 my-5">
-          <div class="auction-item">
-            <div class="auction-item-thumb">
-              <a class="thumb-img" href="#">
-                <img src="/img/auction-1.jpg" alt="item">
-              </a>
-              <a class="star-icon thumb-icon" href="#">
-                <i class="far fa-star" aria-hidden="true"></i>
-              </a>
-              <a class="gavel-icon thumb-icon" href="#">
-                <i class="fas fa-gavel fa"></i>
-              </a>
-            </div>
-            <div class="auction-item-content">
-              <h6>Golden Ring</h6>
-              <h6>Start: 15:00-05/12/2021</h6>
-              <div class="bid-area d-flex justify-content-center">
-                <div class="bid-amount current-price d-flex">
-                  <div class="icon">
-                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="current">
-                      Current Bid
-                    </div>
-                    <div class="amount">
-                      $20,000
-                    </div>
-                  </div>
-                </div>
-                <div class="bid-amount buy-price d-flex">
-                  <div class="icon">
-                    <i class="fas fa-money-bill-wave fa-2x"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="buy">
-                      Buy Now
-                    </div>
-                    <div class="amount">
-                      $30,000
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="countdown-area d-flex">
-                <div class="countdown">
-                  0d : 3h : 10m : 42s
-                </div>
-                <span class="total-bids">
-                  30 bids
-                </span>
-              </div>
-              <div class="bid-now">
-                <a href="#">Bid now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-3 mx-4 my-5">
-          <div class="auction-item">
-            <div class="auction-item-thumb">
-              <a class="thumb-img" href="#">
-                <img src="/img/auction-1.jpg" alt="item">
-              </a>
-              <a class="star-icon thumb-icon" href="#">
-                <i class="far fa-star" aria-hidden="true"></i>
-              </a>
-              <a class="gavel-icon thumb-icon" href="#">
-                <i class="fas fa-gavel fa"></i>
-              </a>
-            </div>
-            <div class="auction-item-content">
-              <h6>Golden Ring</h6>
-              <h6>Start: 15:00-05/12/2021</h6>
-              <div class="bid-area d-flex justify-content-center">
-                <div class="bid-amount current-price d-flex">
-                  <div class="icon">
-                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="current">
-                      Current Bid
-                    </div>
-                    <div class="amount">
-                      $20,000
-                    </div>
-                  </div>
-                </div>
-                <div class="bid-amount buy-price d-flex">
-                  <div class="icon">
-                    <i class="fas fa-money-bill-wave fa-2x"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="buy">
-                      Buy Now
-                    </div>
-                    <div class="amount">
-                      $30,000
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="countdown-area d-flex">
-                <div class="countdown">
-                  0d : 3h : 10m : 42s
-                </div>
-                <span class="total-bids">
-                  30 bids
-                </span>
-              </div>
-              <div class="bid-now">
-                <a href="#">Bid now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-3 mx-4 my-5">
-          <div class="auction-item">
-            <div class="auction-item-thumb">
-              <a class="thumb-img" href="#">
-                <img src="/img/auction-1.jpg" alt="item">
-              </a>
-              <a class="star-icon thumb-icon" href="#">
-                <i class="far fa-star" aria-hidden="true"></i>
-              </a>
-              <a class="gavel-icon thumb-icon" href="#">
-                <i class="fas fa-gavel fa"></i>
-              </a>
-            </div>
-            <div class="auction-item-content">
-              <h6>Golden Ring</h6>
-              <h6>Start: 15:00-05/12/2021</h6>
-              <div class="bid-area d-flex justify-content-center">
-                <div class="bid-amount current-price d-flex">
-                  <div class="icon">
-                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="current">
-                      Current Bid
-                    </div>
-                    <div class="amount">
-                      $20,000
-                    </div>
-                  </div>
-                </div>
-                <div class="bid-amount buy-price d-flex">
-                  <div class="icon">
-                    <i class="fas fa-money-bill-wave fa-2x"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="buy">
-                      Buy Now
-                    </div>
-                    <div class="amount">
-                      $30,000
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="countdown-area d-flex">
-                <div class="countdown">
-                  0d : 3h : 10m : 42s
-                </div>
-                <span class="total-bids">
-                  30 bids
-                </span>
-              </div>
-              <div class="bid-now">
-                <a href="#">Bid now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-3 mx-4 my-5">
-          <div class="auction-item">
-            <div class="auction-item-thumb">
-              <a class="thumb-img" href="#">
-                <img src="/img/auction-1.jpg" alt="item">
-              </a>
-              <a class="star-icon thumb-icon" href="#">
-                <i class="far fa-star" aria-hidden="true"></i>
-              </a>
-              <a class="gavel-icon thumb-icon" href="#">
-                <i class="fas fa-gavel fa"></i>
-              </a>
-            </div>
-            <div class="auction-item-content">
-              <h6>Golden Ring</h6>
-              <h6>Start: 15:00-05/12/2021</h6>
-              <div class="bid-area d-flex justify-content-center">
-                <div class="bid-amount current-price d-flex">
-                  <div class="icon">
-                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="current">
-                      Current Bid
-                    </div>
-                    <div class="amount">
-                      $20,000
-                    </div>
-                  </div>
-                </div>
-                <div class="bid-amount buy-price d-flex">
-                  <div class="icon">
-                    <i class="fas fa-money-bill-wave fa-2x"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="buy">
-                      Buy Now
-                    </div>
-                    <div class="amount">
-                      $30,000
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="countdown-area d-flex">
-                <div class="countdown">
-                  0d : 3h : 10m : 42s
-                </div>
-                <span class="total-bids">
-                  30 bids
-                </span>
-              </div>
-              <div class="bid-now">
-                <a href="#">Bid now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-3 mx-4 my-5">
-          <div class="auction-item">
-            <div class="auction-item-thumb">
-              <a class="thumb-img" href="#">
-                <img src="/img/auction-1.jpg" alt="item">
-              </a>
-              <a class="star-icon thumb-icon" href="#">
-                <i class="far fa-star" aria-hidden="true"></i>
-              </a>
-              <a class="gavel-icon thumb-icon" href="#">
-                <i class="fas fa-gavel fa"></i>
-              </a>
-            </div>
-            <div class="auction-item-content">
-              <h6>Golden Ring</h6>
-              <h6>Start: 15:00-05/12/2021</h6>
-              <div class="bid-area d-flex justify-content-center">
-                <div class="bid-amount current-price d-flex">
-                  <div class="icon">
-                    <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="current">
-                      Current Bid
-                    </div>
-                    <div class="amount">
-                      $20,000
-                    </div>
-                  </div>
-                </div>
-                <div class="bid-amount buy-price d-flex">
-                  <div class="icon">
-                    <i class="fas fa-money-bill-wave fa-2x"></i>
-                  </div>
-                  <div class="amount-content">
-                    <div class="buy">
-                      Buy Now
-                    </div>
-                    <div class="amount">
-                      $30,000
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="countdown-area d-flex">
-                <div class="countdown">
-                  0d : 3h : 10m : 42s
-                </div>
-                <span class="total-bids">
-                  30 bids
-                </span>
-              </div>
-              <div class="bid-now">
-                <a href="#">Bid now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-  <!-- Relate product -->
+    <!-- Relate product -->
 
 </div>
 <!-- End top card -->
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script>
-  const imgs = document.querySelectorAll('.img-select a');
-  const imgBtns = [...imgs];
-  let imgId = 1;
-  imgBtns.forEach((imgItem) => {
-    imgItem.addEventListener('click', (event) => {
-      event.preventDefault();
-      imgId = imgItem.dataset.id;
-      slideImage();
+    const imgs = document.querySelectorAll('.img-select a');
+    const imgBtns = [...imgs];
+    let imgId = 1;
+    imgBtns.forEach((imgItem) => {
+        imgItem.addEventListener('click', (event) => {
+            event.preventDefault();
+            imgId = imgItem.dataset.id;
+            slideImage();
+        });
     });
-  });
 
-  function slideImage() {
-    const displayWidth = document.querySelector('.img-showcase img:first-child').clientWidth;
-    document.querySelector('.img-showcase').style.transform = `translateX(${- (imgId - 1) *
-  displayWidth}px)`;
-  }
-  window.addEventListener('resize', slideImage);
+    function slideImage() {
+        const displayWidth = document.querySelector('.img-showcase img:first-child').clientWidth;
+        document.querySelector('.img-showcase').style.transform = `translateX(${-(imgId - 1) *
+        displayWidth}px)`;
+    }
 
-  $('.autoplay').slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    dots: true,
-    speed: 800,
-    autoplaySpeed: 2000,
-    prevArrow: '<i class="fas fa-angle-left  left_arrow"></i>',
-    nextArrow: '<i class="fas fa-angle-right right_arrow" ></i>',
-    responsive: [{
-        breakpoint: 1447,
-        settings: {
-          slidesToShow: 3,
-        }
-      },
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 2,
-        }
-      },
-      {
-        breakpoint: 790,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  });
+    window.addEventListener('resize', slideImage);
+
+    $('.autoplay').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        dots: true,
+        speed: 800,
+        autoplaySpeed: 2000,
+        prevArrow: '<i class="fas fa-angle-left  left_arrow"></i>',
+        nextArrow: '<i class="fas fa-angle-right right_arrow" ></i>',
+        responsive: [{
+            breakpoint: 1447,
+            settings: {
+                slidesToShow: 3,
+            }
+        },
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 790,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
 </script>

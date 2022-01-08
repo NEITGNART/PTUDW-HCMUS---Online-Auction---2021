@@ -28,40 +28,37 @@ const productController = {
 
     detail: async (req, res) => {
 
-        // const productId = req.query.id;
-        // // find product by id
+        const productId = req.query.id;
+        // find product by id
 
-        // const product = await ProductModel.findById(productId).lean();
+        const product = await ProductModel.findById(productId).lean();
 
-        // if (!product) {
-        //     res.render('404');
-        //     return;
-        // }
+        if (!product) {
+            res.render('404');
+            return;
+        }
 
-        // const user = await UserModel.findById(product.seller).lean();
-        // product.sellDate = moment(product.sellDate).format('HH:MM DD/MM/YYYY');
-        // product.expDate = moment(product.expDate).format("YYYY-MM-DD HH:MM:SS");
-        // product.expDate = "" + moment(product.expDate).valueOf();
-
-
+        const user = await UserModel.findById(product.seller).lean();
+        product.sellDate = moment(product.sellDate).format('HH:MM DD/MM/YYYY');
+        product.expDate = moment(product.expDate).format("YYYY-MM-DD HH:MM:SS");
+        product.expDate = "" + moment(product.expDate).valueOf();
 
 
-        // let highestBidder = undefined;
+        let highestBidder = undefined;
 
-        // if (product.historyBidId.length > 0) {
-        //     const lastProduct = product.historyBidId[product.historyBidId.length - 1];
-        //     highestBidder= await UserModel.findById(lastProduct.username).lean();
-        //     console.log(highestBidder);
-        //     product.highestBidder = maskInfo(highestBidder.profile.name);
-        //     product.highestBidderPoint = lastProduct.point;
-        // }
+        if (product.historyBidId.length > 0) {
+            const lastProduct = product.historyBidId[product.historyBidId.length - 1];
+            highestBidder = await UserModel.findById(lastProduct.username).lean();
+            product.highestBidder = maskInfo(highestBidder.profile.name);
+            product.highestBidderPoint = lastProduct.point;
+        }
 
-        // for (let i = 0; i < product.historyBidId.length; i++) {
-        //     const bid = product.historyBidId[i];
-        //     const bidder = await UserModel.findById(bid.username).lean();
-        //     product.historyBidId[i].username = maskInfo(bidder.profile.name);
-        //     product.historyBidId[i].bidDate = moment(bid.bidDate).format('HH:MM DD/MM/YYYY');
-        // }
+        for (let i = 0; i < product.historyBidId.length; i++) {
+            const bid = product.historyBidId[i];
+            const bidder = await UserModel.findById(bid.username).lean();
+            product.historyBidId[i].username = maskInfo(bidder.profile.name);
+            product.historyBidId[i].bidDate = moment(bid.bidDate).format('HH:MM DD/MM/YYYY');
+        }
 
         // const obj = {
         //     // name, id product, and date
@@ -75,12 +72,48 @@ const productController = {
         // await ProductModel.findByIdAndUpdate(productId, product);
 
 
+        const productRelative = await ProductModel.find({
+            category: {
+                $in: [product.category[0]]
+            }
+        }).limit(5).lean();
+
+        for (let i = 0; i < productRelative.length; i++) {
+            const productRelativeItem = productRelative[i];
+            const user = await UserModel.findById(productRelativeItem.seller).lean();
+            productRelativeItem.sellDate = moment(productRelativeItem.sellDate).format('HH:MM DD/MM/YYYY');
+            productRelativeItem.expDate = moment(productRelativeItem.expDate).format("YYYY-MM-DD HH:MM:SS");
+            productRelativeItem.expDate = "" + moment(productRelativeItem.expDate).valueOf();
+            productRelativeItem.seller = maskInfo(user.profile.name);
+            productRelativeItem.username = user.profile.name;
+            // product image is the first element
+            productRelativeItem.image = productRelativeItem.images[0];
+        }
+
+        let username = undefined;
+        let id = undefined;
+        if (res.locals.user) {
+            username = res.locals.user.profile.name;
+            id = res.locals.user.id;
+            const myMap = new Map();
+            for (const wish of res.locals.user.wishlist) {
+                myMap.set(wish, wish);
+            }
+            for (let i = 0; i < productRelative.length; i++) {
+                productRelative[i].isWishlist = '' + productRelative[i]._id === '' + myMap.get(productRelative[i]._id + "");
+            }
+        }
+
+        console.log(username)
+
 
         res.render('detailProduct'
-            // , {
-            //     product,
-            //     user,
-            // }
+            , {
+                product,
+                user,
+                productRelative,
+                username,
+            }
         );
     },
 
@@ -190,7 +223,6 @@ const productController = {
             products = await ProductModel.aggregate(pipeline);
         }
 
-        console.log("Total" + totalItems);
 
         const cats = await CategoryModel.find().lean();
 
@@ -265,7 +297,6 @@ const productController = {
                 idUser: id,
             })
         });
-
 
     },
     pagination(c, m) {

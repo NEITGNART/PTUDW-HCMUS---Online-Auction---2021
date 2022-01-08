@@ -93,21 +93,7 @@
         }
 
         function handleSubmit(id) {
-            // if (user === null) {
-            //     alert("Please login to add to cart");
-            // } else {
-            //     $.ajax({
-            //         url: "/api/cart",
-            //         type: "POST",
-            //         data: {
-            //             // productId: id,
-            //             // _id: user.id
-            //         },
-            //         success: function (data) {
-            //             alert("Add to cart success");
-            //         }
-            //     });
-            // }
+            window.location.href = `/product/detail/?id=${id}`;
         }
     </script>
 
@@ -254,7 +240,7 @@
                             <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; ">
                                 Ngày bán: {{sellDate}}
                             </div>
-                            
+
                             {{#if currentWinner}}
                                 <div>
                                     Người đang trả giá cao nhất:<br>{{currentWinner}}
@@ -264,7 +250,7 @@
                                     Hãy là người đầu tiên trả giá:<br>&nbsp;
                                 </div>
                             {{/if}}
-                        
+
 
                             <div class="bid-area d-flex justify-content-center">
                                 <div class="bid-amount current-price d-flex">
