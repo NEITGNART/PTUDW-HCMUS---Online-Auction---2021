@@ -13,7 +13,10 @@ router.route('/profile')
 router.route('/wishlist')
     .post(auth, controller.wishlist);
 
-
+router.route('/postproduct')
+    .get((req, res) => {
+        res.render('postProduct');
+    })
 
 
 export default router;
