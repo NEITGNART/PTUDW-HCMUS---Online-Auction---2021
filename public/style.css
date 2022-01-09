@@ -1758,7 +1758,7 @@ pagination {
   width: 100%;
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(3,1fr);
   grid-gap: 20px;
 }
 
@@ -1801,7 +1801,7 @@ pagination {
   grid-gap: 20px;
 }
 
-.details .recentOrders{
+.details .details-session-1{
   position: relative;
   min-height: 530px;
   background: #fff;
@@ -1839,36 +1839,36 @@ pagination {
   font-weight: 600;
 }
 
-.details .recentOrders table tr{
+.details .details-session-1 table tr{
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.details .recentOrders table tbody tr:last-child{
+.details .details-session-1 table tbody tr:last-child{
   border-bottom: none;
 }
 
-.details .recentOrders table tbody tr:hover{
+.details .details-session-1 table tbody tr:hover{
   background: #03a9f4;
   color: white;
 }
 
-.details .recentOrders table tr td{
+.details .details-session-1 table tr td{
   padding: 9px 5px
 }
 
-.details .recentOrders table tbody tr td:last-child,
-.details .recentOrders table thead tr td:last-child{
+.details .details-session-1 table tbody tr td:last-child,
+.details .details-session-1 table thead tr td:last-child{
   text-align: right;
 }
 
-.details .recentOrders table tbody tr td:nth-child(2),
-.details .recentOrders table thead tr td:nth-child(2){
+.details .details-session-1 table tbody tr td:nth-child(2),
+.details .details-session-1 table thead tr td:nth-child(2){
   text-align: right;
   padding-right: 20px;
 }
 
-.details .recentOrders table tbody tr td:nth-child(3),
-.details .recentOrders table thead tr td:nth-child(3){
+.details .details-session-1 table tbody tr td:nth-child(3),
+.details .details-session-1 table thead tr td:nth-child(3){
   text-align: center;
 }
 
@@ -1887,14 +1887,14 @@ pagination {
   background: #8de02c;
 }
 
-.details .recentCustomers{
+.details .details-session-2{
   position: relative;
   min-height: 530px;
   background: #fff;
   padding: 20px;
 }
 
-.details .recentCustomers .imgBx{
+.details .details-session-2 .imgBx{
   position: relative;
   width: 40px;
   height: 40px;
@@ -1902,7 +1902,7 @@ pagination {
   overflow: hidden;
 }
 
-.details .recentCustomers .imgBx img{
+.details .details-session-2 .imgBx img{
   position: absolute;
   top: 0;
   left: 0;
@@ -1912,23 +1912,23 @@ pagination {
 
 }
 
-.details .recentCustomers table tr td h6 span{
+.details .details-session-2 table tr td h6 span{
   font-size: 14px;
   color: #999;
 }
 
-.details .recentCustomers table tr:hover,
-.details .recentCustomers table tr:hover td h6 span{
+.details .details-session-2 table tr:hover,
+.details .details-session-2 table tr:hover td h6 span{
   background: #03a9f4;
   color: #fff;
 }
 
-.details .recentCustomers table tr td{
+.details .details-session-2 table tr td{
   padding: 7px 10px;
 
 }
 
-.details .recentCustomers table tr td h6{
+.details .details-session-2 table tr td h6{
   font-size: 16px;
   font-weight: 500;
   line-height: 1.2em;
@@ -1970,11 +1970,11 @@ pagination {
     grid-template-columns: repeat(1,1fr);
   }
 
-  .details .recentOrders {
+  .details .details-session-1 {
     overflow-x: auto;
   }
 
-  .details .recentOrders table{
+  .details .details-session-1 table{
     width: 600px;
   }
 
