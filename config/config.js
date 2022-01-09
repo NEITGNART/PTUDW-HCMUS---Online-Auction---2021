@@ -18,5 +18,8 @@ export default {
     CLOUND_API_SECRET: process.env.CLOUND_API_SECRET || '?',
     CLOUNDINARY_URL: process.env.CLOUNDINARY_URL || '?',
 
+    EMAIL_USER: process.EMAIL_USER || '?',
+    EMAIL_PASS: process.EMAIL_PASS || '?',
+
     SECRET: 'verySecret'
 };
