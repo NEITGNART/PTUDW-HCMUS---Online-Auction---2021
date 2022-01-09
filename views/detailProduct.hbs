@@ -1,50 +1,46 @@
 {{#section 'js'}}
 
     <script>function handleLink(s) {
-       // href
+        // href
         window.location.href = "/user/?id=" + s;
     }
 
 
     $(document).ready(function () {
-            $(".block-btn").click(function () {
-                var str = $("#block-username").val() + "";
-                $("#block-username").val("");
-                // send axios request to server
-                const data = axios.post(`/product/block?idUserBlock=${str}&idProduct={{product._id}}`).then(function (response) {
-                    console.log(response.data);
-                    if (response.data.message + "" === "success") {
-                        alert("Chặn người mua thành công");
-                        location.reload();
-                    }
-                    if (response.data.message + "" === "fail") {
-                        alert("Người dùng đã được chặn trước đó");
-                    }
-                    if (response.data.message + "" === "Not found") {
-                        alert("Id người dùng không chính xác");
-                    }
-                    if (response.data.message + "" === "Owner") {
-                        alert("Bạn không thể chặn chính mình");
-                    }
-                });
-            })
-        });
+        $(".block-btn").click(function () {
+            var str = $("#block-username").val() + "";
+            $("#block-username").val("");
+            // send axios request to server
+            const data = axios.post(`/product/block?idUserBlock=${str}&idProduct={{product._id}}`).then(function (response) {
+                console.log(response.data);
+                if (response.data.message + "" === "success") {
+                    alert("Chặn người mua thành công");
+                    location.reload();
+                }
+                if (response.data.message + "" === "fail") {
+                    alert("Người dùng đã được chặn trước đó");
+                }
+                if (response.data.message + "" === "Not found") {
+                    alert("Id người dùng không chính xác");
+                }
+                if (response.data.message + "" === "Owner") {
+                    alert("Bạn không thể chặn chính mình");
+                }
+            });
+        })
+    });
 
 
-        async function handledWishlist(id) {
-            const data = await axios.post(`user/wishlist?id=${id}`);
-            if (data.data.success === true) {
-                $(`#fa-${id}`).removeClass(`far fa-heart`);
-                $(`#fa-${id}`).addClass("fa fa-heart");
-            } else {
-                $(`#fa-${id}`).removeClass("fa fa-heart");
-                $(`#fa-${id}`).addClass("far fa-heart");
-            }
-        }
+    async function handledWishlist(id) {
+        const url = window.origin;
+        const data = await axios.post(`${url}/user/wishlist?id=${id}`).then((reponse) => {
+            location.reload();
+        })
+    }
 
-        function handleSubmit(id) {
-            window.location.href = `/product/detail/?id=${id}`;
-        }
+    function handleSubmit(id) {
+        window.location.href = `/product/detail/?id=${id}`;
+    }
     </script>
 
     <script src="https://cdn.tiny.cloud/1/brk4r96wyxtnjotefy4xag5b293lwt1pq39rlakdcpv0bh1q/tinymce/5/tinymce.min.js"
@@ -372,7 +368,8 @@
 
                                         {{#each blockList}}
                                             <tr>
-                                                <td><a href="javascript:;" onclick="handleLink(`{{_id}}`)">{{profile.name}}</a></td>
+                                                <td><a href="javascript:;"
+                                                       onclick="handleLink(`{{_id}}`)">{{profile.name}}</a></td>
                                             </tr>
                                         {{/each}}
 
@@ -403,7 +400,7 @@
             <div class="row autoplay">
 
                 {{#each productRelative}}
-                    <div class="col mx-4 my-5 slick-slide">
+                    <div class="col mx-4 my-5">
                         {{!-- Start Item --}}
 
                         <div class="auction-item">
@@ -415,8 +412,8 @@
 
 
                                 {{#if ../username}}
-
                                     {{#if isWishlist}}
+
                                         <a class="star-icon thumb-icon" style="cursor: pointer"
                                            onclick="handledWishlist(`{{this._id}}`)">
                                             <button class="btn btn-heart d-inline-block" style="position: relative;"><i
