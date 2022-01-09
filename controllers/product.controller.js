@@ -26,6 +26,62 @@ function extendExpire(date) {
 
 const productController = {
 
+    blockUser: async (req, res) => {
+
+        const idProduct = req.query.idProduct;
+        const idUserBlock = req.query.idUserBlock;
+        // find idUserBlock and idProduct
+        let user;
+        try {
+            user = await UserModel.findById(idUserBlock);
+        } catch (error) {
+            return res.json({
+                message: "Not found",
+            });
+        }
+        const product = await ProductModel.findById(idProduct);
+        // check that myself is owner of product
+
+        if (res.locals.user && product && (product.seller.toString() !== res.locals.user._id.toString())) {
+            // wait promise product
+
+            return res.json({
+                message: 'Owner'
+            });
+        }
+        if (user && product) {
+
+            if (product.block.length === 0) {
+                product.block.push(idUserBlock);
+                await product.save();
+                return res.json({
+                    message: 'success'
+                });
+            }
+            // check if user is already blocked
+            else if (product.block.indexOf(idUserBlock) === -1) {
+                // add idUserBlock to blockedUsers
+                product.block.push(idUserBlock);
+                // save product
+                await product.save();
+                // send response
+                return res.json({
+                    message: 'success'
+                });
+            } else {
+                // send response
+                return res.json({
+                    message: 'fail'
+                });
+            }
+        } else {
+            // send response
+            return res.json({
+                message: 'Not found'
+            });
+        }
+    },
+
     detail: async (req, res) => {
 
         const productId = req.query.id;
@@ -38,6 +94,16 @@ const productController = {
             return;
         }
 
+        let isOwner = false;
+
+        if (res.locals.user) {
+            // check if user is owner of product
+            if (product.seller === res.locals.user._id.toString()) {
+                isOwner = true;
+            }
+        }
+        console.log(isOwner)
+
         const user = await UserModel.findById(product.seller).lean();
         product.sellDate = moment(product.sellDate).format('HH:MM DD/MM/YYYY');
         product.expDate = moment(product.expDate).format("YYYY-MM-DD HH:MM:SS");
@@ -49,14 +115,23 @@ const productController = {
         if (product.historyBidId.length > 0) {
             const lastProduct = product.historyBidId[product.historyBidId.length - 1];
             highestBidder = await UserModel.findById(lastProduct.username).lean();
-            product.highestBidder = maskInfo(highestBidder.profile.name);
+            if (isOwner) {
+                product.highestBidder = highestBidder.profile.name;
+            } else {
+                product.highestBidder = maskInfo(highestBidder.profile.name);
+            }
+            product.highestBidderId = lastProduct.username;
             product.highestBidderPoint = lastProduct.point;
         }
 
         for (let i = 0; i < product.historyBidId.length; i++) {
             const bid = product.historyBidId[i];
             const bidder = await UserModel.findById(bid.username).lean();
-            product.historyBidId[i].username = maskInfo(bidder.profile.name);
+            if (isOwner) {
+                product.historyBidId[i].username = bidder.profile.name;
+            } else {
+                product.historyBidId[i].username = maskInfo(bidder.profile.name);
+            }
             product.historyBidId[i].bidDate = moment(bid.bidDate).format('HH:MM DD/MM/YYYY');
         }
 
@@ -81,10 +156,18 @@ const productController = {
         for (let i = 0; i < productRelative.length; i++) {
             const productRelativeItem = productRelative[i];
             const user = await UserModel.findById(productRelativeItem.seller).lean();
+            productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
             productRelativeItem.sellDate = moment(productRelativeItem.sellDate).format('HH:MM DD/MM/YYYY');
             productRelativeItem.expDate = moment(productRelativeItem.expDate).format("YYYY-MM-DD HH:MM:SS");
             productRelativeItem.expDate = "" + moment(productRelativeItem.expDate).valueOf();
-            productRelativeItem.seller = maskInfo(user.profile.name);
+
+            if (isOwner) {
+                productRelativeItem.seller = user.profile.name;
+            } else {
+                productRelativeItem.seller = maskInfo(user.profile.name);
+            }
+
+            productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
             productRelativeItem.username = user.profile.name;
             // product image is the first element
             productRelativeItem.image = productRelativeItem.images[0];
@@ -104,14 +187,23 @@ const productController = {
             }
         }
 
-        console.log(username)
+        let blockList;
 
+        if (isOwner) {
+            blockList = [];
+            for (let i = 0; i < product.block.length; i++) {
+                blockList.push(await UserModel.findById(product.block[i]).lean());
+            }
+
+        }
 
         res.render('detailProduct', {
             product,
             user,
             productRelative,
             username,
+            isOwner,
+            blockList
         });
     },
 
