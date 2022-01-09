@@ -22,56 +22,193 @@
 </head>
 
 <body>
-        <div class="container container-admin">
+        <div class="container nav-container">
                 <div class="navigation">
                         <ul>
-                                <a href="#">
-                                        <li>
+                                <li>
+                                        <a href="#">
                                                 <span class="icon"></span>
-                                                <span class="tittle"><h2>Brand name</h2></span>
-                                        </li>
-                                </a>
-                                <a href="">
-                                        <li>
+                                                <span class="title">
+                                                        <h2>Brand name</h2>
+                                                </span>
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="">
                                                 <span class="icon"><i class="fas fa-home"></i></span>
-                                                <span class="tittle">Dashboard</span>
-                                        </li>
-                                </a>
-                                <a href="">        
-                                        <li>
+                                                <span class="title">Dashboard</span>
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="">
                                                 <span class="icon"><i class="fas fa-list-alt"></i></span>
-                                                <span class="tittle">Category</span>
-                                        </li>
-                                </a>
-                                <a href="">
-                                        <li>
+                                                <span class="title">Category</span>
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="">
                                                 <span class="icon"><i class="fab fa-shopify"></i></span>
-                                                <span class="tittle">Products</span>
-                                        </li>
-                                </a>
-                                <a href="">
-                                        <li>
+                                                <span class="title">Products</span>
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="">
                                                 <span class="icon"><i class="fas fa-users"></i></span>
-                                                <span class="tittle">Users</span>
-                                        </li>
-                                </a>
-                                <a href="" class="">
-                                        <li>
+                                                <span class="title">Users</span>
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="" class="">
                                                 <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-                                                <span class="tittle">Log out</span>
-                                        </li>
-                                </a>
+                                                <span class="title">Log out</span>
+                                        </a>
+                                </li>
                         </ul>
                 </div>
+                <div class="main-content">
+                        <div class="topbar">
+                                <div class="toggle" onclick="toggleMenu();"></div>
+                                <div class="search">
+                                        <label for="">
+                                                <input type="text" placeholder="Search here">
+                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                        </label>
+                                </div>
+                                <div class="user">
+                                        <img src="/img/unlogin.png" alt="">
+                                </div>
+                        </div>
+
+                        <div class="cardBox">
+                                <div class="card">
+                                        <div>
+                                                <div class="numbers">1</div>
+                                                <div class="cardName">Daily Views</div> 
+                                        </div>
+                                        <div class="iconBox">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </div>
+                                </div>
+                                <div class="card">
+                                        <div>
+                                                <div class="numbers">1</div>
+                                                <div class="cardName">Daily Views</div> 
+                                        </div>
+                                        <div class="iconBox">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </div>
+                                </div>
+                                <div class="card">
+                                        <div>
+                                                <div class="numbers">1</div>
+                                                <div class="cardName">Daily Views</div> 
+                                        </div>
+                                        <div class="iconBox">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </div>
+                                </div>
+                                <div class="card">
+                                        <div>
+                                                <div class="numbers">1</div>
+                                                <div class="cardName">Daily Views</div> 
+                                        </div>
+                                        <div class="iconBox">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="details">
+                                <div class="recentOrders">
+                                        <div class="cardHeader">
+                                                <h2>Recent Orders</h2>
+                                                <a href="#" class="btn-viewall">View All</a>
+                                        </div>
+                                        <table>
+                                                <thead>
+                                                        <tr>
+                                                                <td>Name</td>
+                                                                <td>Price</td>
+                                                                <td>Payment</td>
+                                                                <td>Status</td>
+                                                                
+                                                        </tr>
+                                                </thead>
+                                                <tbody>
+                                                        <tr>
+                                                                <td>Star Refrigerator</td>
+                                                                <td>$1200</td>
+                                                                <td>Paid</td>
+                                                                <td><span class="status delivered">Delivered</span></td>                                                                
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                                <td>Star Refrigerator</td>
+                                                                <td>$1200</td>
+                                                                <td>Paid</td>
+                                                                <td><span class="status delivered">Delivered</span></td>                                                                
+                                                        </tr>
+
+                                                        <tr>
+                                                                <td>Star Refrigerator</td>
+                                                                <td>$1200</td>
+                                                                <td>Paid</td>
+                                                                <td><span class="status delivered">Delivered</span></td>                                                                
+                                                        </tr>
+                                                </tbody>
+                                        </table>
+                                </div>
+                                <div class="recentCustomers">
+                                        <div class="cardHeader">
+                                                <h2>Recent Customers</h2>
+                                        </div>
+                                        <table>
+                                                <tbody>
+                                                        <tr>
+                                                                <td width="60px"><div class="imgBx"><img src="/img/unlogin.png" alt=""></div></td>
+                                                                <td>
+                                                                        <h6>TS<br>Seller</h6>
+                                                                </td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td width="60px"><div class="imgBx"><img src="/img/unlogin.png" alt=""></div></td>
+                                                                <td>
+                                                                        <h6>PT<br>Seller</h6>
+                                                                </td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td width="60px"><div class="imgBx"><img src="/img/unlogin.png" alt=""></div></td>
+                                                                <td>
+                                                                        <h6>TN<br>Bidder</h6>
+                                                                </td>
+                                                        </tr>
+                                                </tbody>
+                                        </table>
+                                </div>
+                        </div>
+                </div>
         </div>
-        <!-- Main Navigation -->
         
+        
+        <!-- Main Navigation -->
+        <script>
+                function toggleMenu(){
+                        let toggle = document.querySelector('.toggle');
+                        let navigation = document.querySelector('.navigation');
+                        let header = document.querySelector('.main-content');
+                        
+                        toggle.classList.toggle('active');
+                        navigation.classList.toggle('active');
+                        header.classList.toggle('active');
+                        
+                }
+        </script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
+                crossorigin="anonymous"></>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
                 integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
                 crossorigin="anonymous"></script>
