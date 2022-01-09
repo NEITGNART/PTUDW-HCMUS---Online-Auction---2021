@@ -107,14 +107,12 @@ const productController = {
         console.log(username)
 
 
-        res.render('detailProduct'
-            , {
-                product,
-                user,
-                productRelative,
-                username,
-            }
-        );
+        res.render('detailProduct', {
+            product,
+            user,
+            productRelative,
+            username,
+        });
     },
 
     index: async (req, res) => {

@@ -141,7 +141,7 @@
         <label>Thời gian còn lại</label>
         <span class="{{product._id}}"> </span>
 
-        <script async>
+        <script>
           function countDown(dateExp) {
 
             var countDownDate = +dateExp;
@@ -163,7 +163,7 @@
                 $(".{{product._id}}").html("EXPIRED");
               }
 
-            }, 1000);
+            }, 500);
           }
 
           countDown(`{{product.expDate}}`)
@@ -370,7 +370,7 @@
       <div class="row autoplay">
 
         {{#each productRelative}}
-        <div class="col mx-4 my-5">
+        <div class="col mx-4 my-5 slick-slide">
           {{!-- Start Item --}}
 
           <div class="auction-item">
@@ -467,7 +467,7 @@
 
 
               <div class="countdown-area d-flex ">
-
+                <div class="expDate" hidden>{{this.expDate}}</div>
                 <div id="{{this._id}}" class="countdown product-one">
                 </div>
                 <span class="total-bids">
@@ -482,33 +482,7 @@
             </div>
 
 
-            <script async>
-              function countDown(dateExp) {
 
-                var countDownDate = +dateExp;
-                var distance;
-
-                // Update the count down every 1 second
-                var x = setInterval(function () {
-                  distance = countDownDate - Date.now();
-                  // Time calculations for days, hours, minutes and seconds
-                  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                  $("#{{this._id}}").html(days + "d : " + hours + "h :" + minutes + "m :" + seconds + "s");
-
-                  // If the count down is finished, write some text
-                  if (distance < 0) {
-                    clearInterval(x);
-                    $("#{{this._id}}").html("EXPIRED");
-                  }
-
-                }, 1000);
-              }
-
-              countDown(`{{this.expDate}}`)
-            </script>
           </div>
           {{!--End Item --}}
         </div>
@@ -557,13 +531,54 @@
 
   window.addEventListener('resize', slideImage);
 
+  function countDown() {
+
+    var listCountDown = $(".countdown-area");
+    console.log(listCountDown.length)
+    var listID = [];
+    var listExpDate = [];
+    for (let i = 0; i < listCountDown.length; i++) {
+      listID.push(listCountDown[i].getElementsByClassName("countdown")[0].id);
+      listExpDate.push(+listCountDown[i].getElementsByClassName("expDate")[0].textContent);
+    }
+
+    // var countDownDate = +dateExp;
+    var distance;
+    var iterval = new Array(listID.length);
+    // Update the count down every 1 second
+    for (let i = 0; i < listID.length; i++) {
+      iterval[i] = setInterval(function () {
+
+        distance = listExpDate[i] - Date.now();
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        $(`#${listID[i]}`).html(days + "d : " + hours + "h :" + minutes + "m :" + seconds + "s");
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+          clearInterval(iterval[i]);
+          $(`#${listID[i]}`).html("EXPIRED");
+        }
+
+      }, 1000);
+    }
+  };
+
+  countDown();
+
+
+
   $('.autoplay').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: true,
+    infinite: false,
     dots: true,
     speed: 800,
-    autoplaySpeed: 2000,
+    focusOnSelect: true,
+    slickSetOption: true,
     prevArrow: '<i class="fas fa-angle-left  left_arrow"></i>',
     nextArrow: '<i class="fas fa-angle-right right_arrow" ></i>',
     responsive: [{
