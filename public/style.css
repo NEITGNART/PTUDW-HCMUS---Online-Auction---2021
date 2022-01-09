@@ -57,7 +57,7 @@ a:link {
   display: inline-block;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 20px;
-  margin: 3rem 1.5rem;
+  margin: 1.2rem 1.2rem;
   background-color: #ffffff;
   width: 300px;
   max-width: 300px;
@@ -188,7 +188,7 @@ start-time {
 }
 
 .bid-now {
-  color: #52606d;
+  color: #f8f8f8;
   line-height: 26px;
   text-align: center;
 }
@@ -1495,7 +1495,7 @@ pagination {
 
 .header-top-product>h2 {
   font-weight: 600;
-  font-size: 50px;
+  font-size: 25px;
 }
 
 .group-carousel-control {
@@ -2134,3 +2134,57 @@ pagination {
 }
 
 /* ========================  Product detail ==========================*/
+
+/* ========================  Upload Page ==========================*/
+
+.uploadProduct {
+  background-color: #f4f6f8;
+  border-radius: 15px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.uploadProduct .uploadTitle h2 {
+  display: inline-block;
+  font-size: 35px;
+  font-weight: 550;
+}
+
+.uploadProduct .uploadTitle {
+  font-weight: 500;
+  font-size: 20px;
+  color: #0077e2;
+  display: flex;
+  justify-content: center;
+}
+
+.uploadProduct .form-group {
+  background-color: #ffffff;
+  padding: 10px 10px;
+  border-radius: 15px;
+
+}
+
+.uploadProduct .form-group h6 {
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.uploadProduct .form-group h6 label {
+  font-weight: 600;
+}
+
+.uploadProduct .form-group input {
+  color: #010203;
+  font-size: 17px;
+  padding: 5px 5px;
+  border-radius: 15px;
+  border: 1px solid rgba(13, 17, 25, 0.2);
+  width: 100%;
+}
+
+.uploadCommand button {
+  margin: 5px 15px;
+  width: 50%;
+}
+
+/* ========================  Upload Page ==========================*/

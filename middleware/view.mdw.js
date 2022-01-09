@@ -135,7 +135,8 @@ export default (app) => {
 
 
             },
-            math: function(lvalue, operator, rvalue) {lvalue = parseFloat(lvalue);
+            math: function (lvalue, operator, rvalue) {
+                lvalue = parseFloat(lvalue);
                 rvalue = parseFloat(rvalue);
                 return {
                     "+": lvalue + rvalue,
@@ -144,9 +145,13 @@ export default (app) => {
                     "/": lvalue / rvalue,
                     "%": lvalue % rvalue
                 }[operator];
-            }
-
-
+            },
+            commaNumber: function (numb) {
+                numb = "" + numb;
+                var str = numb.toString().split(".");
+                str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                return str.join(".");
+            },
 
         }
 
