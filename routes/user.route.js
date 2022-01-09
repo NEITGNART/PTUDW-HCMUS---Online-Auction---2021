@@ -11,7 +11,19 @@ router.route('/profile')
     .get(auth, controller.profile);
 
 router.route('/wishlist')
-    .post(auth, controller.wishlist);
+    .get(auth, controller.wishlist);
+
+router.route('/mybid')
+    .get(auth, controller.mybid);
+
+router.route('/winningbid')
+    .get(auth, controller.winningbid);
+
+router.route('/feedback')
+    .get(auth, controller.feedback);
+
+router.route('/myproduct')
+    .get(auth, controller.myproduct);
 
 router.route('/postproduct')
     .get((req, res) => {

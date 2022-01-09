@@ -4,7 +4,11 @@
     <div class="dashboard-user">
       <div class="thumb-area">
         <div class="thumb">
-          <img src="https://picsum.photos/200" alt="user" />
+            {{#if user.profile.avatar}}
+          <img src="{{user.profile.avatar}}" alt="user" />
+          {{else}}
+          <img src="/img/c1.png" alt="user" />
+          {{/if}}
         </div>
         <label for="profile-pic" class="profile-pic-edit">
           <i class="fas fa-pencil-alt"></i>
@@ -12,9 +16,11 @@
         <input type="file" id="profile-pic" class="d-none" />
       </div>
       <div class="content">
-        <h5 class="title">Tôi tên là</h5>
-        <span class="user-email">abc@gmail.com</span>
+        {{#if auth}}
+      <h5 class="title">{{user.profile.name}}</h5>
+        <span class="user-email">{{user.profile.email}}</span>
       </div>
+      {{/if}}
 
     </div>
     <ul class="dashboard-menu">
@@ -25,38 +31,38 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="/user/profile?id={{user._id}}">
           <i class="fas fa-user-cog"></i>
           Profile
 
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="/user/mybid?id={{user._id}}">
           <i class="fas fa-gavel"></i>
           My pid
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="/user/winningbid?id={{user._id}}">
           <i class="fas fa-trophy"></i>
           Winnig bid
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="/user/wishlist?id={{user._id}}">
           <i class="fas fa-heart"></i>
           Wish list
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="/user/feedback?id={{user._id}}">
           <i class="fas fa-comment"></i>
           Feedback
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="/user/myproduct?id={{user._id}}">
           <i class="fas fa-hourglass"></i>
           My product
         </a>

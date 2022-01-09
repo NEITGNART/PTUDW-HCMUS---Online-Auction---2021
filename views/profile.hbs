@@ -3,8 +3,14 @@
         function editFocus() {
             var par = $(event.target).parent().parent();
             var childs = par.find('.info-value');
-            var btn = par.find('button');
-            btn.css('visibility', 'visible');
+            var btn = par.find('.update-btn');
+            console.log(btn);
+
+             if (btn.css('display') == 'none') {
+                btn.show();
+            } else {
+                btn.hide();
+            }
 
             childs.each(function (index) {
                 var i = $(this).find('input');
@@ -48,10 +54,12 @@
                                     <h4 class="title">
                                         Personal Details
                                     </h4>
+                                    {{#if owner}}
                                     <span class="edit">
                                         <i class="fas fa-edit    "></i>
                                         Edit
                                     </span>
+                                    {{/if}}
 
                                 </div>
                                 <form action="">
@@ -64,31 +72,26 @@
                                                         Name
                                                     </div>
                                                     <div class="info-value">
-                                                        <input type="text" value="Le Van A" readonly>
+                                                        <input type="text" value="{{user.profile.name}}" readonly>
                                                     </div>
                                                 </li>
                                                 <!-- End Info item -->
                                                 <!-- Info item -->
-                                                <li>
-                                                    <div class="info-name">
-                                                        Date of birth
-                                                    </div>
-                                                    <div class="info-value">
-                                                        <input type="text" value="17/06/2001" readonly>
-                                                    </div>
-                                                </li>
-                                                <!-- End Info item -->
-                                                <!-- Info item -->
+                                                {{#if user.profile.address}}
                                                 <li>
                                                     <div class="info-name">
                                                         Address
                                                     </div>
                                                     <div class="info-value">
-                                                        <input type="text" value="A city, district X, warn X" readonly>
+                                                        <input type="text" value="{{user.profile.address}}" readonly>
                                                     </div>
                                                 </li>
+                                                {{/if}}
                                                 <!-- End Info item -->
                                             </ul>
+                                            <div class="update-btn" style=" margin: 5px 5px;display: none;">
+                                                        <button type="submit" class="btn btn-success">Update</button>
+                                                    </div>
                                         </div>
                                         <div class="col-3" style="text-align: right; top:-10px">
 
@@ -106,10 +109,12 @@
                                     <h4 class="title">
                                         Email Address
                                     </h4>
+                                    {{#if owner}}
                                     <span class="edit">
                                         <i class="fas fa-edit    "></i>
                                         Edit
                                     </span>
+                                    {{/if}}
 
                                 </div>
                                 <form action="">
@@ -123,11 +128,14 @@
                                                         Email
                                                     </div>
                                                     <div class="info-value">
-                                                        <input type="text" value="abcxyz@gmail.com" readonly>
+                                                        <input type="text" value="{{user.profile.email}}" readonly>
                                                     </div>
                                                 </li>
                                                 <!-- End Info item -->
                                             </ul>
+                                            <div class="update-btn" style=" margin: 5px 5px;display: none;">
+                                                        <button type="submit" class="btn btn-success">Update</button>
+                                                    </div>
                                         </div>
                                         <div class="col-3" style="text-align: right; top:-10px">
 
@@ -144,12 +152,8 @@
                             <div class="dash-pro-item dashboard-widget">
                                 <div class="header">
                                     <h4 class="title">
-                                        Phone
+                                        Role
                                     </h4>
-                                    <span class="edit">
-                                        <i class="fas fa-edit    "></i>
-                                        Edit
-                                    </span>
                                 </div>
                                 <form action="">
                                     <div class="row justify-content-center">
@@ -159,14 +163,15 @@
                                                 <!-- Info item -->
                                                 <li>
                                                     <div class="info-name">
-                                                        Mobile
+                                                        Type
                                                     </div>
                                                     <div class="info-value">
-                                                        <input type="text" value="0123456789" readonly>
+                                                        <input type="text" value="{{user.type}}" readonly>
                                                     </div>
                                                 </li>
                                                 <!-- End Info item -->
                                             </ul>
+                                            
                                         </div>
                                         <div class="col-3" style="text-align: right; top:-10px">
 
@@ -179,17 +184,19 @@
                         <!-- End Profile -->
 
                         <!-- Profile -->
+                        {{#if islocal}}
                         <div class="col-12">
                             <div class="dash-pro-item dashboard-widget">
                                 <div class="header">
                                     <h4 class="title">
                                         Security
                                     </h4>
-                                    <span class="edit">
+                                    {{#if owner}}
+                                     <span class="edit">
                                         <i class="fas fa-edit    "></i>
                                         Edit
                                     </span>
-
+                                    {{/if}}
                                 </div>
                                 <form action="">
                                     <div class="row justify-content-center">
@@ -198,14 +205,37 @@
                                                 <!-- Info item -->
                                                 <li>
                                                     <div class="info-name">
-                                                        Password
+                                                        Old password
                                                     </div>
                                                     <div class="info-value">
-                                                        <input type="text" value="khongcopassword" readonly>
+                                                        <input name="oldpass" type="password" value="" readonly>
+                                                    </div>
+                                                </li>
+                                                <!-- End Info item -->
+                                                <!-- Info item -->
+                                                <li>
+                                                    <div class="info-name">
+                                                        New password
+                                                    </div>
+                                                    <div class="info-value">
+                                                        <input name="newpass" type="password" value="" readonly>
+                                                    </div>
+                                                </li>
+                                                <!-- End Info item -->
+                                                <!-- Info item -->
+                                                <li>
+                                                    <div class="info-name">
+                                                        Confirm password
+                                                    </div>
+                                                    <div class="info-value">
+                                                        <input name="confirmpass" type="password" value="" readonly>
                                                     </div>
                                                 </li>
                                                 <!-- End Info item -->
                                             </ul>
+                                            <div class="update-btn" style=" margin: 5px 5px; display: none;">
+                                                        <button type="submit" class="btn btn-success">Update</button>
+                                                    </div>
                                         </div>
                                         <div class="col-3" style="text-align: right; top:-10px">
 
@@ -214,8 +244,8 @@
                                     </div>
                                 </form>
                             </div>
-
                         </div>
+                        {{/if}}
                         <!-- End Profile -->
                     </div>
                 </div>

@@ -1,22 +1,13 @@
-<nav
-  class="navbar navbar-expand-lg navbar-dark sticky-top p-2"
-  style="font-size: 20px;font-weight: 200; background-color: #373a48;"
->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top p-2"
+  style="font-size: 20px;font-weight: 200; background-color: #373a48;">
   <a class="navbar-brand ml-3" href="/" style="font-size: 30px;font-weight: 500;">
     Auction
     <span style="color: violet;">
       Online
     </span>
   </a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -29,15 +20,8 @@
         <a class="nav-link" href="#">Auction</a>
       </li>
       <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           Category
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="font-size: 12px;">
@@ -53,55 +37,34 @@
     </ul>
     <form class="row form-inline my-2 my-lg-0 ml-0">
 
-      <input
-        class="col-7 form-control"
-        type="search"
-        placeholder="Search"
-        style="border-radius: 25px 0px 0px 25px;font-size: 19px;"
-      />
-      <button
-        class="col-2 btn my-2 my-sm-0"
-        type="submit"
-        style=" background-color: #fff; border-radius: 5px 50px 50px 5px;font-size: 19px;"
-      >
+      <input class="col-7 form-control" type="search" placeholder="Search"
+        style="border-radius: 25px 0px 0px 25px;font-size: 19px;" />
+      <button class="col-2 btn my-2 my-sm-0" type="submit"
+        style=" background-color: #fff; border-radius: 5px 50px 50px 5px;font-size: 19px;">
         <i class="fas fa-search"></i>
       </button>
 
       <div class="col-2 dropdown">
         {{#if auth}}
-          <a
-            class="btn dropdown"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-            style="background-color: #fff; border-radius: 50%;padding: 0px; overflow: hidden;"
-          >
-            <img src="https://picsum.photos/200" style="width: 30px;" alt="avatar" />
-          </a>
+        <a class="btn dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false" style="background-color: #fff; border-radius: 50%;padding: 0px; overflow: hidden;">
+          {{#if user.profile.avatar}}
+          <img src="{{user.profile.avatar}}" style="width: 30px;" alt="avatar" />
+          {{else}}
+          <img src="/img/c1.png" style="width: 30px;" alt="avatar" />
+          {{/if}}
+        </a>
 
-          <div
-            class="dropdown-menu"
-            style="left: -50px;top: 50px;font-size: 12px;"
-            aria-labelledby="dropdownMenuLink"
-          >
-            <a class="dropdown-item" href="#">Dashboard</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/logout">Log out</a>
-          </div>
+        <div class="dropdown-menu" style="left: -50px;top: 50px;font-size: 12px;" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="/user?id={{user._id}}">Dashboard</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/logout">Log out</a>
+        </div>
         {{else}}
-          <a
-            class="btn"
-            href="/login"
-            role="button"
-            aria-haspopup="true"
-            aria-expanded="false"
-            style="background-color: #fff; border-radius: 50%;padding: 5px 10px; overflow: hidden;"
-          >
-            <i class="fas fa-user"></i>
-          </a>
+        <a class="btn" href="/login" role="button" aria-haspopup="true" aria-expanded="false"
+          style="background-color: #fff; border-radius: 50%;padding: 5px 10px; overflow: hidden;">
+          <i class="fas fa-user"></i>
+        </a>
         {{/if}}
       </div>
     </form>

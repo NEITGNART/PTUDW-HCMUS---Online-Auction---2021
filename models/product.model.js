@@ -45,8 +45,8 @@ const ProductSchema = new mongoose.Schema({
 
     historyBidId: {
         type: [{
-
             bidDate: Date,
+            // username is ID not name
             username: String,
             price: Number
         }],

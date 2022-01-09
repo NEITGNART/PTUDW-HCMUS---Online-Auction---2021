@@ -77,7 +77,12 @@ const UserSchema = new mongoose.Schema({
         point: {
             Number
         }
+    },
+    currentBiddingList: {
+        Array,
+        default: []
     }
+
 })
 
 export default mongoose.model('user', UserSchema, 'users');
