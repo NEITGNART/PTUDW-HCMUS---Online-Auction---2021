@@ -23,8 +23,7 @@ export default {
         }
         // save user
         await user.save();
-
-        res.json({
+        return res.json({
             success: !isInWishlist
         });
 
