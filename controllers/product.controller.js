@@ -26,6 +26,96 @@ function extendExpire(date) {
 
 const productController = {
 
+    topEnding: async (req, res) => {
+        // find 5 product with date nearest to now and status bidding
+        const productRelative = await ProductModel.find({
+            status: 'bidding',
+            expDate: {
+                $gt: new Date()
+            }
+        }).sort({
+            expDate: 1
+        }).limit(5).lean();
+
+        for (let i = 0; i < productRelative.length; i++) {
+            const productRelativeItem = productRelative[i];
+            const user = await UserModel.findById(productRelativeItem.seller).lean();
+            productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
+            productRelativeItem.sellDate = moment(productRelativeItem.sellDate).format('HH:MM DD/MM/YYYY');
+            productRelativeItem.expDate = moment(productRelativeItem.expDate).format("YYYY-MM-DD HH:MM:SS");
+            productRelativeItem.expDate = "" + moment(productRelativeItem.expDate).valueOf();
+
+            productRelativeItem.seller = maskInfo(user.profile.name);
+
+            productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
+            productRelativeItem.username = user.profile.name;
+            // product image is the first element
+            productRelativeItem.image = productRelativeItem.images[0];
+        }
+
+
+        return productRelative;
+    },
+
+    topBidding: async (req, res) => {
+
+
+        // get 5 product with status bidding and number element of historyBidId largest
+        const productRelative = await ProductModel.find({
+            status: 'bidding',
+        }).sort({
+            historyBidId: -1
+        }).limit(5).lean();
+
+
+        for (let i = 0; i < productRelative.length; i++) {
+            const productRelativeItem = productRelative[i];
+            const user = await UserModel.findById(productRelativeItem.seller).lean();
+            productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
+            productRelativeItem.sellDate = moment(productRelativeItem.sellDate).format('HH:MM DD/MM/YYYY');
+            productRelativeItem.expDate = moment(productRelativeItem.expDate).format("YYYY-MM-DD HH:MM:SS");
+            productRelativeItem.expDate = "" + moment(productRelativeItem.expDate).valueOf();
+
+            productRelativeItem.seller = maskInfo(user.profile.name);
+
+            productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
+            productRelativeItem.username = user.profile.name;
+            // product image is the first element
+            productRelativeItem.image = productRelativeItem.images[0];
+        }
+
+
+        return productRelative;
+    },
+
+    topPricing: async (req, res) => {
+        // find top 5 product with status bidding and heighest current price
+        const productRelative = await ProductModel.find({
+            status: 'bidding'
+        }).sort({
+            currentPrice: -1
+        }).limit(5).lean();
+
+
+        for (let i = 0; i < productRelative.length; i++) {
+            const productRelativeItem = productRelative[i];
+            const user = await UserModel.findById(productRelativeItem.seller).lean();
+            productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
+            productRelativeItem.sellDate = moment(productRelativeItem.sellDate).format('HH:MM DD/MM/YYYY');
+            productRelativeItem.expDate = moment(productRelativeItem.expDate).format("YYYY-MM-DD HH:MM:SS");
+            productRelativeItem.expDate = "" + moment(productRelativeItem.expDate).valueOf();
+
+            productRelativeItem.seller = maskInfo(user.profile.name);
+
+            productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
+            productRelativeItem.username = user.profile.name;
+            // product image is the first element
+            productRelativeItem.image = productRelativeItem.images[0];
+        }
+
+
+        return productRelative;
+    },
     blockUser: async (req, res) => {
 
         const idProduct = req.query.idProduct;
