@@ -74,6 +74,12 @@ router.route('/signup')
             res.redirect('/');
         });
 
+router.route('/forgetPass')
+    .get((req, res) => {
+        res.render('forgetPass');
+    })
+// .post()
+
 
 router.route('/about')
     .get((req, res) => {

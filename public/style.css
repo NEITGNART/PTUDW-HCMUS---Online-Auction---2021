@@ -57,7 +57,7 @@ a:link {
   display: inline-block;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 20px;
-  margin: 3rem 1.5rem;
+  margin: 1.2rem 1.2rem;
   background-color: #ffffff;
   width: 300px;
   max-width: 300px;
@@ -188,7 +188,7 @@ start-time {
 }
 
 .bid-now {
-  color: #52606d;
+  color: #f8f8f8;
   line-height: 26px;
   text-align: center;
 }

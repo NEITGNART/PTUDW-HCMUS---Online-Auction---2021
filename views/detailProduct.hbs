@@ -17,7 +17,42 @@
   }
 </script>
 
+<script src="https://cdn.tiny.cloud/1/er3jle0ey3awkybppbmddax0l2mudhq8ct2uhhmvogt27rrp/tinymce/5/tinymce.min.js"
+  referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: "textarea",
+    height: 400,
+    plugins: "paste image link autolink lists table media",
+    menubar: false,
+    toolbar: [
+      "undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright",
+      "forecolor backcolor",
+      "table link image media"
+    ]
+  });
+</script>
 
+<script>
+  $('#edit-descripe').click(() => {
+    if ($("#post-form").css('display') == 'none') {
+      $("#post-form").show();
+    } else {
+      $("#post-form").hide();
+    }
+
+  });
+
+  $('#cancel-edit-descripe').click(() => {
+    $("#post-form").hide();
+  });
+</script>
+
+<script>
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  })
+</script>
 
 {{/section}}
 
@@ -89,7 +124,7 @@
     <!-- End left card -->
 
     <!-- Begin right card -->
-    <div class="col-lg-6 col-md-6 col-12 product-content">
+    <div class="col-lg-6 col-md-12 col-12 product-content">
       <h2 class="product-title">{{product.name}}</h2>
 
       <div class="seller">
@@ -170,15 +205,47 @@
 
   <!-- Begin bottom card -->
   <div class="row mt-5 card-wrapper">
-    <div class="col-8">
-      <h2>Mô tả sản phẩm</h2>
+    <div class="col-lg-8 col-md-12">
+      <h2 style="display: inline-block;">Mô tả sản phẩm
+      </h2>
+
+      <!-- if role is seller -->
+      <button id="edit-descripe" class="btn" style="display: inline-block; position: absolute; right: 30px; top:0px">
+        <i class="fas fa-pen    "></i>
+      </button>
+
       <p>
         {{product.description}}
       </p>
+
+      <form method="POST" id="post-form" class="post-form" style="display: none;">
+        <hr>
+        <div class="row p-t-15">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="description" class="label-input">
+                <h2> Thêm mô tả chi tiết sản phẩm</h2>
+              </label>
+              <textarea name="description" id="description" cols="30" rows="10" class="form-input w-100"
+                placeholder="Nhập mô tả sản phẩm"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center ">
+          <button type="submit" style="border-radius: 20px;" class="btn  btn-success mx-2">
+            Cập nhật
+          </button>
+          <button type="button" id="cancel-edit-descripe" class="btn btn-danger mx-2" style="border-radius: 20px;">
+            Hủy
+          </button>
+        </div>
+      </form>
+
+
     </div>
 
 
-    <div class="col-lg-4 col-md-6 col-12 table-wrapper-scroll-y my-custom-scrollbar">
+    <div class="col-lg-4 col-md-12 col-12 table-wrapper-scroll-y my-custom-scrollbar">
       <table class="table table-bordered table-striped mb-0">
         <thead>
           <tr>
@@ -200,6 +267,96 @@
 
         </tbody>
       </table>
+      <!-- role = seller, block bidder -->
+      <div class=" d-flex justify-content-center pt-2">
+
+        <!-- Begin popup -->
+
+        <button type="button" class="btn btn-danger mx-1" data-toggle="modal" data-target="#inputIdleModal"
+          data-whatever="@mdo">
+          Chặn người dùng
+        </button>
+
+        <button type="button" class="btn btn-info mx-1" data-toggle="modal" data-target="#blocklist"
+          data-whatever="@mdo">
+          Danh sách bị chặn
+        </button>
+
+
+        <div class="modal fade" tabindex="-1" id="inputIdleModal" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Chặn người mua</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form>
+                <div class="modal-body">
+
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nhập id người muốn chặn:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                  <div class="form-group">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-danger">Chặn</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" id="blocklist" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Danh sách bị chặn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table class="table table-bordered table-striped mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">Tên người dùng</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+
+                    <!-- {{#each product.historyBidId}}
+                    <tr>
+                      <td>{{bidDate}}</td>
+                      <td>{{username}}</td>
+                      <td>{{price}} vnđ</td>
+                    </tr>
+                    {{/each}} -->
+
+
+                    <tr>
+                      <td><a href="#">Phạm tiến</a></td>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End popup -->
+      </div>
     </div>
   </div>
   <!-- End right card -->
@@ -410,7 +567,7 @@
     prevArrow: '<i class="fas fa-angle-left  left_arrow"></i>',
     nextArrow: '<i class="fas fa-angle-right right_arrow" ></i>',
     responsive: [{
-        breakpoint: 1447,
+        breakpoint: 1440,
         settings: {
           slidesToShow: 3,
         }
