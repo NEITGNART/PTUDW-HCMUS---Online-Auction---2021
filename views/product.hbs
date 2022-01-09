@@ -82,14 +82,9 @@
         }
 
         async function handledWishlist(id) {
-            const data = await axios.post(`user/wishlist?id=${id}`);
-            if (data.data.success === true) {
-                $(`#fa-${id}`).removeClass(`far fa-heart`);
-                $(`#fa-${id}`).addClass("fa fa-heart");
-            } else {
-                $(`#fa-${id}`).removeClass("fa fa-heart");
-                $(`#fa-${id}`).addClass("far fa-heart");
-            }
+            const data = await axios.post(`user/wishlist?id=${id}`).then((reponse) => {
+                location.reload();
+            })
         }
 
         function handleSubmit(id) {
