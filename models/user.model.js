@@ -79,7 +79,7 @@ const UserSchema = new mongoose.Schema({
         }
     },
     currentBiddingList: {
-        Array,
+        type: Array,
         default: []
     }
 

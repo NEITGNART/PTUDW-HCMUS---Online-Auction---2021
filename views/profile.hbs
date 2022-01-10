@@ -4,7 +4,7 @@
             var par = $(event.target).parent().parent();
             var childs = par.find('.info-value');
             var btn = par.find('.update-btn');
-            console.log(btn);
+            
 
              if (btn.css('display') == 'none') {
                 btn.show();
@@ -62,7 +62,7 @@
                                     {{/if}}
 
                                 </div>
-                                <form action="">
+                                <form method="post" action="">
                                     <div class="row justify-content-center">
                                         <div class="col-9" style="justify-content: center;">
                                             <ul class="dash-pro-body">
@@ -72,7 +72,7 @@
                                                         Name
                                                     </div>
                                                     <div class="info-value">
-                                                        <input type="text" value="{{user.profile.name}}" readonly>
+                                                        <input name="name" type="text" value="{{user.profile.name}}" readonly>
                                                     </div>
                                                 </li>
                                                 <!-- End Info item -->
@@ -83,7 +83,7 @@
                                                         Address
                                                     </div>
                                                     <div class="info-value">
-                                                        <input type="text" value="{{user.profile.address}}" readonly>
+                                                        <input name="address" type="text" value="{{user.profile.address}}" readonly>
                                                     </div>
                                                 </li>
                                                 {{/if}}
@@ -117,7 +117,7 @@
                                     {{/if}}
 
                                 </div>
-                                <form action="">
+                                <form method="post" action="">
                                     <div class="row justify-content-center">
 
                                         <div class="col-9" style="justify-content: center;">
@@ -128,7 +128,7 @@
                                                         Email
                                                     </div>
                                                     <div class="info-value">
-                                                        <input type="text" value="{{user.profile.email}}" readonly>
+                                                        <input name="email" type="text" value="{{user.profile.email}}" readonly>
                                                     </div>
                                                 </li>
                                                 <!-- End Info item -->
@@ -155,7 +155,7 @@
                                         Role
                                     </h4>
                                 </div>
-                                <form action="">
+                                <form method="post" action="">
                                     <div class="row justify-content-center">
 
                                         <div class="col-9" style="justify-content: center;">
@@ -198,7 +198,7 @@
                                     </span>
                                     {{/if}}
                                 </div>
-                                <form action="">
+                                <form method="post" action="">
                                     <div class="row justify-content-center">
                                         <div class="col-9" style="justify-content: center;">
                                             <ul class="dash-pro-body">

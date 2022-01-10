@@ -35,7 +35,7 @@ const productController = {
         const product = await ProductModel.findById(productId);
         if (product) {
             var oldDes = product.description;
-            product.description = oldDes + `<p>✏️ ${updateDate} </p>` + newDes;
+            product.description = oldDes + `<hr><p>✏️ ${updateDate} </p>` + newDes;
             await product.save();
             res.redirect(req.originalUrl);
 

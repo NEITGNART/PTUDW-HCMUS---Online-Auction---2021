@@ -1,5 +1,6 @@
 import User from '../models/user.model.js';
 import WinnigBid from '../models/winning.model.js';
+import bcrypt from 'bcrypt';
 
 export default {
     async dashboard(req, res) {
@@ -28,6 +29,39 @@ export default {
             res.render('404');
         }
     },
+    async updateProfile(req, res) {
+        const id = req.query.id;
+        if (id && req.body) {
+            const user = await User.findById(id);
+            if (user) {
+                if (req.body.email) {
+                    const checkEmail = await User.findOne({
+                        profile: {
+                            email: req.body.email
+                        }
+                    });
+                    console.log(checkEmail);
+                    if (!checkEmail || checkEmail._id === user._id) {
+                        user.profile.email = req.body.email;
+                    }
+                } else if (user.method === "local" && req.body.newpass && req.body.oldpass) {
+                    const matched = await bcrypt.compare(req.body.oldpass, user.secret);
+                    if (matched) {
+                        const salt = bcrypt.genSaltSync(10);
+                        const password = bcrypt.hashSync(req.body.newpass, salt);
+                        user.secret = password;
+                    }
+                } else {
+                    user.profile.name = req.body.name || user.profile.name;
+                    user.profile.address = req.body.address || user.profile.address;
+                }
+                await user.save();
+                res.redirect(req.session.retUrl);
+            }
+        }
+        res.render('404');
+
+    },
     async profile(req, res) {
         const id = req.query.id;
         if (id) {
@@ -54,9 +88,9 @@ export default {
                 });
                 return;
             }
-        } else {
-            res.render('404');
         }
+        res.render('404');
+
     },
     async wishlist(req, res) { // user/wishlist
         // find user by id

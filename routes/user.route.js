@@ -8,7 +8,8 @@ router.route('/')
     .get(auth, controller.dashboard);
 
 router.route('/profile')
-    .get(auth, controller.profile);
+    .get(auth, controller.profile)
+    .post(auth, controller.updateProfile);
 
 router.route('/wishlist')
     .get(auth, controller.wishlist);

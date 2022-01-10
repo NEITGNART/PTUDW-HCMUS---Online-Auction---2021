@@ -83,10 +83,9 @@ a:link {
 
 .auction-item-thumb .thumb-img img {
   border-radius: 5%;
-  max-width: 300px;
-  max-height: 200px;
-  width: auto;
   height: auto;
+  width: 290px;
+  height: 200px;
   object-fit: contain;
 }
 

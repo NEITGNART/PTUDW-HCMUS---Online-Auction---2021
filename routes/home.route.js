@@ -39,7 +39,7 @@ router.route('/')
 
         // wait for the productRelative to be loaded  // promise all
 
-        console.log(productRelativeBidding)
+        // console.log(productRelativeBidding)
         res.render('home', {
             productRelativeBidding,
             productRelativeEnding,
@@ -57,7 +57,8 @@ router.route('/login')
             failureFlash: true
         }),
         async (req, res) => {
-            res.redirect('/');
+            const returnUrl = req.session.retUrl || '/';
+            res.redirect(returnUrl);
         }
     );
 
@@ -67,7 +68,8 @@ router.route('/login/facebook')
         failureRedirect: '/login',
         failureFlash: true
     }), async (req, res) => {
-        res.redirect('/')
+        const returnUrl = req.session.retUrl || '/';
+        res.redirect(returnUrl)
     });
 
 router.route('/login/google')
@@ -78,7 +80,8 @@ router.route('/login/google')
         failureRedirect: '/login',
         failureFlash: true
     }), async (req, res) => {
-        res.redirect('/')
+        const returnUrl = req.session.retUrl || '/';
+        res.redirect(returnUrl)
     })
 
 router.route('/login/github')
@@ -87,7 +90,8 @@ router.route('/login/github')
         failureRedirect: '/login',
         failureFlash: true
     }), async (req, res) => {
-        res.redirect('/')
+        const returnUrl = req.session.retUrl || '/';
+        res.redirect(returnUrl)
     });
 
 
@@ -95,7 +99,8 @@ router.route('/logout')
     .get((req, res) => {
         req.logOut();
         req.session.user = null;
-        res.redirect('/login');
+        const returnUrl = req.session.retUrl || '/login';
+        res.redirect(returnUrl);
     });
 
 
@@ -108,7 +113,8 @@ router.route('/signup')
             failureFlash: true
         }),
         async (req, res) => {
-            res.redirect('/');
+            const returnUrl = req.session.retUrl || '/';
+            res.redirect(returnUrl);
         });
 
 router.route('/forgetPass')

@@ -13,9 +13,9 @@ export default (req, res, next) => {
 
         request(verificationUrl, (err, response, body) => {
             body = JSON.parse(body);
-            console.log(body);
+
             if (body.success) {
-                console.log(req.body);
+
                 next();
             } else {
                 req.flash('error', 'Lỗi xác thực captcha');
