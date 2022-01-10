@@ -155,7 +155,7 @@
 
             <div class="seller">
                 <div>Người bán</div>
-                <span class="user-name">{{user.profile.name}} <i class="fa fa-user" aria-hidden="true"></i></span>
+                <span class="user-name" onclick="handleLink(`{{user._id}}`)">{{user.profile.name}} <i class="fa fa-user" aria-hidden="true"></i></span>
                 <span class="user-point">{{user.point}}<i class="fa fa-heart" aria-hidden="true"></i> </span>
             </div>
 
@@ -377,7 +377,6 @@
 
 
                                         </tbody>
-                                        </thead>
                                     </table>
                                 </div>
                                 <div class="modal-footer">
@@ -408,7 +407,7 @@
                         <div class="auction-item">
                             <div class="auction-item-thumb">
 
-                                <a class="thumb-img" href="#">
+                                <a class="thumb-img" href="/product/detail/?id={{_id}}">
                                     <img src={{getThumbnail images}} alt="item">
                                 </a>
 

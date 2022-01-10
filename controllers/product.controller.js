@@ -14,6 +14,11 @@ function maskInfo(value) {
     }
 };
 
+function validLimit(maxItems) {
+    return !(maxItems !== 12 && maxItems !== 9 && maxItems !== 6);
+
+};
+
 
 function isExpired(date) {
     return moment(date).diff(moment());
@@ -254,10 +259,13 @@ const productController = {
         // // save product
         // await ProductModel.findByIdAndUpdate(productId, product);
 
+        // pick 5 product that have same category but not same id
+
 
         const productRelative = await ProductModel.find({
-            category: {
-                $in: [product.category[0]]
+            category: product.category,
+            _id: {
+                $ne: productId
             }
         }).limit(5).lean();
 
@@ -323,6 +331,14 @@ const productController = {
         let maxItems = +req.query.limit || 12;
         let currentPage = +req.query.page || 1;
         let skipItem = (currentPage - 1) * maxItems;
+
+
+
+        // if maxItems not in 12, 9, 6 return render 404 handlebars
+        if(validLimit(maxItems) === false){
+            return res.render('404');
+        }
+
         skipItem = +skipItem;
         currentPage = +currentPage;
 

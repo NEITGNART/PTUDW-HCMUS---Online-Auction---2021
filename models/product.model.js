@@ -11,31 +11,42 @@ const ProductSchema = new mongoose.Schema({
         type: String
     },
     sellDate: {
-        type: Date
+        type: Date,
+        default: Date.now()
     },
     expDate: {
-        type: Date
+        type: Date,
+        default: Date.now() + 10 * 24 * 60 * 60 * 1000
     },
     images: {
         type: Array
     },
     description: {
-        type: String
+        type: String,
+        default: ''
     },
     currentPrice: {
         type: Number,
-        default: 10000
+        default: 100000
     },
     stepPrice: {
-        type: Number
+        type: Number,
+        default: 100000
     },
 
     bestPrice: { // mua luon
         type: Number
+
+    },
+
+    autoExtend: { // tang gia theo thoi gian
+        type: Boolean,
+        default: false
     },
 
     topBidder: {
-        type: String
+        type: String,
+        default: ''
     },
 
     status: {
