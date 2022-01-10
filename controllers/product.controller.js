@@ -31,6 +31,10 @@ function extendExpire(date) {
 
 const productController = {
 
+    async autoBidding(req, res) {
+        console.log(req);
+    },
+
     async updateDescription(req, res) {
         const productId = req.query.id;
         const updateDate = moment().format('DD/MM/YYYY');
@@ -335,7 +339,7 @@ const productController = {
 
 
         // if maxItems not in 12, 9, 6 return render 404 handlebars
-        if(validLimit(maxItems) === false){
+        if (validLimit(maxItems) === false) {
             return res.render('404');
         }
 

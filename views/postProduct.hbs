@@ -25,12 +25,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js"></script>
 <script>
     $(document).ready(function () {
+        $("#mainImg").fileinput({
+            showUpload: false,
+            dropZoneEnabled: false,
+            maxFileCount: 1,
+            inputGroupClass: "input-group-lg"
+        });
         $("#imageList").fileinput({
             showUpload: false,
             dropZoneEnabled: false,
             maxFileCount: 4,
-            inputGroupClass: "input-group-lg"
+            inputGroupClass: "input-group-sm"
         });
+
     });
 </script>
 
@@ -46,6 +53,7 @@
         });
     });
 </script>
+
 
 {{/section}}
 
@@ -81,6 +89,14 @@
 
             <div class="form-group" style="background-color: aliceblue;">
                 <h6>
+                    <label for="mainImg">
+                        Ảnh chính
+                    </label>
+                </h6>
+                <div class="file-loading">
+                    <input id="mainImg" name="mainImg" type="file" single>
+                </div>
+                <h6>
                     <label for="imageList">
                         Ảnh mô tả
                     </label>
@@ -114,39 +130,46 @@
                 <input type="text" class="form-input" id="bestPrice" name="bestPrice" placeholder="Nhập giá mua ngay" />
             </div>
 
+
             <div class="form-group">
+                <h6>
+                    <label for="multiple-checkboxes">
+                        Danh mục
+                    </label>
+                </h6>
+                <select id="multiple-checkboxes" style="width:100%" multiple="multiple" name="category">
+                    <option value="Điện thoại">Điện tử</option>
+                    <option value="giadung">Gia dụng</option>
+                    <option value="giadung">Đồ chơi</option>
+                </select>
 
-                <div class="form-group">
-                    <h6>
-                        <label for="multiple-checkboxes">
-                            Danh mục
-                        </label>
-                    </h6>
-                    <select id="multiple-checkboxes" style="width:100%" multiple="multiple" name="category" u>
-                        <option value="Điện thoại">Điện tử</option>
-                        <option value="giadung">Gia dụng</option>
-                        <option value="giadung">Đồ chơi</option>
-                    </select>
-
-                    <h6>
-                        <label for="form-check">
-                            Tự động gia hạn
-                        </label>
-                    </h6>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="autoExtend" id="exampleRadios1" value="1"
-                            checked />
-                        <label class="form-check-label" for="exampleRadios1">
-                            Có
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="autoExtend" id="exampleRadios2" value="0" />
-                        <label class="form-check-label" for="exampleRadios2">
-                            Không
-                        </label>
-                    </div>
+                <h6>
+                    <label for="form-check">
+                        Tự động gia hạn
+                    </label>
+                </h6>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="autoExtend" id="exampleRadios1" value="1"
+                        checked />
+                    <label class="form-check-label" for="exampleRadios1">
+                        Có
+                    </label>
                 </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="autoExtend" id="exampleRadios2" value="0" />
+                    <label class="form-check-label" for="exampleRadios2">
+                        Không
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h6>
+                    <label for="bestPrice">
+                        Ngày hết hạn
+                    </label>
+                </h6>
+                <input type="date" name="expDate" class="expDate">
             </div>
         </div>
         <div class="col col-12 d-flex justify-content-center my-2 uploadCommand">

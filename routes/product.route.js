@@ -13,6 +13,9 @@ router.route('/detail')
     .get(controller.detail)
     .post(authSeller, controller.updateDescription);
 
+router.route('/bidding')
+    .post(auth, controller.autoBidding);
+
 router.route('/block')
     .post(authSeller, controller.blockUser)
 
