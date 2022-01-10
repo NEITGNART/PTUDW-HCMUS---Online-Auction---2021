@@ -26,8 +26,22 @@ function extendExpire(date) {
 
 const productController = {
 
-    updateDescription(req, res) {
-        console.log(req.body);
+    async updateDescription(req, res) {
+        const productId = req.query.id;
+        const updateDate = moment().format('DD/MM/YYYY');
+        var newDes = req.body.description;
+
+
+        const product = await ProductModel.findById(productId);
+        if (product) {
+            var oldDes = product.description;
+            product.description = oldDes + `<p>✏️ ${updateDate} </p>` + newDes;
+            await product.save();
+            res.redirect(req.originalUrl);
+
+        } else {
+            res.render('404');
+        }
     },
 
     topEnding: async (req, res) => {
