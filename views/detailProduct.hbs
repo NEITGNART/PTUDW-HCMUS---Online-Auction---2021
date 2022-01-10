@@ -236,10 +236,12 @@
             </h2>
 
             <!-- if role is seller -->
+            {{#if isOwner}}
             <button id="edit-descripe" class="btn"
                     style="display: inline-block; position: absolute; right: 30px; top:0px">
                 <i class="fas fa-pen    "></i>
             </button>
+            {{/if}}
 
             <p>
                 {{product.description}}

@@ -26,6 +26,10 @@ function extendExpire(date) {
 
 const productController = {
 
+    updateDescription(req, res) {
+        console.log(req.body);
+    },
+
     topEnding: async (req, res) => {
         // find 5 product with date nearest to now and status bidding
         const productRelative = await ProductModel.find({
@@ -132,7 +136,7 @@ const productController = {
         const product = await ProductModel.findById(idProduct);
         // check that myself is owner of product
 
-        if (res.locals.user && product && (product.seller.toString() !== res.locals.user._id.toString())) {
+        if (res.locals.userLocal && product && (product.seller.toString() !== res.locals.userLocal._id.toString())) {
             // wait promise product
 
             return res.json({
@@ -186,9 +190,9 @@ const productController = {
 
         let isOwner = false;
 
-        if (res.locals.user) {
+        if (res.locals.userLocal) {
             // check if user is owner of product
-            if (product.seller === res.locals.user._id.toString()) {
+            if (product.seller === res.locals.userLocal._id.toString()) {
                 isOwner = true;
             }
         }
@@ -265,11 +269,11 @@ const productController = {
 
         let username = undefined;
         let id = undefined;
-        if (res.locals.user) {
-            username = res.locals.user.profile.name;
-            id = res.locals.user.id;
+        if (res.locals.userLocal) {
+            username = res.locals.userLocal.profile.name;
+            id = res.locals.userLocal._id;
             const myMap = new Map();
-            for (const wish of res.locals.user.wishlist) {
+            for (const wish of res.locals.userLocal.wishlist) {
                 myMap.set(wish, wish);
             }
             for (let i = 0; i < productRelative.length; i++) {
@@ -447,11 +451,11 @@ const productController = {
 
         let username = undefined;
         let id = undefined;
-        if (res.locals.user) {
-            username = res.locals.user.profile.name;
-            id = res.locals.user.id;
+        if (res.locals.userLocal) {
+            username = res.locals.userLocal.profile.name;
+            id = res.locals.userLocal.id;
             const myMap = new Map();
-            for (const wish of res.locals.user.wishlist) {
+            for (const wish of res.locals.userLocal.wishlist) {
                 myMap.set(wish, wish);
             }
             for (let i = 0; i < products.length; i++) {

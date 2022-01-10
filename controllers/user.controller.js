@@ -42,15 +42,15 @@ export default {
                 if (itemswon) {
                     nItems = itemswon.length;
                 }
-                if (res.locals.user) {
-                    isOwner = id == res.locals.user._id;
+                if (res.locals.userLocal) {
+                    isOwner = id == res.locals.userLocal._id;
                 }
 
                 const currentBid = user.currentBid || [];
                 res.render('profile', {
                     user: user,
                     owner: isOwner,
-                    islocal: user.type == 'local'
+                    islocal: user.method == 'local'
                 });
                 return;
             }
@@ -63,7 +63,7 @@ export default {
         const {
             id
         } = req.query;
-        const user = await User.findById(res.locals.user._id);
+        const user = await User.findById(res.locals.userLocal._id);
         // check that wishlist that stored in user.wishlist
         // contains the product id
         const isInWishlist = user.wishlist.includes(id);

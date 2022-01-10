@@ -158,10 +158,8 @@ export default (passport) => {
         addressField: 'address',
         passReqToCallback: true
     }, async (req, username, password, done) => {
-        console.log(req.body);
 
         const errors = validate.validationResult(req);
-        console.log(errors);
         if (!errors.isEmpty()) {
             return done(null, false, {
                 message: errors.array()[0].msg

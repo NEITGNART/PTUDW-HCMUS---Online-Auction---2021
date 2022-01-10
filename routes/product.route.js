@@ -9,7 +9,8 @@ router.route('/')
     .get(controller.index);
 
 router.route('/detail')
-    .get(controller.detail);
+    .get(controller.detail)
+    .post(auth, controller.updateDescription);
 
 router.route('/block')
     .post(auth, controller.blockUser)
