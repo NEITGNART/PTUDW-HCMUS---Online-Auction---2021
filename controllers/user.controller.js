@@ -1,7 +1,63 @@
 import User from '../models/user.model.js';
 import WinnigBid from '../models/winning.model.js';
+import cloudinary from '../utils/cloudinary.js'
+import {CloudinaryStorage} from "multer-storage-cloudinary"
+import multer from "multer";
+import Product from '../models/product.model.js'
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "Product",
+    },
+});
 
 export default {
+
+
+    async postProduct(req, res) {
+        res.render('postProduct');
+    },
+    upload: async (req, res) => {
+
+        // using multer-storage-cloudinary to upload images to cloudinary and get url
+        const upload = multer({storage: storage}).array("imageList", 5);
+
+        // upload images to cloudinary
+        upload(req, res, async (err) => {
+            if (err) {
+                console.log(err);
+                return res.status(400).send({
+                    message: "Error uploading image"
+                });
+            }
+            console.log(req.body);
+            const images = req.files.map(file => file.path);
+            const product = new Product({
+                name: req.body.nameProduct,
+                description: req.body.description,
+                category: req.body.category || [],
+                currentPrice: +req.body.currentPrice,
+                bestPrice: +req.body.bestPrice,
+                stepPrice: +req.body.nextPrice,
+                images: images,
+                seller: res.locals.userLocal._id,
+                autoExtend: (+req.body.autoExtend === 1),
+            });
+            try {
+                await product.save();
+            } catch (e) {
+                console.log(e);
+                res.status(400).send({
+                    message: "Error uploading image"
+                });
+            }
+        });
+        return res.status(200).send({
+            message: "Uploaded successfully"
+        });
+
+    },
     async dashboard(req, res) {
         const id = req.query.id;
         if (id) {
@@ -22,7 +78,7 @@ export default {
                     activebid: currentBid.length,
                     itemwon: nItems
                 });
-                return;
+
             }
         } else {
             res.render('404');
@@ -43,14 +99,14 @@ export default {
                     nItems = itemswon.length;
                 }
                 if (res.locals.userLocal) {
-                    isOwner = id == res.locals.userLocal._id;
+                    isOwner = id === res.locals.userLocal._id;
                 }
 
                 const currentBid = user.currentBid || [];
                 res.render('profile', {
                     user: user,
                     owner: isOwner,
-                    islocal: user.method == 'local'
+                    islocal: user.method === 'local'
                 });
                 return;
             }

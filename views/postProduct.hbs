@@ -1,53 +1,52 @@
-<script src="https://cdn.tiny.cloud/1/brk4r96wyxtnjotefy4xag5b293lwt1pq39rlakdcpv0bh1q/tinymce/5/tinymce.min.js"
-    referrerpolicy="origin"></script>
-<script>
-    tinymce.init({
-        selector: "textarea",
-        height: 400,
-        plugins: "paste image link autolink lists table media",
-        menubar: false,
-        toolbar: [
-            "undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright",
-            "forecolor backcolor",
-            "table link image media"
-        ]
-    });
-</script>
-
 {{#section 'css'}}
-<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all"
-    rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all"
+          rel="stylesheet" type="text/css"/>
 {{/section}}
 
 {{#section 'js'}}
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#imageList").fileinput({
-            showUpload: false,
-            dropZoneEnabled: false,
-            maxFileCount: 4,
-            inputGroupClass: "input-group-lg"
+    <script src="https://cdn.tiny.cloud/1/brk4r96wyxtnjotefy4xag5b293lwt1pq39rlakdcpv0bh1q/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: "textarea",
+            height: 400,
+            plugins: "paste image link autolink lists table media",
+            menubar: false,
+            toolbar: [
+                "undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright",
+                "forecolor backcolor",
+                "table link image media"
+            ]
         });
-    });
-</script>
+    </script>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js">
-</script>
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
-
-
-<script>
-    $(document).ready(function () {
-        $('#multiple-checkboxes').multiselect({
-            includeSelectAllOption: true,
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#imageList").fileinput({
+                showUpload: false,
+                dropZoneEnabled: false,
+                maxFileCount: 4,
+                inputGroupClass: "input-group-lg"
+            });
         });
-    });
-</script>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js">
+    </script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+
+    <script>
+        $(document).ready(function () {
+            $('#multiple-checkboxes').multiselect({
+                includeSelectAllOption: true,
+            });
+        });
+    </script>
 
 {{/section}}
 
@@ -59,7 +58,8 @@
     </div>
 
     <hr>
-    <form class="row" action="">
+
+    <form class="row" method="POST" enctype="multipart/form-data">
         <div class="col col-lg-8 col-md-7 col-12">
             <div>
                 <div class="form-group">
@@ -68,7 +68,7 @@
                             Tên sản phẩm
                         </label>
                     </h6>
-                    <input type="text" class="form-input" id="name" name="name" placeholder="Nhập tên sản phẩm">
+                    <input type="text" class="form-input" id="name" name="nameProduct" placeholder="Nhập tên sản phẩm">
                 </div>
                 <div class="form-group">
                     <h6>
@@ -77,7 +77,7 @@
                         </label>
                     </h6>
                     <textarea name="description" id="description" cols="30" rows="10" class="form-input w-100"
-                        placeholder="Nhập mô tả sản phẩm"></textarea>
+                              placeholder="Nhập mô tả sản phẩm"></textarea>
                 </div>
             </div>
 
@@ -92,6 +92,17 @@
                 </div>
             </div>
 
+
+            <div class="col col-12 d-flex justify-content-center my-2 uploadCommand">
+                <button type="button" class="btn btn-danger mx-2">
+                    Hủy
+                </button>
+                <button type="submit" class="btn btn-success mx-2">
+                    Tải lên
+                </button>
+            </div>
+
+
         </div>
         <div class="col col-lg-4 col-md-5 col-12">
             <div class="form-group">
@@ -100,13 +111,15 @@
                         Giá khởi điểm
                     </label>
                 </h6>
-                <input type="text" class="form-input" id="currentPrice" placeholder="Nhập giá khởi điểm">
+                <input type="text" class="form-input" id="currentPrice" name="currentPrice"
+                       placeholder="Nhập giá khởi điểm">
                 <h6>
                     <label for="step-price">
                         Bước giá
                     </label>
                 </h6>
-                <input type="text" class="form-input" id="currentPrice" name="currentPrice" placeholder="Nhập bước giá">
+                <label for="nextPrice"></label><input type="text" class="form-input" id="currentPrice"
+                                                      name="nextPrice" placeholder="Nhập bước giá">
                 <h6>
                     <label for="bestPrice">
                         Giá mua ngay
@@ -118,15 +131,14 @@
             <div class="form-group">
 
 
-
                 <div class="form-group">
                     <h6>
                         <label for="multiple-checkboxes">
                             Danh mục
                         </label>
                     </h6>
-                    <select id="multiple-checkboxes" multiple="multiple">
-                        <option value="dientu">Điện tử</option>
+                    <select id="multiple-checkboxes" multiple="multiple" name="category"u>
+                        <option value="Điện thoại">Điện tử</option>
                         <option value="giadung">Gia dụng</option>
                         <option value="giadung">Đồ chơi</option>
                     </select>
@@ -138,7 +150,7 @@
                     </h6>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="autoExtend" id="exampleRadios1" value=1
-                            checked>
+                               checked>
                         <label class="form-check-label" for="exampleRadios1">
                             Có
                         </label>
@@ -153,14 +165,6 @@
             </div>
         </div>
 
-        <div class="col col-12 d-flex justify-content-center my-2 uploadCommand">
-            <button type="button" class="btn btn-danger mx-2">
-                Hủy
-            </button>
-            <button type="submit" class="btn btn-success mx-2">
-                Tải lên
-            </button>
-        </div>
 
     </form>
 

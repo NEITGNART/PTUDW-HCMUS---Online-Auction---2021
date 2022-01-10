@@ -1,5 +1,6 @@
 import express from 'express';
 import auth from '../middleware/auth.mdw.js';
+import authSeller from '../middleware/authSeller.mdw.js';
 import controller from '../controllers/user.controller.js';
 
 const router = express.Router();
@@ -26,9 +27,7 @@ router.route('/myproduct')
     .get(auth, controller.myproduct);
 
 router.route('/postproduct')
-    .get((req, res) => {
-        res.render('postProduct');
-    })
-
+    .get(authSeller, controller.postProduct)
+    .post(authSeller, controller.upload)
 
 export default router;
