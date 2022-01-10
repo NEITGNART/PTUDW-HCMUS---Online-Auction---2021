@@ -43,6 +43,8 @@ export default {
                 description: req.body.description,
                 category: req.body.category || [],
                 currentPrice: +req.body.currentPrice,
+                // convert date from string to date using moment
+                expDate: req.body.expDate ? new Date(req.body.expDate) : new Date() + 24 * 60 * 60 * 1000,
                 bestPrice: +req.body.bestPrice,
                 stepPrice: +req.body.nextPrice,
                 images: images,
