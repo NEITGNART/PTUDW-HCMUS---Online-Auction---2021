@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'PTUDWonlineAuction'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_727CC99179F744B793675D934009A318 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CD17B7A3C178429A9F10450754BDECB8 }}
           package: .
