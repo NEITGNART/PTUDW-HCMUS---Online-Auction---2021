@@ -59,6 +59,7 @@ const ProductSchema = new mongoose.Schema({
             bidDate: Date,
             // username is ID not name
             username: String,
+            // max price of bidder
             price: Number
         }],
         default: []

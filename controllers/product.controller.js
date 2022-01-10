@@ -2,6 +2,9 @@ import ProductModel from '../models/product.model.js';
 import CategoryModel from '../models/category.model.js';
 import UserModel from '../models/user.model.js';
 import moment from 'moment';
+import {
+    use
+} from 'passport';
 
 function maskInfo(value) {
     // mask with middle part with *
@@ -31,11 +34,90 @@ function extendExpire(date) {
 
 const productController = {
 
-    async autoBidding(req, res) {
-        console.log(req);
-    },
+    autoBidding: async (req, res) => {
+        if (req.query.id && req.body.bid) {
+            var user = await UserModel.findById(req.user._id);
+            var product = await ProductModel.findById(req.query.id);
+            var bidPrice = req.body.bid;
+            var current = moment().format("YYYY/MM/DD HH:MM:SS");
 
-    async updateDescription(req, res) {
+
+            if (product.block.indexOf(JSON.stringify((user._id))) !== -1) {
+                res.redirect(`/product/detail?id=${req.query.id}`);
+            }
+
+
+
+            if (hisBid.length.length === 0) {
+                product.topBidder = JSON.stringify(user._id);
+                product.historyBidId.push({
+                    bidDate: current,
+                    username: user._id,
+                    price: bidPrice
+                });
+                console.log(product);
+                user.currentBiddingList.push({
+                    idProduct: product._id,
+                    maxPrice: bidPrice
+                });
+                await product.save();
+                await user.save();
+                res.redirect(`/product/detail?id=${req.query.id}`);
+            } else {
+                var hisBid = product.historyBidId;
+
+                var bestBidder = await UserModel.findById(hisBid[hisBid.length - 1].username);
+
+                var maxPriceOfBestBidder = bestBidder.currentBiddingList.find(e => e.idProduct == product._id);
+                var indexSplice = hisBid.findIndex(hb => hb.username == user._id);
+
+                if (indexSplice == -1) {
+                    user.currentBiddingList.push({
+                        idProduct: product._id,
+                        maxPrice: bidPrice
+                    });
+                } else {
+                    var indexCurrentProId = user.currentBiddingList.findIndex(e => e.idProduct == product._id);
+                    user.currentBiddingList[indexCurrentProId].maxPrice = bidPrice;
+                }
+
+                if (maxPriceOfBestBidder.maxPrice >= bidPrice) {
+                    var best = hisBid[hisBid.length - 1];
+                    best.bidDate = moment().format("YYYY/MM/DD HH:MM:SS");
+                    if (bidPrice + product.stepPrice >= maxPriceOfBestBidder.maxPrice) {
+                        product.current = maxPriceOfBestBidder.maxPrice;
+                    } else {
+                        product.current = bidPrice + product.stepPrice;
+                    }
+                    hisBid[hisBid.length - 1] = {
+                        bidDate: current,
+                        username: JSON.stringify((user._id)),
+                        price: bidPrice
+                    }
+                    hisBid.push(best);
+                } else {
+                    if (maxPriceOfBestBidder.maxPrice + product.stepPrice >= bidPrice) {
+                        product.current = bidPrice;
+                    } else {
+                        product.current = maxPriceOfBestBidder.maxPrice + product.stepPrice;
+                    }
+                    hisBid.push({
+                        bidDate: current,
+                        username: JSON.stringify((user._id)),
+                        price: bidPrice
+                    });
+                }
+                product.historyBidId = hisBid;
+                await product.save();
+            }
+
+
+        } else {
+            res.render('404');
+        }
+
+    },
+    updateDescription: async (req, res) => {
         const productId = req.query.id;
         const updateDate = moment().format('DD/MM/YYYY');
         var newDes = req.body.description;

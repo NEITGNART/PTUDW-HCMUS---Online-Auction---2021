@@ -79,7 +79,10 @@ const UserSchema = new mongoose.Schema({
         }
     },
     currentBiddingList: {
-        type: Array,
+        type: [{
+            idProduct: String,
+            maxPrice: Number
+        }],
         default: []
     }
 
