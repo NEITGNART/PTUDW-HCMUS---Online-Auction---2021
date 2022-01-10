@@ -12,7 +12,7 @@ router.route('/profile')
     .get(auth, controller.profile);
 
 router.route('/wishlist')
-    .get(auth, controller.wishlist);
+    .post(auth, controller.wishlist);
 
 router.route('/mybid')
     .get(auth, controller.mybid);

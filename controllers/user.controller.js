@@ -18,6 +18,8 @@ export default {
     async postProduct(req, res) {
         res.render('postProduct');
     },
+
+
     upload: async (req, res) => {
 
         // using multer-storage-cloudinary to upload images to cloudinary and get url
@@ -26,12 +28,10 @@ export default {
         // upload images to cloudinary
         upload(req, res, async (err) => {
             if (err) {
-                console.log(err);
                 return res.status(400).send({
                     message: "Error uploading image"
                 });
             }
-            console.log(req.body);
             const images = req.files.map(file => file.path);
             const product = new Product({
                 name: req.body.nameProduct,
@@ -47,7 +47,6 @@ export default {
             try {
                 await product.save();
             } catch (e) {
-                console.log(e);
                 res.status(400).send({
                     message: "Error uploading image"
                 });
@@ -116,11 +115,10 @@ export default {
     },
     async wishlist(req, res) { // user/wishlist
         // find user by id
-        const {
-            id
-        } = req.query;
+        const id = req.query.id;
+        console.log(id)
         const user = await User.findById(res.locals.userLocal._id);
-        // check that wishlist that stored in user.wishlist
+        // // check that wishlist that stored in user.wishlist
         // contains the product id
         const isInWishlist = user.wishlist.includes(id);
         if (isInWishlist) {
@@ -131,7 +129,11 @@ export default {
             user.wishlist.push(id);
         }
         // save user
+        if (!user.currentBiddingList) {
+            user.currentBiddingList = [];
+        }
         await user.save();
+
         return res.json({
             success: !isInWishlist
         });

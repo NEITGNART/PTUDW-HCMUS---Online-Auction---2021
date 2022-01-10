@@ -1,6 +1,7 @@
 import express from 'express';
 import controller from '../controllers/product.controller.js';
 import auth from '../middleware/auth.mdw.js';
+import authSeller from '../middleware/authSeller.mdw.js';
 
 const router = express.Router();
 
@@ -10,10 +11,10 @@ router.route('/')
 
 router.route('/detail')
     .get(controller.detail)
-    .post(auth, controller.updateDescription);
+    .post(authSeller, controller.updateDescription);
 
 router.route('/block')
-    .post(auth, controller.blockUser)
+    .post(authSeller, controller.blockUser)
 
 
 export default router;
