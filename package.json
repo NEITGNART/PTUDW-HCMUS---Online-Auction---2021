@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "handlebars": "^4.7.7",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "otp-generator": "^4.0.0"
   }
 }

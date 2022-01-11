@@ -31,4 +31,15 @@ router.route('/postproduct')
     .get(authSeller, controller.postProduct)
     .post(authSeller, controller.upload)
 
+router.route('/send')
+    .get(auth, controller.send);
+
+
+router.route('/verify')
+    .get(controller.verify);
+
+
+
+
+
 export default router;

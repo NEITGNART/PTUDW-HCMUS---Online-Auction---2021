@@ -5,6 +5,9 @@ import cloudinary from '../utils/cloudinary.js'
 import {CloudinaryStorage} from "multer-storage-cloudinary"
 import multer from "multer";
 import Product from '../models/product.model.js'
+import transporter from "../config/transporter.js";
+import otpGenerator from 'otp-generator'
+
 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
@@ -14,6 +17,41 @@ const storage = new CloudinaryStorage({
 });
 
 export default {
+
+
+    async verify(req, res) {
+        console.log(req.query.otp);
+        return res.status(200).json({
+            message: "OTP Verified"
+        })
+    }
+
+    ,
+    async send(req, res) {
+        const email = req.query.email;
+        console.log(email);
+        var otp = otpGenerator.generate(30, {upperCaseAlphabets: false, specialChars: false});
+        console.log(otp);
+        const url = "http://localhost:3000/user/verify?opt=" + otp;
+
+        var mailOptions = {
+            to: email,
+            subject: "Otp for registration is: ",
+            html: `<h3>OTP for account verification is </h3>"> 
+                    <a href=${url}>Visit Aution Online!</a>
+                "<h1 style='font-weight:bold;'></h1>" `
+        };
+
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+        });
+        return res.status(200).json({
+            message: "OTP sent to your email"
+        })
+    },
 
 
     async postProduct(req, res) {
