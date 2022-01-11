@@ -12,6 +12,9 @@ import active_local_middleware from './middleware/locals.mdw.js';
 import active_view_middleware from './middleware/view.mdw.js';
 import active_route_middleware from './middleware/routes.mdw.js';
 import active_session_middleware from './middleware/session.mdw.js';
+import transporter from "./config/transporter.js";
+
+
 
 const app = express()
 
@@ -45,7 +48,6 @@ active_view_middleware(app);
 active_route_middleware(app);
 
 
-
 mongoose.connect(config.URI, {}, err => {
     if (err) {
         throw err;
@@ -55,4 +57,4 @@ mongoose.connect(config.URI, {}, err => {
 
 app.listen(config.PORT, () => {
     console.log(`Example app listening at http://localhost:${config.PORT}`)
-})
+});

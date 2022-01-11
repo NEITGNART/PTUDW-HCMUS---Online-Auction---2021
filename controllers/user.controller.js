@@ -2,9 +2,7 @@ import User from '../models/user.model.js';
 import WinnigBid from '../models/winning.model.js';
 import bcrypt from 'bcrypt';
 import cloudinary from '../utils/cloudinary.js'
-import {
-    CloudinaryStorage
-} from "multer-storage-cloudinary"
+import {CloudinaryStorage} from "multer-storage-cloudinary"
 import multer from "multer";
 import Product from '../models/product.model.js'
 
@@ -25,10 +23,10 @@ export default {
 
     upload: async (req, res) => {
 
-        // using multer-storage-cloudinary to upload images to cloudinary and get url
         const upload = multer({
             storage: storage
-        }).array("imageList", 5);
+        }).array("imageList", 3);
+
 
         // upload images to cloudinary
         upload(req, res, async (err) => {
@@ -37,7 +35,9 @@ export default {
                     message: "Error uploading image"
                 });
             }
+
             const images = req.files.map(file => file.path);
+
             const product = new Product({
                 name: req.body.nameProduct,
                 description: req.body.description,
@@ -52,7 +52,7 @@ export default {
                 autoExtend: (+req.body.autoExtend === 1),
             });
             try {
-                await product.save();
+                product.save();
             } catch (e) {
                 res.status(400).send({
                     message: "Error uploading image"
