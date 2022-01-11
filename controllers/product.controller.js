@@ -2,9 +2,9 @@ import ProductModel from '../models/product.model.js';
 import CategoryModel from '../models/category.model.js';
 import UserModel from '../models/user.model.js';
 import moment from 'moment';
-import {
-    use
-} from 'passport';
+// import {
+//     use
+// } from 'passport';
 
 function maskInfo(value) {
     // mask with middle part with *
@@ -31,10 +31,32 @@ function extendExpire(date) {
     return moment(date).add(10, 'minutes');
 };
 
+async function updateExpired() {
+
+    const updateProduct = await ProductModel.find({
+        status: 'bidding',
+        expDate: {
+            $lt: new Date()
+        }
+    });
+
+    // update status of product to sold
+    for (let i = 0; i < updateProduct.length; i++
+    ) {
+        const product = updateProduct[i];
+        product.status = 'expired';
+        await product.save();
+    }
+
+}
 
 const productController = {
 
     autoBidding: async (req, res) => {
+
+        updateExpired();
+
+
         if (req.query.id && req.body.bid) {
             var user = await UserModel.findById(req.user._id);
             var product = await ProductModel.findById(req.query.id);
@@ -45,7 +67,6 @@ const productController = {
             if (product.block.indexOf(JSON.stringify((user._id))) !== -1) {
                 res.redirect(`/product/detail?id=${req.query.id}`);
             }
-
 
 
             if (hisBid.length.length === 0) {
@@ -68,16 +89,16 @@ const productController = {
 
                 var bestBidder = await UserModel.findById(hisBid[hisBid.length - 1].username);
 
-                var maxPriceOfBestBidder = bestBidder.currentBiddingList.find(e => e.idProduct == product._id);
-                var indexSplice = hisBid.findIndex(hb => hb.username == user._id);
+                var maxPriceOfBestBidder = bestBidder.currentBiddingList.find(e => e.idProduct === product._id);
+                var indexSplice = hisBid.findIndex(hb => hb.username === user._id);
 
-                if (indexSplice == -1) {
+                if (indexSplice === -1) {
                     user.currentBiddingList.push({
                         idProduct: product._id,
                         maxPrice: bidPrice
                     });
                 } else {
-                    var indexCurrentProId = user.currentBiddingList.findIndex(e => e.idProduct == product._id);
+                    var indexCurrentProId = user.currentBiddingList.findIndex(e => e.idProduct === product._id);
                     user.currentBiddingList[indexCurrentProId].maxPrice = bidPrice;
                 }
 
@@ -168,6 +189,9 @@ const productController = {
 
     topBidding: async (req, res) => {
 
+        updateExpired();
+        // find all product with date expired and status bidding with date expired > now
+
 
         // get 5 product with status bidding and number element of historyBidId largest
         const productRelative = await ProductModel.find({
@@ -198,6 +222,8 @@ const productController = {
     },
 
     topPricing: async (req, res) => {
+        updateExpired();
+
         // find top 5 product with status bidding and heighest current price
         const productRelative = await ProductModel.find({
             status: 'bidding'
@@ -226,6 +252,7 @@ const productController = {
         return productRelative;
     },
     blockUser: async (req, res) => {
+
 
         const idProduct = req.query.idProduct;
         const idUserBlock = req.query.idUserBlock;
@@ -282,6 +309,8 @@ const productController = {
     },
 
     detail: async (req, res) => {
+
+        updateExpired();
 
         const productId = req.query.id;
         // find product by id
@@ -410,6 +439,9 @@ const productController = {
     },
 
     index: async (req, res) => {
+
+        updateExpired();
+
         const maincategory = req.query.maincategory;
         const search = req.query.search || "";
         const sort = req.query.sort;
@@ -417,7 +449,6 @@ const productController = {
         let maxItems = +req.query.limit || 12;
         let currentPage = +req.query.page || 1;
         let skipItem = (currentPage - 1) * maxItems;
-
 
 
         // if maxItems not in 12, 9, 6 return render 404 handlebars
@@ -628,7 +659,7 @@ const productController = {
         }
 
         return rangeWithDots;
-    }
+    },
 
 
 }

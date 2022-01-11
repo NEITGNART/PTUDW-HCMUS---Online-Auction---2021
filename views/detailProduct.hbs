@@ -155,7 +155,8 @@
 
             <div class="seller">
                 <div>Người bán</div>
-                <span class="user-name" onclick="handleLink(`{{user._id}}`)">{{user.profile.name}} <i class="fa fa-user" aria-hidden="true"></i></span>
+                <span class="user-name" onclick="handleLink(`{{user._id}}`)">{{user.profile.name}} <i class="fa fa-user"
+                                                                                                      aria-hidden="true"></i></span>
                 <span class="user-point">{{user.point}}<i class="fa fa-heart" aria-hidden="true"></i> </span>
             </div>
 
@@ -203,25 +204,49 @@
                 <span>{{product.currentPrice}} vnđ</span>
             </div>
 
+
             <div class="bidder">
                 <div>Người ra giá cao nhất</div>
-                <span class="user-name">{{product.highestBidder}}<i class="fa fa-user" aria-hidden="true"></i> </span>
-                <span class="user-point">{{user.point}}<i class="fa fa-heart" aria-hidden="true"></i> </span>
+
+                {{#if product.highestBidderId}}
+
+                    {{#if isOwner}}
+                        <span class="user-name"
+                              onclick="handleLink(`{{product.highestBidderId}}`)">{{product.highestBidder}}<i
+                                class="fa fa-user"
+                                aria-hidden="true"></i> </span>
+                        <span class="user-point">{{product.highestBidderPoint}}<i class="fa fa-heart"
+                                                                                  aria-hidden="true"></i> </span>
+
+                    {{/if}}
+
+                {{else}}
+                    <span>Hãy là người đầu tiên trả giá cao nhất</span>
+
+                {{/if }}
+
             </div>
 
-            <div class="product-buy-price">
 
-                <div>Giá mua ngay</div>
-                <div class="d-flex justify-content-between">
-                    <span>{{commaNumber product.bestPrice}} vnđ</span>
-                    <button class="buynow-btn">Mua ngay</button>
+            {{#if product.bestPrice}}
+                <div class="product-buy-price">
+                    <div>Giá mua ngay</div>
+                    <div class="d-flex justify-content-between">
+                        <span>{{commaNumber product.bestPrice}} vnđ</span>
+                        <button class="buynow-btn">Mua ngay</button>
+                    </div>
                 </div>
+            {{else}}
 
-            </div>
+                <div class="mb-4"></div>
+            {{/if}}
+
+
 
             <form method="post" action="/product/bidding?id={{product._id}}" class="d-flex justify-content-between">
-                <input type="text" name="bid" placeholder="Mức giá tối đa bạn tham gia" style="border: 0.1px solid; padding: 1px 10px; height: 3rem;"/>
-                <button type="submit" class="submit-btn">Đấu giá tự động</button>
+            <input type="text" name="bid" placeholder="Mức giá tối đa bạn tham gia"
+                   style="border: 0.1px solid; padding: 1px 10px; height: 3rem;"/>
+            <button type="submit" class="submit-btn">Đấu giá tự động</button>
             </form>
         </div>
         <!-- End right card -->
@@ -237,10 +262,10 @@
 
             <!-- if role is seller -->
             {{#if isOwner}}
-            <button id="edit-descripe" class="btn"
-                    style="display: inline-block; position: absolute; right: 30px; top:0px">
-                <i class="fas fa-pen    "></i>
-            </button>
+                <button id="edit-descripe" class="btn"
+                        style="display: inline-block; position: absolute; right: 30px; top:0px">
+                    <i class="fas fa-pen    "></i>
+                </button>
             {{/if}}
 
             <p>
@@ -255,17 +280,18 @@
                             <label for="description" class="label-input">
                                 <h2> Thêm mô tả chi tiết sản phẩm</h2>
                             </label>
-                            <textarea name="description" id="description" cols="30" rows="10" class="form-input w-100"
+                            <textarea name="description" id="description" cols="30" rows="10"
+                                      class="form-input w-100"
                                       placeholder="Nhập mô tả sản phẩm"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="row d-flex justify-content-center ">
-                    <button type="submit" style="border-radius: 20px;" class="btn  btn-success mx-2">
+                    <button type="submit" style="border-radius: 20px; width: 6rem;" class="btn  btn-success mx-2">
                         Cập nhật
                     </button>
                     <button type="button" id="cancel-edit-descripe" class="btn btn-danger mx-2"
-                            style="border-radius: 20px;">
+                            style="border-radius: 20px; width: 6rem">
                         Hủy
                     </button>
                 </div>
@@ -299,11 +325,12 @@
             </table>
             <!-- role = seller, block bidder -->
             {{#if isOwner}}
-                <div class=" d-flex justify-content-center pt-2">
+                <div class=" d-flex justify-content-center pt-3">
 
                     <!-- Begin popup -->
 
-                    <button type="button" class="btn btn-danger mx-1" data-toggle="modal" data-target="#inputIdleModal"
+                    <button type="button" class="btn btn-danger mx-1" data-toggle="modal"
+                            data-target="#inputIdleModal"
                             data-whatever="@mdo">
                         Chặn người dùng
                     </button>
@@ -380,7 +407,8 @@
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -408,7 +436,7 @@
                             <div class="auction-item-thumb">
 
                                 <a class="thumb-img" href="/product/detail/?id={{_id}}">
-                                    <img src={{getThumbnail images}} alt="item">
+                                <img src={{getThumbnail images}} alt="item">
                                 </a>
 
 
@@ -417,7 +445,8 @@
 
                                         <a class="star-icon thumb-icon" style="cursor: pointer"
                                            onclick="handledWishlist(`{{this._id}}`)">
-                                            <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                            <button class="btn btn-heart d-inline-block"
+                                                    style="position: relative;"><i
                                                     class="icon-heart fa fa-heart" aria-hidden="true"
                                                     style="position: absolute;left: 6px;top: 6.9px; color: red;"
                                                     id="fa-{{this._id}}"></i>
@@ -427,7 +456,8 @@
 
                                         <a class="star-icon thumb-icon" style="cursor: pointer"
                                            onclick="handledWishlist(`{{this._id}}`)">
-                                            <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                            <button class="btn btn-heart d-inline-block"
+                                                    style="position: relative;"><i
                                                     class="icon-heart far fa-heart" aria-hidden="true"
                                                     style="position: absolute;left: 6px;top: 6.9px; color: red;"
                                                     id="fa-{{this._id}}"></i>
