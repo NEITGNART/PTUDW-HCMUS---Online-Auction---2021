@@ -134,7 +134,9 @@ const productController = {
 
 
         } else {
-            res.render('404');
+            res.render('404', {
+                layout : false
+            });
         }
 
     },
@@ -152,7 +154,9 @@ const productController = {
             res.redirect(req.originalUrl);
 
         } else {
-            res.render('404');
+            res.render('404', {
+                layout : false
+            });
         }
     },
 
@@ -318,7 +322,9 @@ const productController = {
         const product = await ProductModel.findById(productId).lean();
 
         if (!product) {
-            res.render('404');
+            res.render('404', {
+                layout : false
+            });
             return;
         }
 

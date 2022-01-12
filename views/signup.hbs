@@ -8,55 +8,121 @@
 
 
     <script>
-        $("#demo-form").validate({
-            ignore: ".ignore",
-            rules: {
-                username: {
-                    required: true,
-                    minlength: 6
-                },
-                password: {
-                    required: true,
-                    minlength: 8
-                },
-                // password_confirmation: {
-                //     required: true,
-                //     minlength: 8,
-                //     equalTo: "#password"
-                // },
-                address: {
-                    required: true
-                },
-                hiddenRecaptcha: {
-                    required: function () {
-                        if (grecaptcha.getResponse() == '') {
-                            return true;
-                        } else {
-                            return false;
+
+
+        $(document).ready(function () {
+            var response;
+            $.validator.addMethod(
+                    "uniqueUserName",
+                    function (value, element) {
+
+                        // return true if username is unique
+                        $.ajax({
+                            type: "GET",
+                            url: "http://" + location.host + `/user/cansignup?authId=${value}`,
+                            dataType: "html",
+                            success: function (msg) {
+                                response =  JSON.parse(msg).success;
+                            }
+                        })
+                        return response;
+                    },
+            );
+
+            var responseEmail;
+            $.validator.addMethod(
+                    "uniqueUserEmail",
+                    function (value, element) {
+                        $.ajax({
+                            type: "GET",
+                            url: "http://" + location.host + `/user/cansignup?email=${value}`,
+                            dataType: "html",
+                            success: function (msg) {
+                                responseEmail = JSON.parse(msg).success;
+                            }
+                        })
+                        return responseEmail;
+                    },
+            );
+
+
+
+
+
+            $("#demo-form").validate({
+                ignore: ".ignore",
+                rules: {
+                    username: {
+                        required: true,
+                        minlength: 6,
+                        uniqueUserName: true
+                    },
+
+                    email: {
+                        required: true,
+                        email: true,
+                        uniqueUserEmail: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    // password_confirmation: {
+                    //     required: true,
+                    //     minlength: 8,
+                    //     equalTo: "#password"
+                    // },
+                    address: {
+                        required: true
+                    },
+                    hiddenRecaptcha: {
+                        required: function () {
+                            if (grecaptcha.getResponse() == '') {
+                                return true;
+                            } else {
+                                return false;
+                            }
                         }
+                    },
+
+                    name: {
+                        required: true
                     }
-                }
-            },
-            messages: {
-                username: {
-                    required: "Please enter a username",
-                    minlength: "Your username must consist of at least 6 characters"
+
                 },
-                email: "Please enter a valid email address",
-                password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 8 characters long"
-                },
-                // password_confirmation: {
-                //     required: "Please provide a password",
-                //     minlength: "Your password must be at least 8 characters long",
-                //     equalTo: "Please enter the same password as above"
-                // },
-                address: "Please enter your address",
-                hiddenRecaptcha: {
-                    required: "Please verify that you are not a robot"
+                messages: {
+                    username: {
+                        depends: "Please enter your username",
+                        minlength: "Your username must consist of at least 6 characters",
+                        uniqueUserName: "This Username is taken already"
+
+                    },
+                    email: {
+                        required: "Please enter your email",
+                        email: "Please enter a valid email address",
+                        uniqueUserEmail: "This Email is taken already"
+                    },
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 8 characters long",
+                    },
+                    // password_confirmation: {
+                    //     required: "Please provide a password",
+                    //     minlength: "Your password must be at least 8 characters long",
+                    //     equalTo: "Please enter the same password as above"
+                    // },
+                    address: "Please enter your address",
+                    hiddenRecaptcha: {
+                        required: "Please verify that you are not a robot"
+                    },
+                    // check_username: {
+                    //     required: "Username already taken"
+                    // }
                 }
-            }
+
+
+            });
+
 
         });
 
@@ -89,18 +155,6 @@
         });
 
 
-        function get_action(form) {
-            var v = grecaptcha.getResponse();
-            if (v.length == 0) {
-                document.getElementById('captcha').innerHTML = "You can't leave Captcha Code empty";
-                return false;
-            } else {
-                document.getElementById('captcha').innerHTML = "Captcha completed";
-                return true;
-            }
-        }
-
-
         function recaptchaCallback() {
             $('#hiddenRecaptcha').valid();
         };
@@ -121,14 +175,16 @@
                     <a href="/login/github" class="social"><i class="fa fa-github" aria-hidden="true"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input name="username" type="text" placeholder="Username"/>
+                <input id ="username" name="username" type="text" placeholder="Username"/>
                 <input name="email" type="email" placeholder="Email"/>
                 <input name="password" type="password" placeholder="Password"/>
                 <input name="name" type="text" placeholder="Fullname"/>
                 <input name="address" type="text" placeholder="Address"/>
                 <div class="captcha" style="width: 100%; max-height: 78px;">
-                    <div class="g-recaptcha" data-sitekey="6LcHauMdAAAAAEed34vF3Ep5JzEMyYJ80noSxMwW" data-callback="recaptchaCallback"></div>
+                    <div class="g-recaptcha" data-sitekey="6LcHauMdAAAAAEed34vF3Ep5JzEMyYJ80noSxMwW"
+                         data-callback="recaptchaCallback"></div>
                 </div>
+
                 <input type="hidden" class="hiddenRecaptcha required" name="hiddenRecaptcha" id="hiddenRecaptcha">
                 <button type="submit">Sign Up</button>
             </form>

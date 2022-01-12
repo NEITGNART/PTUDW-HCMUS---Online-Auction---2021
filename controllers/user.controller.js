@@ -20,10 +20,30 @@ export default {
 
 
     async verify(req, res) {
+
+        const otp = "" + req.query.otp;
+
         console.log(req.query.otp);
-        return res.status(200).json({
-            message: "OTP Verified"
+
+        const user = await User.findOne({
+            confirmationCode: otp
+        });
+
+        if (!user || user.status === 'Active') {
+            return res.render('404', {
+                layout: false
+            });
+        }
+
+        user.status = 'Active';
+        user.confirmationCode = null;
+        await user.save();
+
+        return res.render('verify', {
+            title: 'Verify',
+            layout: false
         })
+
     }
 
     ,
@@ -125,7 +145,9 @@ export default {
 
             }
         } else {
-            res.render('404');
+            res.render('404', {
+                layout: false
+            });
         }
     },
     async updateProfile(req, res) {
@@ -158,7 +180,9 @@ export default {
                 res.redirect(req.session.retUrl);
             }
         }
-        res.render('404');
+        res.render('404', {
+            layout: false
+        });
 
     },
     async profile(req, res) {
@@ -188,7 +212,9 @@ export default {
                 return;
             }
         }
-        res.render('404');
+        res.render('404', {
+            layout: false
+        });
 
     },
     async wishlist(req, res) { // user/wishlist
@@ -229,4 +255,47 @@ export default {
     myproduct(req, res) {
 
     },
+    async isCanSignUp(req, res) {
+        const email = req.query.email || '';
+        const authId = req.query.authId || '';
+
+        if (authId) {
+            // check that authId that exist in user.auth
+            // FIND one by authId
+            const user = await User.findOne({
+                authId: authId
+            });
+
+            if (user) {
+                return res.json({
+                    success: false,
+                });
+            } else {
+                return res.json({
+                    success: true,
+                });
+            }
+        }
+
+        if (email) {
+            const user = await User.findOne({
+                'profile.email': email
+            });
+            if (user) {
+                return res.json({
+                    success: false,
+                });
+            } else {
+                return res.json({
+                    success: true,
+                });
+            }
+        }
+
+        return res.json({
+            success: true
+        });
+
+
+    }
 };

@@ -38,7 +38,8 @@ router.route('/send')
 router.route('/verify')
     .get(controller.verify);
 
-
+router.route('/cansignup')
+    .get(controller.isCanSignUp);
 
 
 
