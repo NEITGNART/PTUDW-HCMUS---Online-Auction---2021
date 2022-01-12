@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt';
 import User from '../models/user.model.js';
 import config from './config.js';
 import validate from 'express-validator';
+import transporter from "../config/transporter.js";
+import otpGenerator from 'otp-generator'
 
 export default (passport) => {
     passport.serializeUser((user, done) => {
@@ -188,8 +190,33 @@ export default (passport) => {
                 });
             }
 
+
+
             const salt = bcrypt.genSaltSync(10);
-            password = bcrypt.hashSync(password, salt);
+            password = bcrypt.hashSync (password, salt);
+
+            // node mailer
+
+            var otp = otpGenerator.generate(30, {upperCaseAlphabets: false, specialChars: false});
+            console.log(otp);
+            // get localhost url
+
+            var url = req.protocol + '://' + req.get('host') + "/user/verify?otp=" + otp;
+
+            var mailOptions = {
+                to: email,
+                subject: "Otp for registration is: ",
+                html: `<h3>OTP for account verification is </h3>"> 
+                    <a href=${url}>Visit Aution Online!</a>
+                "<h1 style='font-weight:bold;'></h1>" `
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+            });
+
 
             const newUser = new User({
                 authId: username,
@@ -198,7 +225,9 @@ export default (passport) => {
                     name: fname,
                     email: email,
                     address: address
-                }
+                },
+                confirmationCode : otp,
+
             });
             await newUser.save();
             done(null, newUser);
