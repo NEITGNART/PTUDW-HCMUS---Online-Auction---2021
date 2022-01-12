@@ -1,18 +1,17 @@
 {{#section "css"}}
 
-<link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"/>
 
-<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all"
-  rel="stylesheet" type="text/css" />
-<style>
-  .file-preview .fileinput-remove {
-    display: none;
-  }
-</style>
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all"
+          rel="stylesheet" type="text/css"/>
+    <style>
+        .file-preview .fileinput-remove {
+            display: none;
+        }
+    </style>
 
 {{/section}}
-
 
 
 
@@ -20,152 +19,152 @@
 
 
 
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js">
-</script>
-<script src="https://cdn.tiny.cloud/1/brk4r96wyxtnjotefy4xag5b293lwt1pq39rlakdcpv0bh1q/tinymce/5/tinymce.min.js"
-  referrerpolicy="origin"></script>
-<script>
-  tinymce.init({
-    selector: "textarea",
-    height: 400,
-    plugins: "paste image link autolink lists table media",
-    menubar: false,
-    toolbar: [
-      "undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright",
-      "forecolor backcolor",
-      "table link image media"
-    ]
-  });
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js">
+    </script>
+    <script src="https://cdn.tiny.cloud/1/brk4r96wyxtnjotefy4xag5b293lwt1pq39rlakdcpv0bh1q/tinymce/5/tinymce.min.js"
+            referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: "textarea",
+            height: 400,
+            plugins: "paste image link autolink lists table media",
+            menubar: false,
+            toolbar: [
+                "undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright",
+                "forecolor backcolor",
+                "table link image media"
+            ]
+        });
 
-  $(document).ready(function () {
-
-
-    $.validator.addMethod(
-      "countFileList",
-      function () {
-        const fileInput = $('#imageList');
-        return fileInput[0].files.length >= 3;
-      },
-    );
-
-    // validate date expiration not before today
-
-    $.validator.addMethod(
-      "dateExpiration",
-      function () {
-        const dateExpiration = $('#dateExpiration').val();
-        const dateToday = new Date();
-        const dateExpirationDate = new Date(dateExpiration);
-        return dateExpirationDate > dateToday;
-      },
-    );
+        $(document).ready(function () {
 
 
-    // validation form input
-    $("#formDemo").validate({
-      rules: {
-        ignore: ".ignore",
-        nameProduct: {
-          required: true,
-          minlength: 2
-        },
-        description: {
-          required: true,
-          minlength: 10
-        },
-        currentPrice: {
-          required: true,
-          number: true
-        },
-        nextPrice: {
-          required: true,
-          number: true
-        },
-        bestPrice: {
-          number: true
-        },
-        expDate: {
-          required: true,
-          dateExpiration: true
-        },
+            $.validator.addMethod(
+                    "countFileList",
+                    function () {
+                        const fileInput = $('#imageList');
+                        return fileInput[0].files.length >= 3;
+                    },
+            );
 
-        imageList: {
-          required: true,
-          countFileList: true
-        },
+            // validate date expiration not before today
+
+            $.validator.addMethod(
+                    "dateExpiration",
+                    function () {
+                        const dateExpiration = $('#dateExpiration').val();
+                        const dateToday = new Date();
+                        const dateExpirationDate = new Date(dateExpiration);
+                        return dateExpirationDate > dateToday;
+                    },
+            );
 
 
-      },
-      messages: {
-        nameProduct: {
-          required: "Vui lòng nhập tên sản phẩm",
-          minlength: "Tên sản phẩm phải có ít nhất 2 ký tự"
-        },
+            // validation form input
+            $("#formDemo").validate({
+                rules: {
+                    ignore: ".ignore",
+                    nameProduct: {
+                        required: true,
+                        minlength: 2
+                    },
+                    description: {
+                        required: true,
+                        minlength: 10
+                    },
+                    currentPrice: {
+                        required: true,
+                        number: true
+                    },
+                    nextPrice: {
+                        required: true,
+                        number: true
+                    },
+                    bestPrice: {
+                        number: true
+                    },
+                    expDate: {
+                        required: true,
+                        dateExpiration: true
+                    },
 
-        description: {
-          required: "Vui lòng nhập mô tả sản phẩm",
-          minlength: "Mô tả sản phẩm phải có ít nhất 10 ký tự"
-        },
+                    imageList: {
+                        required: true,
+                        countFileList: true
+                    },
 
-        currentPrice: {
-          required: "Vui lòng nhập giá sản phẩm",
-          number: "Giá sản phẩm phải là số"
-        },
-        stepPrice: {
-          required: "Vui lòng nhập bước giá sản phẩm",
-          number: "Giá sản phẩm phải là số"
-        },
-        bestPrice: {
-          number: "Giá sản phẩm phải là số"
-        },
-        expDate: {
-          required: "Vui lòng nhập ngày hết hạn",
-          dateExpiration: "Ngày hết hạn không hợp lệ"
-        },
 
-        imageList: {
-          required: "Vui lòng chọn hình ảnh",
-          countFileList: "Vui lòng chọn ít nhất 3 hình ảnh"
-        },
+                },
+                messages: {
+                    nameProduct: {
+                        required: "Vui lòng nhập tên sản phẩm",
+                        minlength: "Tên sản phẩm phải có ít nhất 2 ký tự"
+                    },
 
-      }
+                    description: {
+                        required: "Vui lòng nhập mô tả sản phẩm",
+                        minlength: "Mô tả sản phẩm phải có ít nhất 10 ký tự"
+                    },
 
-    });
-  });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/plugins/piexif.min.js"
-  type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js"></script>
+                    currentPrice: {
+                        required: "Vui lòng nhập giá sản phẩm",
+                        number: "Giá sản phẩm phải là số"
+                    },
+                    stepPrice: {
+                        required: "Vui lòng nhập bước giá sản phẩm",
+                        number: "Giá sản phẩm phải là số"
+                    },
+                    bestPrice: {
+                        number: "Giá sản phẩm phải là số"
+                    },
+                    expDate: {
+                        required: "Vui lòng nhập ngày hết hạn",
+                        dateExpiration: "Ngày hết hạn không hợp lệ"
+                    },
 
-<script>
-  $(document).ready(function () {
-    $("#mainImg").fileinput({
-      showUpload: false,
-      dropZoneEnabled: true,
-      maxFileCount: 1,
-      inputGroupClass: "input-group-lg",
-      allowedFileExtensions: ['jpg', 'png', 'gif'],
-      theme: 'fa',
-      language: 'vi',
+                    imageList: {
+                        required: "Vui lòng chọn hình ảnh",
+                        countFileList: "Vui lòng chọn ít nhất 3 hình ảnh"
+                    },
 
-    });
-    $("#imageList").fileinput({
-      showUpload: false,
-      dropZoneEnabled: true,
-      maxFileCount: 4,
-      inputGroupClass: "input-group-sm",
-      allowedFileExtensions: ['jpg', 'png', 'gif'],
-      theme: 'fa',
-      language: 'vi',
-    });
+                }
 
-  });
-</script>
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/plugins/piexif.min.js"
+            type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/js/locales/vi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.5/themes/fa/theme.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#mainImg").fileinput({
+                showUpload: false,
+                dropZoneEnabled: true,
+                maxFileCount: 1,
+                inputGroupClass: "input-group-lg",
+                allowedFileExtensions: ['jpg', 'png', 'gif'],
+                theme: 'fa',
+                language: 'vi',
+
+            });
+            $("#imageList").fileinput({
+                showUpload: false,
+                dropZoneEnabled: true,
+                maxFileCount: 4,
+                inputGroupClass: "input-group-sm",
+                allowedFileExtensions: ['jpg', 'png', 'gif'],
+                theme: 'fa',
+                language: 'vi',
+            });
+
+        });
+    </script>
 
 
 {{/section}}
@@ -179,164 +178,144 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js">
 </script>
 <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
 
 
 <div class="container my-5 uploadProduct pt-3">
-  <div class="row d-flex justify-content-left uploadTitle">
-    <h2>Đăng sản phẩm</h2>
-  </div>
-
-  <hr />
-
-  <form class="row" method="POST" enctype="multipart/form-data">
-    <div class="col col-lg-8 col-md-7 col-12">
-      <div>
-        <div class="form-group">
-          <h6>
-            <label for="name">
-              Tên sản phẩm
-            </label>
-          </h6>
-          <input type="text" class="form-input" id="name" name="nameProduct" placeholder="Nhập tên sản phẩm" />
-        </div>
-        <div class="form-group">
-          <h6>
-            <label for="description" class="label-input">
-              Thêm mô tả chi tiết sản phẩm
-            </label>
-          </h6>
-          <textarea name="description" id="description" cols="30" rows="10" class="form-input w-100"
-            placeholder="Nhập mô tả sản phẩm"></textarea>
-        </div>
-      </div>
-
-      <div class="form-group" style="background-color: aliceblue;">
-        <h6>
-          <label for="imageList">
-            Ảnh mô tả
-          </label>
-        </h6>
-        <div class="file-loading">
-          <input id="imageList" name="imageList" type="file" multiple />
-        </div>
-      </div>
+    <div class="row d-flex justify-content-left uploadTitle">
+        <h2>Đăng sản phẩm</h2>
     </div>
 
+    <hr/>
 
+    <form class="row" id="formDemo" method="POST" enctype="multipart/form-data">
+        <div class="col col-lg-8 col-md-7 col-12">
+            <div>
+                <div class="form-group">
+                    <h6>
+                        <label for="name">
+                            Tên sản phẩm
+                        </label>
+                    </h6>
+                    <input type="text" class="form-input" id="name" name="nameProduct" placeholder="Nhập tên sản phẩm"/>
+                </div>
+                <div class="form-group">
+                    <h6>
+                        <label for="description" class="label-input">
+                            Thêm mô tả chi tiết sản phẩm
+                        </label>
+                    </h6>
+                    <textarea name="description" id="description" cols="30" rows="10" class="form-input w-100"
+                              placeholder="Nhập mô tả sản phẩm"></textarea>
+                </div>
+            </div>
 
-
-
-
-    <div class="col col-lg-4 col-md-5 col-12">
-      <div class="form-group">
-        <h6>
-          <label for="init-price">
-            Giá khởi điểm
-          </label>
-        </h6>
-        <label for="currentPrice"></label><input type="text" class="form-input" id="currentPrice" name="currentPrice"
-          placeholder="Nhập giá khởi điểm" />
-        <h6>
-          <label for="step-price">
-            Bước giá
-          </label>
-        </h6>
-        <label for="nextPrice"></label><input type="text" class="form-input" id="currentPrice" name="nextPrice"
-          placeholder="Nhập bước giá" />
-        <h6>
-          <label for="bestPrice">
-            Giá mua ngay
-          </label>
-        </h6>
-        <input type="text" class="form-input" id="bestPrice" name="bestPrice" placeholder="Nhập giá mua ngay" />
-      </div>
-
-
-      <div class="form-group">
-        <h6>
-          <label for="multiple-checkboxes">
-            Danh mục
-          </label>
-        </h6>
-        {{#each categories}}
-        <select id="example-multiple-optgroups" style="width:100%" multiple="multiple">
-          <optgroup label="{{name}}">
-            {{#each subCat}}
-            <option value="{{this}}">{{this}}
-            </option>
-            {{/each}}
-          </optgroup>
-        </select>
-        {{/each}}
-
-        <hr>
-        <h6>
-          <label for="form-check">
-            Tự động gia hạn
-          </label>
-        </h6>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="autoExtend" id="exampleRadios1" value="1" checked />
-          <label class="form-check-label" for="exampleRadios1" style="margin: 0px 20px;">
-            Có
-          </label>
+            <div class="form-group" style="background-color: aliceblue;">
+                <h6>
+                    <label for="imageList">
+                        Ảnh mô tả
+                    </label>
+                </h6>
+                <div class="file-loading">
+                    <input id="imageList" name="imageList" type="file" multiple/>
+                </div>
+            </div>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="autoExtend" id="exampleRadios2" value="0" />
-          <label class="form-check-label" for="exampleRadios2" style="margin: 0px 20px;">
-            Không
-          </label>
+
+
+        <div class="col col-lg-4 col-md-5 col-12">
+            <div class="form-group">
+                <h6>
+                    <label for="init-price">
+                        Giá khởi điểm
+                    </label>
+                </h6>
+                <label for="currentPrice"></label><input type="text" class="form-input" id="currentPrice"
+                                                         name="currentPrice"
+                                                         placeholder="Nhập giá khởi điểm"/>
+                <h6>
+                    <label for="step-price">
+                        Bước giá
+                    </label>
+                </h6>
+                <label for="nextPrice"></label><input type="text" class="form-input" id="currentPrice" name="nextPrice"
+                                                      placeholder="Nhập bước giá"/>
+                <h6>
+                    <label for="bestPrice">
+                        Giá mua ngay
+                    </label>
+                </h6>
+                <input type="text" class="form-input" id="bestPrice" name="bestPrice" placeholder="Nhập giá mua ngay"/>
+            </div>
+
+
+            <div class="form-group">
+                <h6>
+                    <label for="multiple-checkboxes">
+                        Danh mục
+                    </label>
+                </h6>
+                <select id="example-multiple-optgroups" name="category" style="width:100%" multiple="multiple">
+                    {{#each categories}}
+                        <optgroup label="{{name}}">
+                            {{#each subCat}}
+                                <option value="{{this}},{{../name}}">{{this}}</option>
+                            {{/each}}
+                        </optgroup>
+                    {{/each}}
+                </select>
+
+
+                <hr>
+                <h6>
+                    <label for="form-check">
+                        Tự động gia hạn
+                    </label>
+                </h6>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="autoExtend" id="exampleRadios1" value="1"
+                           checked/>
+                    <label class="form-check-label" for="exampleRadios1" style="margin: 0px 20px;">
+                        Có
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="autoExtend" id="exampleRadios2" value="0"/>
+                    <label class="form-check-label" for="exampleRadios2" style="margin: 0px 20px;">
+                        Không
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h6>
+                    <label for="bestPrice">
+                        Ngày hết hạn
+                    </label>
+                </h6>
+                <label>
+                    <input type="date" id="dateExpiration" name="expDate" class="expDate">
+                </label>
+
+            </div>
+
         </div>
-      </div>
-
-      <div class="form-group">
-        <h6>
-          <label for="bestPrice">
-            Ngày hết hạn
-          </label>
-        </h6>
-        <label>
-          <input type="date" id="dateExpiration" name="expDate" class="expDate">
-        </label>
-
-      </div>
-
-    </div>
 
 
-    <div class="col col-12 d-flex justify-content-center my-2 uploadCommand">
-      <button type="button" class="btn btn-danger mx-2">
-        Hủy
-      </button>
-      <button type="submit" class="btn btn-success mx-2">
-        Tải lên
-      </button>
-    </div>
+        <div class="col col-12 d-flex justify-content-center my-2 uploadCommand">
+            <button type="button" class="btn btn-danger mx-2">
+                Hủy
+            </button>
+            <button type="submit" class="btn btn-success mx-2">
+                Tải lên
+            </button>
+        </div>
 
-  </form>
+    </form>
 
 </div>
 
 
-<script>
-  // $(".dropdown-toggle").on("mouseenter", function () {
-  //   // make sure it is not shown:
-  //   if (!$(this).parent().hasClass("show")) {
-  //     $(this).click();
-  //   }
-  // });
-
-
-  // $(".btn-group, .dropdown").on("mouseleave", function () {
-  //   // make sure it is shown:
-  //   if ($(this).hasClass("show")) {
-  //     $(this).children('.dropdown-toggle').first().click();
-  //   }
-  // });
-</script>
-
-
 <script type="text/javascript">
-  $('#example-multiple-optgroups').multiselect();
+    $('#example-multiple-optgroups').multiselect();
 </script>
