@@ -2,9 +2,7 @@ import User from '../models/user.model.js';
 import WinnigBid from '../models/winning.model.js';
 import bcrypt from 'bcrypt';
 import cloudinary from '../utils/cloudinary.js'
-import {
-    CloudinaryStorage
-} from "multer-storage-cloudinary"
+import {CloudinaryStorage} from "multer-storage-cloudinary"
 import multer from "multer";
 import Product from '../models/product.model.js'
 import moment from 'moment';
@@ -75,10 +73,70 @@ export default {
 
             const images = req.files.map(file => file.path);
 
+            console.log(req.body);
+
+            // create a set
+            const set = new Set(images);
+
+            // split ',' in each category
+            const hashMap = {};
+
+            let categorySaveInProduct = [];
+
+            for (let i = 0; i < req.body.category.length; i++) {
+
+                req.body.category[i] = req.body.category[i].split(',');
+                const category = req.body.category[i][1];
+                const subCategory = req.body.category[i][0];
+
+                if (hashMap[category]) {
+                    hashMap[category].push(subCategory);
+                } else {
+                    hashMap[category] = [subCategory];
+                }
+            }
+
+            // loop through hashmap
+            for (let key in hashMap) {
+                // loop through sub key
+                for (let i = 0; i < hashMap[key].length; i++) {
+                    // push category object to categorySaveInProduct
+                    categorySaveInProduct.push(hashMap[key][i]);
+                }
+                categorySaveInProduct.push(key);
+            }
+
+            categorySaveInProduct = [...new Set(categorySaveInProduct)];
+
+            // find category which has name is same as the key in hashmap
+
+            const category = await CategoryModel.find({
+                name: {
+                    $in: Object.keys(hashMap)
+                }
+            });
+
+            // adding number of subcategory to each category
+            for (let i = 0; i < category.length; i++) {
+                category[i].amount++;
+                for (let j = 0; j < category[i].subCat.length; j++) {
+                    const temp = hashMap[category[i].name]
+                    if (temp.includes(category[i].subCat[j])) {
+                        category[i].amountSubCat[j]++;
+                    }
+                }
+            }
+            for (let i = 0; i < category.length; i++) {
+                await CategoryModel.findByIdAndUpdate(category[i]._id, category[i]);
+            }
+
+
             const product = new Product({
+
+
                 name: req.body.nameProduct,
                 description: req.body.description,
-                category: req.body.category || [],
+                category: categorySaveInProduct || [],
                 currentPrice: +req.body.currentPrice,
                 // convert date from string to date using moment
                 expDate: req.body.expDate ? new Date(req.body.expDate) : new Date() + 24 * 60 * 60 * 1000,
