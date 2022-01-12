@@ -1,0 +1,155 @@
+{{#section 'js'}}
+<script>
+    function handleLink(s) {
+        // href
+        window.location.href = "/user/?id=" + s;
+    }
+
+    async function handledWishlist(id) {
+        const url = window.origin;
+        const data = await axios.post(`${url}/user/wishlist?id=${id}`).then((reponse) => {
+            location.reload();
+        })
+    }
+</script>
+{{/section}}
+
+<style>
+    .btn-heart {
+        background-color: rgb(255, 255, 255);
+        border-color: rgb(101, 101, 101);
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 1px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        padding: 5px 4px 1px;
+    }
+
+    .icon-heart {
+        max-height: 28px;
+        display: inline-block;
+    }
+
+    .report_text {
+        font-size: 18px;
+        color: #000;
+        padding: 1rem 1rem;
+    }
+
+    .noresultsuggestion {
+        background: #fff;
+    }
+
+    li .active-category {
+        color: white !important;
+        background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgba(249, 22, 242, 0.5144258386948529) 0%, rgb(219, 45, 244) 0%, rgb(8, 182, 216) 100%);
+    }
+
+    li .active-category:hover {
+        color: black !important;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col d-flex m-3" style="height: 100px;">
+            <h1 style="align-items: center; margin: auto;">DASHBOARD</h1>
+        </div>
+    </div>
+</div>
+
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            {{> sidebar_dashboard}}
+
+            <div class="col-lg-8">
+                <!-- Wish List Header-->
+                <div class="col-12">
+                    <div class="dash-pro-item dashboard-widget">
+                        <div class="header">
+                            <h4 class="title">
+                                My feedbacks
+                            </h4>
+
+                        </div>
+                        <div class="button-area justify-content-between">
+                            <form action="" class="product-search">
+                                <input type="text" placeholder="Input Name">
+                                <button type="submit">
+                                    <i class="fas fa-search    "></i>
+                                </button>
+                            </form>
+                            <div class="sort-product-dashboard">
+                                <div class="item">Sort By : </div>
+
+                                <div class="dropdown ml-2">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false"
+                                        style="background: #ffffff; border-radius: 19px;color: #000;">
+                                        Tất cả
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="" style="color: #000;">Tất cả</a>
+                                        <a class="dropdown-item" href="">Tên</a>
+                                        <a class="dropdown-item" href="">Thời gian</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Wish List Header-->
+                <div class="row justify-content-center ml-1 pr-3">
+                    {{#if isHaveFeedBack}}
+                    {{#each reviewsList}}
+                    <div class="owl-item col-12 col mr-4">
+
+                        <div class="client-item">
+                            <div class="client-content">
+                                <p>
+                                    {{message}}
+                                </p>
+                            </div>
+
+                            <div class="client-author">
+                                <div class="thumb">
+                                    <a href="/user/profile?id={{author}}">
+                                        <img src="{{userAvatar}}" alt="" />
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <h6 class="title">
+                                        <a href="/user/profile?id={{author}}">
+                                            {{authorName}}
+                                        </a>
+                                    </h6>
+                                    <div class="time">
+                                        <span>
+                                            {{date}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="point">
+                                    {{#if isLike}}
+                                    <i class="fa fa-thumbs-up fa-2x" style="color: #1c2fda;" aria-hidden="true"></i>
+                                    {{else}}
+                                    <i class="fa fa-thumbs-down fa-2x" style="color: #da1a14;" aria-hidden="true"></i>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{/if}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>

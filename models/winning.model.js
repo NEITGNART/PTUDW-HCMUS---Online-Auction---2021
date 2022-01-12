@@ -2,10 +2,10 @@ import mongoose from 'mongoose'
 
 const WinningBidSchema = new mongoose.Schema({
     userId: {
-        String
+        type: String
     },
     productId: {
-        String
+        type: String
     }
 }, {
     timestamps: true,

@@ -2312,3 +2312,58 @@ pagination {
 }
 
 /* ========================  Upload Page ==========================*/
+
+/* ========================  Feedback ==========================*/
+
+.owl-item {
+  min-height: 1px;
+  float: left;
+  margin: 5px auto;
+}
+
+.client-item {
+  background: #fff;
+  margin: 15px;
+  border-radius: 20px;
+  box-shadow: 0.487px 3.97px 15px 0px rgba(40, 58, 140, 0.19);
+  width: 100%;
+}
+
+.client-content {
+  padding: 25px 30px;
+}
+
+.client-content p {
+  margin: 0;
+}
+
+.client-author {
+  border-top: 1px solid #edeafb;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.client-author .thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 5px 5px;
+}
+
+.client-author .thumb a {
+  display: inline-block;
+}
+
+.client-author .content {
+  width: calc(100%-50px-15px);
+}
+
+.client-author .point {
+  width: 15px;
+  position: absolute;
+  right: 28px;
+}
+
+/* ========================  Feedback ==========================*/

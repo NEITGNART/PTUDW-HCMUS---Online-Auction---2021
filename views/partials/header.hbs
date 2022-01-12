@@ -92,6 +92,8 @@
             aria-labelledby="dropdownMenuLink"
           >
             <a class="dropdown-item" href="/user?id={{userLocal._id}}">Dashboard</a>
+            {{{isSeller userLocal.type}}}
+
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/logout">Log out</a>
           </div>
