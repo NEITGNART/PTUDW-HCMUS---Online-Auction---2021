@@ -2,6 +2,7 @@
 
 <script>
     const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
+    const modifyCat = document.querySelector(".modify-cat")
     accordionItemHeaders.forEach(accordionItemHeader => {
         accordionItemHeader.addEventListener("click", event => {
             accordionItemHeader.classList.toggle("active");
@@ -13,6 +14,9 @@
             }
         });
     });
+    modifyCat.addEventListener('click', function(){
+        event.stopPropagation()
+    })
 </script>
 
 <script>
@@ -206,7 +210,7 @@
                     Main category 1
                     <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
                 </div>
-                <div>
+                <div class="modify-cat">
                     <span class="btn-fab btn-fab-sm shadow btn-info"><i class="icon-add"></i></span>
                     <span class="btn-fab btn-fab-sm shadow btn-warning"><i class="icon-edit"></i></span>
                     <span class="btn-fab btn-fab-sm shadow btn-danger"><i class="icon-trash-can"></i></span>
