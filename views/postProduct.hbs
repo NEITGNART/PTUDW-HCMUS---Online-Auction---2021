@@ -1,8 +1,10 @@
 {{#section "css"}}
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"/>
+
     <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all"
           rel="stylesheet" type="text/css"/>
-
-
     <style>
         .file-preview .fileinput-remove {
             display: none;
@@ -13,7 +15,9 @@
 
 
 
+
 {{#section "js"}}
+
 
 
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -22,6 +26,7 @@
     <script src="https://cdn.tiny.cloud/1/brk4r96wyxtnjotefy4xag5b293lwt1pq39rlakdcpv0bh1q/tinymce/5/tinymce.min.js"
             referrerpolicy="origin"></script>
     <script>
+
         tinymce.init({
             selector: "textarea",
             height: 400,
@@ -34,13 +39,34 @@
             ]
         });
 
-
         $(document).ready(function () {
+
+
+            $.validator.addMethod(
+                    "countFileList",
+                    function () {
+                        const fileInput = $('#imageList');
+                        return fileInput[0].files.length >= 3;
+                    },
+            );
+
+            // validate date expiration not before today
+
+            $.validator.addMethod(
+                    "dateExpiration",
+                    function () {
+                        const dateExpiration = $('#dateExpiration').val();
+                        const dateToday = new Date();
+                        const dateExpirationDate = new Date(dateExpiration);
+                        return dateExpirationDate > dateToday;
+                    },
+            );
 
 
             // validation form input
             $("#formDemo").validate({
                 rules: {
+                    ignore: ".ignore",
                     nameProduct: {
                         required: true,
                         minlength: 2
@@ -62,8 +88,14 @@
                     },
                     expDate: {
                         required: true,
-                        date: true
+                        dateExpiration: true
                     },
+
+                    imageList: {
+                        required: true,
+                        countFileList: true
+                    },
+
 
                 },
                 messages: {
@@ -90,17 +122,19 @@
                     },
                     expDate: {
                         required: "Vui lòng nhập ngày hết hạn",
-                        date: "Ngày hết hạn không hợp lệ"
+                        dateExpiration: "Ngày hết hạn không hợp lệ"
                     },
 
+                    imageList: {
+                        required: "Vui lòng chọn hình ảnh",
+                        countFileList: "Vui lòng chọn ít nhất 3 hình ảnh"
+                    },
 
                 }
 
             });
         })
         ;
-
-
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
             crossorigin="anonymous"></script>
@@ -125,7 +159,7 @@
             $("#imageList").fileinput({
                 showUpload: false,
                 dropZoneEnabled: false,
-                maxFileCount: 3,
+                maxFileCount: 4,
                 inputGroupClass: "input-group-sm",
                 allowedFileExtensions: ['jpg', 'png', 'gif'],
                 theme: 'fa',
@@ -135,21 +169,19 @@
         });
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js">
-    </script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"/>
-
-    <script>
-        $(document).ready(function () {
-            $('#multiple-checkboxes').multiselect({
-                includeSelectAllOption: true,
-            });
-        });
-    </script>
-
-
 {{/section}}
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js">
+</script>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+
 
 <div class="container my-5 uploadProduct pt-3">
     <div class="row d-flex justify-content-left uploadTitle">
@@ -182,14 +214,6 @@
             </div>
 
             <div class="form-group" style="background-color: aliceblue;">
-                <h6>
-                    <label for="imageList">
-                        Ảnh đại diện sản phẩm
-                    </label>
-                </h6>
-                <div class="file-loading">
-                    <input id="mainImg" name="imageList" type="file" multiple>
-                </div>
                 <h6>
                     <label for="imageList">
                         Ảnh mô tả
@@ -232,11 +256,40 @@
                         Danh mục
                     </label>
                 </h6>
-                <select id="multiple-checkboxes" style="width:100%" multiple="multiple" name="category">
-                    <option value="Điện thoại">Điện tử</option>
-                    <option value="giadung">Gia dụng</option>
-                    <option value="giadung">Đồ chơi</option>
-                </select>
+                <!--                <select id="multiple-checkboxes" style="width:100%" name="category">-->
+
+                {{#each categories}}
+
+                    <optgroup label="{{name}}">
+                        {{#each subCat}}
+                            <option value="{{this}}">{{this}}
+                            </option>
+                        {{/each}}
+                    </optgroup>
+
+
+                {{/each}}
+
+
+                <!--                </select>-->
+                <div class="form-check">
+                    <select id="example-multiple-optgroups" style="width:100%" multiple="multiple">
+                        <optgroup label="Group 1">
+                            <option value="1-1">Option 1.1</option>
+                            <option value="1-2" selected="selected">Option 1.2</option>
+                            <option value="1-3" selected="selected">Option 1.3</option>
+                        </optgroup>
+                        <optgroup label="Group 2">
+                            <option value="2-1">Option 2.1</option>
+                            <option value="2-2">Option 2.2</option>
+                            <option value="2-3">Option 2.3</option>
+                        </optgroup>
+                    </select>
+                    <script type="text/javascript">
+                        $('#example-multiple-optgroups').multiselect();
+                    </script>
+                </div>
+
 
                 <h6>
                     <label for="form-check">
@@ -265,7 +318,7 @@
                     </label>
                 </h6>
                 <label>
-                    <input type="date" name="expDate" class="expDate">
+                    <input type="date" id="dateExpiration" name="expDate" class="expDate">
                 </label>
 
             </div>
@@ -282,3 +335,35 @@
     </form>
 
 </div>
+
+
+<script>
+
+    $(".dropdown-toggle").on("mouseenter", function () {
+        // make sure it is not shown:
+        if (!$(this).parent().hasClass("show")) {
+            $(this).click();
+        }
+    });
+
+
+    $(".btn-group, .dropdown").on("mouseleave", function () {
+        // make sure it is shown:
+        if ($(this).hasClass("show")) {
+            $(this).children('.dropdown-toggle').first().click();
+        }
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+

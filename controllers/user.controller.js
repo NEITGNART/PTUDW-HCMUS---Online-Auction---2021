@@ -5,8 +5,7 @@ import cloudinary from '../utils/cloudinary.js'
 import {CloudinaryStorage} from "multer-storage-cloudinary"
 import multer from "multer";
 import Product from '../models/product.model.js'
-import transporter from "../config/transporter.js";
-import otpGenerator from 'otp-generator'
+import CategoryModel from "../models/category.model.js";
 
 
 const storage = new CloudinaryStorage({
@@ -22,8 +21,6 @@ export default {
     async verify(req, res) {
 
         const otp = "" + req.query.otp;
-
-        console.log(req.query.otp);
 
         const user = await User.findOne({
             confirmationCode: otp
@@ -44,38 +41,17 @@ export default {
             layout: false
         })
 
-    }
-
-    ,
-    async send(req, res) {
-        const email = req.query.email;
-        console.log(email);
-        var otp = otpGenerator.generate(30, {upperCaseAlphabets: false, specialChars: false});
-        console.log(otp);
-        const url = "http://localhost:3000/user/verify?opt=" + otp;
-
-        var mailOptions = {
-            to: email,
-            subject: "Otp for registration is: ",
-            html: `<h3>OTP for account verification is </h3>"> 
-                    <a href=${url}>Visit Aution Online!</a>
-                "<h1 style='font-weight:bold;'></h1>" `
-        };
-
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log(error);
-            }
-        });
-        return res.status(200).json({
-            message: "OTP sent to your email"
-        })
     },
 
-
     async postProduct(req, res) {
-        res.render('postProduct');
+        // get all categories
+        const categories = await CategoryModel.find({}).lean();
+
+        console.log(categories);
+
+        res.render('postProduct', {
+            categories
+        });
     },
 
 
@@ -83,7 +59,7 @@ export default {
 
         const upload = multer({
             storage: storage
-        }).array("imageList", 3);
+        }).array("imageList", 5);
 
 
         // upload images to cloudinary

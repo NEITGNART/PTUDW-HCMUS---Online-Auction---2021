@@ -19,10 +19,10 @@
                         // return true if username is unique
                         $.ajax({
                             type: "GET",
-                            url: "http://" + location.host + `/user/cansignup?authId=${value}`,
+                            url: location.origin + `/user/cansignup?authId=${value}`,
                             dataType: "html",
                             success: function (msg) {
-                                response =  JSON.parse(msg).success;
+                                response = JSON.parse(msg).success;
                             }
                         })
                         return response;
@@ -35,7 +35,7 @@
                     function (value, element) {
                         $.ajax({
                             type: "GET",
-                            url: "http://" + location.host + `/user/cansignup?email=${value}`,
+                            url: location.origin + `/user/cansignup?email=${value}`,
                             dataType: "html",
                             success: function (msg) {
                                 responseEmail = JSON.parse(msg).success;
@@ -44,9 +44,6 @@
                         return responseEmail;
                     },
             );
-
-
-
 
 
             $("#demo-form").validate({
@@ -67,11 +64,6 @@
                         required: true,
                         minlength: 8
                     },
-                    // password_confirmation: {
-                    //     required: true,
-                    //     minlength: 8,
-                    //     equalTo: "#password"
-                    // },
                     address: {
                         required: true
                     },
@@ -106,18 +98,10 @@
                         required: "Please provide a password",
                         minlength: "Your password must be at least 8 characters long",
                     },
-                    // password_confirmation: {
-                    //     required: "Please provide a password",
-                    //     minlength: "Your password must be at least 8 characters long",
-                    //     equalTo: "Please enter the same password as above"
-                    // },
                     address: "Please enter your address",
                     hiddenRecaptcha: {
                         required: "Please verify that you are not a robot"
                     },
-                    // check_username: {
-                    //     required: "Username already taken"
-                    // }
                 }
 
 
@@ -175,7 +159,7 @@
                     <a href="/login/github" class="social"><i class="fa fa-github" aria-hidden="true"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input id ="username" name="username" type="text" placeholder="Username"/>
+                <input id="username" name="username" type="text" placeholder="Username"/>
                 <input name="email" type="email" placeholder="Email"/>
                 <input name="password" type="password" placeholder="Password"/>
                 <input name="name" type="text" placeholder="Fullname"/>
