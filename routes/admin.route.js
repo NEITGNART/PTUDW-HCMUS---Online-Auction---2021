@@ -12,4 +12,9 @@ router.route('/management/user')
         res.render('management-user',{layout: 'admin'});
     });
 
+router.route('/management/product')
+    .get((req, res) => {
+        res.render('management-product',{layout: 'admin'});
+    });
+
 export default router;

@@ -8,6 +8,19 @@ const UserSchema = new mongoose.Schema({
         enum: ['bidder', 'seller', 'admin'],
         default: 'bidder'
     },
+
+    status: {
+        type: String,
+        enum: ['Pending', 'Active'],
+        default: 'Pending'
+    },
+
+    confirmationCode: {
+        type: String,
+        unique: true
+    },
+
+
     method: {
         type: String,
         enum: ['local', 'facebook', 'google', 'github'],

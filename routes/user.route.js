@@ -35,4 +35,12 @@ router.route('/postproduct')
     .get(authSeller, controller.postProduct)
     .post(authSeller, controller.upload)
 
+router.route('/verify')
+    .get(controller.verify);
+
+router.route('/cansignup')
+    .get(controller.isCanSignUp);
+
+
+
 export default router;

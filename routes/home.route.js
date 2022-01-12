@@ -4,6 +4,8 @@ import reCaptcha from '../middleware/recaptcha.js';
 import validate from '../middleware/validate.js';
 import ProductController from "../controllers/product.controller.js";
 
+import axios from 'axios';
+
 const router = express.Router();
 
 router.route('/')
@@ -57,6 +59,7 @@ router.route('/login')
             failureFlash: true
         }),
         async (req, res) => {
+
             const returnUrl = req.session.retUrl || '/';
             res.redirect(returnUrl);
         }
@@ -113,6 +116,7 @@ router.route('/signup')
             failureFlash: true
         }),
         async (req, res) => {
+
             const returnUrl = req.session.retUrl || '/';
             res.redirect(returnUrl);
         });

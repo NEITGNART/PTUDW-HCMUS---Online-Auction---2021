@@ -1,59 +1,188 @@
 {{#section 'js'}}
-<script>
-  $(function(){
-  function rescaleCaptcha(){
-    var width = $('.g-recaptcha').parent().width();
-    var scale;
-    if (width < 302) {
-      scale = width / 302;
-    } else{
-      scale = 1.0; 
-    }
 
-    $('.g-recaptcha').css('transform', 'scale(' + scale + ')');
-    $('.g-recaptcha').css('-webkit-transform', 'scale(' + scale + ')');
-    $('.g-recaptcha').css('transform-origin', '0 0');
-    $('.g-recaptcha').css('-webkit-transform-origin', '0 0');
-  }
 
-  rescaleCaptcha();
-  $( window ).resize(function() { rescaleCaptcha(); });
 
-});
-</script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript"
+            src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+
+
+    <script>
+
+
+        $(document).ready(function () {
+            var response;
+            $.validator.addMethod(
+                    "uniqueUserName",
+                    function (value, element) {
+
+                        // return true if username is unique
+                        $.ajax({
+                            type: "GET",
+                            url: location.origin + `/user/cansignup?authId=${value}`,
+                            dataType: "html",
+                            success: function (msg) {
+                                response = JSON.parse(msg).success;
+                            }
+                        })
+                        return response;
+                    },
+            );
+
+            var responseEmail;
+            $.validator.addMethod(
+                    "uniqueUserEmail",
+                    function (value, element) {
+                        $.ajax({
+                            type: "GET",
+                            url: location.origin + `/user/cansignup?email=${value}`,
+                            dataType: "html",
+                            success: function (msg) {
+                                responseEmail = JSON.parse(msg).success;
+                            }
+                        })
+                        return responseEmail;
+                    },
+            );
+
+
+            $("#demo-form").validate({
+                ignore: ".ignore",
+                rules: {
+                    username: {
+                        required: true,
+                        minlength: 6,
+                        uniqueUserName: true
+                    },
+
+                    email: {
+                        required: true,
+                        email: true,
+                        uniqueUserEmail: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    address: {
+                        required: true
+                    },
+                    hiddenRecaptcha: {
+                        required: function () {
+                            if (grecaptcha.getResponse() == '') {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    },
+
+                    name: {
+                        required: true
+                    }
+
+                },
+                messages: {
+                    username: {
+                        depends: "Please enter your username",
+                        minlength: "Your username must consist of at least 6 characters",
+                        uniqueUserName: "This Username is taken already"
+
+                    },
+                    email: {
+                        required: "Please enter your email",
+                        email: "Please enter a valid email address",
+                        uniqueUserEmail: "This Email is taken already"
+                    },
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 8 characters long",
+                    },
+                    address: "Please enter your address",
+                    hiddenRecaptcha: {
+                        required: "Please verify that you are not a robot"
+                    },
+                }
+
+
+            });
+
+
+        });
+
+
+    </script>
+
+
+    <script>
+        $(function () {
+            function rescaleCaptcha() {
+                var width = $('.g-recaptcha').parent().width();
+                var scale;
+                if (width < 302) {
+                    scale = width / 302;
+                } else {
+                    scale = 1.0;
+                }
+
+                $('.g-recaptcha').css('transform', 'scale(' + scale + ')');
+                $('.g-recaptcha').css('-webkit-transform', 'scale(' + scale + ')');
+                $('.g-recaptcha').css('transform-origin', '0 0');
+                $('.g-recaptcha').css('-webkit-transform-origin', '0 0');
+            }
+
+            rescaleCaptcha();
+            $(window).resize(function () {
+                rescaleCaptcha();
+            });
+
+        });
+
+
+        function recaptchaCallback() {
+            $('#hiddenRecaptcha').valid();
+        };
+
+
+    </script>
 {{/section}}
 
 <section class="section-account">
 
-  <div class="container signup-container">
-    <div class="form-container account-container">
-      <form action="" method="post">
-        <h1>Sign up</h1>
-        <div class="social-container">
-          <a href="/login/facebook" class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-          <a href="/login/google" class="social"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-          <a href="/login/github" class="social"><i class="fa fa-github" aria-hidden="true"></i></a>
-        </div>
-        <span>or use your email for registration</span>
-        <input name="username" type="text" placeholder="Username" />
-        <input name="email" type="email" placeholder="Email" />
-        <input name="password" type="password" placeholder="Password" />
-        <input name="name" type="text" placeholder="Fullname" />
-        <input name="address" type="text" placeholder="Address" />
-        <div class="captcha" style="width: 100%; max-height: 78px;">
-          <div class="g-recaptcha captcha" data-sitekey="6LcHauMdAAAAAEed34vF3Ep5JzEMyYJ80noSxMwW"></div>
-        </div>
-        <button type="submit">Sign Up</button>
+    <div class="container signup-container">
+        <div class="form-container account-container">
+            <form action="" method="post" id="demo-form">
+                <h1>Sign up</h1>
+                <div class="social-container">
+                    <a href="/login/facebook" class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="/login/google" class="social"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="/login/github" class="social"><i class="fa fa-github" aria-hidden="true"></i></a>
+                </div>
+                <span>or use your email for registration</span>
+                <input id="username" name="username" type="text" placeholder="Username"/>
+                <input name="email" type="email" placeholder="Email"/>
+                <input name="password" type="password" placeholder="Password"/>
+                <input name="name" type="text" placeholder="Fullname"/>
+                <input name="address" type="text" placeholder="Address"/>
+                <div class="captcha" style="width: 100%; max-height: 78px;">
+                    <div class="g-recaptcha" data-sitekey="6LcHauMdAAAAAEed34vF3Ep5JzEMyYJ80noSxMwW"
+                         data-callback="recaptchaCallback"></div>
+                </div>
 
-      </form>
-    </div>
-    <div class="overlay-container">
-      <div class="overlay overlay-panel">
-        <h1>Welcome Back!</h1>
-        <p>To keep connected with us please login with your personal info</p>
-        <a href="/login"><button class="ghost" id="signIn"> Sign In</button></a>
+                <input type="hidden" class="hiddenRecaptcha required" name="hiddenRecaptcha" id="hiddenRecaptcha">
+                <button type="submit">Sign Up</button>
+            </form>
 
-      </div>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay overlay-panel">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <a href="/login">
+                    <button class="ghost" id="signIn"> Sign In</button>
+                </a>
+
+            </div>
+        </div>
     </div>
-  </div>
 </section>

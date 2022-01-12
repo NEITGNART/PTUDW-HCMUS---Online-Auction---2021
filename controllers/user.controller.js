@@ -8,6 +8,8 @@ import {
 import multer from "multer";
 import Product from '../models/product.model.js'
 import moment from 'moment';
+import CategoryModel from "../models/category.model.js";
+
 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
@@ -19,17 +21,49 @@ const storage = new CloudinaryStorage({
 export default {
 
 
+    async verify(req, res) {
+
+        const otp = "" + req.query.otp;
+
+        const user = await User.findOne({
+            confirmationCode: otp
+        });
+
+        if (!user || user.status === 'Active') {
+            return res.render('404', {
+                layout: false
+            });
+        }
+
+        user.status = 'Active';
+        user.confirmationCode = null;
+        await user.save();
+
+        return res.render('verify', {
+            title: 'Verify',
+            layout: false
+        })
+
+    },
+
     async postProduct(req, res) {
-        res.render('postProduct');
+        // get all categories
+        const categories = await CategoryModel.find({}).lean();
+
+        console.log(categories);
+
+        res.render('postProduct', {
+            categories
+        });
     },
 
 
     upload: async (req, res) => {
 
-        // using multer-storage-cloudinary to upload images to cloudinary and get url
         const upload = multer({
             storage: storage
         }).array("imageList", 5);
+
 
         // upload images to cloudinary
         upload(req, res, async (err) => {
@@ -38,7 +72,9 @@ export default {
                     message: "Error uploading image"
                 });
             }
+
             const images = req.files.map(file => file.path);
+
             const product = new Product({
                 name: req.body.nameProduct,
                 description: req.body.description,
@@ -53,7 +89,7 @@ export default {
                 autoExtend: (+req.body.autoExtend === 1),
             });
             try {
-                await product.save();
+                product.save();
             } catch (e) {
                 res.status(400).send({
                     message: "Error uploading image"
@@ -88,7 +124,9 @@ export default {
 
             }
         } else {
-            res.render('404');
+            res.render('404', {
+                layout: false
+            });
         }
     },
     async updateProfile(req, res) {
@@ -121,7 +159,9 @@ export default {
                 res.redirect(req.session.retUrl);
             }
         }
-        res.render('404');
+        res.render('404', {
+            layout: false
+        });
 
     },
     async profile(req, res) {
@@ -155,7 +195,9 @@ export default {
                 return;
             }
         }
-        res.render('404');
+        res.render('404', {
+            layout: false
+        });
 
     },
     async upgradeRole(req, res) {
@@ -264,4 +306,47 @@ export default {
     myproduct(req, res) {
 
     },
+    async isCanSignUp(req, res) {
+        const email = req.query.email || '';
+        const authId = req.query.authId || '';
+
+        if (authId) {
+            // check that authId that exist in user.auth
+            // FIND one by authId
+            const user = await User.findOne({
+                authId: authId
+            });
+
+            if (user) {
+                return res.json({
+                    success: false,
+                });
+            } else {
+                return res.json({
+                    success: true,
+                });
+            }
+        }
+
+        if (email) {
+            const user = await User.findOne({
+                'profile.email': email
+            });
+            if (user) {
+                return res.json({
+                    success: false,
+                });
+            } else {
+                return res.json({
+                    success: true,
+                });
+            }
+        }
+
+        return res.json({
+            success: true
+        });
+
+
+    }
 };
