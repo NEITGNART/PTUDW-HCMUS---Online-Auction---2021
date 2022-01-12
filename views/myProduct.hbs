@@ -1,0 +1,286 @@
+{{#section 'js'}}
+<script>
+    function handleLink(s) {
+        // href
+        window.location.href = "/user/?id=" + s;
+    }
+
+async function handledWishlist(id) {
+        const url = window.origin;
+        const data = await axios.post(`${url}/user/wishlist?id=${id}`).then((reponse) => {
+            location.reload();
+        })
+    }
+</script>
+{{/section}}
+
+<style>
+    .btn-heart {
+        background-color: rgb(255, 255, 255);
+        border-color: rgb(101, 101, 101);
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 1px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        padding: 5px 4px 1px;
+    }
+
+    .icon-heart {
+        max-height: 28px;
+        display: inline-block;
+    }
+
+    .report_text {
+        font-size: 18px;
+        color: #000;
+        padding: 1rem 1rem;
+    }
+
+    .noresultsuggestion {
+        background: #fff;
+    }
+
+    li .active-category {
+        color: white !important;
+        background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgba(249, 22, 242, 0.5144258386948529) 0%, rgb(219, 45, 244) 0%, rgb(8, 182, 216) 100%);
+    }
+
+    li .active-category:hover {
+        color: black !important;
+    }
+</style>
+
+<div class="container">
+        <div class="row justify-content-center">
+            <div class="col d-flex m-3" style="height: 100px;">
+                <h1 style="align-items: center; margin: auto;">DASHBOARD</h1>
+            </div>
+        </div>
+    </div>
+
+<section>
+        <div class="container">
+            <div class="row justify-content-center">
+                {{> sidebar_dashboard}}
+
+
+                <!-- Contentt -->
+                <div class="col-lg-8">
+                    <!-- Wish List Header-->
+                    <div class="col-12">
+                        <div class="dash-pro-item dashboard-widget">
+                            <div class="header">
+                                <h4 class="title">
+                                    My Favorites
+                                </h4>
+
+                            </div>
+                            <div class="button-area justify-content-between">
+                                <form action="" class="product-search">
+                                    <input type="text" placeholder="Input Name">
+                                    <button type="submit">
+                                        <i class="fas fa-search    "></i>
+                                    </button>
+                                </form>
+                                <div class="sort-product-dashboard">
+                                    <div class="item">Sort By : </div>
+
+                                    <div class="dropdown ml-2">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false"
+                                            style="background: #ffffff; border-radius: 19px;color: #000;">
+                                            Tất cả
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="" style="color: #000;">Tất cả</a>
+                                            <a class="dropdown-item" href="">Tên</a>
+                                            <a class="dropdown-item" href="">Thời gian</a>
+                                            <a class="dropdown-item" href="">Giá</a>
+                                            <a class="dropdown-item" href="">Loại</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Wish List Header-->
+
+                    <!-- Wish List Content -->
+                    <div class="row justify-content-center ml-1" style="display: flex;">
+                        <!-- Item -->
+                        {{#each productList}}
+                        <div class="col-sm-10 col-md-6 mb-4">
+                            <div class="auction-item">
+                            <div class="auction-item-thumb">
+
+                                <a class="thumb-img" href="/product/detail/?id={{_id}}">
+                                    <img src={{getThumbnail images}} alt="item">
+                                </a>
+
+
+                                 {{#if ../username}}
+                                    {{#if isWishlist}}
+
+                                        <a class="star-icon thumb-icon" style="cursor: pointer"
+                                           onclick="handledWishlist(`{{this._id}}`)">
+                                            <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                                    class="icon-heart fa fa-heart" aria-hidden="true"
+                                                    style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                                    id="fa-{{this._id}}"></i>
+                                            </button>
+                                        </a>
+                                    {{else}}
+
+                                        <a class="star-icon thumb-icon" style="cursor: pointer"
+                                           onclick="handledWishlist(`{{this._id}}`)">
+                                            <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                                    class="icon-heart far fa-heart" aria-hidden="true"
+                                                    style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                                    id="fa-{{this._id}}"></i>
+                                            </button>
+                                        </a>
+
+                                    {{/if}}
+
+                                {{/if}}
+
+
+                            </div>
+                            <div class="auction-item-content">
+                                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px">
+                                    {{name}}
+                                </div>
+
+                                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; ">
+                                    Ngày bán: {{sellDate}}
+                                </div>
+
+                                {{#if currentWinner}}
+                                    <div>
+                                        Người đang trả giá cao nhất:<br>{{currentWinner}}
+                                    </div>
+                                {{else}}
+                                    <div>
+                                        Hãy là người đầu tiên trả giá:<br>&nbsp;
+                                    </div>
+                                {{/if}}
+
+
+                                <div class="bid-area d-flex justify-content-center">
+                                    <div class="bid-amount current-price d-flex">
+                                        <div class="icon">
+                                            <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="amount-content">
+                                            <div class="current">
+                                                Giá hiện tại
+                                            </div>
+                                            <div class="amount">
+                                                {{commaNumber currentPrice}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="bid-amount buy-price d-flex">
+                                        <div class="icon">
+                                            <i class="fas fa-money-bill-wave fa-2x"></i>
+                                        </div>
+
+                                        <div class="amount-content">
+                                            <div class="buy">
+                                                Mua ngay
+                                            </div>
+                                            {{#if bestPrice}}
+                                                <div class="amount">
+                                                    {{commaNumber bestPrice}}
+                                                </div>
+                                            {{else}}
+                                                <div class="amount">
+                                                    ---
+                                                </div>
+                                            {{/if}}
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="countdown-area d-flex ">
+                                    <div class="expDate" hidden>{{this.expDate}}</div>
+                                    <div id="{{this._id}}" class="countdown product-one">
+                                    </div>
+                                    <span class="total-bids">
+                                        {{numberBidders}} bids
+                </span>
+                                </div>
+                                <div class="bid-now" type="button">
+                                    <a style="cursor: pointer" onclick="handleSubmit(`{{this._id}}`)">
+                                        Bid now
+                                    </a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        </div>
+                        {{/each}}
+                        <!-- end item -->
+                    </div>
+                    <!-- End Wish List Content -->
+                </div>
+                <!-- End content -->
+            </div>
+        </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script>
+    function countDown() {
+
+        var listCountDown = $(".countdown-area");
+        console.log(listCountDown.length)
+        var listID = [];
+        var listExpDate = [];
+        for (let i = 0; i < listCountDown.length; i++) {
+            listID.push(listCountDown[i].getElementsByClassName("countdown")[0].id);
+            listExpDate.push(+listCountDown[i].getElementsByClassName("expDate")[0].textContent);
+        }
+
+        // var countDownDate = +dateExp;
+        var distance;
+        var iterval = new Array(listID.length);
+        // Update the count down every 1 second
+        for (let i = 0; i < listID.length; i++) {
+            iterval[i] = setInterval(function () {
+
+                distance = listExpDate[i] - Date.now();
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                $(`#${listID[i]}`).html(days + "d : " + hours + "h :" + minutes + "m :" + seconds + "s");
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(iterval[i]);
+                    $(`#${listID[i]}`).html("EXPIRED");
+                }
+
+            }, 1000);
+        }
+    };
+
+    countDown();
+</script>

@@ -1,4 +1,6 @@
-import {engine} from 'express-handlebars';
+import {
+    engine
+} from 'express-handlebars';
 import hbs_section from 'express-handlebars-sections';
 import numeral from 'numeral';
 import moment from 'moment'
@@ -26,8 +28,7 @@ export default (app) => {
 
             getThumbnail(list) {
                 return list[0]
-            }
-            ,
+            },
             displayPagination(currentPage, stringQuery, maxPage, totalItems) {
 
                 console.log("Total display: ", totalItems);
@@ -59,8 +60,7 @@ export default (app) => {
 
                 const hrefStart = `?page=${currentPage - 1}&${query}`;
 
-                if (currentPage === 1) {
-                } else {
+                if (currentPage === 1) {} else {
                     html += `<li><a href=${hrefStart}><i class="fa fa-arrow-left" aria-hidden="true"></i></a></li>`;
                 }
 
@@ -84,15 +84,14 @@ export default (app) => {
 
                 const hrefEnd = `?page=${currentPage + 1}&${query}`;
 
-                if (currentPage === maxPage) {
-                } else {
+                if (currentPage === maxPage) {} else {
                     html += `<li><a href=${hrefEnd}><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>`;
                 }
 
                 return html;
 
-            }
-            , checkLimit(limit) {
+            },
+            checkLimit(limit) {
                 let html = '';
                 if (limit === 12) {
                     html += `<option selected value="1">12 sản phẩm</option>`
@@ -144,7 +143,7 @@ export default (app) => {
                     "*": lvalue * rvalue,
                     "/": lvalue / rvalue,
                     "%": lvalue % rvalue
-                }[operator];
+                } [operator];
             },
             commaNumber: function (numb) {
                 numb = "" + numb;
@@ -152,11 +151,19 @@ export default (app) => {
                 str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 return str.join(".");
             },
+            isSeller: (role) => {
+                let html = '';
+                if (role === 'seller') {
+                    html += `<a class="dropdown-item" href="/user/postproduct">Post product</a>`
+                }
+
+                return html;
+
+            }
 
         }
 
-    }))
-    ;
+    }));
     app.set('view engine', 'hbs');
     app.set('views', './views');
 }

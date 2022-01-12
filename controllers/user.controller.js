@@ -173,7 +173,7 @@ export default {
                     nItems = itemswon.length;
                 }
 
-                const currentBid = user.currentBid || [];
+                const currentBid = user.currentBiddingList || [];
                 res.render('dashboard', {
                     user: user,
                     activebid: currentBid.length,
@@ -329,7 +329,7 @@ export default {
         const id = req.query.id;
         const user = await User.findById(id);
         if (user) {
-            const currentBid = user.currentBid;
+            const currentBid = user.currentBiddingList;
             const currentProducts = [];
             for (let i = 0; i < currentBid.length; i++) {
                 currentProducts.push(await Product.findById(currentBid[i].idProduct).lean());
@@ -342,11 +342,14 @@ export default {
                 username = res.locals.userLocal.profile.name;
             }
 
-            const wishlist = user.wishList;
-            for (let i = 0; i < currentProducts.length; i++) {
-
+            const myMap = new Map();
+            for (const wish of user.wishlist) {
+                myMap.set(wish, wish);
             }
-            res.render('wishlist', {
+            for (let i = 0; i < currentProducts.length; i++) {
+                currentProducts[i].isWishlist = '' + currentProducts[i]._id === '' + myMap.get(currentProducts[i]._id + "");
+            }
+            res.render('myBid', {
                 user: user,
                 currentProducts: currentProducts,
                 username: username,
@@ -355,14 +358,96 @@ export default {
             res.render('404');
         }
     },
-    winningbid(req, res) {
+    async winningbid(req, res) {
+        const id = req.query.id;
+        const user = await User.findById(id);
+        if (user) {
+            const winningList = await WinnigBid.find({
+                userId: id
+            });
+            const winnignProducts = [];
+            for (let i = 0; i < winningList.length; i++) {
+                winnignProducts.push(await Product.findById(winningList[i].productId).lean());
+                winnignProducts[i].expDate = moment(winnignProducts[i].expDate).format("YYYY-MM-DD HH:MM:SS");
+                winnignProducts[i].expDate = "" + moment(winnignProducts[i].expDate).valueOf();
+                winnignProducts[i].numberBidders = winnignProducts[i].historyBidId.length;
+            }
+            var username = "";
+            if (res.locals.userLocal) {
+                username = res.locals.userLocal.profile.name;
+            }
 
+            const myMap = new Map();
+            for (const wish of user.wishlist) {
+                myMap.set(wish, wish);
+            }
+            for (let i = 0; i < winnignProducts.length; i++) {
+                winnignProducts[i].isWishlist = '' + winnignProducts[i]._id === '' + myMap.get(winnignProducts[i]._id + "");
+            }
+            res.render('winningBid', {
+                user: user,
+                winnignProducts: winnignProducts,
+                username: username,
+            })
+        } else {
+            res.render('404');
+        }
     },
-    feedback(req, res) {
+    async feedback(req, res) {
+        const id = req.query.id;
+        const user = await User.findById(id).lean();
+        if (user) {
+            var reviewsList = user.reviews;
 
+            for (let i = 0; i < reviewsList.length; i++) {
+                reviewsList[i].isLike = (reviewsList[i].point > 0);
+                var temp = await User.findById(reviewsList[i].author);
+                reviewsList[i].date = moment(reviewsList[i].date).format('HH:MM DD/MM/YYYY');
+                reviewsList[i].authorName = temp.profile.name;
+                reviewsList[i].userAvatar = temp.profile.avatar || '/img/c1.png';
+            }
+            res.render('myfeedback', {
+                reviewsList: reviewsList,
+                isHaveFeedBack: reviewsList.length > 0
+            })
+        } else {
+            res.render('404');
+        }
     },
-    myproduct(req, res) {
+    async myproduct(req, res) {
+        const id = req.query.id;
+        const user = await User.findById(id);
+        if (user) {
+            const myProducts = await Product.find({
+                seller: id
+            });
+            const productList = [];
+            for (let i = 0; i < myProducts.length; i++) {
+                productList.push(await Product.findById(myProducts[i]._id).lean());
+                productList[i].expDate = moment(productList[i].expDate).format("YYYY-MM-DD HH:MM:SS");
+                productList[i].expDate = "" + moment(productList[i].expDate).valueOf();
+                productList[i].numberBidders = productList[i].historyBidId.length;
+            }
+            var username = "";
+            if (res.locals.userLocal) {
+                username = res.locals.userLocal.profile.name;
+            }
 
+            const myMap = new Map();
+            for (const wish of user.wishlist) {
+                myMap.set(wish, wish);
+            }
+            for (let i = 0; i < productList.length; i++) {
+                productList[i].isWishlist = '' + productList[i]._id === '' + myMap.get(productList[i]._id + "");
+            }
+            res.render('myProduct', {
+                user: user,
+                productList: productList,
+                username: username,
+            })
+        } else {
+            res.render('404');
+        }
     },
     async isCanSignUp(req, res) {
         const email = req.query.email || '';
