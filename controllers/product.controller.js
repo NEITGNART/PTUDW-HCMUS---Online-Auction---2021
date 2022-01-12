@@ -2,9 +2,6 @@ import ProductModel from '../models/product.model.js';
 import CategoryModel from '../models/category.model.js';
 import UserModel from '../models/user.model.js';
 import moment from 'moment';
-import {
-    use
-} from 'passport';
 
 function maskInfo(value) {
     // mask with middle part with *
@@ -301,6 +298,7 @@ const productController = {
                 isOwner = true;
             }
         }
+
         console.log(isOwner)
 
         const user = await UserModel.findById(product.seller).lean();

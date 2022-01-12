@@ -154,6 +154,16 @@
                                     <h4 class="title">
                                         Role
                                     </h4>
+                                    {{#if owner}}
+                                    {{!-- {{#if isBidder}} --}}
+                                    <span style="text-align: right; width: 150px;" >
+                                        <a href="/user/upgraderole?id={{userLocal._id}}">
+                                        <i class="fa fa-level-up" aria-hidden="true"></i>
+                                        Promotion
+                                        </a>
+                                    </span>
+                                    {{!-- {{/if}} --}}
+                                    {{/if}}
                                 </div>
                                 <form method="post" action="">
                                     <div class="row justify-content-center">
@@ -166,10 +176,15 @@
                                                         Type
                                                     </div>
                                                     <div class="info-value">
+                                                        {{#if isPending}}
+                                                        <input type="text" value="{{user.type}} (pending)" readonly>
+                                                        {{else}}
                                                         <input type="text" value="{{user.type}}" readonly>
+                                                        {{/if}}
                                                     </div>
                                                 </li>
                                                 <!-- End Info item -->
+
                                             </ul>
                                             
                                         </div>

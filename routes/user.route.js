@@ -13,6 +13,7 @@ router.route('/profile')
     .post(auth, controller.updateProfile);
 
 router.route('/wishlist')
+    .get(auth, controller.showWishList)
     .post(auth, controller.wishlist);
 
 router.route('/mybid')
@@ -26,6 +27,9 @@ router.route('/feedback')
 
 router.route('/myproduct')
     .get(auth, controller.myproduct);
+
+router.route('/upgraderole')
+    .get(auth, controller.upgradeRole);
 
 router.route('/postproduct')
     .get(authSeller, controller.postProduct)

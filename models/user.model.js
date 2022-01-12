@@ -55,10 +55,18 @@ const UserSchema = new mongoose.Schema({
     wishlist: {
         type: [String]
     },
-
-    isRequest: {
-        type: Boolean,
-        default: false
+    request: {
+        isAccepted: {
+            type: Boolean,
+            default: false
+        },
+        isRequest: {
+            type: Boolean,
+            default: false
+        },
+        expTime: {
+            type: Date
+        }
     },
     point: {
         type: Number,
