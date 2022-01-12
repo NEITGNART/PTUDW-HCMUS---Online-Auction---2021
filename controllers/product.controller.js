@@ -2,9 +2,6 @@ import ProductModel from '../models/product.model.js';
 import CategoryModel from '../models/category.model.js';
 import UserModel from '../models/user.model.js';
 import moment from 'moment';
-// import {
-//     use
-// } from 'passport';
 
 function maskInfo(value) {
     // mask with middle part with *
@@ -41,8 +38,7 @@ async function updateExpired() {
     });
 
     // update status of product to sold
-    for (let i = 0; i < updateProduct.length; i++
-    ) {
+    for (let i = 0; i < updateProduct.length; i++) {
         const product = updateProduct[i];
         product.status = 'expired';
         await product.save();
@@ -135,7 +131,7 @@ const productController = {
 
         } else {
             res.render('404', {
-                layout : false
+                layout: false
             });
         }
 
@@ -155,7 +151,7 @@ const productController = {
 
         } else {
             res.render('404', {
-                layout : false
+                layout: false
             });
         }
     },
@@ -323,7 +319,7 @@ const productController = {
 
         if (!product) {
             res.render('404', {
-                layout : false
+                layout: false
             });
             return;
         }
@@ -336,6 +332,7 @@ const productController = {
                 isOwner = true;
             }
         }
+
         console.log(isOwner)
 
         const user = await UserModel.findById(product.seller).lean();

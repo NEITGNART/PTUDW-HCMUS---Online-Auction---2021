@@ -5,6 +5,7 @@ import cloudinary from '../utils/cloudinary.js'
 import {CloudinaryStorage} from "multer-storage-cloudinary"
 import multer from "multer";
 import Product from '../models/product.model.js'
+import moment from 'moment';
 import CategoryModel from "../models/category.model.js";
 
 
@@ -72,10 +73,70 @@ export default {
 
             const images = req.files.map(file => file.path);
 
+            console.log(req.body);
+
+            // create a set
+            const set = new Set(images);
+
+            // split ',' in each category
+            const hashMap = {};
+
+            let categorySaveInProduct = [];
+
+            for (let i = 0; i < req.body.category.length; i++) {
+
+                req.body.category[i] = req.body.category[i].split(',');
+                const category = req.body.category[i][1];
+                const subCategory = req.body.category[i][0];
+
+                if (hashMap[category]) {
+                    hashMap[category].push(subCategory);
+                } else {
+                    hashMap[category] = [subCategory];
+                }
+            }
+
+            // loop through hashmap
+            for (let key in hashMap) {
+                // loop through sub key
+                for (let i = 0; i < hashMap[key].length; i++) {
+                    // push category object to categorySaveInProduct
+                    categorySaveInProduct.push(hashMap[key][i]);
+                }
+                categorySaveInProduct.push(key);
+            }
+
+            categorySaveInProduct = [...new Set(categorySaveInProduct)];
+
+            // find category which has name is same as the key in hashmap
+
+            const category = await CategoryModel.find({
+                name: {
+                    $in: Object.keys(hashMap)
+                }
+            });
+
+            // adding number of subcategory to each category
+            for (let i = 0; i < category.length; i++) {
+                category[i].amount++;
+                for (let j = 0; j < category[i].subCat.length; j++) {
+                    const temp = hashMap[category[i].name]
+                    if (temp.includes(category[i].subCat[j])) {
+                        category[i].amountSubCat[j]++;
+                    }
+                }
+            }
+            for (let i = 0; i < category.length; i++) {
+                await CategoryModel.findByIdAndUpdate(category[i]._id, category[i]);
+            }
+
+
             const product = new Product({
+
+
                 name: req.body.nameProduct,
                 description: req.body.description,
-                category: req.body.category || [],
+                category: categorySaveInProduct || [],
                 currentPrice: +req.body.currentPrice,
                 // convert date from string to date using moment
                 expDate: req.body.expDate ? new Date(req.body.expDate) : new Date() + 24 * 60 * 60 * 1000,
@@ -176,14 +237,18 @@ export default {
                     nItems = itemswon.length;
                 }
                 if (res.locals.userLocal) {
-                    isOwner = id === res.locals.userLocal._id;
+                    console.log(typeof (res.locals.userLocal._id));
+                    console.log(res.locals.userLocal._id.toString());
+                    isOwner = (id === res.locals.userLocal._id.toString());
                 }
 
                 const currentBid = user.currentBid || [];
                 res.render('profile', {
                     user: user,
                     owner: isOwner,
-                    islocal: user.method === 'local'
+                    islocal: user.method === 'local',
+                    isBidder: user.type === 'bidder',
+                    // isPending: (!user.request.isAccepted && user.request.isRequest) || false,
                 });
                 return;
             }
@@ -193,10 +258,29 @@ export default {
         });
 
     },
+    async upgradeRole(req, res) {
+        const id = req.query.id;
+        if (req.user.type !== 'bidder') {
+            res.redirect(`/user/profile?id=${id}`);
+            return;
+        }
+        if (id) {
+            const user = await User.findById(id).lean();
+
+            if (user) {
+                user.request.isAccepted = false;
+                user.request.isRequest = true;
+                user.save();
+            }
+            res.redirect(`/user/profile?id=${id}`);
+            return;
+        }
+        res.render('404');
+
+    },
     async wishlist(req, res) { // user/wishlist
         // find user by id
         const id = req.query.id;
-        console.log(id)
         const user = await User.findById(res.locals.userLocal._id);
         // // check that wishlist that stored in user.wishlist
         // contains the product id
@@ -219,8 +303,57 @@ export default {
         });
 
     },
-    mybid(req, res) {
+    async showWishList(req, res) {
+        const id = req.query.id;
+        const user = await User.findById(id);
+        if (user) {
+            const wishList = user.wishlist;
+            const wishProducts = [];
+            for (let i = 0; i < wishList.length; i++) {
+                wishProducts.push(await Product.findById(wishList[i]).lean());
+                wishProducts[i].expDate = moment(wishProducts[i].expDate).format("YYYY-MM-DD HH:MM:SS");
+                wishProducts[i].expDate = "" + moment(wishProducts[i].expDate).valueOf();
+                wishProducts[i].numberBidders = wishProducts[i].historyBidId.length;
+            }
+            res.render('wishlist', {
+                user: user,
+                wishProducts: wishProducts,
+                username: res.locals.userLocal.profile.name,
+            })
+        } else {
+            res.render('404');
+        }
 
+    },
+    async mybid(req, res) {
+        const id = req.query.id;
+        const user = await User.findById(id);
+        if (user) {
+            const currentBid = user.currentBid;
+            const currentProducts = [];
+            for (let i = 0; i < currentBid.length; i++) {
+                currentProducts.push(await Product.findById(currentBid[i].idProduct).lean());
+                currentProducts[i].expDate = moment(currentProducts[i].expDate).format("YYYY-MM-DD HH:MM:SS");
+                currentProducts[i].expDate = "" + moment(currentProducts[i].expDate).valueOf();
+                currentProducts[i].numberBidders = currentProducts[i].historyBidId.length;
+            }
+            var username = "";
+            if (res.locals.userLocal) {
+                username = res.locals.userLocal.profile.name;
+            }
+
+            const wishlist = user.wishList;
+            for (let i = 0; i < currentProducts.length; i++) {
+
+            }
+            res.render('wishlist', {
+                user: user,
+                currentProducts: currentProducts,
+                username: username,
+            })
+        } else {
+            res.render('404');
+        }
     },
     winningbid(req, res) {
 
