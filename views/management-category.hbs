@@ -1,0 +1,178 @@
+{{#section 'js'}}
+
+<script>
+    const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
+    accordionItemHeaders.forEach(accordionItemHeader => {
+        accordionItemHeader.addEventListener("click", event => {
+            accordionItemHeader.classList.toggle("active");
+            const accordionItemBody = accordionItemHeader.nextElementSibling;
+            if(accordionItemHeader.classList.contains("active")){
+                accordionItemBody.style.maxHeight=accordionItemBody.scrollHeight + "px";
+            }else{
+                 accordionItemBody.style.maxHeight = 0;
+            }
+        });
+    });
+</script>
+
+{{/section}}
+
+<style>
+    .accordion{
+        width: 90%;
+        max-width: 1000px;
+        margin: 2rem auto;
+    }
+
+    .accordion-item{
+        background-color: #fff;
+        color:#111;
+        margin: 1rem 0;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .accordion-item-header{
+        padding: 0.5rem 3rem 0.5rem 1rem;
+        min-height: 3.5rem;
+        line-height: 1.25rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .accordion-item-header::after{
+        content:"\002B";
+        font-size: 2rem;
+        position: absolute;
+        right: 1rem;
+    }
+
+    .accordion-item-header.active::after{
+        transform: rotate(45deg);
+    }
+    .accordion-item-body{
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+
+    .accordion-item-body-content{
+        overflow: hidden;
+        padding: 1rem;
+        line-height: 1.5rem;
+        border-top: 1px solid #34495e;
+    }
+</style>
+
+<div class="container-fluid animatedParent animateOnce my-3">
+    <div class="d-flex justify-content-between"> 
+        <h1>List category</h1>
+        <a href="#">
+            <button type="button" class="btn btn-primary btn-lg r-20"><i class="icon icon-add"></i>Add category</button>
+        </a>
+    </div>
+    <div class="progress progress-xs mb-3 mt-3">
+        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <div class="accordion">
+        <div class="accordion-item">
+            <div class="accordion-item-header">
+                Main category 1
+            </div>
+            <div class="accordion-item-body">
+                <div class="accordion-item-body-content">
+                    <ul>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    Sub category 1
+                                    <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
+                                </div>
+                                <div>
+                                    <i class="icon-edit"></i>
+                                    <i class="icon-trash-can"></i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    Sub category 2
+                                    <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
+                                </div>
+                                <div>
+                                    <i class="icon-edit"></i>
+                                    <a href="">
+                                        <i class="icon-trash-can"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    Sub category 3
+                                    <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
+                                </div>
+                                <div>
+                                    <i class="icon-edit"></i>
+                                    <i class="icon-trash-can"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>                     
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-item-header">
+                Main category 2
+            </div>
+            <div class="accordion-item-body">
+                <div class="accordion-item-body-content">
+                    <ul>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    Sub category 1
+                                    <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
+                                </div>
+                                <div>
+                                    <i class="icon-edit"></i>
+                                    <i class="icon-trash-can"></i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    Sub category 2
+                                    <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
+                                </div>
+                                <div>
+                                    <i class="icon-edit"></i>
+                                    <i class="icon-trash-can"></i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    Sub category 3
+                                    <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
+                                </div>
+                                <div>
+                                    <i class="icon-edit"></i>
+                                    <i class="icon-trash-can"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>                     
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
