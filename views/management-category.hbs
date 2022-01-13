@@ -2,7 +2,7 @@
 
     <script>
         const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
-        const modifyCat = document.querySelector(".modify-cat")
+        const modifyCats = document.querySelectorAll(".modify-cat")
         accordionItemHeaders.forEach(accordionItemHeader => {
             accordionItemHeader.addEventListener("click", event => {
                 accordionItemHeader.classList.toggle("active");
@@ -14,9 +14,11 @@
                 }
             });
         });
-        modifyCat.addEventListener('click', function () {
-            event.stopPropagation()
-        })
+        modifyCats.forEach(modifyCat =>
+            modifyCat.addEventListener('click', function () {
+                event.stopPropagation()
+            })
+        )
     </script>
 
     <script>
