@@ -1,6 +1,5 @@
-{{#section 'js'}}
-
 <script>
+    var global_id = "";
 
     function handleDeleteSubcategory(id, name) {
         // call axios
@@ -8,144 +7,225 @@
             id: id,
             name: name
         }).then(function (response) {
-            // reload the page
+            $("#success-message").click();
             location.reload();
         }).catch(function (error) {
+            $("#alert-message").click();
             console.log(error);
         });
     }
+</script>
 
-    function handleUpdateSubcategory(id, name, newName) {
-        // call axios post data contain id and name
-        axios.post('/admin/updatesubcategory', {
-            id: id,
-            name: name,
-            newName: newName
-        }).then(function (response) {
-            // reload the page
-            location.reload();
-        }).catch(function (error) {
-            console.log(error);
+<button id="success-message" class="d-none btn btn-success btn-lg toast-action"
+        data-title="Hey, Bro!"
+        data-message="Delete successfully"
+        data-type="success"
+        data-position-class="toast-top-center">
+    Success Toast
+</button>
+
+<button id="alert-message" class="d-none btn btn-primary btn-lg toast-action"
+        data-title="Hey, Bro!"
+        data-message="Can not delete category due still exists product"
+        data-type="error"
+        data-position-class="toast-top-center">
+</button>
+
+
+<button id="alert-message-update" class="d-none btn btn-primary btn-lg toast-action"
+        data-title="Hey, Bro!"
+        data-message="Can not update category due still exists product"
+        data-type="error"
+        data-position-class="toast-top-center">
+</button>
+
+
+<button id="success-message-update" class="d-none btn btn-primary btn-lg toast-action"
+        data-title="Hey, Bro!"
+        data-message="Update successfully !"
+        data-type="success"
+        data-position-class="toast-top-center">
+</button>
+
+
+<button id="add-message-success" class="d-none btn btn-primary btn-lg toast-action"
+        data-title="Hey, Bro!"
+        data-message="Add successfully !"
+        data-type="success"
+        data-position-class="toast-top-center">
+</button>
+
+
+<button id="add-message-danger" class="d-none btn btn-primary btn-lg toast-action"
+        data-title="Hey, Bro!"
+        data-message="Add fail due cateogory exists !"
+        data-type="error"
+        data-position-class="toast-top-center">
+</button>
+
+
+{{#section 'js'}}
+
+    <script>
+
+
+        function handleUpdateSubcategory(id, name, newName) {
+
+            // call axios post data contain id and name
+            axios.post('/admin/updatesubcategory', {
+                id: id,
+                name: name,
+                newName: newName
+            }).then(function (response) {
+                // reload the page
+                $("#success-message-update").click();
+                location.reload();
+            }).catch(function (error) {
+                $("#alert-message-update").click();
+                console.log(error);
+            });
+        }
+
+
+        function setGlobalId(id) {
+            global_id = id;
+        }
+
+        function handleDeleteCategory(id) {
+            axios.post('/admin/removecategory', {
+                id: id
+            }).then(function (response) {
+                // reload the page
+                $("#success-message").click();
+                location.reload();
+            }).catch(function (error) {
+                $("#alert-message").click();
+                console.log(error);
+            });
+        }
+
+        function handleUpdateCategory(s) {
+            axios.post('/admin/updatecategory/', {
+                id: id,
+                name: name
+            }).then(function (response) {
+                // reload the page
+                $("#success-message-update").click();
+                location.reload();
+            }).catch(function (error) {
+                $("#alert-message-update").click();
+            });
+        }
+
+        const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
+        const modifyCats = document.querySelectorAll(".modify-cat")
+        accordionItemHeaders.forEach(accordionItemHeader => {
+            accordionItemHeader.addEventListener("click", event => {
+                accordionItemHeader.classList.toggle("active");
+                const accordionItemBody = accordionItemHeader.nextElementSibling;
+                if (accordionItemHeader.classList.contains("active")) {
+                    accordionItemBody.style.maxHeight = accordionItemBody.scrollHeight + "px";
+                } else {
+                    accordionItemBody.style.maxHeight = 0;
+                }
+            });
         });
-    }
+        modifyCats.forEach(modifyCat =>
+                modifyCat.addEventListener('click', function () {
+                    event.stopPropagation()
+                })
+        )
+    </script>
 
+    <script>
+        const addCat = document.querySelector('.js-add-cat');
+        const modal = document.querySelector(".js-modal-cat");
+        const modalClose = document.querySelector('.js-modal-close');
+        const modalContainer = document.querySelector('.js-modal-container')
 
-    function handleDeleteCategory(id) {
-        axios.post('/admin/removecategory', {
-            id: id
-        }).then(function (response) {
-            // reload the page
-            location.reload();
-        }).catch(function (error) {
-            console.log(error);
-        });
-    }
+        function showAddCat() {
+            modal.classList.add('open');
+        }
 
-    function handleUpdateCategory(s) {
-        axios.post('/admin/updatecategory/', {
-            id: id,
-            name: name
-        }).then(function (response) {
-            // reload the page
-            location.reload();
-        }).catch(function (error) {
-            console.log(error);
-        });
-    }
+        function closeAddCat() {
+            modal.classList.remove('open');
+        }
 
-    const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
-    const modifyCats = document.querySelectorAll(".modify-cat")
-    accordionItemHeaders.forEach(accordionItemHeader => {
-        accordionItemHeader.addEventListener("click", event => {
-            accordionItemHeader.classList.toggle("active");
-            const accordionItemBody = accordionItemHeader.nextElementSibling;
-            if (accordionItemHeader.classList.contains("active")) {
-                accordionItemBody.style.maxHeight = accordionItemBody.scrollHeight + "px";
-            } else {
-                accordionItemBody.style.maxHeight = 0;
-            }
-        });
-    });
-    modifyCats.forEach(modifyCat =>
-        modifyCat.addEventListener('click', function () {
+        addCat.addEventListener("click", showAddCat)
+        modalClose.addEventListener("click", closeAddCat);
+        modal.addEventListener('click', closeAddCat);
+        modalContainer.addEventListener('click', function () {
             event.stopPropagation()
         })
-    )
-</script>
 
-<script>
-    const addCat = document.querySelector('.js-add-cat');
-    const modal = document.querySelector(".js-modal-cat");
-    const modalClose = document.querySelector('.js-modal-close');
-    const modalContainer = document.querySelector('.js-modal-container')
+    </script>
+    <script>
 
-    function showAddCat() {
-        modal.classList.add('open');
-    }
-
-    function closeAddCat() {
-        modal.classList.remove('open');
-    }
-
-    addCat.addEventListener("click", showAddCat)
-    modalClose.addEventListener("click", closeAddCat);
-    modal.addEventListener('click', closeAddCat);
-    modalContainer.addEventListener('click', function () {
-        event.stopPropagation()
-    })
-
-</script>
-
-<script>
-
-    function handleAddCategory(id) {
-        axios.post('/admin/addcategory', {
-            name: name
-        }).then(function (response) {
-            // reload the page
-            location.reload();
-        }).catch(function (error) {
-            console.log(error);
+        $("#addcategory").bind('click', function () {
+            alert('User clicked on "foo."');
         });
-    }
 
-    function handleAddSubCategory(id) {
-        axios.post('/admin/addsubcategory/', {
-            id: id,
-            name: name
-        }).then(function (response) {
-            // reload the page
-            location.reload();
-        }).catch(function (error) {
-            console.log(error);
-        });
-    }
-</script>
+        function handleAddCategory() {
+            const name = $('#nameCat').val();
+            axios.post('/admin/addcategory', {
+                name: name
+            }).then(function (response) {
+                // reload the page
+                $("#add-message-success").click();
+                location.reload();
+            }).catch(function (error) {
+                $("#add-message-danger").click();
+                console.log(error);
+            });
+        }
+
+        function handleAddSubCategory() {
+            id = global_id;
+            const name = $('#nameSubCat').val();
+            // call axios post data contain id and name
+            axios.post('/admin/addsubcategory', {
+                id: id,
+                name: name
+            }).then(function (response) {
+                // reload the page
+                $("#add-message-success").click();
+                location.reload();
+            }).catch(function (error) {
+                $("#add-message-danger").click();
+                console.log(error);
+            });
+
+        }
+    </script>
 
 
-<script>
-    const addSubCats = document.querySelectorAll('.js-add-sub-cat')
-    const modalSubCat = document.querySelector(".js-modal-sub-cat");
-    const modalSubCatClose = document.querySelector(".js-modal-close-sub-cat");
-    const modalContainerSubCat = document.querySelector('.js-modal-container-sub-cat');
+    <script>
 
 
-    function showAddSubCat() {
-        modalSubCat.classList.add('open');
-    }
+        
+        const addSubCats = document.querySelectorAll('.js-add-sub-cat');
+        const modalSubCat = document.querySelector(".js-modal-sub-cat");
+        const modalSubCatClose = document.querySelector(".js-modal-close-sub-cat");
+        const modalContainerSubCat = document.querySelector('.js-modal-container-sub-cat');
 
-    function closeAddSubCat() {
-        modalSubCat.classList.remove('open');
-    }
-    addSubCats.forEach(addSubCat => addSubCat.addEventListener('click', showAddSubCat))
 
-    modalSubCatClose.addEventListener('click', closeAddSubCat);
-    modalContainerSubCat.addEventListener('click', function () {
-        event.stopPropagation()
-    })
-</script>
+        function showAddSubCat() {
+            modalSubCat.classList.add('open');
+        }
 
-<script>
+        function closeAddSubCat() {
+            modalSubCat.classList.remove('open');
+        }
+
+        addSubCats.forEach(addSubCat => addSubCat.addEventListener('click', showAddSubCat))
+
+        modalSubCatClose.addEventListener('click', closeAddSubCat);
+        modalContainerSubCat.addEventListener('click', function () {
+            event.stopPropagation()
+        })
+    </script>
+
+    <script>
     const editSubCats = document.querySelectorAll('.js-edit-sub-cat')
     const modalEditSubCat = document.querySelector(".js-modal-edit-sub-cat");
     const modalEditSubCatClose = document.querySelector(".js-modal-close-edit-sub-cat");
@@ -275,7 +355,7 @@
         display: flex;
     }
 
-    .modal-edit-sub-cat {
+        .modal-edit-sub-cat {
         display: none;
         align-items: center;
         justify-content: center;
@@ -401,50 +481,53 @@
     </div>
     <div class="progress progress-xs mb-3 mt-3">
         <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0"
-            aria-valuemax="100"></div>
+             aria-valuemax="100"></div>
     </div>
     <ul class="accordion">
         {{#each categories}}
 
-        <li class="accordion-item">
-            <div class="accordion-item-header d-flex justify-content-between">
-                <div>
-                    {{name}}
-                    <span class="btn-fab btn-fab-sm shadow btn-success">{{amount}}</span>
+            <li class="accordion-item">
+                <div class="accordion-item-header d-flex justify-content-between">
+                    <div>
+                        {{name}}
+                        <span class="btn-fab btn-fab-sm shadow btn-success">{{amount}}</span>
+                    </div>
+                    <div class="modify-cat">
+                        <span class="btn-fab btn-fab-sm shadow btn-info js-add-sub-cat"
+                              onclick="setGlobalId(`{{_id}}`)"><i class="icon-add"></i></span>
+                        <span class="btn-fab btn-fab-sm shadow btn-warning js-edit-cat" onclick="handleUpdateCategory(`{{_id}}`)"><i
+                                class="icon-edit"></i></span>
+                        <span class="btn-fab btn-fab-sm shadow btn-danger" onclick="handleDeleteCategory(`{{_id}}`)"><i
+                                class="icon-trash-can"></i></span>
+                    </div>
                 </div>
-                <div class="modify-cat">
-                    <span class="js-add-sub-cat btn-fab btn-fab-sm shadow btn-info"
-                        onclick="handleAddSubCategory(`{{_id}}`)"><i class="icon-add"></i></span>
-                    <span class="js-edit-cat btn-fab btn-fab-sm shadow btn-warning" onclick="handleUpdateCategory(`{{_id}}`)"><i
-                            class="icon-edit"></i></span>
-                    <span class="btn-fab btn-fab-sm shadow btn-danger" onclick="handleDeleteCategory(`{{_id}}`)"><i
-                            class="icon-trash-can"></i></span>
-                </div>
-            </div>
-            <div class="accordion-item-body">
-                <ul class="accordion-item-body-content">
-                    {{#each subCat}}
-                    <li class="m-3">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                {{this}}
-                                <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
-                            </div>
-                            <div>
-                                <span class="js-edit-sub-cat btn-fab btn-fab-sm shadow btn-warning"
-                                    onclick="handleUpdateSubcategory(`{{../_id}}`, {{this}})"><i
+                <div class="accordion-item-body">
+                    <ul class="accordion-item-body-content">
+                        {{#each subCat}}
+                            <li class="m-3">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        {{name}}
+                                        <span class="btn-fab btn-fab-sm shadow btn-success">{{number}}</span>
+                                    </div>
+                                    <div>
+                                <span class="btn-fab btn-fab-sm shadow btn-warning js-modal-sub-cat-modify js-edit-sub-cat" style="cursor: pointer;"
+                                      onclick="setGlobalId(`{{../_id}}`, `{{name}}`)"><i
                                         class="icon-edit"></i></span>
-                                <span class="btn-fab btn-fab-sm shadow btn-danger"
-                                    onclick="handleDeleteSubcategory(`{{../_id}}`, {{this}})"><i
-                                        class="icon-trash-can"></i></span>
-                            </div>
-                        </div>
-                    </li>
-                    {{/each}}
-                </ul>
-            </div>
-        </li>
+                                        <span class="btn-fab btn-fab-sm shadow btn-danger" style="cursor: pointer;"
+                                              onclick="handleDeleteSubcategory(`{{../_id}}`, `{{name}}`)"><i
+                                                class="icon-trash-can"></i></span>
+                                    </div>
+                                </div>
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </li>
+
+
         {{/each}}
+
     </ul>
 </div>
 
@@ -464,8 +547,7 @@
                 <h4><i class="icon-goals-1 s-24"></i>Name</h4>
             </label>
             <input type="text" id="nameCat" class="modal-input-cat" placeholder="" required>
-
-            <button id="add-cat">
+            <button id="add-cat" onclick="handleAddCategory()">
                 Add <i></i>
             </button>
         </div>
@@ -479,7 +561,7 @@
         </div>
         <header class="modal-header-cat">
             <i class="i-header icon-goals-1 s-24"></i>
-            Category
+            Add Sub Category
         </header>
 
         <div class="modal-body-cat">
@@ -487,10 +569,34 @@
 
                 <h4><i class="icon-goals-1 s-24"></i>Name</h4>
             </label>
-            <input type="text" id="nameCat" class="modal-input-cat" placeholder="" required>
-
-            <button id="add-cat">
+            <input type="text" id="nameSubCat" class="modal-input-cat" placeholder="" required>
+            <button id="add-cat" onclick="handleAddSubCategory()">
                 Add <i></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal-sub-cat js-modal-sub-cat-modify">
+    <div class="modal-container js-modal-container-sub-cat">
+        <div class="modal-close js-modal-close-sub-cat">
+            <i class="icon-close"></i>
+        </div>
+        <header class="modal-header-cat">
+            <i class="i-header icon-goals-1 s-24"></i>
+            Modify Name Sub Category
+        </header>
+
+        <div class="modal-body-cat">
+            <label for="nameCat" class="modal-label-cat">
+
+                <h4><i class="icon-goals-1 s-24"></i>Name</h4>
+            </label>
+            <input type="text" id="nameSubCat" class="modal-input-cat" placeholder="" required>
+            <button id="add-cat" onclick="">
+                Save <i></i>
             </button>
         </div>
     </div>
