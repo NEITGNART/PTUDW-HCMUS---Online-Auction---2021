@@ -17,7 +17,6 @@ const UserSchema = new mongoose.Schema({
 
     confirmationCode: {
         type: String,
-        unique: true
     },
 
 
@@ -90,18 +89,14 @@ const UserSchema = new mongoose.Schema({
         default: 100
     },
     reviews: {
-        author: {
-            String
-        },
-        date: {
-            Date
-        },
-        message: {
-            String
-        },
-        point: {
-            Number
-        }
+        type: [{
+            author: String,
+            date: Date,
+            message: String,
+            point: Number
+
+        }],
+        default: []
     },
     currentBiddingList: {
         type: [{

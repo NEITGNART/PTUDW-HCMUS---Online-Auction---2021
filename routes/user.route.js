@@ -23,7 +23,8 @@ router.route('/winningbid')
     .get(auth, controller.winningbid);
 
 router.route('/feedback')
-    .get(auth, controller.feedback);
+    .get(auth, controller.feedback)
+    .post(auth, controller.givefeedback);
 
 router.route('/myproduct')
     .get(auth, controller.myproduct);
@@ -40,6 +41,9 @@ router.route('/verify')
 
 router.route('/cansignup')
     .get(controller.isCanSignUp);
+
+router.route('/getpoint')
+    .get(controller.isEnoughPoint);
 
 
 

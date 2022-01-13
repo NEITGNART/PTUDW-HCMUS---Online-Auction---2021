@@ -12,6 +12,12 @@
         })
     }
 </script>
+
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+</script>
 {{/section}}
 
 <style>
@@ -73,6 +79,66 @@
                             <h4 class="title">
                                 My feedbacks
                             </h4>
+
+
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#give-feedback"
+                                data-whatever="@mdo" style="border-radius: 15px;">Give feedback</button>
+
+
+                            <div class="modal fade" tabindex="-1" id="give-feedback" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Give feedback</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form method="post">
+                                            <div class="modal-body">
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="givedpoint"
+                                                        id="inlineRadio1" value=1 checked>
+                                                    <label class="form-check-label" for="inlineRadio1">Good
+                                                        <i class="fa fa-thumbs-up" style="color: #1c2fda;"
+                                                            aria-hidden="true"></i>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="givedpoint"
+                                                        id="inlineRadio2" value=-1>
+                                                    <label class="form-check-label" for="inlineRadio2">Bad
+                                                        <i class="fa fa-thumbs-down" style="color: #da1a14;"
+                                                            aria-hidden="true"></i>
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">Để lại lời
+                                                        nhắn:</label>
+                                                    <input id="block-username" type="text" name="msg"
+                                                        class="form-control" id="recipient-name">
+
+                                                </div>
+                                                <div class="form-group">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close
+                                                </button>
+                                                <button type="submit" class="btn btn-danger block-btn">Gửi</button>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
 
                         </div>
                         <div class="button-area justify-content-between">

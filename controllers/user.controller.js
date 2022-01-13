@@ -2,12 +2,13 @@ import User from '../models/user.model.js';
 import WinnigBid from '../models/winning.model.js';
 import bcrypt from 'bcrypt';
 import cloudinary from '../utils/cloudinary.js'
-import {CloudinaryStorage} from "multer-storage-cloudinary"
+import {
+    CloudinaryStorage
+} from "multer-storage-cloudinary"
 import multer from "multer";
 import Product from '../models/product.model.js'
 import moment from 'moment';
 import CategoryModel from "../models/category.model.js";
-
 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
@@ -441,9 +442,11 @@ export default {
             for (let i = 0; i < reviewsList.length; i++) {
                 reviewsList[i].isLike = (reviewsList[i].point > 0);
                 var temp = await User.findById(reviewsList[i].author).lean();
-                reviewsList[i].date = moment(reviewsList[i].date).format('HH:MM DD/MM/YYYY');
-                reviewsList[i].authorName = temp.profile.name;
-                reviewsList[i].userAvatar = temp.profile.avatar || '/img/c1.png';
+                if (temp) {
+                    reviewsList[i].date = moment(reviewsList[i].date).format('HH:MM DD/MM/YYYY');
+                    reviewsList[i].authorName = temp.profile.name;
+                    reviewsList[i].userAvatar = temp.profile.avatar || '/img/c1.png';
+                }
             }
             res.render('myfeedback', {
                 reviewsList: reviewsList,
@@ -451,6 +454,27 @@ export default {
             })
         } else {
             res.render('404');
+        }
+    },
+    async givefeedback(req, res) {
+        const id = req.query.id;
+        const user = await User.findById(id);
+        if (user) {
+            const point = req.body.givedpoint;
+            const msg = req.body.msg;
+
+            var rev = user.reviews;
+            rev.push({
+                author: res.locals.userLocal._id,
+                point: point,
+                message: msg,
+                date: new Date()
+            });
+            console.log(user.reviews[0]);
+            user.point += parseInt(point);
+            user.save();
+            res.redirect('back');
+
         }
     },
     async myproduct(req, res) {
@@ -495,6 +519,24 @@ export default {
         } else {
             res.render('404');
         }
+    },
+    async isEnoughPoint(req, res) {
+        const id = req.query.id;
+        if (id) {
+            const user = await User.findById(id);
+
+            if (user) {
+                if (user.point >= 80) {
+                    return res.json({
+                        success: true
+                    })
+                }
+            }
+        }
+        return res.json({
+            success: false
+        })
+
     },
     async isCanSignUp(req, res) {
         const email = req.query.email || '';

@@ -20,4 +20,5 @@ router.route('/block')
     .post(authSeller, controller.blockUser)
 
 
+
 export default router;

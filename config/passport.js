@@ -75,7 +75,12 @@ export default (passport) => {
                             name: profile.displayName,
                             email: profile._json.email,
                             avatar: profile.photos[0].value,
-                        }
+                        },
+                        stauts: 'Active',
+                        confirmationCode: otpGenerator.generate(30, {
+                            upperCaseAlphabets: false,
+                            specialChars: false
+                        }),
                     });
                     await newLogin.save();
                     return done(null, newLogin);
@@ -107,7 +112,12 @@ export default (passport) => {
                             name: profile._json.name,
                             email: profile._json.email,
                             avatar: profile._json.picture,
-                        }
+                        },
+                        stauts: 'Active',
+                        confirmationCode: otpGenerator.generate(30, {
+                            upperCaseAlphabets: false,
+                            specialChars: false
+                        }),
                     });
                     await newLogin.save();
                     return done(null, newLogin);
@@ -140,7 +150,12 @@ export default (passport) => {
                             name: profile.displayName,
                             email: profile._json.id + '+' + profile._json.login + '@users.noreply.github.com',
                             avatar: profile._json.avatar_url,
-                        }
+                        },
+                        stauts: 'Active',
+                        confirmationCode: otpGenerator.generate(30, {
+                            upperCaseAlphabets: false,
+                            specialChars: false
+                        }),
                     });
                     await newLogin.save();
                     return done(null, newLogin);
@@ -193,11 +208,14 @@ export default (passport) => {
 
 
             const salt = bcrypt.genSaltSync(10);
-            password = bcrypt.hashSync (password, salt);
+            password = bcrypt.hashSync(password, salt);
 
             // node mailer
 
-            var otp = otpGenerator.generate(30, {upperCaseAlphabets: false, specialChars: false});
+            var otp = otpGenerator.generate(30, {
+                upperCaseAlphabets: false,
+                specialChars: false
+            });
             console.log(otp);
             // get localhost url
 
@@ -226,7 +244,7 @@ export default (passport) => {
                     email: email,
                     address: address
                 },
-                confirmationCode : otp,
+                confirmationCode: otp,
 
             });
             await newUser.save();

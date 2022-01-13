@@ -22,20 +22,28 @@ router.route('/')
             username = res.locals.userLocal.profile.name;
             id = res.locals.userLocal.id;
             const myMap = new Map();
+            const myMap2 = new Map();
             for (const wish of res.locals.userLocal.wishlist) {
                 myMap.set(wish, wish);
             }
+            const currentList = res.locals.userLocal.currentBiddingList;
+            for (const current of currentList) {
+                myMap2.set(current.idProduct, current.idProduct);
+            }
             for (let i = 0; i < productRelativeBidding.length; i++) {
                 productRelativeBidding[i].isWishlist = '' + productRelativeBidding[i]._id === '' + myMap.get(productRelativeBidding[i]._id + "");
+                productRelativeBidding[i].isBidding = '' + productRelativeBidding[i]._id === '' + myMap2.get(productRelativeBidding[i]._id + "");
             }
 
             for (let i = 0; i < productRelativeEnding.length; i++) {
                 productRelativeEnding[i].isWishlist = '' + productRelativeEnding[i]._id === '' + myMap.get(productRelativeEnding[i]._id + "");
+                productRelativeEnding[i].isBidding = '' + productRelativeEnding[i]._id === '' + myMap2.get(productRelativeEnding[i]._id + "");
             }
 
 
             for (let i = 0; i < productRelativePricing.length; i++) {
                 productRelativePricing[i].isWishlist = '' + productRelativePricing[i]._id === '' + myMap.get(productRelativePricing[i]._id + "");
+                productRelativePricing[i].isBidding = '' + productRelativePricing[i]._id === '' + myMap2.get(productRelativePricing[i]._id + "");
             }
         }
 
@@ -132,6 +140,11 @@ router.route('/about')
     .get((req, res) => {
         res.render('about');
     });
+
+router.route('/toast')
+    .get((req, res) => {
+        res.render('toast');
+    })
 
 
 export default router;

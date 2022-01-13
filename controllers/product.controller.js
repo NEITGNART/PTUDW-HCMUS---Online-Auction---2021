@@ -3,6 +3,7 @@ import CategoryModel from '../models/category.model.js';
 import UserModel from '../models/user.model.js';
 import moment from 'moment';
 
+
 function maskInfo(value) {
     // mask with middle part with *
     if (value.length < 4) {
@@ -50,8 +51,6 @@ const productController = {
 
     autoBidding: async (req, res) => {
 
-        updateExpired();
-
 
         if (req.query.id && req.body.bid) {
             var user = await UserModel.findById(req.user._id);
@@ -59,13 +58,15 @@ const productController = {
             var bidPrice = req.body.bid;
             var current = moment().format("YYYY/MM/DD HH:MM:SS");
 
+            if (!user || !product) return;
+
 
             if (product.block.indexOf(JSON.stringify((user._id))) !== -1) {
                 res.redirect(`/product/detail?id=${req.query.id}`);
             }
+            var hisBid = product.historyBidId;
 
-
-            if (hisBid.length.length === 0) {
+            if (hisBid.length === 0) {
                 product.topBidder = JSON.stringify(user._id);
                 product.historyBidId.push({
                     bidDate: current,
@@ -78,9 +79,13 @@ const productController = {
                 });
                 await product.save();
                 await user.save();
+
+                if (product.autoExtend) {
+                    product.expDate = moment(product.expDate).add(10, 'minutes');
+                }
+
                 res.redirect(`/product/detail?id=${req.query.id}`);
             } else {
-                var hisBid = product.historyBidId;
 
                 var bestBidder = await UserModel.findById(hisBid[hisBid.length - 1].username);
 
@@ -123,10 +128,12 @@ const productController = {
                         price: bidPrice
                     });
                 }
+                if (product.autoExtend) {
+                    product.expDate = moment(product.expDate).add(10, 'minutes');
+                }
                 product.historyBidId = hisBid;
                 await product.save();
             }
-
 
         } else {
             res.render('404', {

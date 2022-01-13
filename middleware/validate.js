@@ -41,5 +41,6 @@ export default {
         .not()
         .isEmpty()
         .withMessage('Yêu cầu nhập đủ thông tin')
-    ]
+    ],
+
 }
