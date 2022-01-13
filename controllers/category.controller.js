@@ -78,18 +78,32 @@ const categoryController = {
     update: async (req, res) => {
         const id = req.body.id;
         const category = await Category.findById(id);
-
         if (!category) {
-            res.status(404).send({
+            return res.status(404).send({
                 message: false
             });
-        } else {
-            category.name = req.body.name;
-            await category.save();
-            res.status(200).send({
-                message: true
-            });
         }
+
+        // check that the category is unique
+        const categoryExists = await Category.findOne({name: req.body.name});
+        if (categoryExists) {
+            return res.status(400).send({message: false});
+        } else {
+
+            // check that amount of products in category is 0
+            category.name = req.body.name;
+            if (category.amount === 0) {
+                await category.save();
+                res.status(200).send({
+                    message: true
+                });
+            } else {
+                res.status(400).send({
+                    message: false
+                });
+            }
+        }
+
     },
 
     createSubCategory: async (req, res) => {
@@ -153,7 +167,7 @@ const categoryController = {
             });
         } else {
             const index = category.subCat.indexOf(subCategory);
-            if (index > -1) {
+            if (index > -1 && category.amountSubCat[index] === 0) {
                 category.subCat[index] = req.body.newName;
                 await category.save();
                 res.status(200).send({
