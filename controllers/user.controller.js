@@ -428,10 +428,9 @@ export default {
         const user = await User.findById(id).lean();
         if (user) {
             var reviewsList = user.reviews;
-
             for (let i = 0; i < reviewsList.length; i++) {
                 reviewsList[i].isLike = (reviewsList[i].point > 0);
-                var temp = await User.findById(reviewsList[i].author);
+                var temp = await User.findById(reviewsList[i].author).lean();
                 reviewsList[i].date = moment(reviewsList[i].date).format('HH:MM DD/MM/YYYY');
                 reviewsList[i].authorName = temp.profile.name;
                 reviewsList[i].userAvatar = temp.profile.avatar || '/img/c1.png';

@@ -43,6 +43,7 @@ const UserSchema = new mongoose.Schema({
             trim: true,
             required: true
         },
+
         email: {
             type: String,
             trim: true,
@@ -61,7 +62,8 @@ const UserSchema = new mongoose.Schema({
             type: String
         },
         avatar: {
-            type: String
+            type: String,
+            default: 'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=20&m=1223671392&s=612x612&w=0&h=lGpj2vWAI3WUT1JeJWm1PRoHT3V15_1pdcTn2szdwQ0='
         }
     },
 
@@ -78,7 +80,9 @@ const UserSchema = new mongoose.Schema({
             default: false
         },
         expTime: {
-            type: Date
+            type: Date,
+            default: Date.now()
+            // default: Date.now() + 7 * 24 * 60 * 60 * 1000
         }
     },
     point: {
@@ -103,6 +107,12 @@ const UserSchema = new mongoose.Schema({
         type: [{
             idProduct: String,
             maxPrice: Number
+        }],
+        default: []
+    },
+    winBiddingList: {
+        type: [{
+            idProduct: String
         }],
         default: []
     }

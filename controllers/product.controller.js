@@ -620,9 +620,10 @@ const productController = {
 
         let username = undefined;
         let id = undefined;
+
         if (res.locals.userLocal) {
             username = res.locals.userLocal.profile.name;
-            currentList = res.locals.userLocal.currentBiddingList;
+            const currentList = res.locals.userLocal.currentBiddingList;
             id = res.locals.userLocal.id;
             const myMap = new Map();
             const myMap2 = new Map();
