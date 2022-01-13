@@ -95,6 +95,7 @@
     })
 
 </script>
+
 <script>
 
     function handleAddCategory(id) {
@@ -140,6 +141,50 @@
 
     modalSubCatClose.addEventListener('click', closeAddSubCat);
     modalContainerSubCat.addEventListener('click', function () {
+        event.stopPropagation()
+    })
+</script>
+
+<script>
+    const editSubCats = document.querySelectorAll('.js-edit-sub-cat')
+    const modalEditSubCat = document.querySelector(".js-modal-edit-sub-cat");
+    const modalEditSubCatClose = document.querySelector(".js-modal-close-edit-sub-cat");
+    const modalContainerEditSubCat = document.querySelector('.js-modal-container-edit-sub-cat');
+
+
+    function showEditSubCat() {
+        modalEditSubCat.classList.add('open');
+    }
+
+    function closeEditSubCat() {
+        modalEditSubCat.classList.remove('open');
+    }
+    editSubCats.forEach(editSubCat => editSubCat.addEventListener('click', showEditSubCat))
+
+    modalEditSubCatClose.addEventListener('click', closeEditSubCat);
+    modalContainerEditSubCat.addEventListener('click', function () {
+        event.stopPropagation()
+    })
+</script>
+
+<script>
+    const editCats = document.querySelectorAll('.js-edit-cat')
+    const modalEditCat = document.querySelector(".js-modal-edit-cat");
+    const modalEditCatClose = document.querySelector(".js-modal-close-edit-cat");
+    const modalContainerEditCat = document.querySelector('.js-modal-container-edit-cat');
+
+
+    function showEditCat() {
+        modalEditCat.classList.add('open');
+    }
+
+    function closeEditCat() {
+        modalEditCat.classList.remove('open');
+    }
+    editCats.forEach(editCat => editCat.addEventListener('click', showEditCat))
+
+    modalEditCatClose.addEventListener('click', closeEditCat);
+    modalContainerEditCat.addEventListener('click', function () {
         event.stopPropagation()
     })
 </script>
@@ -227,6 +272,38 @@
     }
 
     .modal-sub-cat.open {
+        display: flex;
+    }
+
+    .modal-edit-sub-cat {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-edit-sub-cat.open {
+        display: flex;
+    }
+
+    .modal-edit-cat {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-edit-cat.open {
         display: flex;
     }
 
@@ -338,7 +415,7 @@
                 <div class="modify-cat">
                     <span class="js-add-sub-cat btn-fab btn-fab-sm shadow btn-info"
                         onclick="handleAddSubCategory(`{{_id}}`)"><i class="icon-add"></i></span>
-                    <span class="btn-fab btn-fab-sm shadow btn-warning" onclick="handleUpdateCategory(`{{_id}}`)"><i
+                    <span class="js-edit-cat btn-fab btn-fab-sm shadow btn-warning" onclick="handleUpdateCategory(`{{_id}}`)"><i
                             class="icon-edit"></i></span>
                     <span class="btn-fab btn-fab-sm shadow btn-danger" onclick="handleDeleteCategory(`{{_id}}`)"><i
                             class="icon-trash-can"></i></span>
@@ -354,7 +431,7 @@
                                 <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
                             </div>
                             <div>
-                                <span class="btn-fab btn-fab-sm shadow btn-warning"
+                                <span class="js-edit-sub-cat btn-fab btn-fab-sm shadow btn-warning"
                                     onclick="handleUpdateSubcategory(`{{../_id}}`, {{this}})"><i
                                         class="icon-edit"></i></span>
                                 <span class="btn-fab btn-fab-sm shadow btn-danger"
@@ -367,10 +444,7 @@
                 </ul>
             </div>
         </li>
-
-
         {{/each}}
-
     </ul>
 </div>
 
@@ -417,6 +491,54 @@
 
             <button id="add-cat">
                 Add <i></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-edit-sub-cat js-modal-edit-sub-cat">
+    <div class="modal-container js-modal-container-edit-sub-cat">
+        <div class="modal-close js-modal-close-edit-sub-cat">
+            <i class="icon-close"></i>
+        </div>
+        <header class="modal-header-cat">
+            <i class="i-header icon-goals-1 s-24"></i>
+            Edit Sub Category
+        </header>
+
+        <div class="modal-body-cat">
+            <label for="nameCat" class="modal-label-cat">
+
+                <h4><i class="icon-goals-1 s-24"></i>Name</h4>
+            </label>
+            <input type="text" id="nameCat" class="modal-input-cat" placeholder="" required>
+
+            <button id="add-cat">
+                Edit <i></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-edit-cat js-modal-edit-cat">
+    <div class="modal-container js-modal-container-edit-cat">
+        <div class="modal-close js-modal-close-edit-cat">
+            <i class="icon-close"></i>
+        </div>
+        <header class="modal-header-cat">
+            <i class="i-header icon-goals-1 s-24"></i>
+            Edit Category
+        </header>
+
+        <div class="modal-body-cat">
+            <label for="nameCat" class="modal-label-cat">
+
+                <h4><i class="icon-goals-1 s-24"></i>Name</h4>
+            </label>
+            <input type="text" id="nameCat" class="modal-input-cat" placeholder="" required>
+
+            <button id="add-cat">
+                Edit <i></i>
             </button>
         </div>
     </div>
