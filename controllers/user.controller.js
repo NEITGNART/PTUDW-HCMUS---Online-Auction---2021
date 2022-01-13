@@ -23,6 +23,7 @@ export default {
 
     async verify(req, res) {
 
+
         const otp = "" + req.query.otp;
 
         const user = await User.findOne({
@@ -49,9 +50,6 @@ export default {
     async postProduct(req, res) {
         // get all categories
         const categories = await CategoryModel.find({}).lean();
-
-        console.log(categories);
-
         res.render('postProduct', {
             categories
         });
@@ -75,7 +73,7 @@ export default {
 
             const images = req.files.map(file => file.path);
 
-            console.log(req.body);
+
 
             // create a set
             const set = new Set(images);
@@ -85,18 +83,27 @@ export default {
 
             let categorySaveInProduct = [];
 
-            for (let i = 0; i < req.body.category.length; i++) {
+            // check that category is String or Array
 
-                req.body.category[i] = req.body.category[i].split(',');
-                const category = req.body.category[i][1];
-                const subCategory = req.body.category[i][0];
+            if (typeof req.body.category === 'string') {
+                // split category with ,
+                const category = req.body.category.split(',');
+                hashMap[category[1]] = category[0];
+            } else {
+                for (let i = 0; i < req.body.category.length; i++) {
+                    var temp = req.body.category[i].split(',');
+                    const category = temp[1];
+                    const subCategory = temp[0];
 
-                if (hashMap[category]) {
-                    hashMap[category].push(subCategory);
-                } else {
-                    hashMap[category] = [subCategory];
+                    if (hashMap[category]) {
+                        hashMap[category].push(subCategory);
+                    } else {
+                        hashMap[category] = [subCategory];
+                    }
                 }
             }
+
+
 
             // loop through hashmap
             for (let key in hashMap) {
@@ -118,13 +125,25 @@ export default {
                 }
             });
 
+            console.log(category);
             // adding number of subcategory to each category
-            for (let i = 0; i < category.length; i++) {
-                category[i].amount++;
-                for (let j = 0; j < category[i].subCat.length; j++) {
-                    const temp = hashMap[category[i].name]
-                    if (temp.includes(category[i].subCat[j])) {
-                        category[i].amountSubCat[j]++;
+
+            if (typeof req.body.category === 'string') {
+                for (let i = 0; i < category.length; i++) {
+                    category[i].amount++;
+                    const tmp = hashMap[category[i].name];
+                    // find index subCat with value is same as tmp
+                    const index = category[i].subCat.findIndex(subCat => subCat === tmp);
+                    category[i].amountSubCat[index]++;
+                }
+            } else {
+                for (let i = 0; i < category.length; i++) {
+                    category[i].amount++;
+                    for (let j = 0; j < category[i].subCat.length; j++) {
+                        const temp = hashMap[category[i].name]
+                        if (temp.includes(category[i].subCat[j])) {
+                            category[i].amountSubCat[j]++;
+                        }
                     }
                 }
             }
@@ -200,7 +219,6 @@ export default {
                             email: req.body.email
                         }
                     });
-                    console.log(checkEmail);
                     if (!checkEmail || checkEmail._id === user._id) {
                         user.profile.email = req.body.email;
                     }
@@ -239,8 +257,6 @@ export default {
                     nItems = itemswon.length;
                 }
                 if (res.locals.userLocal) {
-                    console.log(typeof (res.locals.userLocal._id));
-                    console.log(res.locals.userLocal._id.toString());
                     isOwner = (id === res.locals.userLocal._id.toString());
                 }
 
