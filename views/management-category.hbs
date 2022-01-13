@@ -42,6 +42,29 @@
 
     </script>
 
+
+    <script>
+        const addSubCats = document.querySelectorAll('.js-add-sub-cat')
+        const modalSubCat = document.querySelector(".js-modal-sub-cat");
+        const modalSubCatClose = document.querySelector(".js-modal-close-sub-cat");
+        const modalContainerSubCat = document.querySelector('.js-modal-container-sub-cat');
+        
+
+        function showAddSubCat() {
+            modalSubCat.classList.add('open');
+        }
+
+        function closeAddSubCat() {
+            modalSubCat.classList.remove('open');
+        }
+        addSubCats.forEach(addSubCat => addSubCat.addEventListener('click',showAddSubCat))
+
+        modalSubCatClose.addEventListener('click',closeAddSubCat);
+        modalContainerSubCat.addEventListener('click', function () {
+            event.stopPropagation()
+        })
+    </script>
+
 {{/section}}
 
 <style>
@@ -109,6 +132,22 @@
     }
 
     .modal-cat.open {
+        display: flex;
+    }
+
+    .modal-sub-cat {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-sub-cat.open {
         display: flex;
     }
 
@@ -218,7 +257,7 @@
                         <span class="btn-fab btn-fab-sm shadow btn-success">{{amount}}</span>
                     </div>
                     <div class="modify-cat">
-                        <span class="btn-fab btn-fab-sm shadow btn-info"
+                        <span class="js-add-sub-cat btn-fab btn-fab-sm shadow btn-info"
                               onclick="handleAddSubCategory(`{{../name}}`)"><i class="icon-add"></i></span>
                         <span class="btn-fab btn-fab-sm shadow btn-warning"
                               onclick="handleUpdateCategory(`{{../name}}`)"><i class="icon-edit"></i></span>
@@ -259,6 +298,30 @@
 <div class="modal-cat js-modal-cat">
     <div class="modal-container js-modal-container">
         <div class="modal-close js-modal-close">
+            <i class="icon-close"></i>
+        </div>
+        <header class="modal-header-cat">
+            <i class="i-header icon-goals-1 s-24"></i>
+            Category
+        </header>
+
+        <div class="modal-body-cat">
+            <label for="nameCat" class="modal-label-cat">
+
+                <h4><i class="icon-goals-1 s-24"></i>Name</h4>
+            </label>
+            <input type="text" id="nameCat" class="modal-input-cat" placeholder="" required>
+
+            <button id="add-cat">
+                Add <i></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-sub-cat js-modal-sub-cat">
+    <div class="modal-container js-modal-container-sub-cat">
+        <div class="modal-close js-modal-close-sub-cat">
             <i class="icon-close"></i>
         </div>
         <header class="modal-header-cat">
