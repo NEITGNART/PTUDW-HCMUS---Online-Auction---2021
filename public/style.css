@@ -61,6 +61,8 @@ a:link {
   background-color: #ffffff;
   width: 300px;
   max-width: 300px;
+  position: relative;
+
 }
 
 .auction-item-thumb {
@@ -237,7 +239,7 @@ start-time {
 }
 
 .fa-1x5 {
-  font-size:1.5em;
+  font-size: 1.5em;
 }
 
 @media (max-width:575) {

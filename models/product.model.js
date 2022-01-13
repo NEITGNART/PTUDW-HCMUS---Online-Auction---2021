@@ -73,7 +73,7 @@ const ProductSchema = new mongoose.Schema({
 
 ProductSchema.index({
     name: 'text',
-    description: 'text'
+    category: 'text'
 });
 
 export default mongoose.model('product', ProductSchema, 'products');

@@ -171,6 +171,8 @@ const productController = {
             const productRelativeItem = productRelative[i];
             const user = await UserModel.findById(productRelativeItem.seller).lean();
             productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
+            var diff = moment.duration(moment(productRelativeItem.sellDate).diff(moment())).asHours();
+            productRelativeItem.isNew = 0 < diff && diff > 24;
             productRelativeItem.sellDate = moment(productRelativeItem.sellDate).format('HH:MM DD/MM/YYYY');
             productRelativeItem.expDate = moment(productRelativeItem.expDate).format("YYYY-MM-DD HH:MM:SS");
             productRelativeItem.expDate = "" + moment(productRelativeItem.expDate).valueOf();
@@ -181,6 +183,7 @@ const productController = {
             productRelativeItem.username = user.profile.name;
             // product image is the first element
             productRelativeItem.image = productRelativeItem.images[0];
+
         }
 
 
@@ -205,6 +208,8 @@ const productController = {
             const productRelativeItem = productRelative[i];
             const user = await UserModel.findById(productRelativeItem.seller).lean();
             productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
+            var diff = moment.duration(moment(productRelativeItem.sellDate).diff(moment())).asHours();
+            productRelativeItem.isNew = 0 < diff && diff > 24;
             productRelativeItem.sellDate = moment(productRelativeItem.sellDate).format('HH:MM DD/MM/YYYY');
             productRelativeItem.expDate = moment(productRelativeItem.expDate).format("YYYY-MM-DD HH:MM:SS");
             productRelativeItem.expDate = "" + moment(productRelativeItem.expDate).valueOf();
@@ -215,6 +220,7 @@ const productController = {
             productRelativeItem.username = user.profile.name;
             // product image is the first element
             productRelativeItem.image = productRelativeItem.images[0];
+
         }
 
 
@@ -236,6 +242,8 @@ const productController = {
             const productRelativeItem = productRelative[i];
             const user = await UserModel.findById(productRelativeItem.seller).lean();
             productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
+            var diff = moment.duration(moment(productRelativeItem.sellDate).diff(moment())).asHours();
+            productRelativeItem.isNew = 0 < diff && diff > 24;
             productRelativeItem.sellDate = moment(productRelativeItem.sellDate).format('HH:MM DD/MM/YYYY');
             productRelativeItem.expDate = moment(productRelativeItem.expDate).format("YYYY-MM-DD HH:MM:SS");
             productRelativeItem.expDate = "" + moment(productRelativeItem.expDate).valueOf();
@@ -246,6 +254,7 @@ const productController = {
             productRelativeItem.username = user.profile.name;
             // product image is the first element
             productRelativeItem.image = productRelativeItem.images[0];
+
         }
 
 
@@ -391,6 +400,8 @@ const productController = {
             const productRelativeItem = productRelative[i];
             const user = await UserModel.findById(productRelativeItem.seller).lean();
             productRelativeItem.numberBidders = productRelativeItem.historyBidId.length;
+            var diff = moment.duration(moment(productRelativeItem.sellDate).diff(moment())).asHours();
+            productRelativeItem.isNew = diff > 0 && diff < 24;
             productRelativeItem.sellDate = moment(productRelativeItem.sellDate).format('HH:MM DD/MM/YYYY');
             productRelativeItem.expDate = moment(productRelativeItem.expDate).format("YYYY-MM-DD HH:MM:SS");
             productRelativeItem.expDate = "" + moment(productRelativeItem.expDate).valueOf();
@@ -413,11 +424,16 @@ const productController = {
             username = res.locals.userLocal.profile.name;
             id = res.locals.userLocal._id;
             const myMap = new Map();
+            const myMap2 = new Map();
             for (const wish of res.locals.userLocal.wishlist) {
                 myMap.set(wish, wish);
             }
+            for (const current of currentList) {
+                myMap2.set(current.idProduct, current.idProduct);
+            }
             for (let i = 0; i < productRelative.length; i++) {
                 productRelative[i].isWishlist = '' + productRelative[i]._id === '' + myMap.get(productRelative[i]._id + "");
+                productRelative[i].isBidding = '' + productRelative[i]._id === '' + myMap2.get(productRelative[i]._id + "");
             }
         }
 
@@ -584,10 +600,12 @@ const productController = {
 
 
         for (let i = 0; i < products.length; i++) {
-
+            var diff = moment.duration(moment(products[i].sellDate).diff(moment())).asHours();
+            products[i].isNew = diff > 0 && diff < 24;
             products[i].expDate = moment(products[i].expDate).format("YYYY-MM-DD HH:MM:SS");
             products[i].expDate = "" + moment(products[i].expDate).valueOf();
             products[i].sellDate = moment(products[i].sellDate).format("HH:MM-DD/MM/YYYY");
+
             products[i].currentWinner = undefined;
             products[i].numberBidders = products[i].historyBidId.length;
             if (products[i].historyBidId.length > 0) {
@@ -597,22 +615,29 @@ const productController = {
                     products[i].currentWinner = maskInfo(user.profile.name);
                 }
             }
+
         }
 
         let username = undefined;
         let id = undefined;
         if (res.locals.userLocal) {
             username = res.locals.userLocal.profile.name;
+            currentList = res.locals.userLocal.currentBiddingList;
             id = res.locals.userLocal.id;
             const myMap = new Map();
+            const myMap2 = new Map();
             for (const wish of res.locals.userLocal.wishlist) {
                 myMap.set(wish, wish);
             }
+            for (const current of currentList) {
+                myMap2.set(current.idProduct, current.idProduct);
+            }
             for (let i = 0; i < products.length; i++) {
                 products[i].isWishlist = '' + products[i]._id === '' + myMap.get(products[i]._id + "");
+                products[i].isBidding = '' + products[i]._id === '' + myMap2.get(products[i]._id + "");
             }
         }
-        // wait for all async function to finish
+        // wait for all async function to finish=
         await Promise.all(products).then(() => {
             res.render('product', {
                 products,

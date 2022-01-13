@@ -2,7 +2,9 @@ import User from '../models/user.model.js';
 import WinnigBid from '../models/winning.model.js';
 import bcrypt from 'bcrypt';
 import cloudinary from '../utils/cloudinary.js'
-import {CloudinaryStorage} from "multer-storage-cloudinary"
+import {
+    CloudinaryStorage
+} from "multer-storage-cloudinary"
 import multer from "multer";
 import Product from '../models/product.model.js'
 import moment from 'moment';
@@ -346,8 +348,14 @@ export default {
             for (const wish of user.wishlist) {
                 myMap.set(wish, wish);
             }
+            const currentList = res.locals.userLocal.currentBiddingList;
+            const myMap2 = new Map();
+            for (const current of currentList) {
+                myMap2.set(current.idProduct, current.idProduct);
+            }
             for (let i = 0; i < currentProducts.length; i++) {
                 currentProducts[i].isWishlist = '' + currentProducts[i]._id === '' + myMap.get(currentProducts[i]._id + "");
+                currentProducts[i].isBidding = '' + currentProducts[i]._id === '' + myMap2.get(currentProducts[i]._id + "");
             }
             res.render('myBid', {
                 user: user,
@@ -381,8 +389,14 @@ export default {
             for (const wish of user.wishlist) {
                 myMap.set(wish, wish);
             }
+            const currentList = res.locals.userLocal.currentBiddingList;
+            const myMap2 = new Map();
+            for (const current of currentList) {
+                myMap2.set(current.idProduct, current.idProduct);
+            }
             for (let i = 0; i < winnignProducts.length; i++) {
                 winnignProducts[i].isWishlist = '' + winnignProducts[i]._id === '' + myMap.get(winnignProducts[i]._id + "");
+                winnignProducts[i].isBidding = '' + winnignProducts[i]._id === '' + myMap2.get(winnignProducts[i]._id + "");
             }
             res.render('winningBid', {
                 user: user,
@@ -437,8 +451,14 @@ export default {
             for (const wish of user.wishlist) {
                 myMap.set(wish, wish);
             }
+            const currentList = res.locals.userLocal.currentBiddingList;
+            const myMap2 = new Map();
+            for (const current of currentList) {
+                myMap2.set(current.idProduct, current.idProduct);
+            }
             for (let i = 0; i < productList.length; i++) {
                 productList[i].isWishlist = '' + productList[i]._id === '' + myMap.get(productList[i]._id + "");
+                productList[i].isBidding = '' + productList[i]._id === '' + myMap2.get(productList[i]._id + "");
             }
             res.render('myProduct', {
                 user: user,

@@ -16,124 +16,155 @@
         <div class="container">
             <div class="row autoplay">
                 {{#each productRelativeEnding}}
-                    <div class="col mx-4 mr-5 ml-1 pb-5">
+                <div class="col mx-4 mr-5 ml-1 pb-5">
 
-                        <div class="auction-item">
-                            <div class="auction-item-thumb">
+                    <div class="auction-item">
+                        {{#if isNew}}
+                        <div style="color: aliceblue;
+                                    padding: 5px 5px;
+                                    margin: 5px 5px;
+                                    border-radius:15px;
+                                    background-color: rgb(20, 204, 228);
+                                    position: absolute;
+                                    left: 0px;
+                                    top: 0px;
+                                    z-index: 10;">
+                            NEW
+                            <i class="fas fa-splotch" style="color: rgb(243, 239, 10);"></i>
+                        </div>
+                        {{/if}}
 
-                                <a class="thumb-img" href="/product/detail?id={{_id}}">
+                        {{#if isBidding}}
+                        <div style="color: aliceblue;
+                                    padding: 5px 5px;
+                                    margin: 5px 5px;
+                                    border-radius:15px;
+                                    background-color: rgb(13, 219, 65);
+                                    position: absolute;
+                                    left: 0px;
+                                    top: 33%;
+                                    z-index: 10;">
+                            BIDDING
+                            <i class="fas fa-hourglass" style="color: rgb(248, 53, 238);"></i>
+                        </div>
+                        {{/if}}
+                        <div class="auction-item-thumb">
+
+                            <a class="thumb-img" href="/product/detail?id={{_id}}">
                                 <img src={{getThumbnail images}} alt="item">
-                                </a>
+                            </a>
 
 
-                                {{#if ../username}}
+                            {{#if ../username}}
 
-                                    {{#if isWishlist}}
+                            {{#if isWishlist}}
 
-                                        <a class="star-icon thumb-icon" style="cursor: pointer"
-                                           onclick="handledWishlist(`{{this._id}}`)">
-                                            <button class="btn btn-heart d-inline-block" style="position: relative;"><i
-                                                    class="icon-heart fa fa-heart" aria-hidden="true"
-                                                    style="position: absolute;left: 6px;top: 6.9px; color: red;"
-                                                    id="fa-{{this._id}}"></i>
-                                            </button>
-                                        </a>
-                                    {{else}}
+                            <a class="star-icon thumb-icon" style="cursor: pointer"
+                                onclick="handledWishlist(`{{this._id}}`)">
+                                <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                        class="icon-heart fa fa-heart" aria-hidden="true"
+                                        style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                        id="fa-{{this._id}}"></i>
+                                </button>
+                            </a>
+                            {{else}}
 
-                                        <a class="star-icon thumb-icon" style="cursor: pointer"
-                                           onclick="handledWishlist(`{{this._id}}`)">
-                                            <button class="btn btn-heart d-inline-block" style="position: relative;"><i
-                                                    class="icon-heart far fa-heart" aria-hidden="true"
-                                                    style="position: absolute;left: 6px;top: 6.9px; color: red;"
-                                                    id="fa-{{this._id}}"></i>
-                                            </button>
-                                        </a>
+                            <a class="star-icon thumb-icon" style="cursor: pointer"
+                                onclick="handledWishlist(`{{this._id}}`)">
+                                <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                        class="icon-heart far fa-heart" aria-hidden="true"
+                                        style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                        id="fa-{{this._id}}"></i>
+                                </button>
+                            </a>
 
-                                    {{/if}}
+                            {{/if}}
 
-                                {{/if}}
-
-
-                            </div>
-                            <div class="auction-item-content">
-                                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px; color:blue; font-weight: 600;">
-                                    {{name}}
-                                </div>
-
-                                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color:black; font-weight: 550;">
-                                    Ngày bán: {{sellDate}}
-                                </div>
-
-                                {{#if currentWinner}}
-                                    <div style="color:black; font-weight: 550;">
-                                        Người đang trả giá cao nhất:<br>{{currentWinner}}
-                                    </div>
-                                {{else}}
-                                    <div style="color:black; font-weight: 550;">
-                                        Hãy là người đầu tiên trả giá:<br>&nbsp;
-                                    </div>
-                                {{/if}}
-
-
-                                <div class="bid-area d-flex justify-content-center">
-                                    <div class="bid-amount current-price d-flex">
-                                        <div class="icon">
-                                            <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="amount-content">
-                                            <div class="current">
-                                                Giá hiện tại
-                                            </div>
-                                            <div class="amount">
-                                                {{commaNumber currentPrice}}
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="bid-amount buy-price d-flex">
-                                        <div class="icon">
-                                            <i class="fas fa-money-bill-wave fa-1x5"></i>
-                                        </div>
-
-                                        <div class="amount-content">
-                                            <div class="buy">
-                                                Mua ngay
-                                            </div>
-                                            {{#if bestPrice}}
-                                                <div class="amount">
-                                                    {{commaNumber bestPrice}}
-                                                </div>
-                                            {{else}}
-                                                <div class="amount">
-                                                    ---
-                                                </div>
-                                            {{/if}}
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                                <div class="countdown-area d-flex ">
-                                    <div class="expDate" hidden>{{this.expDate}}</div>
-                                    <div class="{{this._id}} countdown product-one">
-                                    </div>
-                                    <span class="total-bids">
-                  {{numberBidders}} bids
-                </span>
-                                </div>
-                                <div class="bid-now" type="button">
-                                    <a style="cursor: pointer" onclick="handleSubmit(`{{this._id}}`)">
-                                        Bid now
-                                    </a>
-                                </div>
-                            </div>
+                            {{/if}}
 
 
                         </div>
+                        <div class="auction-item-content">
+                            <div
+                                style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px; color:blue; font-weight: 600;">
+                                {{name}}
+                            </div>
+
+                            <div
+                                style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color:black; font-weight: 550;">
+                                Ngày bán: {{sellDate}}
+                            </div>
+
+                            {{#if currentWinner}}
+                            <div style="color:black; font-weight: 550;">
+                                Người đang trả giá cao nhất:<br>{{currentWinner}}
+                            </div>
+                            {{else}}
+                            <div style="color:black; font-weight: 550;">
+                                Hãy là người đầu tiên trả giá:<br>&nbsp;
+                            </div>
+                            {{/if}}
+
+
+                            <div class="bid-area d-flex justify-content-center">
+                                <div class="bid-amount current-price d-flex">
+                                    <div class="icon">
+                                        <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="amount-content">
+                                        <div class="current">
+                                            Giá hiện tại
+                                        </div>
+                                        <div class="amount">
+                                            {{commaNumber currentPrice}}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="bid-amount buy-price d-flex">
+                                    <div class="icon">
+                                        <i class="fas fa-money-bill-wave fa-1x5"></i>
+                                    </div>
+
+                                    <div class="amount-content">
+                                        <div class="buy">
+                                            Mua ngay
+                                        </div>
+                                        {{#if bestPrice}}
+                                        <div class="amount">
+                                            {{commaNumber bestPrice}}
+                                        </div>
+                                        {{else}}
+                                        <div class="amount">
+                                            ---
+                                        </div>
+                                        {{/if}}
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="countdown-area d-flex ">
+                                <div class="expDate" hidden>{{this.expDate}}</div>
+                                <div class="{{this._id}} countdown product-one">
+                                </div>
+                                <span class="total-bids">
+                                    {{numberBidders}} bids
+                                </span>
+                            </div>
+                            <div class="bid-now" type="button">
+                                <a style="cursor: pointer" onclick="handleSubmit(`{{this._id}}`)">
+                                    Bid now
+                                </a>
+                            </div>
+                        </div>
+
+
                     </div>
+                </div>
                 {{/each}}
 
 
@@ -157,125 +188,157 @@
         <div class="container">
             <div class="row autoplay">
                 {{#each productRelativeBidding}}
-                    <div class="col mx-4 mr-5 ml-1 pb-5">
+                <div class="col mx-4 mr-5 ml-1 pb-5">
 
-                        <div class="auction-item">
-                            <div class="auction-item-thumb">
+                    <div class="auction-item">
+                        {{#if isNew}}
+                        <div style="color: aliceblue;
+                                    padding: 5px 5px;
+                                    margin: 5px 5px;
+                                    border-radius:15px;
+                                    background-color: rgb(20, 204, 228);
+                                    position: absolute;
+                                    left: 0px;
+                                    top: 0px;
+                                    z-index: 10;">
+                            NEW
+                            <i class="fas fa-splotch" style="color: rgb(243, 239, 10);"></i>
+                        </div>
+                        {{/if}}
 
-                                <a class="thumb-img" href="/product/detail?id={{_id}}">
+                        {{#if isBidding}}
+                        <div style="color: aliceblue;
+                                    padding: 5px 5px;
+                                    margin: 5px 5px;
+                                    border-radius:15px;
+                                    background-color: rgb(13, 219, 65);
+                                    position: absolute;
+                                    left: 0px;
+                                    top: 33%;
+                                    z-index: 10;">
+                            BIDDING
+                            <i class="fas fa-hourglass" style="color: rgb(248, 53, 238);"></i>
+                        </div>
+                        {{/if}}
+
+                        <div class="auction-item-thumb">
+
+                            <a class="thumb-img" href="/product/detail?id={{_id}}">
                                 <img src={{getThumbnail images}} alt="item">
-                                </a>
+                            </a>
 
 
-                                {{#if ../username}}
+                            {{#if ../username}}
 
-                                    {{#if isWishlist}}
+                            {{#if isWishlist}}
 
-                                        <a class="star-icon thumb-icon" style="cursor: pointer"
-                                           onclick="handledWishlist(`{{this._id}}`)">
-                                            <button class="btn btn-heart d-inline-block" style="position: relative;"><i
-                                                    class="icon-heart fa fa-heart" aria-hidden="true"
-                                                    style="position: absolute;left: 6px;top: 6.9px; color: red;"
-                                                    id="fa-{{this._id}}"></i>
-                                            </button>
-                                        </a>
-                                    {{else}}
+                            <a class="star-icon thumb-icon" style="cursor: pointer"
+                                onclick="handledWishlist(`{{this._id}}`)">
+                                <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                        class="icon-heart fa fa-heart" aria-hidden="true"
+                                        style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                        id="fa-{{this._id}}"></i>
+                                </button>
+                            </a>
+                            {{else}}
 
-                                        <a class="star-icon thumb-icon" style="cursor: pointer"
-                                           onclick="handledWishlist(`{{this._id}}`)">
-                                            <button class="btn btn-heart d-inline-block" style="position: relative;"><i
-                                                    class="icon-heart far fa-heart" aria-hidden="true"
-                                                    style="position: absolute;left: 6px;top: 6.9px; color: red;"
-                                                    id="fa-{{this._id}}"></i>
-                                            </button>
-                                        </a>
+                            <a class="star-icon thumb-icon" style="cursor: pointer"
+                                onclick="handledWishlist(`{{this._id}}`)">
+                                <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                        class="icon-heart far fa-heart" aria-hidden="true"
+                                        style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                        id="fa-{{this._id}}"></i>
+                                </button>
+                            </a>
 
-                                    {{/if}}
+                            {{/if}}
 
-                                {{/if}}
-
-
-                            </div>
-                            <div class="auction-item-content">
-                                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px; color:blue; font-weight: 600;">
-                                    {{name}}
-                                </div>
-
-                                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color:black; font-weight: 550;">
-                                    Ngày bán: {{sellDate}}
-                                </div>
-
-                                {{#if currentWinner}}
-                                    <div style="color:black; font-weight: 550;">
-                                        Người đang trả giá cao nhất:<br>{{currentWinner}}
-                                    </div>
-                                {{else}}
-                                    <div style="color:black; font-weight: 550;">
-                                        Hãy là người đầu tiên trả giá:<br>&nbsp;
-                                    </div>
-                                {{/if}}
-
-
-                                <div class="bid-area d-flex justify-content-center">
-                                    <div class="bid-amount current-price d-flex">
-                                        <div class="icon">
-                                            <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="amount-content">
-                                            <div class="current">
-                                                Giá hiện tại
-                                            </div>
-                                            <div class="amount">
-                                                {{commaNumber currentPrice}}
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="bid-amount buy-price d-flex">
-                                        <div class="icon">
-                                            <i class="fas fa-money-bill-wave fa-1x5"></i>
-                                        </div>
-
-                                        <div class="amount-content">
-                                            <div class="buy">
-                                                Mua ngay
-                                            </div>
-                                            {{#if bestPrice}}
-                                                <div class="amount">
-                                                    {{commaNumber bestPrice}}
-                                                </div>
-                                            {{else}}
-                                                <div class="amount">
-                                                    ---
-                                                </div>
-                                            {{/if}}
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                                <div class="countdown-area d-flex ">
-                                    <div class="expDate" hidden>{{this.expDate}}</div>
-                                    <div class="{{this._id}} countdown product-one">
-                                    </div>
-                                    <span class="total-bids">
-                  {{numberBidders}} bids
-                </span>
-                                </div>
-                                <div class="bid-now" type="button">
-                                    <a style="cursor: pointer" onclick="handleSubmit(`{{this._id}}`)">
-                                        Bid now
-                                    </a>
-                                </div>
-                            </div>
+                            {{/if}}
 
 
                         </div>
-                        {{!--End Item --}}
+                        <div class="auction-item-content">
+                            <div
+                                style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px; color:blue; font-weight: 600;">
+                                {{name}}
+                            </div>
+
+                            <div
+                                style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color:black; font-weight: 550;">
+                                Ngày bán: {{sellDate}}
+                            </div>
+
+                            {{#if currentWinner}}
+                            <div style="color:black; font-weight: 550;">
+                                Người đang trả giá cao nhất:<br>{{currentWinner}}
+                            </div>
+                            {{else}}
+                            <div style="color:black; font-weight: 550;">
+                                Hãy là người đầu tiên trả giá:<br>&nbsp;
+                            </div>
+                            {{/if}}
+
+
+                            <div class="bid-area d-flex justify-content-center">
+                                <div class="bid-amount current-price d-flex">
+                                    <div class="icon">
+                                        <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="amount-content">
+                                        <div class="current">
+                                            Giá hiện tại
+                                        </div>
+                                        <div class="amount">
+                                            {{commaNumber currentPrice}}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="bid-amount buy-price d-flex">
+                                    <div class="icon">
+                                        <i class="fas fa-money-bill-wave fa-1x5"></i>
+                                    </div>
+
+                                    <div class="amount-content">
+                                        <div class="buy">
+                                            Mua ngay
+                                        </div>
+                                        {{#if bestPrice}}
+                                        <div class="amount">
+                                            {{commaNumber bestPrice}}
+                                        </div>
+                                        {{else}}
+                                        <div class="amount">
+                                            ---
+                                        </div>
+                                        {{/if}}
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="countdown-area d-flex ">
+                                <div class="expDate" hidden>{{this.expDate}}</div>
+                                <div class="{{this._id}} countdown product-one">
+                                </div>
+                                <span class="total-bids">
+                                    {{numberBidders}} bids
+                                </span>
+                            </div>
+                            <div class="bid-now" type="button">
+                                <a style="cursor: pointer" onclick="handleSubmit(`{{this._id}}`)">
+                                    Bid now
+                                </a>
+                            </div>
+                        </div>
+
+
                     </div>
+                    {{!--End Item --}}
+                </div>
                 {{/each}}
 
 
@@ -297,125 +360,156 @@
         <div class="container">
             <div class="row autoplay">
                 {{#each productRelativePricing}}
-                    <div class="col mx-4 mr-5 ml-1 pb-5">
+                <div class="col mx-4 mr-5 ml-1 pb-5">
 
-                        <div class="auction-item">
-                            <div class="auction-item-thumb">
+                    <div class="auction-item">
+                        {{#if isNew}}
+                        <div style="color: aliceblue;
+                                    padding: 5px 5px;
+                                    margin: 5px 5px;
+                                    border-radius:15px;
+                                    background-color: rgb(20, 204, 228);
+                                    position: absolute;
+                                    left: 0px;
+                                    top: 0px;
+                                    z-index: 10;">
+                            NEW
+                            <i class="fas fa-splotch" style="color: rgb(243, 239, 10);"></i>
+                        </div>
+                        {{/if}}
 
-                                <a class="thumb-img" href="/product/detail?id={{_id}}">
+                        {{#if isBidding}}
+                        <div style="color: aliceblue;
+                                    padding: 5px 5px;
+                                    margin: 5px 5px;
+                                    border-radius:15px;
+                                    background-color: rgb(13, 219, 65);
+                                    position: absolute;
+                                    left: 0px;
+                                    top: 33%;
+                                    z-index: 10;">
+                            BIDDING
+                            <i class="fas fa-hourglass" style="color: rgb(248, 53, 238);"></i>
+                        </div>
+                        {{/if}}
+                        <div class="auction-item-thumb">
+
+                            <a class="thumb-img" href="/product/detail?id={{_id}}">
                                 <img src={{getThumbnail images}} alt="item">
-                                </a>
+                            </a>
 
 
-                                {{#if ../username}}
+                            {{#if ../username}}
 
-                                    {{#if isWishlist}}
+                            {{#if isWishlist}}
 
-                                        <a class="star-icon thumb-icon" style="cursor: pointer"
-                                           onclick="handledWishlist(`{{this._id}}`)">
-                                            <button class="btn btn-heart d-inline-block" style="position: relative;"><i
-                                                    class="icon-heart fa fa-heart" aria-hidden="true"
-                                                    style="position: absolute;left: 6px;top: 6.9px; color: red;"
-                                                    id="fa-{{this._id}}"></i>
-                                            </button>
-                                        </a>
-                                    {{else}}
+                            <a class="star-icon thumb-icon" style="cursor: pointer"
+                                onclick="handledWishlist(`{{this._id}}`)">
+                                <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                        class="icon-heart fa fa-heart" aria-hidden="true"
+                                        style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                        id="fa-{{this._id}}"></i>
+                                </button>
+                            </a>
+                            {{else}}
 
-                                        <a class="star-icon thumb-icon" style="cursor: pointer"
-                                           onclick="handledWishlist(`{{this._id}}`)">
-                                            <button class="btn btn-heart d-inline-block" style="position: relative;"><i
-                                                    class="icon-heart far fa-heart" aria-hidden="true"
-                                                    style="position: absolute;left: 6px;top: 6.9px; color: red;"
-                                                    id="fa-{{this._id}}"></i>
-                                            </button>
-                                        </a>
+                            <a class="star-icon thumb-icon" style="cursor: pointer"
+                                onclick="handledWishlist(`{{this._id}}`)">
+                                <button class="btn btn-heart d-inline-block" style="position: relative;"><i
+                                        class="icon-heart far fa-heart" aria-hidden="true"
+                                        style="position: absolute;left: 6px;top: 6.9px; color: red;"
+                                        id="fa-{{this._id}}"></i>
+                                </button>
+                            </a>
 
-                                    {{/if}}
+                            {{/if}}
 
-                                {{/if}}
-
-
-                            </div>
-                            <div class="auction-item-content">
-                                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px; color:blue; font-weight: 600;">
-                                    {{name}}
-                                </div>
-
-                                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color:black; font-weight: 550;">
-                                    Ngày bán: {{sellDate}}
-                                </div>
-
-                                {{#if currentWinner}}
-                                    <div style="color:black; font-weight: 550;">
-                                        Người đang trả giá cao nhất:<br>{{currentWinner}}
-                                    </div>
-                                {{else}}
-                                    <div style="color:black; font-weight: 550;">
-                                        Hãy là người đầu tiên trả giá:<br>&nbsp;
-                                    </div>
-                                {{/if}}
-
-
-                                <div class="bid-area d-flex justify-content-center">
-                                    <div class="bid-amount current-price d-flex">
-                                        <div class="icon">
-                                            <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="amount-content">
-                                            <div class="current">
-                                                Giá hiện tại
-                                            </div>
-                                            <div class="amount">
-                                                {{commaNumber currentPrice}}
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="bid-amount buy-price d-flex">
-                                        <div class="icon">
-                                            <i class="fas fa-money-bill-wave fa-1x5"></i>
-                                        </div>
-
-                                        <div class="amount-content">
-                                            <div class="buy">
-                                                Mua ngay
-                                            </div>
-                                            {{#if bestPrice}}
-                                                <div class="amount">
-                                                    {{commaNumber bestPrice}}
-                                                </div>
-                                            {{else}}
-                                                <div class="amount">
-                                                    ---
-                                                </div>
-                                            {{/if}}
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-                                <div class="countdown-area d-flex ">
-                                    <div class="expDate" hidden>{{this.expDate}}</div>
-                                    <div class="{{this._id}} countdown product-one">
-                                    </div>
-                                    <span class="total-bids">
-                  {{numberBidders}} bids
-                </span>
-                                </div>
-                                <div class="bid-now" type="button">
-                                    <a style="cursor: pointer" onclick="handleSubmit(`{{this._id}}`)">
-                                        Bid now
-                                    </a>
-                                </div>
-                            </div>
+                            {{/if}}
 
 
                         </div>
-                        {{!--End Item --}}
+                        <div class="auction-item-content">
+                            <div
+                                style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 270px; color:blue; font-weight: 600;">
+                                {{name}}
+                            </div>
+
+                            <div
+                                style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color:black; font-weight: 550;">
+                                Ngày bán: {{sellDate}}
+                            </div>
+
+                            {{#if currentWinner}}
+                            <div style="color:black; font-weight: 550;">
+                                Người đang trả giá cao nhất:<br>{{currentWinner}}
+                            </div>
+                            {{else}}
+                            <div style="color:black; font-weight: 550;">
+                                Hãy là người đầu tiên trả giá:<br>&nbsp;
+                            </div>
+                            {{/if}}
+
+
+                            <div class="bid-area d-flex justify-content-center">
+                                <div class="bid-amount current-price d-flex">
+                                    <div class="icon">
+                                        <i class="fa fa-gavel fa-2x" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="amount-content">
+                                        <div class="current">
+                                            Giá hiện tại
+                                        </div>
+                                        <div class="amount">
+                                            {{commaNumber currentPrice}}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="bid-amount buy-price d-flex">
+                                    <div class="icon">
+                                        <i class="fas fa-money-bill-wave fa-1x5"></i>
+                                    </div>
+
+                                    <div class="amount-content">
+                                        <div class="buy">
+                                            Mua ngay
+                                        </div>
+                                        {{#if bestPrice}}
+                                        <div class="amount">
+                                            {{commaNumber bestPrice}}
+                                        </div>
+                                        {{else}}
+                                        <div class="amount">
+                                            ---
+                                        </div>
+                                        {{/if}}
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="countdown-area d-flex ">
+                                <div class="expDate" hidden>{{this.expDate}}</div>
+                                <div class="{{this._id}} countdown product-one">
+                                </div>
+                                <span class="total-bids">
+                                    {{numberBidders}} bids
+                                </span>
+                            </div>
+                            <div class="bid-now" type="button">
+                                <a style="cursor: pointer" onclick="handleSubmit(`{{this._id}}`)">
+                                    Bid now
+                                </a>
+                            </div>
+                        </div>
+
+
                     </div>
+                    {{!--End Item --}}
+                </div>
                 {{/each}}
 
 
@@ -430,7 +524,7 @@
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
 </script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -490,11 +584,11 @@
         prevArrow: '<i class="fas fa-angle-left  left_arrow"></i>',
         nextArrow: '<i class="fas fa-angle-right right_arrow" ></i>',
         responsive: [{
-            breakpoint: 1440,
-            settings: {
-                slidesToShow: 3,
-            }
-        },
+                breakpoint: 1440,
+                settings: {
+                    slidesToShow: 3,
+                }
+            },
             {
                 breakpoint: 1200,
                 settings: {
@@ -514,6 +608,4 @@
     function handleSubmit(id) {
         window.location.href = `/product/detail/?id=${id}`;
     }
-
-  
 </script>
