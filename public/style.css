@@ -1397,15 +1397,24 @@ pagination {
 
 .img-home .text-content {
   position: absolute;
-  top: 50%;
+  top: 40%;
   color: white;
   width: 100%;
   text-align: center;
+  background: -webkit-linear-gradient(#f5317f, #5140fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* .text-content .text-heading {}
+.text-content .text-heading {
+  font-size: 4rem;
+  font-weight: 650;
+}
 
-.text-content .text-description {} */
+.text-content .text-description {
+  font-size: 2rem;
+  font-weight: 550;
+}
 
 
 .product-slider {
@@ -2373,3 +2382,4 @@ pagination {
 }
 
 /* ========================  Feedback ==========================*/
+
