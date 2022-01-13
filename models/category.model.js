@@ -8,13 +8,16 @@ const CategorySchema = new mongoose.Schema({
         unique: true,
     },
     amount: {
-        type: Number
+        type: Number,
+        default: 0
     },
     subCat: {
-        type: [String]
+        type: [String],
+        default: []
     },
     amountSubCat: {
-        type: [Number]
+        type: [Number],
+        default: []
     }
 })
 

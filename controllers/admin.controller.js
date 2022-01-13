@@ -97,6 +97,10 @@ const adminController = {
             users[i].isAdmin = users[i].type === 'admin';
         }
 
+        let stringQuery = req.query || {};
+        if (stringQuery.page)
+            delete stringQuery.page;
+
 
         res.render('management-user', {
             layout: 'admin',
@@ -146,6 +150,7 @@ const adminController = {
 
         for (let i = 0; i < user.wishlist.length; ++i) {
             const product = await ProductModel.findById(user.wishlist[i]).lean();
+            console.log(product);
             product.expDate = moment(product.expDate).format('DD/MM/YYYY');
             // join with users using product.seller
             product.seller = await UserModel.findById(product.seller).lean();

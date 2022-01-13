@@ -2,9 +2,7 @@ import User from '../models/user.model.js';
 import WinnigBid from '../models/winning.model.js';
 import bcrypt from 'bcrypt';
 import cloudinary from '../utils/cloudinary.js'
-import {
-    CloudinaryStorage
-} from "multer-storage-cloudinary"
+import {CloudinaryStorage} from "multer-storage-cloudinary"
 import multer from "multer";
 import Product from '../models/product.model.js'
 import moment from 'moment';
@@ -74,7 +72,6 @@ export default {
             const images = req.files.map(file => file.path);
 
 
-
             // create a set
             const set = new Set(images);
 
@@ -89,6 +86,9 @@ export default {
                 // split category with ,
                 const category = req.body.category.split(',');
                 hashMap[category[1]] = category[0];
+                categorySaveInProduct.push(category[0]);
+                categorySaveInProduct.push(category[1]);
+
             } else {
                 for (let i = 0; i < req.body.category.length; i++) {
                     var temp = req.body.category[i].split(',');
@@ -104,17 +104,19 @@ export default {
             }
 
 
+            if (typeof req.body.category === 'string') {
 
-            // loop through hashmap
-            for (let key in hashMap) {
-                // loop through sub key
-                for (let i = 0; i < hashMap[key].length; i++) {
-                    // push category object to categorySaveInProduct
-                    categorySaveInProduct.push(hashMap[key][i]);
+            } else {
+                // loop through hashmap
+                for (let key in hashMap) {
+                    // loop through sub key
+                    for (let i = 0; i < hashMap[key].length; i++) {
+                        // push category object to categorySaveInProduct
+                        categorySaveInProduct.push(hashMap[key][i]);
+                    }
+                    categorySaveInProduct.push(key);
                 }
-                categorySaveInProduct.push(key);
             }
-
             categorySaveInProduct = [...new Set(categorySaveInProduct)];
 
             // find category which has name is same as the key in hashmap
@@ -149,6 +151,9 @@ export default {
             for (let i = 0; i < category.length; i++) {
                 await CategoryModel.findByIdAndUpdate(category[i]._id, category[i]);
             }
+
+
+            console.log(categorySaveInProduct)
 
 
             const product = new Product({

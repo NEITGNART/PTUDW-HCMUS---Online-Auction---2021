@@ -9,6 +9,25 @@ router.route('/')
         res.render('dashboard-admin', {layout: 'admin'});
     });
 
+router.route('/addcategory') // done
+    .post(categoryController.create);
+
+router.route('/removecategory') // done
+    .post(categoryController.deleteCategory);
+
+router.route('/removesubcategory') // done
+    .post(categoryController.removeSubcategory);
+
+
+router.route('/addsubcategory') // done
+    .post(categoryController.createSubCategory);
+
+router.route('/updatecategory') // done
+    .post(categoryController.update);
+
+router.route('/updatesubcategory') // done
+    .post(categoryController.updateSubcategory);
+
 
 router.route('/user')
     .get((adminController.viewListUser));
