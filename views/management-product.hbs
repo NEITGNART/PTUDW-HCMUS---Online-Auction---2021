@@ -3,14 +3,15 @@
         function handleDelete(id) {
             alert('Delete product with id: ' + id);
             axios.post('/admin/remove', {id: id})
-                .then(function (response) {
-                    if (response.data.message === "Product deleted") {
-                        location.reload();
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                    .then(function (response) {
+                        if (response.data.message === "Product deleted") {
+                            location.reload();
+                        } else {
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
 
         }
 
@@ -34,6 +35,10 @@
 
     </script>
 {{/section}}
+
+
+
+
 
 {{#section 'css'}}
 
@@ -78,7 +83,10 @@
 
 {{/section}}
 <div class="container-fluid animatedParent animateOnce my-3">
+
+
     <div class="animated fadeInUpShort">
+
 
         <div class="row">
             <div class="col-md-12">
@@ -87,7 +95,6 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <tbody>
-
                                 {{#each products}}
 
                                     <tr>
@@ -129,12 +136,14 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a style="cursor: pointer" class="btn-fab btn-fab-sm btn-primary shadow text-white"><i
-                                                    class="icon-eye" ></i></a>
+                                            <a style="cursor: pointer"
+                                               class="btn-fab btn-fab-sm btn-primary shadow text-white"><i
+                                                    class="icon-eye"></i></a>
                                         </td>
 
                                         <td>
-                                            <a style="cursor: pointer" class="btn-fab btn-fab-sm btn-primary shadow text-white"><i
+                                            <a style="cursor: pointer"
+                                               class="btn-fab btn-fab-sm btn-primary shadow text-white"><i
                                                     class="icon-delete" onclick="handleDelete(`{{_id}}`)"></i></a>
                                         </td>
 
