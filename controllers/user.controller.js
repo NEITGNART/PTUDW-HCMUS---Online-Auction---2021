@@ -125,7 +125,6 @@ export default {
                 }
             });
 
-            console.log(category);
             // adding number of subcategory to each category
 
             if (typeof req.body.category === 'string') {
@@ -329,6 +328,8 @@ export default {
             const wishProducts = [];
             for (let i = 0; i < wishList.length; i++) {
                 wishProducts.push(await Product.findById(wishList[i]).lean());
+                var diff = moment.duration(moment(wishProducts[i].sellDate).diff(moment())).asHours();
+                wishProducts[i].isNew = (0 < Math.abs(diff)) && (Math.abs(diff) < 24);
                 wishProducts[i].expDate = moment(wishProducts[i].expDate).format("YYYY-MM-DD HH:MM:SS");
                 wishProducts[i].expDate = "" + moment(wishProducts[i].expDate).valueOf();
                 wishProducts[i].numberBidders = wishProducts[i].historyBidId.length;
@@ -351,6 +352,8 @@ export default {
             const currentProducts = [];
             for (let i = 0; i < currentBid.length; i++) {
                 currentProducts.push(await Product.findById(currentBid[i].idProduct).lean());
+                var diff = moment.duration(moment(currentProducts[i].sellDate).diff(moment())).asHours();
+                currentProducts[i].isNew = (0 < Math.abs(diff)) && (Math.abs(diff) < 24);
                 currentProducts[i].expDate = moment(currentProducts[i].expDate).format("YYYY-MM-DD HH:MM:SS");
                 currentProducts[i].expDate = "" + moment(currentProducts[i].expDate).valueOf();
                 currentProducts[i].numberBidders = currentProducts[i].historyBidId.length;
@@ -392,6 +395,8 @@ export default {
             const winnignProducts = [];
             for (let i = 0; i < winningList.length; i++) {
                 winnignProducts.push(await Product.findById(winningList[i].productId).lean());
+                var diff = moment.duration(moment(winnignProducts[i].sellDate).diff(moment())).asHours();
+                winnignProducts[i].isNew = (0 < Math.abs(diff)) && (Math.abs(diff) < 24);
                 winnignProducts[i].expDate = moment(winnignProducts[i].expDate).format("YYYY-MM-DD HH:MM:SS");
                 winnignProducts[i].expDate = "" + moment(winnignProducts[i].expDate).valueOf();
                 winnignProducts[i].numberBidders = winnignProducts[i].historyBidId.length;
@@ -453,6 +458,8 @@ export default {
             const productList = [];
             for (let i = 0; i < myProducts.length; i++) {
                 productList.push(await Product.findById(myProducts[i]._id).lean());
+                var diff = moment.duration(moment(productList[i].sellDate).diff(moment())).asHours();
+                productList[i].isNew = (0 < Math.abs(diff)) && (Math.abs(diff) < 24);
                 productList[i].expDate = moment(productList[i].expDate).format("YYYY-MM-DD HH:MM:SS");
                 productList[i].expDate = "" + moment(productList[i].expDate).valueOf();
                 productList[i].numberBidders = productList[i].historyBidId.length;

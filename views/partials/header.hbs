@@ -41,10 +41,11 @@
           Category
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="font-size: 12px;">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="/product?maincategory=Điện Tử">Điện tử</a>
+          {{#each categories}}
+            <a class="dropdown-item" href="/product?category={{name}}">{{name}}</a>
+          {{/each}}
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="/product">Something else here</a>
         </div>
       </li>
       <li class="nav-item mr-5">
