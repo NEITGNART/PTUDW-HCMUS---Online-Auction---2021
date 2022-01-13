@@ -10,9 +10,7 @@ router.route('/')
 
 
 router.route('/user')
-    .get((req, res) => {
-        res.render('management-user', {layout: 'admin'});
-    });
+    .get((adminController.viewListUser));
 
 router.route('/user/detail')
     .get(adminController.findUser);

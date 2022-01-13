@@ -11,7 +11,7 @@ const adminController = {
         if (!product) {
             res.status(404).send({
                 message: 'Product not found with id ' + id
-            });k
+            });
         } else {
             res.status(200).send({
                 message: 'Product deleted successfully!'
@@ -74,16 +74,43 @@ const adminController = {
         }
     },
     viewListUser: async (req, res) => {
-        const listUser = await UserModel.find({});
-        if (!listUser) {
-            res.status(404).send({
-                message: 'No list user'
-            });
-        } else {
-            res.status(200).send({
-                listUser
-            });
+
+
+        let maxItems = +req.query.limit || 12;
+        let currentPage = +req.query.page || 1;
+        let skipItem = (currentPage - 1) * maxItems;
+        let totalItems = await UserModel.countDocuments();
+
+        let maxPage = parseInt(((+totalItems) / (maxItems)) + 1);
+
+        if (totalItems % maxItems === 0) {
+            maxPage = maxPage - 1;
         }
+
+        const users = await UserModel.find({}).skip(skipItem).limit(maxItems).lean();
+
+        // if status = pending and VerifyEmail = false
+
+        for (let i = 0; i < users.length; i++) {
+            users[i].verifyEmail = users[i].status !== 'Pending';
+            users[i].isBidder = users[i].type === 'bidder';
+            users[i].isSeller = users[i].type === 'seller';
+            users[i].isAdmin = users[i].type === 'admin';
+        }
+
+        let stringQuery = req.query || {};
+        if (stringQuery.page)
+            delete stringQuery.page;
+
+
+        res.render('management-user', {
+            layout: 'admin',
+            users,
+            stringQuery,
+            totalItems,
+            maxPage,
+            currentPage,
+        });
     },
     findUser: async (req, res) => {
         const id = req.query.id;
@@ -122,7 +149,6 @@ const adminController = {
         // find withList
 
 
-
         for (let i = 0; i < user.wishlist.length; ++i) {
             const product = await ProductModel.findById(user.wishlist[i]).lean();
             product.expDate = moment(product.expDate).format('DD/MM/YYYY');
@@ -130,10 +156,6 @@ const adminController = {
             product.seller = await UserModel.findById(product.seller).lean();
             wishList.push(product);
         }
-
-
-
-
 
 
         var reviewsList = user.reviews;
@@ -189,9 +211,6 @@ const adminController = {
             });
         }
     },
-
-
-
 }
 
 export default adminController;
