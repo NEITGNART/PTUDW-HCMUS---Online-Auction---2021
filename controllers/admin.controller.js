@@ -6,17 +6,16 @@ import moment from "moment";
 const adminController = {
 
     deleteProduct: async (req, res) => {
-        const id = req.query.id;
+        const id = req.body.id;
         const product = await ProductModel.findByIdAndDelete(id);
         if (!product) {
-            res.status(404).send({
-                message: 'Product not found with id ' + id
-            });
-        } else {
-            res.status(200).send({
-                message: 'Product deleted successfully!'
+            return res.status(404).json({
+                message: "Product not found"
             });
         }
+        return res.status(200).json({
+            message: "Product deleted"
+        });
     },
 
     viewPendingList: async (req, res) => {
@@ -97,10 +96,6 @@ const adminController = {
             users[i].isSeller = users[i].type === 'seller';
             users[i].isAdmin = users[i].type === 'admin';
         }
-
-        let stringQuery = req.query || {};
-        if (stringQuery.page)
-            delete stringQuery.page;
 
 
         res.render('management-user', {
@@ -200,16 +195,45 @@ const adminController = {
     },
 
     viewListProduct: async (req, res) => {
-        const listProduct = await ProductModel.find({});
-        if (!listProduct) {
-            res.status(404).send({
-                message: 'No list product'
-            });
-        } else {
-            res.status(200).send({
-                listProduct
-            });
+
+        let maxItems = +req.query.limit || 12;
+        let currentPage = +req.query.page || 1;
+        let skipItem = (currentPage - 1) * maxItems;
+        let totalItems = await ProductModel.countDocuments();
+
+        let maxPage = parseInt(((+totalItems) / (maxItems)) + 1);
+
+        if (totalItems % maxItems === 0) {
+            maxPage = maxPage - 1;
         }
+
+        const products = await ProductModel.find({}).skip(skipItem).limit(maxItems).lean();
+
+
+        let stringQuery = req.query || {};
+        if (stringQuery.page)
+            delete stringQuery.page;
+
+        for (let i = 0; i < products.length; ++i) {
+
+            products[i].sellDate = moment(products[i].sellDate).format('DD/MM/YYYY');
+            products[i].expDate = moment(products[i].expDate).format('DD/MM/YYYY');
+            // check that status sold or bidding or not
+
+            products[i].isSold = products[i].status === 'sold';
+            products[i].isBidding = products[i].status === 'bidding';
+            // products[i].isExpired = products[i].expDate.isBefore(moment());
+            products[i].isExpired = moment(products[i].expDate).isBefore(moment());
+        }
+
+        res.render('management-product', {
+            layout: 'admin',
+            products,
+            maxPage,
+            currentPage,
+            totalItems,
+            stringQuery
+        });
     },
 }
 

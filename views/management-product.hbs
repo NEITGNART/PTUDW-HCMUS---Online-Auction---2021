@@ -1,159 +1,161 @@
-<div class="container-fluid animatedParent animateOnce my-3">
-        <div class="animated fadeInUpShort">
+{{#section 'js'}}
+    <script>
+        function handleDelete(id) {
+            alert('Delete product with id: ' + id);
+            axios.post('/admin/remove', {id: id})
+                .then(function (response) {
+                    if (response.data.message === "Product deleted") {
+                        location.reload();
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card no-b">
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <tbody>
-                                    <tr class="no-b">
-                                        <td class="table-img">
-                                            <img src="assets/img/demo/shop/s1.png" alt="" >
-                                        </td>
-                                        <td>
-                                            <h6>Apple Product</h6>
-                                            <small class="text-muted">Mobile Phones</small>
-                                        </td>
-                                        <td><div class="d-none d-lg-block">$250</div></td>
-                                        <td ><div class="d-none d-lg-block"><span class="badge badge-success">Published</span>
-                                        </div></td>
-                                        <td>
-                                            <div class="d-none d-lg-block">
-                                            <span><i class="icon icon-data_usage"></i> 5 days ago</span><br>
-                                            <span><i class="icon icon-timer"></i> 5 September, 2017</span>
-                                            </div>
-                                        </td>
-                                        <td >
-                                            <a class="btn-fab btn-fab-sm btn-primary shadow text-white"><i class="icon-pencil"></i></a>
-                                        </td>
-                                    </tr>
+        }
+
+        function handleDetail(id) {
+            // const data = {id: id};
+            // const url = `/admin/detail`
+            //
+            // // ajax request
+            // $.ajax({
+            //     url: url,
+            //     type: 'POST',
+            //     data: data,
+            //     success: function (response) {
+            //         if (response.status === 'success') {
+            //             location.href = `/admin/detail/${id}`;
+            //         }
+            //     }
+            // });
+        }
+
+
+    </script>
+{{/section}}
+
+{{#section 'css'}}
+
+    <style>
+        .pagination {
+            justify-content: center;
+            margin: -5px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .pagination li {
+            padding: 5px;
+        }
+
+        .pagination li a {
+            display: block;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: #ffffff;
+            border: 1px solid rgba(234, 234, 234, 0.1);
+            box-shadow: 0px 15px 30px 0px rgba(119, 123, 146, 0.1);
+            color: #52606d;
+            font-weight: 700;
+        }
+
+        .pagination li a.active,
+        .pagination li a:hover {
+            color: #ffffff;
+            background: -moz-linear-gradient(166deg, #f22876 0%, #942dd9 100%);
+            background: -webkit-linear-gradient(166deg, #f22876 0%, #942dd9 100%);
+            background: -ms-linear-gradient(166deg, #f22876 0%, #942dd9 100%);
+        }
+
+    </style>
+
+
+{{/section}}
+<div class="container-fluid animatedParent animateOnce my-3">
+    <div class="animated fadeInUpShort">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card no-b">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+
+                                {{#each products}}
+
                                     <tr>
                                         <td class="table-img">
-                                            <img src="assets/img/demo/shop/s2.png" alt="" >
+                                            <img src={{getThumbnail images}} alt="">
                                         </td>
                                         <td>
-                                            <h6>Apple Product</h6>
-                                            <small class="text-muted">Mobile Phones</small>
-                                        </td>
-                                        <td><div class="d-none d-lg-block">$250</div></td>
-                                        <td ><div class="d-none d-lg-block"><span class="badge badge-success">Published</span>
-                                        </div></td>
-                                        <td>
-                                            <div class="d-none d-lg-block">
-                                                <span><i class="icon icon-data_usage"></i> 5 days ago</span><br>
-                                                <span><i class="icon icon-timer"></i> 5 September, 2017</span>
-                                            </div>
-                                        </td>
-                                        <td >
-                                            <a class="btn-fab btn-fab-sm btn-primary shadow text-white"><i class="icon-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-img">
-                                            <img src="assets/img/demo/shop/s3.png" alt="" >
+                                            <h6>{{name}}</h6>
+                                            {{#each category}}
+                                                <small class="text-muted">{{this}}</small>
+                                            {{/each}}
                                         </td>
                                         <td>
-                                            <h6>Apple Product</h6>
-                                            <small class="text-muted">Mobile Phones</small>
+                                            <div class="d-none d-lg-block">{{commaNumber currentPrice}} VNĐ</div>
                                         </td>
-                                        <td><div class="d-none d-lg-block">$250</div></td>
-                                        <td ><div class="d-none d-lg-block"><span class="badge badge-success">Published</span>
-                                        </div></td>
+
+
                                         <td>
-                                            <div class="d-none d-lg-block">
-                                                <span><i class="icon icon-data_usage"></i> 5 days ago</span><br>
-                                                <span><i class="icon icon-timer"></i> 5 September, 2017</span>
-                                            </div>
+                                            {{#if isSold}}
+                                                <div class="d-none d-lg-block"><span
+                                                        class="badge badge-success">{{status}}</span>
+                                                </div>
+                                            {{else if isBidding}}
+                                                <div class="d-none d-lg-block"><span
+                                                        class="badge badge-info">{{status}}</span>
+                                                </div>
+                                            {{else}}
+                                                <div class="d-none d-lg-block"><span
+                                                        class="badge badge-danger">{{status}}</span>
+                                                </div>
+                                            {{/if}}
                                         </td>
-                                        <td >
-                                            <a class="btn-fab btn-fab-sm btn-primary shadow text-white"><i class="icon-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-img">
-                                            <img src="assets/img/demo/shop/s4.png" alt="" >
-                                        </td>
-                                        <td>
-                                            <h6>Apple Product</h6>
-                                            <small class="text-muted">Mobile Phones</small>
-                                        </td>
-                                        <td><div class="d-none d-lg-block">$250</div></td>
-                                        <td ><div class="d-none d-lg-block"><span class="badge badge-success">Published</span>
-                                        </div></td>
+
+
                                         <td>
                                             <div class="d-none d-lg-block">
-                                                <span><i class="icon icon-data_usage"></i> 5 days ago</span><br>
-                                                <span><i class="icon icon-timer"></i> 5 September, 2017</span>
-                                            </div>
-                                        </td>
-                                        <td >
-                                            <a class="btn-fab btn-fab-sm btn-primary shadow text-white"><i class="icon-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr >
-                                        <td class="table-img">
-                                            <img src="assets/img/demo/shop/s5.png" alt="" >
-                                        </td>
-                                        <td>
-                                            <h6>Apple Product</h6>
-                                            <small class="text-muted">Mobile Phones</small>
-                                        </td>
-                                        <td><div class="d-none d-lg-block">$250</div></td>
-                                        <td ><div class="d-none d-lg-block"><span class="badge badge-success">Published</span>
-                                        </div></td>
-                                        <td>
-                                            <div class="d-none d-lg-block">
-                                                <span><i class="icon icon-data_usage"></i> 5 days ago</span><br>
-                                                <span><i class="icon icon-timer"></i> 5 September, 2017</span>
-                                            </div>
-                                        </td>
-                                        <td >
-                                            <a class="btn-fab btn-fab-sm btn-primary shadow text-white"><i class="icon-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-img">
-                                            <img src="assets/img/demo/shop/s6.png" alt="" >
-                                        </td>
-                                        <td>
-                                            <h6>Apple Product</h6>
-                                            <small class="text-muted">Mobile Phones</small>
-                                        </td>
-                                        <td><div class="d-none d-lg-block">$250</div></td>
-                                        <td ><div class="d-none d-lg-block"><span class="badge badge-success">Published</span>
-                                        </div></td>
-                                        <td>
-                                            <div class="d-none d-lg-block">
-                                                <span><i class="icon icon-data_usage"></i> 5 days ago</span><br>
-                                                <span><i class="icon icon-timer"></i> 5 September, 2017</span>
+                                                <span><i class="icon icon-data_usage"></i> {{sellDate}}</span><br>
+                                                <span><i class="icon icon-timer"></i> {{expDate}}</span>
                                             </div>
                                         </td>
                                         <td>
-                                            <a class="btn-fab btn-fab-sm btn-primary shadow text-white"><i class="icon-pencil"></i></a>
+                                            <a style="cursor: pointer" class="btn-fab btn-fab-sm btn-primary shadow text-white"><i
+                                                    class="icon-eye" ></i></a>
                                         </td>
+
+                                        <td>
+                                            <a style="cursor: pointer" class="btn-fab btn-fab-sm btn-primary shadow text-white"><i
+                                                    class="icon-delete" onclick="handleDelete(`{{_id}}`)"></i></a>
+                                        </td>
+
+
                                     </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+
+
+                                {{/each}}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <nav class="pt-3" aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
         </div>
+
     </div>
+
+
+</div>
+
+<ul class="mt-3 pagination align-items-center justify-content-center">
+    {{{displayPagination currentPage stringQuery maxPage totalItems }}}
+</ul>

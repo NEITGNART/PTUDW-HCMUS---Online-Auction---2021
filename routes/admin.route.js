@@ -1,5 +1,6 @@
 import express from 'express';
 import adminController from '../controllers/admin.controller.js';
+import categoryController from "../controllers/category.controller.js";
 
 const router = express.Router();
 
@@ -16,9 +17,14 @@ router.route('/user/detail')
     .get(adminController.findUser);
 
 router.route('/product')
-    .get((req, res) => {
-        res.render('management-product', {layout: 'admin'});
-    });
+    .get(adminController.viewListProduct)
+
+router.route('/remove')
+    .post(adminController.deleteProduct);
+
+router.route('/category')
+    .get(categoryController.getAll)
+
 
 router.route('/category')
     .get((req, res) => {

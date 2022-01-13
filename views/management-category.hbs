@@ -1,64 +1,65 @@
 {{#section 'js'}}
 
-<script>
-    const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
-    const modifyCat = document.querySelector(".modify-cat")
-    accordionItemHeaders.forEach(accordionItemHeader => {
-        accordionItemHeader.addEventListener("click", event => {
-            accordionItemHeader.classList.toggle("active");
-            const accordionItemBody = accordionItemHeader.nextElementSibling;
-            if(accordionItemHeader.classList.contains("active")){
-                accordionItemBody.style.maxHeight=accordionItemBody.scrollHeight + "px";
-            }else{
-                 accordionItemBody.style.maxHeight = 0;
-            }
+    <script>
+        const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
+        const modifyCat = document.querySelector(".modify-cat")
+        accordionItemHeaders.forEach(accordionItemHeader => {
+            accordionItemHeader.addEventListener("click", event => {
+                accordionItemHeader.classList.toggle("active");
+                const accordionItemBody = accordionItemHeader.nextElementSibling;
+                if (accordionItemHeader.classList.contains("active")) {
+                    accordionItemBody.style.maxHeight = accordionItemBody.scrollHeight + "px";
+                } else {
+                    accordionItemBody.style.maxHeight = 0;
+                }
+            });
         });
-    });
-    modifyCat.addEventListener('click', function(){
-        event.stopPropagation()
-    })
-</script>
+        modifyCat.addEventListener('click', function () {
+            event.stopPropagation()
+        })
+    </script>
 
-<script>
-    const addCat = document.querySelector('.js-add-cat');
-    const modal = document.querySelector(".js-modal-cat");
-    const modalClose = document.querySelector('.js-modal-close');
-    const modalContainer = document.querySelector('.js-modal-container')
+    <script>
+        const addCat = document.querySelector('.js-add-cat');
+        const modal = document.querySelector(".js-modal-cat");
+        const modalClose = document.querySelector('.js-modal-close');
+        const modalContainer = document.querySelector('.js-modal-container')
 
-    function showAddCat(){
-        modal.classList.add('open');
-    }
+        function showAddCat() {
+            modal.classList.add('open');
+        }
 
-    function closeAddCat(){
-        modal.classList.remove('open');
-    }
+        function closeAddCat() {
+            modal.classList.remove('open');
+        }
 
-    addCat.addEventListener("click", showAddCat)
-    modalClose.addEventListener("click", closeAddCat);
-    modal.addEventListener('click', closeAddCat);
-    modalContainer.addEventListener('click', function(){
-        event.stopPropagation()
-    })
-</script>
+        addCat.addEventListener("click", showAddCat)
+        modalClose.addEventListener("click", closeAddCat);
+        modal.addEventListener('click', closeAddCat);
+        modalContainer.addEventListener('click', function () {
+            event.stopPropagation()
+        })
+
+    </script>
 
 {{/section}}
 
 <style>
-    .accordion{
+    .accordion {
         width: 90%;
         max-width: 1000px;
         margin: 2rem auto;
     }
 
-    .accordion-item{
+    .accordion-item {
         background-color: #fff;
-        color:#111;
+        color: #111;
         margin: 1rem 0;
         border-radius: 0.5rem;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
     }
 
-    .accordion-item-header{
+    .accordion-item-header {
         padding: 0.5rem 3rem 0.5rem 1rem;
         min-height: 3.5rem;
         line-height: 1.25rem;
@@ -69,23 +70,24 @@
         cursor: pointer;
     }
 
-    .accordion-item-header::after{
-        content:"\002B";
+    .accordion-item-header::after {
+        content: "\002B";
         font-size: 2rem;
         position: absolute;
         right: 1rem;
     }
 
-    .accordion-item-header.active::after{
+    .accordion-item-header.active::after {
         transform: rotate(45deg);
     }
-    .accordion-item-body{
+
+    .accordion-item-body {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.2s ease-out;
     }
 
-    .accordion-item-body-content{
+    .accordion-item-body-content {
         overflow: hidden;
         padding: 1rem;
         line-height: 1.5rem;
@@ -94,7 +96,7 @@
 
 
     /* create pop-up menu */
-    .modal-cat{
+    .modal-cat {
         display: none;
         align-items: center;
         justify-content: center;
@@ -106,20 +108,20 @@
         background: rgba(0, 0, 0, 0.4);
     }
 
-    .modal-cat.open{
+    .modal-cat.open {
         display: flex;
     }
 
-    .modal-container{
+    .modal-container {
         position: relative;
         background: #fff;
         width: 900px;
-        max-width: calc(100%-32px);
+        max-width: calc(100% - 32px);
         min-height: 200px;
         animation: modalFadeIn ease 0.5s;
     }
 
-    .modal-header-cat{
+    .modal-header-cat {
         background: #009688;
         height: 130px;
         display: flex;
@@ -129,35 +131,35 @@
         color: #fff;
     }
 
-    .modal-close{
+    .modal-close {
         position: absolute;
-        right:0;
-        top:0;
-        padding:12px;
-        color: #fff;    
+        right: 0;
+        top: 0;
+        padding: 12px;
+        color: #fff;
         cursor: pointer;
         opacity: 0.8;
     }
 
-    .modal-close:hover{
+    .modal-close:hover {
         opacity: 1;
     }
 
-    .i-header{
+    .i-header {
         margin-right: 16px;
     }
 
-    .modal-body-cat{
+    .modal-body-cat {
         padding: 16px;
     }
 
-    .modal-label-cat{
+    .modal-label-cat {
         display: block;
         font-size: 15px;
         margin-bottom: 1rem;
     }
 
-    .modal-input-cat{
+    .modal-input-cat {
         border: 1px solid #ccc;
         width: 100%;
         padding: 10px;
@@ -165,7 +167,7 @@
         margin-bottom: 1rem;
     }
 
-    #add-cat{
+    #add-cat {
         background: #009688;
         border: none;
         width: 100%;
@@ -176,16 +178,16 @@
         cursor: pointer;
     }
 
-    #add-cat:hover{
+    #add-cat:hover {
         opacity: 0.9;
     }
 
     @keyframes modalFadeIn {
-        from{
+        from {
             opacity: 0;
             transform: translateY(-150px);
         }
-        to{
+        to {
             opacity: 1;
             transform: translateY(0);
         }
@@ -194,76 +196,70 @@
 </style>
 
 <div class="container-fluid animatedParent animateOnce my-3">
-    <div class="d-flex justify-content-between"> 
+    <div class="d-flex justify-content-between">
         <h1>List category</h1>
         <a href="#">
-            <button type="button" class="js-add-cat btn btn-primary btn-lg r-20"><i class="icon icon-add"></i>Add category</button>
+            <button type="button" class="js-add-cat btn btn-primary btn-lg r-20"><i class="icon icon-add"></i>Add
+                category
+            </button>
         </a>
     </div>
     <div class="progress progress-xs mb-3 mt-3">
-        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0"
+             aria-valuemax="100"></div>
     </div>
     <ul class="accordion">
-        <li class="accordion-item">
-            <div class="accordion-item-header d-flex justify-content-between">
-                <div>
-                    Main category 1
-                    <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
+        {{#each categories}}
+
+            <li class="accordion-item">
+                <div class="accordion-item-header d-flex justify-content-between">
+                    <div>
+                        {{name}}
+                        <span class="btn-fab btn-fab-sm shadow btn-success">{{amount}}</span>
+                    </div>
+                    <div class="modify-cat">
+                        <span class="btn-fab btn-fab-sm shadow btn-info"
+                              onclick="handleAddSubCategory(`{{../name}}`)"><i class="icon-add"></i></span>
+                        <span class="btn-fab btn-fab-sm shadow btn-warning"
+                              onclick="handleUpdateCategory(`{{../name}}`)"><i class="icon-edit"></i></span>
+                        <span class="btn-fab btn-fab-sm shadow btn-danger"
+                              onclick="handleDeleteCategory(`{{../name}}`)"><i class="icon-trash-can"></i></span>
+                    </div>
                 </div>
-                <div class="modify-cat">
-                    <span class="btn-fab btn-fab-sm shadow btn-info"><i class="icon-add"></i></span>
-                    <span class="btn-fab btn-fab-sm shadow btn-warning"><i class="icon-edit"></i></span>
-                    <span class="btn-fab btn-fab-sm shadow btn-danger"><i class="icon-trash-can"></i></span>
+                <div class="accordion-item-body">
+                    <ul class="accordion-item-body-content">
+                        {{#each subCat}}
+                            <li class="m-3">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        {{this}}
+                                        <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
+                                    </div>
+                                    <div>
+                                        <span class="btn-fab btn-fab-sm shadow btn-warning"
+                                              onclick="handleUpdateSubcategory(`{{../name}}`, {{this}})"><i
+                                                class="icon-edit"></i></span>
+                                        <span class="btn-fab btn-fab-sm shadow btn-danger"
+                                              onclick="handleDeleteSubcategory(`{{../name}}`, {{this}})"><i
+                                                class="icon-trash-can"></i></span>
+                                    </div>
+                                </div>
+                            </li>
+                        {{/each}}
+                    </ul>
                 </div>
-            </div>
-            <div class="accordion-item-body">
-                <ul class="accordion-item-body-content">
-                        <li class="m-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    Sub category 1
-                                    <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
-                                </div>
-                                <div>
-                                    <span class="btn-fab btn-fab-sm shadow btn-warning"><i class="icon-edit"></i></span>
-                                    <span class="btn-fab btn-fab-sm shadow btn-danger"><i class="icon-trash-can"></i></span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="m-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    Sub category 2
-                                    <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
-                                </div>
-                                <div>
-                                    <span class="btn-fab btn-fab-sm shadow btn-warning"><i class="icon-edit"></i></span>
-                                    <span class="btn-fab btn-fab-sm shadow btn-danger"><i class="icon-trash-can"></i></span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="m-3">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    Sub category 3
-                                    <span class="btn-fab btn-fab-sm shadow btn-success">5</span>
-                                </div>
-                                <div>
-                                    <span class="btn-fab btn-fab-sm shadow btn-warning"><i class="icon-edit"></i></span>
-                                    <span class="btn-fab btn-fab-sm shadow btn-danger"><i class="icon-trash-can"></i></span>
-                                </div>
-                            </div>
-                        </li>              
-                </ul>
-            </div>
-        </li>
+            </li>
+
+
+        {{/each}}
+
     </ul>
 </div>
 
 <div class="modal-cat js-modal-cat">
     <div class="modal-container js-modal-container">
         <div class="modal-close js-modal-close">
-                <i class="icon-close"></i>
+            <i class="icon-close"></i>
         </div>
         <header class="modal-header-cat">
             <i class="i-header icon-goals-1 s-24"></i>
@@ -272,7 +268,7 @@
 
         <div class="modal-body-cat">
             <label for="nameCat" class="modal-label-cat">
-                
+
                 <h4><i class="icon-goals-1 s-24"></i>Name</h4>
             </label>
             <input type="text" id="nameCat" class="modal-input-cat" placeholder="" required>

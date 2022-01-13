@@ -1,18 +1,14 @@
 import Category from '../models/category.model.js';
-import ProductModel from "../models/product.model.js";
-import UserModel from "../models/user.model.js";
 
 
 const categoryController = {
     getAll: async (req, res) => {
-        try {
-            const categories = await Category.find();
-            res.status(200).json(categories);
-        } catch (error) {
-            res.status(500).json({
-                message: error.message
-            });
-        }
+
+        const categories = await Category.find({}).lean();
+        res.render('management-category', {
+            layout: 'admin',
+            categories
+        })
     },
     getById: async (req, res) => {
         const id = req.query.id;
@@ -57,7 +53,7 @@ const categoryController = {
             }
         }
     },
-    update : async (req, res) => {
+    update: async (req, res) => {
         const id = req.query.id;
         const category = await Category.findById(id);
         if (!category) {

@@ -36,7 +36,6 @@ const ProductSchema = new mongoose.Schema({
 
     bestPrice: { // mua luon
         type: Number
-
     },
 
     autoExtend: { // tang gia theo thoi gian
@@ -51,6 +50,7 @@ const ProductSchema = new mongoose.Schema({
 
     status: {
         type: String,
+        enum: ['bidding', 'sold', 'expired'],
         default: 'bidding'
     },
 
