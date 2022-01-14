@@ -3,7 +3,7 @@ import CategoryModel from '../models/category.model.js';
 import UserModel from '../models/user.model.js';
 import moment from 'moment';
 import transporter from "../config/transporter.js";
-import config from './config/config.js';
+import config from '../config/config.js';
 
 function maskInfo(value) {
     // mask with middle part with *
