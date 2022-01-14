@@ -288,7 +288,7 @@ export default {
             return;
         }
         if (id) {
-            const user = await User.findById(id).lean();
+            const user = await User.findById(id);
 
             if (user) {
                 user.request.isAccepted = false;

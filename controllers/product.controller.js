@@ -56,18 +56,18 @@ const productController = {
             var user = await UserModel.findById(req.user._id);
             var product = await ProductModel.findById(req.query.id);
             var bidPrice = req.body.bid;
-            var current = moment().format("YYYY/MM/DD HH:MM:SS");
+            var current = new Date();
 
             if (!user || !product) return;
 
 
-            if (product.block.indexOf(JSON.stringify((user._id))) !== -1) {
+            if (product.block.indexOf(user._id) !== -1) {
                 res.redirect(`/product/detail?id=${req.query.id}`);
             }
             var hisBid = product.historyBidId;
 
             if (hisBid.length === 0) {
-                product.topBidder = JSON.stringify(user._id);
+                product.topBidder = user._id;
                 product.historyBidId.push({
                     bidDate: current,
                     username: user._id,
@@ -112,7 +112,7 @@ const productController = {
                     }
                     hisBid[hisBid.length - 1] = {
                         bidDate: current,
-                        username: JSON.stringify((user._id)),
+                        username: user._id,
                         price: bidPrice
                     }
                     hisBid.push(best);
@@ -124,7 +124,7 @@ const productController = {
                     }
                     hisBid.push({
                         bidDate: current,
-                        username: JSON.stringify((user._id)),
+                        username: user._id,
                         price: bidPrice
                     });
                 }
