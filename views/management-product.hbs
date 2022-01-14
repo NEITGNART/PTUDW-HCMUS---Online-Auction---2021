@@ -1,15 +1,13 @@
 {{#section 'js'}}
     <script>
         function handleDelete(id) {
-            alert('Delete product with id: ' + id);
             axios.post('/admin/remove', {id: id})
                     .then(function (response) {
-                        if (response.data.message === "Product deleted") {
-                            location.reload();
-                        } else {
-                        }
+                        $('#success-message-delete').click();
+                        location.reload();
                     })
                     .catch(function (error) {
+                        $('#alert-message-delete').click();
                         console.log(error);
                     });
 
@@ -35,6 +33,23 @@
 
     </script>
 {{/section}}
+
+
+
+<button id="success-message-delete" class="d-none btn btn-primary btn-lg toast-action"
+        data-title="Hey, Bro!"
+        data-message="Delete successfully !"
+        data-type="success"
+        data-position-class="toast-top-center">
+</button>
+
+<button id="alert-message-delete" class="d-none btn btn-primary btn-lg toast-action"
+        data-title="Hey, Bro!"
+        data-message="Delete unsuccessfully !"
+        data-type="error"
+        data-position-class="toast-top-center">
+</button>
+
 
 
 

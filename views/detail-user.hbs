@@ -14,421 +14,429 @@
 </head>
 
 <body class="light sidebar-mini sidebar-collapse">
-    <!-- Pre loader -->
-    <div id="loader" class="loader">
-        <div class="plane-container">
-            <div class="preloader-wrapper small active">
-                <div class="spinner-layer spinner-blue">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
+<!-- Pre loader -->
+<div id="loader" class="loader">
+    <div class="plane-container">
+        <div class="preloader-wrapper small active">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
                 </div>
-
-                <div class="spinner-layer spinner-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
                 </div>
-
-                <div class="spinner-layer spinner-yellow">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
                 </div>
+            </div>
 
-                <div class="spinner-layer spinner-green">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+
+            <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+
+            <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="app">
-        <aside class="main-sidebar fixed offcanvas b-r sidebar-tabs" data-toggle='offcanvas'>
-            <div class="sidebar">
-                <div class="d-flex hv-100 align-items-stretch">
-                    <div class="indigo text-white">
-                        <div class="nav mt-5 pt-5 flex-column nav-pills" id="v-pills-tab" role="tablist"
-                            aria-orientation="vertical">
-                            <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
-                                aria-controls="v-pills-home" aria-selected="true"><i class="icon-inbox2"></i></a>
-                            <a class="nav-link blink skin_handle" href="#"><i class="icon-lightbulb_outline"></i></a>
-                            <a href="#">
-                                <figure class="avatar">
-                                    <img src="/assets/img/dummy/u3.png" alt="">
-                                    <span class="avatar-badge online"></span>
-                                </figure>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="tab-content flex-grow-1" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                            aria-labelledby="v-pills-home-tab">
-                            <div class="relative brand-wrapper sticky b-b">
-                                <div class="d-flex justify-content-between align-items-center p-3">
-                                    <div class="text-xs-center">
-                                        <span class="font-weight-lighter s-18">Menu</span>
-                                    </div>
-                                    <div class="badge badge-danger r-0">New Panel</div>
-                                </div>
-                            </div>
-                            <ul class="sidebar-menu">
-                                <li class="treeview">
-                                    <a href="/admin/">
-                                        <i class="icon icon-sailing-boat-water s-24"></i> <span>Dashboard</span>
-                                    </a>
-                                </li>
-                                <li class="treeview"><a href="#">
-                                        <i class="icon icon-goals-1  s-24"></i>
-                                        <span>Category</span>
-                                        <span class="badge r-3 badge-primary pull-right">4</span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li><a href="/admin/category"><i class="icon icon-circle-o"></i>All
-                                                Category</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </li>
-                                <li class="treeview"><a href="#">
-                                        <i class="icon icon icon-package s-24"></i>
-                                        <span>Products</span>
-                                        <span class="badge r-3 badge-primary pull-right">4</span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li><a href="/admin/product"><i class="icon icon-circle-o"></i>All
-                                                Products</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </li>
-                                <li class="treeview"><a href="#"><i class="icon icon-account_box s-24"></i>Users<i
-                                            class=" icon-angle-left  pull-right"></i></a>
-                                    <ul class="treeview-menu">
-                                        <li><a href="/admin/user"><i class="icon icon-circle-o"></i>All
-                                                Users</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+</div>
+<div id="app">
+    <aside class="main-sidebar fixed offcanvas b-r sidebar-tabs" data-toggle='offcanvas'>
+        <div class="sidebar">
+            <div class="d-flex hv-100 align-items-stretch">
+                <div class="indigo text-white">
+                    <div class="nav mt-5 pt-5 flex-column nav-pills" id="v-pills-tab" role="tablist"
+                         aria-orientation="vertical">
+                        <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                           aria-controls="v-pills-home" aria-selected="true"><i class="icon-inbox2"></i></a>
+                        <a class="nav-link blink skin_handle" href="#"><i class="icon-lightbulb_outline"></i></a>
+                        <a href="#">
+                            <figure class="avatar">
+                                <img src="/assets/img/dummy/u3.png" alt="">
+                                <span class="avatar-badge online"></span>
+                            </figure>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </aside>
-
-        <div class="has-sidebar-left">
-            <div class="pos-f-t">
-                <div class="collapse" id="navbarToggleExternalContent">
-                    <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
-                        <div class="search-bar">
-                            <input class="transparent s-24 text-white b-0 font-weight-lighter w-128 height-50"
-                                type="text" placeholder="start typing...">
-                        </div>
-                        <a href="#" data-toggle="collapse" data-target="#navbarToggleExternalContent"
-                            aria-expanded="false" aria-label="Toggle navigation"
-                            class="paper-nav-toggle paper-nav-white active "><i></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="#" data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
-            <i></i>
-        </a>
-        <div class="has-sidebar-left has-sidebar-tabs">
-            <!--navbar-->
-            
-            <!--#navbar-->
-            <header class="white pt-3 relative shadow">
-                <div class="container-fluid">
-                    <div class="row p-t-b-10 ">
-                        <div class="col">
-                            <div class="pb-3">
-                                <div class="image mr-3  float-left">
-                                    <img class="user_avatar no-b no-p" src="{{user.profile.avatar}}" alt="User Image">
+                <div class="tab-content flex-grow-1" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                         aria-labelledby="v-pills-home-tab">
+                        <div class="relative brand-wrapper sticky b-b">
+                            <div class="d-flex justify-content-between align-items-center p-3">
+                                <div class="text-xs-center">
+                                    <span class="font-weight-lighter s-18">Menu</span>
                                 </div>
-                                <div>
-                                    <h6 class="p-t-10">{{user.profile.name}}</h6>
-                                    {{user.profile.email}}
-                                </div>
+                                <div class="badge badge-danger r-0">New Panel</div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <ul class="nav nav-material responsive-tab" id="v-pills-tab" role="tablist">
-                            <li>
-                                <a class="nav-link active" id="v-pills-tab1-tab" data-toggle="pill" href="#v-pills-tab1"
-                                    role="tab" aria-controls="v-pills-tab1">
-                                    <i class="icon icon-home2"></i>Home
+                        <ul class="sidebar-menu">
+                            <li class="treeview">
+                                <a href="/admin/">
+                                    <i class="icon icon-sailing-boat-water s-24"></i> <span>Dashboard</span>
                                 </a>
                             </li>
-                            <li>
-                                <a class="nav-link" id="v-pills-payments-tab" data-toggle="pill"
-                                    href="#v-pills-payments" role="tab" aria-controls="v-pills-payments"
-                                    aria-selected="false"><i class="icon icon-money-1"></i>Bidding</a>
-
-                            </li>
-
-                            <li>
-                                <a class="nav-link" id="v-pills-timeline-tab" data-toggle="pill"
-                                    href="#v-pills-wishlist" role="tab" aria-controls="v-pills-timeline"
-                                    aria-selected="false"><i class="icon icon-cog"></i>WishLish</a>
-                            </li>
-
-
-                            <li>
-                                <a class="nav-link" id="v-pills-timeline-tab" data-toggle="pill"
-                                    href="#v-pills-feedback" role="tab" aria-controls="v-pills-timeline"
-                                    aria-selected="false"><i class="icon icon-cog"></i>Feed back</a>
-                            </li>
-
-
-                        </ul>
-                    </div>
-
-                </div>
-            </header>
-
-            <div class="container-fluid animatedParent animateOnce my-3">
-                <div class="animated fadeInUpShort">
-                    <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-tab1" role="tabpanel"
-                            aria-labelledby="v-pills-home-tab">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <div class="card ">
-
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><i
-                                                    class="icon icon-mail text-success"></i><strong
-                                                    class="s-12">Email</strong> <span
-                                                    class="float-right s-12">{{user.profile.email}}</span></li>
-                                            <li class="list-group-item"><i
-                                                    class="icon icon-address-card-o text-warning"></i><strong
-                                                    class="s-12">Address</strong>
-                                                <span class="float-right s-12">{{user.profile.address}}</span>
-                                            </li>
-
-                                            <li class="list-group-item"><i
-                                                    class="icon icon-accessibility text-info "></i><strong
-                                                    class="s-12">Role</strong>
-                                                <span class="float-right s-12">{{user.type}}</span>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="card r-3">
-                                                <div class="p-4">
-                                                    <div class="float-right">
-                                                        <span class="icon-award text-light-blue s-48"></span>
-                                                    </div>
-                                                    <div class="counter-title">Winning product</div>
-                                                    <h5 class="sc-counter mt-3">{{user.winBiddingList.length}}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="v-pills-payments" role="tabpanel"
-                            aria-labelledby="v-pills-payments-tab">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card no-b">
-                                        <div class="collapse show" id="invoiceCard">
-                                            <div class="card-body p-0">
-                                                <div class="table-responsive">
-                                                    <table id="recent-orders"
-                                                        class="table table-hover mb-0 ps-container ps-theme-default">
-                                                        <thead class="bg-light">
-                                                            <tr>
-                                                                <th>Name product</th>
-                                                                <th>Seller</th>
-                                                                <th>Status</th>
-                                                                <th>Price</th>
-                                                                <th>Date Expired</th>
-                                                            </tr>
-                                                        </thead>
-
-                                                        <tbody>
-
-
-                                                            {{#each winBiddingList}}
-
-                                                            <tr>
-                                                                <td><a href="#">{{this.name}}</a></td>
-                                                                <td>{{this.seller.profile.name}}</td>
-                                                                <td><span class="badge badge-success">Winning</span>
-                                                                </td>
-                                                                <td>{{commaNumber this.currentPrice}} VNĐ</td>
-                                                                <td>{{this.expDate}}</td>
-                                                            </tr>
-                                                            {{/each}}
-
-                                                            {{#each currentBiddingList}}
-
-                                                            <tr>
-                                                                <td><a href="#">{{this.name}}</a></td>
-                                                                <td>{{this.seller.profile.name}}</td>
-                                                                <td><span class="badge badge-warning">Bidding</span>
-                                                                </td>
-                                                                <td>{{commaNumber this.currentPrice}} VNĐ</td>
-                                                                <td>{{this.expDate}}</td>
-                                                            </tr>
-                                                            {{/each}}
-
-
-                                                            {{#each currentBiddingList}}
-
-                                                            <tr>
-                                                                <td><a href="#">{{this.name}}</a></td>
-                                                                <td>{{this.seller.profile.name}}</td>
-                                                                <td><span class="badge badge-info">Owner</span></td>
-                                                                <td>{{commaNumber this.currentPrice}} VNĐ</td>
-                                                                <td>{{this.expDate}}</td>
-                                                            </tr>
-                                                            {{/each}}
-
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="tab-pane fade" id="v-pills-wishlist" role="tabpanel"
-                            aria-labelledby="v-pills-payments-tab">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card no-b">
-                                        <div class="collapse show" id="invoiceCard">
-                                            <div class="card-body p-0">
-                                                <div class="table-responsive">
-                                                    <table id="recent-orders"
-                                                        class="table table-hover mb-0 ps-container ps-theme-default">
-                                                        <thead class="bg-light">
-                                                            <tr>
-                                                                <th>Name product</th>
-                                                                <th>Seller</th>
-                                                                <th>Status</th>
-                                                                <th>Price</th>
-                                                                <th>Date Expired</th>
-                                                            </tr>
-                                                        </thead>
-
-                                                        <tbody>
-
-                                                            {{#each wishList}}
-                                                            <tr>
-                                                                <td><a href="#">{{this.name}}</a></td>
-                                                                <td>{{this.seller.profile.name}}</td>
-                                                                <td><span class="badge badge-success">Winning</span>
-                                                                </td>
-                                                                <td>{{commaNumber this.currentPrice}} VNĐ</td>
-                                                                <td>{{this.expDate}}</td>
-                                                            </tr>
-                                                            {{/each}}
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="tab-pane fade" id="v-pills-feedback" role="tabpanel"
-                            aria-labelledby="v-pills-timeline-tab">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    {{#if isHaveFeedBack}}
-                                    {{#each reviewsList}}
-                                    <li>
-                                        <div class="timeline-item  card">
-                                            <div class="card-header white">
-                                                <h6><a href="#">{{authorName}}</a>
-                                                    <span class="float-right"><i class="ion icon-clock-o"></i> {{date}}
-                                                    </span>
-                                                </h6>
-                                            </div>
-
-                                            <div class="card-body">
-                                                {{message}}
-                                            </div>
-                                            <div class="card-footer">
-                                                {{#if isLike}}
-                                                <a class="btn btn-lg btn-success icon-thumbs-o-up"></a>
-                                                {{else}}
-                                                <a class="btn btn-lg btn-danger icon-thumbs-o-down"></a>
-                                                {{/if}}
-                                            </div>
-                                        </div>
+                            <li class="treeview"><a href="#">
+                                <i class="icon icon-goals-1  s-24"></i>
+                                <span>Category</span>
+                                <span class="badge r-3 badge-primary pull-right">4</span>
+                            </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/admin/category"><i class="icon icon-circle-o"></i>All
+                                        Category</a>
                                     </li>
 
-                                    {{/each}}
-                                    {{/if}}
-                                </div>
-                                <!-- /.col -->
+                                </ul>
+                            </li>
+                            <li class="treeview"><a href="#">
+                                <i class="icon icon icon-package s-24"></i>
+                                <span>Products</span>
+                                <span class="badge r-3 badge-primary pull-right">4</span>
+                            </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/admin/product"><i class="icon icon-circle-o"></i>All
+                                        Products</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="treeview"><a href="#"><i class="icon icon-account_box s-24"></i>Users<i
+                                    class=" icon-angle-left  pull-right"></i></a>
+                                <ul class="treeview-menu">
+                                    <li><a href="/admin/user"><i class="icon icon-circle-o"></i>All
+                                        Users</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="has-sidebar-left">
+        <div class="pos-f-t">
+            <div class="collapse" id="navbarToggleExternalContent">
+                <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
+                    <div class="search-bar">
+                        <input class="transparent s-24 text-white b-0 font-weight-lighter w-128 height-50"
+                               type="text" placeholder="start typing...">
+                    </div>
+                    <a href="#" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                       aria-expanded="false" aria-label="Toggle navigation"
+                       class="paper-nav-toggle paper-nav-white active "><i></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
+        <i></i>
+    </a>
+    <div class="has-sidebar-left has-sidebar-tabs">
+        <!--navbar-->
+
+        <!--#navbar-->
+        <header class="white pt-3 relative shadow">
+            <div class="container-fluid">
+                <div class="row p-t-b-10 ">
+                    <div class="col">
+                        <div class="pb-3">
+                            <div class="image mr-3  float-left">
+                                <img class="user_avatar no-b no-p" src="{{user.profile.avatar}}" alt="User Image">
                             </div>
+                            <div>
+                                <h6 class="p-t-10">{{user.profile.name}}</h6>
+                                {{user.profile.email}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <ul class="nav nav-material responsive-tab" id="v-pills-tab" role="tablist">
+                        <li>
+                            <a class="nav-link active" id="v-pills-tab1-tab" data-toggle="pill" href="#v-pills-tab1"
+                               role="tab" aria-controls="v-pills-tab1">
+                                <i class="icon icon-home2"></i>Home
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" id="v-pills-payments-tab" data-toggle="pill"
+                               href="#v-pills-payments" role="tab" aria-controls="v-pills-payments"
+                               aria-selected="false"><i class="icon icon-money-1"></i>Bidding</a>
+
+                        </li>
+
+                        <li>
+                            <a class="nav-link" id="v-pills-timeline-tab" data-toggle="pill"
+                               href="#v-pills-wishlist" role="tab" aria-controls="v-pills-timeline"
+                               aria-selected="false"><i class="icon icon-cog"></i>WishLish</a>
+                        </li>
+
+
+                        <li>
+                            <a class="nav-link" id="v-pills-timeline-tab" data-toggle="pill"
+                               href="#v-pills-feedback" role="tab" aria-controls="v-pills-timeline"
+                               aria-selected="false"><i class="icon icon-cog"></i>Feed back</a>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+
+        <div class="container-fluid animatedParent animateOnce my-3">
+            <div class="animated fadeInUpShort">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-tab1" role="tabpanel"
+                         aria-labelledby="v-pills-home-tab">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="card ">
+
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><i
+                                                class="icon icon-mail text-success"></i><strong
+                                                class="s-12">Email</strong> <span
+                                                class="float-right s-12">{{user.profile.email}}</span></li>
+                                        <li class="list-group-item"><i
+                                                class="icon icon-address-card-o text-warning"></i><strong
+                                                class="s-12">Address</strong>
+                                            <span class="float-right s-12">{{user.profile.address}}</span>
+                                        </li>
+
+                                        <li class="list-group-item"><i
+                                                class="icon icon-accessibility text-info "></i><strong
+                                                class="s-12">Role</strong>
+                                            <span class="float-right s-12">{{user.type}}</span>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card r-3">
+                                            <div class="p-4">
+                                                <div class="float-right">
+                                                    <span class="icon-award text-light-blue s-48"></span>
+                                                </div>
+                                                <div class="counter-title">Winning product</div>
+                                                <h5 class="sc-counter mt-3">{{user.winBiddingList.length}}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-payments" role="tabpanel"
+                         aria-labelledby="v-pills-payments-tab">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card no-b">
+                                    <div class="collapse show" id="invoiceCard">
+                                        <div class="card-body p-0">
+                                            <div class="table-responsive">
+                                                <table id="recent-orders"
+                                                       class="table table-hover mb-0 ps-container ps-theme-default">
+                                                    <thead class="bg-light">
+                                                    <tr>
+                                                        <th>Name product</th>
+                                                        <th>Seller</th>
+                                                        <th>Status</th>
+                                                        <th>Price</th>
+                                                        <th>Date Expired</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+
+                                                    {{#each winBiddingList}}
+
+                                                        <tr>
+                                                            <td><a href="#">{{this.name}}</a></td>
+                                                            <td>{{this.seller.profile.name}}</td>
+                                                            <td><span class="badge badge-success">Winning</span>
+                                                            </td>
+                                                            <td>{{commaNumber this.currentPrice}} VNĐ</td>
+                                                            <td>{{this.expDate}}</td>
+                                                        </tr>
+                                                    {{/each}}
+
+                                                    {{#each currentBiddingList}}
+
+                                                        <tr>
+                                                            <td><a href="#">{{this.name}}</a></td>
+                                                            <td>{{this.seller.profile.name}}</td>
+                                                            <td><span class="badge badge-warning">Bidding</span>
+                                                            </td>
+                                                            <td>{{commaNumber this.currentPrice}} VNĐ</td>
+                                                            <td>{{this.expDate}}</td>
+                                                        </tr>
+                                                    {{/each}}
+
+
+                                                    {{#each currentBiddingList}}
+
+                                                        <tr>
+                                                            <td><a href="#">{{this.name}}</a></td>
+                                                            <td>{{this.seller.profile.name}}</td>
+                                                            <td><span class="badge badge-info">Owner</span></td>
+                                                            <td>{{commaNumber this.currentPrice}} VNĐ</td>
+                                                            <td>{{this.expDate}}</td>
+                                                        </tr>
+                                                    {{/each}}
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="tab-pane fade" id="v-pills-wishlist" role="tabpanel"
+                         aria-labelledby="v-pills-payments-tab">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card no-b">
+                                    <div class="collapse show" id="invoiceCard">
+                                        <div class="card-body p-0">
+                                            <div class="table-responsive">
+                                                <table id="recent-orders"
+                                                       class="table table-hover mb-0 ps-container ps-theme-default">
+                                                    <thead class="bg-light">
+                                                    <tr>
+                                                        <th>Name product</th>
+                                                        <th>Seller</th>
+                                                        <th>Status</th>
+                                                        <th>Price</th>
+                                                        <th>Date Expired</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                    {{#each wishList}}
+                                                        <tr>
+                                                            <td><a href="#">{{this.name}}</a></td>
+                                                            <td>{{this.seller.profile.name}}</td>
+                                                            <td><span class="badge badge-success">Winning</span>
+                                                            </td>
+                                                            <td>{{commaNumber this.currentPrice}} VNĐ</td>
+                                                            <td>{{this.expDate}}</td>
+                                                        </tr>
+                                                    {{/each}}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="tab-pane fade" id="v-pills-feedback" role="tabpanel"
+                         aria-labelledby="v-pills-timeline-tab">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{#if isHaveFeedBack}}
+                                    {{#each reviewsList}}
+                                        <li>
+                                            <div class="timeline-item  card">
+                                                <div class="card-header white">
+                                                    <h6><a href="#">{{authorName}}</a>
+                                                        <span class="float-right"><i
+                                                                class="ion icon-clock-o"></i> {{date}}
+                                                    </span>
+                                                    </h6>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    {{message}}
+                                                </div>
+                                                <div class="card-footer">
+                                                    {{#if isLike}}
+                                                        <a class="btn btn-lg btn-success icon-thumbs-o-up"></a>
+                                                    {{else}}
+                                                        <a class="btn btn-lg btn-danger icon-thumbs-o-down"></a>
+                                                    {{/if}}
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    {{/each}}
+                                {{/if}}
+                            </div>
+                            <!-- /.col -->
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- Right Sidebar -->
-        
-        <!-- /.right-sidebar -->
-        <!-- Add the sidebar's background. This div must be placed
-             immediately after the control sidebar -->
-        <div class="control-sidebar-bg shadow white fixed"></div>
     </div>
-    <!--/#app -->
-    <script src="/assets/js/app.js"></script>
+
+    <!-- Right Sidebar -->
+
+    <!-- /.right-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg shadow white fixed"></div>
+</div>
+<!--/#app -->
+<script src="/assets/js/app.js"></script>
+
+<script>
+    function handleSubmit(id) {
+        window.location.href = `/admin/user/detail?id=${id}`;
+    }
+
+</script>
 
 </body>
 

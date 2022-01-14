@@ -42,14 +42,11 @@ router.route('/remove')
 router.route('/category')
     .get(categoryController.getAll)
 
-
-router.route('/category')
-    .get((req, res) => {
-        res.render('management-category', {layout: 'admin'});
-    });
-
 router.route('/approve')
     .post(adminController.approveBidder);
+
+router.route('/degrade')
+    .post(adminController.degrade);
 
 router.route('/toast')
     .get((req, res) => {

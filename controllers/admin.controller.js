@@ -2,7 +2,8 @@ import ProductModel from "../models/product.model.js";
 import UserModel from "../models/user.model.js";
 import moment from "moment";
 import transporter from "../config/transporter.js";
-import config from './config/config.js';
+import config from "../config/config.js";
+import CategoryModel from "../models/category.model.js";
 
 
 const adminController = {
@@ -12,6 +13,40 @@ const adminController = {
         const id = req.body.id;
         const product = await ProductModel.findByIdAndDelete(id);
         if (!product) {
+
+            // find user that have element wishlist is id product
+            let user = await UserModel.find({
+                "wishlist": id
+            });
+            // remove id product from wishlist of user
+            user.forEach(async (user) => {
+                user.wishlist = user.wishlist.filter(item => item != id);
+                await user.save();
+            });
+
+            // find user that have object {idProduct: id} in array currentBiddingList
+            user = await UserModel.find({
+                "currentBiddingList.idProduct": id
+            });
+
+            // remove id product from currentBiddingList of user
+            user.forEach(async (user) => {
+                user.currentBiddingList = user.currentBiddingList.filter(item => item.idProduct != id);
+                await user.save();
+            });
+
+            // find user that have object {idProduct: id} in array winBiddingList
+            user = await UserModel.find({
+                "winBiddingList.idProduct": id
+            });
+
+            // remove id product from winBiddingList of user
+            user.forEach(async (user) => {
+                user.winBiddingList = user.winBiddingList.filter(item => item.idProduct != id);
+                await user.save();
+            });
+
+
             return res.status(404).json({
                 message: "Product not found"
             });
@@ -73,19 +108,32 @@ const adminController = {
     },
 
     degrade: async (req, res) => {
-        const id = req.query.id;
+        const id = req.body.id;
         const user = await UserModel.findById(id);
-        if (!user) {
+        if (!user || user.type !== 'seller') {
             res.status(404).send({
                 message: 'User not found with id ' + id
             });
         } else {
             // send email to user
-
-
             user.request.isAccepted = false;
             user.request.isRequest = false;
-            user.method = 'bidder';
+            user.type = 'bidder';
+
+            let mailOptions = {
+                from: config.EMAIL_USER,
+                to: user.profile.email,
+                subject: 'Auction online',
+                text: 'Tài khoản của bạn đã bị giáng cấp xuống bidder'
+            }
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
 
             await user.save();
             res.status(200).send({

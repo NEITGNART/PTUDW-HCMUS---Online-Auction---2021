@@ -76,7 +76,10 @@
                                             <td>
                                                 <div class="d-flex">
                                                     <div class="avatar avatar-md mr-3 mb-2 mt-1">
-                                                        <span class="avatar-letter avatar-letter-d  avatar-md circle"></span>
+                                                        <a style="cursor: pointer;" class="avatar avatar-lg"
+                                                           onclick="handleSubmit(`{{_id}}`)">
+                                                            <img src={{this.profile.avatar}} alt="">
+                                                        </a>
                                                     </div>
                                                     <div>
                                                         <div>
@@ -90,11 +93,11 @@
                                             <td>
                                                 {{#if verifyEmail}}
                                                     <div class="d-none d-lg-block"><span
-                                                            class="icon icon-circle s-18  mr-2 text-success">Verified</span>
+                                                            class="icon icon-circle s-18  mr-2 text-success">Email Verified</span>
                                                     </div>
                                                 {{else}}
                                                     <div class="d-none d-lg-block"><span
-                                                            class="icon icon-circle s-18  mr-2 text-danger">Not Verify</span>
+                                                            class="icon icon-circle s-18  mr-2 text-danger">Email Not Verify</span>
                                                     </div>
                                                 {{/if}}
                                             </td>
@@ -120,8 +123,20 @@
 
                                             </td>
                                             <td>
-                                                <a style="cursor: pointer" onclick="handleSubmit(`{{_id}}`)"><i class="icon-eye mr-3"></i></a>
+                                                <a style="cursor: pointer" onclick="handleSubmit(`{{_id}}`)"><i
+                                                        class="icon-eye mr-3"></i></a>
                                             </td>
+
+
+                                            {{#if isSeller}}
+                                                <td>
+                                                    <div class="d-none d-lg-block">
+                                        <span style="cursor: pointer" class="r-10 badge badge-success"
+                                              onclick="handleDegrade(`{{this._id}}`)">Degrade</span>
+                                                    </div>
+                                                </td>
+                                            {{/if}}
+
                                         </tr>
                                     {{/each}}
 
@@ -144,31 +159,41 @@
             </ul>
 
         </div>
-        <div class="tab-pane animated fadeInUpShort" id="v-pills-buyers" role="tabpanel"
-             aria-labelledby="v-pills-buyers-tab">
-
-            <div class="row">
-                <div class="col-md-3 my-3">
-                    <div class="card no-b">
-                        <div class="card-body text-center p-5">
-                            <div class="avatar avatar-xl mb-3">
-                                <img src="assets/img/dummy/u1.png" alt="User Image">
-                            </div>
-                            <div>
-                                <h6 class="p-t-10">Alexander Pierce</h6>
-                                alexander@paper.com
-                            </div>
-                            <a href="#" class="btn btn-success btn-sm mt-3">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
+
+<button id="success-message-degrade" class="d-none btn btn-primary btn-lg toast-action"
+        data-title="Hey, Bro!"
+        data-message="Degrade successfully !"
+        data-type="success"
+        data-position-class="toast-top-center">
+</button>
+
+
+<button id="alert-message-degrade" class="d-none btn btn-primary btn-lg toast-action"
+        data-title="Hey, Bro!"
+        data-message="Degrade unsuccessfully !"
+        data-type="error"
+        data-position-class="toast-top-center">
+</button>
+
+
 <script>
-    function handleSubmit(id){
+    function handleDegrade(s) {
+        axios.post('/admin/degrade', {
+            id: s
+        }).then(function (response) {
+            $('#success-message-degrade').click();
+            location.reload();
+        }).catch(function (error) {
+            $('#alert-message-degrade').click();
+            location.reload();
+            console.log(error);
+        });
+    }
+
+    function handleSubmit(id) {
         window.location.href = `/admin/user/detail?id=${id}`;
     }
 </script>
