@@ -2,6 +2,7 @@ import ProductModel from "../models/product.model.js";
 import UserModel from "../models/user.model.js";
 import moment from "moment";
 import transporter from "../config/transporter.js";
+import config from './config/config.js';
 
 
 const adminController = {
@@ -276,6 +277,3 @@ const adminController = {
 }
 
 export default adminController;
-
-
-

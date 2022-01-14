@@ -222,6 +222,7 @@ export default (passport) => {
             var url = req.protocol + '://' + req.get('host') + "/user/verify?otp=" + otp;
 
             var mailOptions = {
+                from: config.EMAIL_USER,
                 to: email,
                 subject: "Otp for registration is: ",
                 html: `<h3>OTP for account verification is </h3>"> 

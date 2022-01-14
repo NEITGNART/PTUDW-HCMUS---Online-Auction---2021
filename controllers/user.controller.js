@@ -9,6 +9,7 @@ import multer from "multer";
 import Product from '../models/product.model.js'
 import moment from 'moment';
 import CategoryModel from "../models/category.model.js";
+import transporter from "../config/transporter.js";
 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,

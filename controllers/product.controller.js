@@ -2,7 +2,8 @@ import ProductModel from '../models/product.model.js';
 import CategoryModel from '../models/category.model.js';
 import UserModel from '../models/user.model.js';
 import moment from 'moment';
-
+import transporter from "../config/transporter.js";
+import config from './config/config.js';
 
 function maskInfo(value) {
     // mask with middle part with *
@@ -77,6 +78,20 @@ const productController = {
                     idProduct: product._id,
                     maxPrice: bidPrice
                 });
+
+                var mailOptions = {
+                    from: config.EMAIL_USER,
+                    to: user.profile.email,
+                    subject: "Auction Onling - Bidding Successful",
+                    html: `<h3>Chúc mừng bạn đấu giá thành công cho sản phẩm ${product.name}</h3>
+                    <a href="http://localhost:3000/product/detail?id=${product._id}">Link chi tiết sản phẩm</a>`
+                };
+
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        return console.log(error);
+                    }
+                });
                 await product.save();
                 await user.save();
 
@@ -127,10 +142,36 @@ const productController = {
                         username: user._id,
                         price: bidPrice
                     });
+
+                    var mailOptions3 = {
+                        from: config.EMAIL_USER,
+                        to: bestBidder.profile.email,
+                        subject: "Auction Onling - Bidding Successful",
+                        html: `<h3>Chúc mừng bạn đấu giá thành công cho sản phẩm ${product.name}</h3>
+                        <a href="http://localhost:3000/product/detail?id=${product._id}">Link chi tiết sản phẩm</a>`
+                    };
+                    transporter.sendMail(mailOptions3, (error, info) => {
+                        if (error) {
+                            return console.log(error);
+                        }
+                    });
                 }
                 if (product.autoExtend) {
                     product.expDate = moment(product.expDate).add(10, 'minutes');
                 }
+
+                var mailOptions2 = {
+                    from: config.EMAIL_USER,
+                    to: user.profile.email,
+                    subject: "Auction Onling - Bidding Successful",
+                    html: `<h3>Chúc mừng bạn đấu giá thành công cho sản phẩm ${product.name}</h3>
+                    <a href="http://localhost:3000/product/detail?id=${product._id}">Link chi tiết sản phẩm</a>`
+                };
+                transporter.sendMail(mailOptions2, (error, info) => {
+                    if (error) {
+                        return console.log(error);
+                    }
+                });
                 product.historyBidId = hisBid;
                 await product.save();
             }
