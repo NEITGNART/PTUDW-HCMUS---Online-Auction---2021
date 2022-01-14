@@ -1,56 +1,60 @@
 import express from 'express';
 import adminController from '../controllers/admin.controller.js';
+import auth from '../middleware/auth.mdw.js';
+import authAdmin from '../middleware/authAdmin.mdw.js';
 import categoryController from "../controllers/category.controller.js";
 
 const router = express.Router();
 
 router.route('/')
-    .get(adminController.getPending)
+    .get(auth, authAdmin, adminController.getPending)
 
 router.route('/addcategory') // done
-    .post(categoryController.create);
+    .post(auth, authAdmin, categoryController.create);
 
 router.route('/removecategory') // done
-    .post(categoryController.deleteCategory);
+    .post(auth, authAdmin, categoryController.deleteCategory);
 
 router.route('/removesubcategory') // done
-    .post(categoryController.removeSubcategory);
+    .post(auth, authAdmin, categoryController.removeSubcategory);
 
 
 router.route('/addsubcategory') // done
-    .post(categoryController.createSubCategory);
+    .post(auth, authAdmin, categoryController.createSubCategory);
 
 router.route('/updatecategory') // done
-    .post(categoryController.update);
+    .post(auth, authAdmin, categoryController.update);
 
 router.route('/updatesubcategory') // done
-    .post(categoryController.updateSubcategory);
+    .post(auth, authAdmin, categoryController.updateSubcategory);
 
 
 router.route('/user')
-    .get((adminController.viewListUser));
+    .get(auth, authAdmin, (adminController.viewListUser));
 
 router.route('/user/detail')
-    .get(adminController.findUser);
+    .get(auth, authAdmin, adminController.findUser);
 
 router.route('/product')
-    .get(adminController.viewListProduct)
+    .get(auth, authAdmin, adminController.viewListProduct)
 
 router.route('/remove')
-    .post(adminController.deleteProduct);
+    .post(auth, authAdmin, adminController.deleteProduct);
 
 router.route('/category')
-    .get(categoryController.getAll)
+    .get(auth, authAdmin, categoryController.getAll)
 
 router.route('/approve')
-    .post(adminController.approveBidder);
+    .post(auth, authAdmin, adminController.approveBidder);
 
 router.route('/degrade')
-    .post(adminController.degrade);
+    .post(auth, authAdmin, adminController.degrade);
 
 router.route('/toast')
-    .get((req, res) => {
-        res.render('toast', {layout: 'admin'});
+    .get(auth, authAdmin, (req, res) => {
+        res.render('toast', {
+            layout: 'admin'
+        });
     });
 
 export default router;
