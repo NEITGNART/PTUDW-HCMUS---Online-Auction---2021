@@ -181,9 +181,7 @@ export default {
                 });
             }
         });
-        return res.status(200).send({
-            message: "Uploaded successfully"
-        });
+        res.redirect('back');
 
     },
     async dashboard(req, res) {
