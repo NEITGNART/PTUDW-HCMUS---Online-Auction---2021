@@ -5,9 +5,7 @@ import categoryController from "../controllers/category.controller.js";
 const router = express.Router();
 
 router.route('/')
-    .get((req, res) => {
-        res.render('dashboard-admin', {layout: 'admin'});
-    });
+    .get(adminController.getPending)
 
 router.route('/addcategory') // done
     .post(categoryController.create);
@@ -50,6 +48,8 @@ router.route('/category')
         res.render('management-category', {layout: 'admin'});
     });
 
+router.route('/approve')
+    .post(adminController.approveBidder);
 
 router.route('/toast')
     .get((req, res) => {

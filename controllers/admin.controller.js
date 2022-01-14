@@ -1,9 +1,11 @@
 import ProductModel from "../models/product.model.js";
 import UserModel from "../models/user.model.js";
 import moment from "moment";
+import transporter from "../config/transporter.js";
 
 
 const adminController = {
+
 
     deleteProduct: async (req, res) => {
         const id = req.body.id;
@@ -37,17 +39,31 @@ const adminController = {
     },
 
     approveBidder: async (req, res) => {
-        const id = req.query.id;
+        const id = req.body.id;
         const user = await UserModel.findById(id);
         if (!user) {
             res.status(404).send({
                 message: 'User not found with id ' + id
             });
         } else {
-            user.method = 'seller'
+            user.type = 'seller'
             user.request.isAccepted = true;
             user.request.isRequest = false;
             user.request.expDate = Date.now() + (1000 * 60 * 60 * 24 * 7);
+            let mailOptions = {
+                from: config.EMAIL_USER,
+                to: user.profile.email,
+                subject: 'Chúc mừng bạn đã được thăng cấp lên Seller',
+                text: 'Chúc mừng bạn đã được thăng cấp lên Seller. trong 7 ngày'
+            }
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
             await user.save();
             res.status(200).send({
                 message: 'Bidder approved successfully!'
@@ -63,9 +79,13 @@ const adminController = {
                 message: 'User not found with id ' + id
             });
         } else {
+            // send email to user
+
+
             user.request.isAccepted = false;
             user.request.isRequest = false;
-            user.method = 'bidder'
+            user.method = 'bidder';
+
             await user.save();
             res.status(200).send({
                 message: 'Bidder declined successfully!'
@@ -240,6 +260,19 @@ const adminController = {
             stringQuery
         });
     },
+    getPending: async (req, res) => {
+        // find all the user that have request.isRequest = true and request.isAccept = false
+
+        const users = await UserModel.find({
+            'request.isRequest': true,
+            'request.isAccept': false
+        }).lean();
+
+        res.render('dashboard-admin', {
+            layout: 'admin',
+            users
+        });
+    }
 }
 
 export default adminController;
