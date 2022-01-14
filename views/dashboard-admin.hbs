@@ -19,6 +19,7 @@
             id: id
         }).then(function (response) {
             $('#success-message-approve').click();
+            location.reload();
         }).catch(function (error) {
             console.log(error);
         });
